@@ -161,13 +161,39 @@ a:hover {
   text-transform: uppercase;
 }
 
+.navbar-hiq .navbar-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 4px;
+}
+.navbar-hiq .nav-item {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 .nav-link-hiq {
   color: #cbd5e1 !important;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  padding: 8px 16px !important;
+  padding: 8px 12px !important;
   border-radius: var(--hiq-radius-sm);
   transition: var(--hiq-transition);
+  white-space: nowrap !important;
+  display: inline-block;
+}
+.navbar-search-form {
+  width: 200px;
+  min-width: 150px;
+  max-width: 220px;
+  flex-shrink: 1;
+}
+.nav-user-name {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: middle;
 }
 .nav-link-hiq:hover, .nav-link-hiq.active {
   color: #ffffff !important;

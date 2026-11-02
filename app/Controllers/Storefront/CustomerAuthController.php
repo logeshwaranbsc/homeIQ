@@ -146,5 +146,110 @@ class CustomerAuthController
         flash('info', 'You have been logged out.');
         redirect($redirect);
     }
+
+    public function forgotPasswordForm(Request $request): void
+    {
+        if (is_customer_logged_in()) {
+            redirect('account');
+        }
+
+        $redirect = (string)$request->query('redirect', '');
+
+        echo View::render('storefront/forgot_password', [
+            'title' => 'Forgot Password | HOMEIQ',
+            'redirectTarget' => $redirect,
+        ]);
+    }
+
+    public function sendResetLink(Request $request): void
+    {
+        $email = trim((string)$request->post('email', ''));
+        $redirect = (string)$request->post('redirect', '');
+
+        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            flash('error', 'Please enter a valid email address.');
+            redirect('forgot-password' . ($redirect ? '?redirect=' . urlencode($redirect) : ''));
+        }
+
+        $result = $this->authService->generatePasswordReset($email);
+
+        if (!$result['success']) {
+            flash('error', $result['error']);
+            redirect('forgot-password' . ($redirect ? '?redirect=' . urlencode($redirect) : ''));
+        }
+
+        $resetUrl = url('reset-password?token=' . urlencode($result['token']) . '&email=' . urlencode($result['email']) . ($redirect ? '&redirect=' . urlencode($redirect) : ''));
+        $customerName = $result['customer']['name'] ?? 'Valued Customer';
+
+        $mailService = new \App\Services\MailService();
+        $mailResult = $mailService->sendPasswordResetEmail($result['email'], $customerName, $resetUrl);
+
+        echo View::render('storefront/forgot_password_sent', [
+            'title' => 'Password Reset Link Ready | HOMEIQ',
+            'email' => $result['email'],
+            'token' => $result['token'],
+            'resetUrl' => $resetUrl,
+            'mailResult' => $mailResult,
+            'redirectTarget' => $redirect,
+        ]);
+    }
+
+    public function resetPasswordForm(Request $request): void
+    {
+        if (is_customer_logged_in()) {
+            redirect('account');
+        }
+
+        $token = trim((string)$request->query('token', ''));
+        $email = trim((string)$request->query('email', ''));
+        $redirect = (string)$request->query('redirect', '');
+
+        if (empty($token) || empty($email)) {
+            flash('error', 'Invalid or missing password reset link. Please request a new one.');
+            redirect('forgot-password');
+        }
+
+        $validation = $this->authService->validateResetToken($email, $token);
+        if (!$validation['success']) {
+            flash('error', $validation['error']);
+            redirect('forgot-password');
+        }
+
+        echo View::render('storefront/reset_password', [
+            'title' => 'Set New Password | HOMEIQ',
+            'token' => $token,
+            'email' => $email,
+            'redirectTarget' => $redirect,
+        ]);
+    }
+
+    public function resetPassword(Request $request): void
+    {
+        $token = trim((string)$request->post('token', ''));
+        $email = trim((string)$request->post('email', ''));
+        $password = (string)$request->post('password', '');
+        $passwordConfirm = (string)$request->post('password_confirmation', '');
+        $redirect = (string)$request->post('redirect', '');
+
+        if ($password !== $passwordConfirm) {
+            flash('error', 'New passwords do not match. Please try again.');
+            redirect('reset-password?token=' . urlencode($token) . '&email=' . urlencode($email) . ($redirect ? '&redirect=' . urlencode($redirect) : ''));
+        }
+
+        if (strlen($password) < 6) {
+            flash('error', 'Password must be at least 6 characters long.');
+            redirect('reset-password?token=' . urlencode($token) . '&email=' . urlencode($email) . ($redirect ? '&redirect=' . urlencode($redirect) : ''));
+        }
+
+        $result = $this->authService->resetCustomerPassword($email, $token, $password);
+
+        if (!$result['success']) {
+            flash('error', $result['error']);
+            redirect('forgot-password');
+        }
+
+        flash('success', 'Your password has been reset successfully! Please sign in with your new password.');
+        redirect('login' . ($redirect ? '?redirect=' . urlencode($redirect) : ''));
+    }
 }
 

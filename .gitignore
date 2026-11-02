@@ -1,0 +1,35 @@
+# Environment Files
+.env
+.env.backup
+.env.local
+.env.*.local
+
+# Outbox & Generated Emails
+storage/emails/*.html
+storage/emails/*.json
+!storage/emails/.gitkeep
+
+# Logs and cache
+storage/logs/*.log
+*.log
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE & Editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+

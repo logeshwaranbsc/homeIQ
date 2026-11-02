@@ -78,7 +78,7 @@ class App
 
     public static function getBasePath(): string
     {
-        return self::$basePath ?? '';
+        return self::$basePath ?: dirname(__DIR__, 2);
     }
 
     public static function getBaseUrl(): string

@@ -5,6 +5,43 @@ use App\Core\App;
 use App\Core\Session;
 
 /**
+ * Read environment variable from .env or server environment
+ */
+function env(string $key, mixed $default = null): mixed
+{
+    static $envVars = null;
+
+    if ($envVars === null) {
+        $envVars = [];
+        $envFile = App::getBasePath() . DIRECTORY_SEPARATOR . '.env';
+        if (file_exists($envFile)) {
+            $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            foreach ($lines as $line) {
+                $line = trim($line);
+                if (empty($line) || str_starts_with($line, '#')) {
+                    continue;
+                }
+                if (str_contains($line, '=')) {
+                    [$k, $v] = explode('=', $line, 2);
+                    $k = trim($k);
+                    $v = trim($v, " \t\n\r\0\x0B\"'");
+                    $envVars[$k] = $v;
+                }
+            }
+        }
+    }
+
+    if (array_key_exists($key, $envVars)) {
+        return $envVars[$key];
+    }
+    if (isset($_ENV[$key])) {
+        return $_ENV[$key];
+    }
+    $val = getenv($key);
+    return ($val !== false) ? $val : $default;
+}
+
+/**
  * Get configuration value
  */
 function config(string $key, mixed $default = null): mixed

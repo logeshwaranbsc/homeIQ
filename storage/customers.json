@@ -15,6 +15,8 @@
         ],
         "id": "cust_257d6b356ae865f7",
         "created_at": "2026-11-02 15:59:11",
-        "updated_at": "2026-11-02 15:59:36"
+        "updated_at": "2026-11-02 16:34:28",
+        "reset_token": "68e419f63b6a801b4668ae28068b49ff9ac0cea6b81d9787",
+        "reset_expires_at": "2026-11-02 17:34:28"
     }
 ]

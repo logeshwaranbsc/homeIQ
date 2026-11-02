@@ -100,6 +100,95 @@ class AuthService
     }
 
     /**
+     * Generate Password Reset Token for Customer
+     */
+    public function generatePasswordReset(string $email): array
+    {
+        $email = mb_strtolower(trim($email));
+        $customer = $this->customerRepo->findByEmail($email);
+
+        if (!$customer) {
+            return ['success' => false, 'error' => 'No HOMEIQ account was found with that email address.'];
+        }
+
+        $token = bin2hex(random_bytes(24));
+        $expiresAt = date('Y-m-d H:i:s', time() + 3600); // 1 hour
+
+        $this->customerRepo->update($customer['id'], [
+            'reset_token' => $token,
+            'reset_expires_at' => $expiresAt,
+        ]);
+
+        $this->auditRepo->record('password_reset_requested', $email, 'Customer requested password reset link.');
+
+        return [
+            'success' => true,
+            'token' => $token,
+            'email' => $email,
+            'expires_at' => $expiresAt,
+            'customer' => $customer,
+        ];
+    }
+
+    /**
+     * Validate Password Reset Token
+     */
+    public function validateResetToken(string $email, string $token): array
+    {
+        $email = mb_strtolower(trim($email));
+        $token = trim($token);
+
+        if (empty($email) || empty($token)) {
+            return ['success' => false, 'error' => 'Invalid or missing password reset parameters.'];
+        }
+
+        $customer = $this->customerRepo->findByEmail($email);
+        if (!$customer) {
+            return ['success' => false, 'error' => 'Account not found.'];
+        }
+
+        $savedToken = $customer['reset_token'] ?? null;
+        $expiresAt = $customer['reset_expires_at'] ?? null;
+
+        if (!$savedToken || !hash_equals($savedToken, $token)) {
+            return ['success' => false, 'error' => 'This password reset link is invalid or has already been used.'];
+        }
+
+        if (!$expiresAt || strtotime($expiresAt) < time()) {
+            return ['success' => false, 'error' => 'This password reset link has expired. Please request a new one.'];
+        }
+
+        return ['success' => true, 'customer' => $customer];
+    }
+
+    /**
+     * Reset Customer Password
+     */
+    public function resetCustomerPassword(string $email, string $token, string $newPassword): array
+    {
+        $validation = $this->validateResetToken($email, $token);
+        if (!$validation['success']) {
+            return $validation;
+        }
+
+        if (strlen($newPassword) < 6) {
+            return ['success' => false, 'error' => 'Password must be at least 6 characters long.'];
+        }
+
+        $customer = $validation['customer'];
+
+        $this->customerRepo->update($customer['id'], [
+            'password_hash' => password_hash($newPassword, PASSWORD_DEFAULT),
+            'reset_token' => null,
+            'reset_expires_at' => null,
+        ]);
+
+        $this->auditRepo->record('password_reset_completed', $email, 'Customer successfully reset their password.');
+
+        return ['success' => true, 'customer' => $customer];
+    }
+
+    /**
      * Admin Login with rate limiting
      */
     public function loginAdmin(string $identifier, string $password, string $ip): array

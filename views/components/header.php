@@ -18,7 +18,7 @@ $catRepo = new CategoryRepository();
 $navCategories = $catRepo->getActive();
 ?>
 <nav class="navbar navbar-expand-lg navbar-hiq">
-  <div class="container">
+  <div class="container-fluid px-3 px-xl-5" style="max-width: 1540px;">
     <!-- Brand Logo -->
     <a class="navbar-brand" href="<?= url('/') ?>">
       <div class="brand-logo">
@@ -63,7 +63,7 @@ $navCategories = $catRepo->getActive();
       </ul>
 
       <!-- Search Bar -->
-      <form class="d-flex me-lg-3 my-2 my-lg-0" action="<?= url('shop') ?>" method="GET">
+      <form class="d-flex me-lg-3 my-2 my-lg-0 navbar-search-form" action="<?= url('shop') ?>" method="GET">
         <div class="input-group input-group-sm">
           <input class="form-control bg-dark text-light border-secondary" type="search" name="q" placeholder="Search locks, SKU..." aria-label="Search" value="<?= e($_GET['q'] ?? '') ?>">
           <button class="btn btn-hiq-accent text-white" type="submit" aria-label="Search">
@@ -78,8 +78,8 @@ $navCategories = $catRepo->getActive();
         <?php if ($customer): ?>
           <div class="dropdown">
             <a class="nav-action-btn dropdown-toggle d-flex align-items-center gap-1" href="#" role="button" data-bs-toggle="dropdown">
-              <i class="bi bi-person-check-fill text-info"></i>
-              <span class="d-none d-xl-inline text-light small"><?= e(explode(' ', $customer['name'])[0]) ?></span>
+              <i class="bi bi-person-check-fill" style="color: #FE6B25 !important;"></i>
+              <span class="d-none d-lg-inline text-light small nav-user-name"><?= e(explode(' ', $customer['name'])[0]) ?></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow border-secondary">
               <li><a class="dropdown-item" href="<?= url('account') ?>"><i class="bi bi-speedometer2 me-2"></i>My Dashboard</a></li>

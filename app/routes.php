@@ -77,6 +77,30 @@ $router->get('/register', [CustomerAuthController::class, 'registerForm']);
 $router->post('/register', [CustomerAuthController::class, 'register'], [CsrfMiddleware::class]);
 $router->get('/logout', [CustomerAuthController::class, 'logout']);
 
+// Forgot & Reset Password Flow
+$router->get('/forgot-password', [CustomerAuthController::class, 'forgotPasswordForm']);
+$router->post('/forgot-password', [CustomerAuthController::class, 'sendResetLink'], [CsrfMiddleware::class]);
+$router->get('/reset-password', [CustomerAuthController::class, 'resetPasswordForm']);
+$router->post('/reset-password', [CustomerAuthController::class, 'resetPassword'], [CsrfMiddleware::class]);
+
+// Email Preview (Local Development & Outbox Viewer)
+$router->get('/email/preview/latest', function () {
+    $outboxDir = \App\Core\App::getBasePath() . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'emails';
+    $metaFile = $outboxDir . DIRECTORY_SEPARATOR . 'latest_email.json';
+    if (!file_exists($metaFile)) {
+        echo '<div style="font-family:sans-serif;padding:30px;text-align:center;"><h3>No emails sent yet in local outbox.</h3><p>Try requesting a password reset first.</p></div>';
+        return;
+    }
+    $meta = json_decode((string)file_get_contents($metaFile), true);
+    $htmlFile = $outboxDir . DIRECTORY_SEPARATOR . ($meta['file'] ?? '');
+    if (!file_exists($htmlFile)) {
+        echo '<div style="font-family:sans-serif;padding:30px;text-align:center;"><h3>Email file not found.</h3></div>';
+        return;
+    }
+    header('Content-Type: text/html; charset=UTF-8');
+    echo file_get_contents($htmlFile);
+});
+
 // Customer Account (Protected)
 $router->get('/account', [CustomerAccountController::class, 'dashboard'], [AuthMiddleware::class]);
 $router->get('/account/profile', [CustomerAccountController::class, 'profile'], [AuthMiddleware::class]);

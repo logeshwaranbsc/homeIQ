@@ -50,8 +50,9 @@ $breadcrumbs = [
           </div>
 
           <div class="mb-3">
-            <div class="d-flex justify-content-between">
-              <label class="form-label">Password *</label>
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label class="form-label m-0">Password *</label>
+              <a href="<?= url('forgot-password') . (!empty($redirectTarget) ? '?redirect=' . urlencode($redirectTarget) : '') ?>" class="small text-primary text-decoration-none fw-semibold">Forgot Password?</a>
             </div>
             <input type="password" name="password" class="form-control" placeholder="••••••••" required>
           </div>
