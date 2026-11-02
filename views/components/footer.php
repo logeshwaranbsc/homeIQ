@@ -11,9 +11,10 @@ $settings = $settingsRepo->all();
     <div class="row g-4 mb-5">
       <!-- Col 1: Brand Info -->
       <div class="col-lg-4 col-md-6">
-        <div class="d-flex align-items-center gap-2 mb-3">
-          <i class="bi bi-shield-lock-fill brand-icon fs-3"></i>
-          <span class="fs-4 fw-bold text-light brand-font letter-spacing-1">HOMEIQ</span>
+        <div class="mb-3">
+          <a href="<?= url('/') ?>" class="d-inline-block footer-brand-link" aria-label="HOMEIQ">
+            <img src="<?= asset('assets/images/homeiq-logo.png') ?>" alt="HOMEIQ" class="footer-logo-img">
+          </a>
         </div>
         <p class="text-secondary small pe-lg-4 mb-4">
           Where intelligent engineering meets architectural peace of mind. Next-generation biometric digital door locks and smart door access hardware.

@@ -40,10 +40,10 @@
         "cta_url": "shop",
         "display_order": 4,
         "is_active": true,
-        "image": "banners/c216a54afb689b5c6b00_1793607356.png",
+        "image": "banners/e4ec0969f7f1d8245867_1793628048.png",
         "id": "bnr_ddb4874f6ae32633",
         "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-11-02 13:45:56",
+        "updated_at": "2026-11-02 19:30:48",
         "text_position": "left",
         "overlay_style": "gradient"
     }

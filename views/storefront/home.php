@@ -70,7 +70,7 @@ use App\Core\View;
                     <?php endif; ?>
 
                     <?php if ($hasSupporting): ?>
-                      <div class="mb-4 d-flex align-items-center gap-2 flex-wrap <?= $textPos === 'center' ? 'justify-content-center' : ($textPos === 'right' ? 'justify-content-end' : '') ?>">
+                      <div class="mb-3 d-flex align-items-center gap-2 flex-wrap <?= $textPos === 'center' ? 'justify-content-center' : ($textPos === 'right' ? 'justify-content-end' : '') ?>">
                         <div class="hero-supporting-pill">
                           <i class="bi bi-check2-circle brand-icon"></i>
                           <span><?= e($banner['supporting_text']) ?></span>
@@ -80,10 +80,10 @@ use App\Core\View;
 
                     <?php if ($hasCta): ?>
                       <div class="d-flex align-items-center gap-3 flex-wrap <?= $textPos === 'center' ? 'justify-content-center' : ($textPos === 'right' ? 'justify-content-end' : '') ?>">
-                        <a href="<?= url($banner['cta_url'] ?? 'shop') ?>" class="btn btn-hiq-accent py-3 px-4 fs-6 fw-bold">
+                        <a href="<?= url($banner['cta_url'] ?? 'shop') ?>" class="btn btn-hiq-accent py-2.5 px-4 fs-6 fw-bold">
                           <?= e($banner['cta_label']) ?> <i class="bi bi-arrow-right ms-2"></i>
                         </a>
-                        <a href="<?= url('about') ?>" class="btn btn-hiq-glass py-3 px-4 fs-6 fw-semibold">
+                        <a href="<?= url('about') ?>" class="btn btn-hiq-glass py-2.5 px-4 fs-6 fw-semibold">
                           Why HOMEIQ
                         </a>
                       </div>

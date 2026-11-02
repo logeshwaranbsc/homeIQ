@@ -25,7 +25,7 @@ $action = $isEdit ? url('admin/banners/update/' . $banner['id']) : url('admin/ba
         <!-- Slide Background Image (Full Width) -->
         <div class="mb-4 p-3 bg-light rounded-3 border">
           <label class="form-label fw-bold text-dark d-flex align-items-center justify-content-between">
-            <span><i class="bi bi-image me-1 text-primary"></i> Whole Background Image (Full-Bleed 16:9 / 1600×650+ recommended)</span>
+            <span><i class="bi bi-image me-1 text-primary"></i> Whole Background Image (1920×600 px recommended, min 1600×550 px)</span>
             <small class="text-muted font-monospace">PNG, JPG, WebP, SVG</small>
           </label>
 
