@@ -62,16 +62,6 @@ $navCategories = $catRepo->getActive();
         </li>
       </ul>
 
-      <!-- Search Bar -->
-      <form class="d-flex me-lg-3 my-2 my-lg-0 navbar-search-form" action="<?= url('shop') ?>" method="GET">
-        <div class="input-group input-group-sm">
-          <input class="form-control bg-dark text-light border-secondary" type="search" name="q" placeholder="Search locks, SKU..." aria-label="Search" value="<?= e($_GET['q'] ?? '') ?>">
-          <button class="btn btn-hiq-accent text-white" type="submit" aria-label="Search">
-            <i class="bi bi-search"></i>
-          </button>
-        </div>
-      </form>
-
       <!-- User Action Icons -->
       <div class="d-flex align-items-center gap-2">
         <!-- Account -->
