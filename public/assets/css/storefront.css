@@ -219,7 +219,8 @@ a:hover {
 }
 
 .carousel-item-hero {
-  min-height: 580px;
+  min-height: 640px;
+  height: clamp(620px, 52vw, 900px);
   position: relative;
   overflow: hidden;
   background-color: #07080a;
@@ -242,11 +243,13 @@ a:hover {
   object-fit: cover;
   object-position: center;
   transition: transform 7s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: scale(1.02);
+  transform: scale(1.002);
 }
 
 .carousel-item.active .hero-bg-image {
-  transform: scale(1.05);
+  /* category hover zoom */
+
+  transform: scale(1.015);
 }
 
 .hero-bg-placeholder {
@@ -307,7 +310,8 @@ a:hover {
 .hero-content-container {
   position: relative;
   z-index: 3;
-  min-height: 580px;
+  min-height: 640px;
+  height: clamp(620px, 52vw, 900px);
   display: flex;
   align-items: center;
   padding-top: 5rem;
@@ -438,6 +442,7 @@ a:hover {
   transition: transform 0.3s ease;
 }
 .category-card:hover .cat-img-wrapper img {
+  /* category hover zoom */
   transform: scale(1.05);
 }
 .category-card .cat-title {
@@ -865,6 +870,11 @@ a:hover {
    Responsive Adaptations
    ========================================================================== */
 @media (max-width: 991.98px) {
+  .carousel-item-hero,
+  .hero-content-container {
+    min-height: 540px;
+    height: auto;
+  }
   .hero-headline {
     font-size: 2.35rem;
   }
@@ -878,6 +888,13 @@ a:hover {
 }
 
 @media (max-width: 575.98px) {
+  .carousel-item-hero,
+  .hero-content-container {
+    min-height: 480px;
+    height: auto;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
   .hero-headline {
     font-size: 1.85rem;
   }
