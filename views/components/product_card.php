@@ -14,50 +14,49 @@ $wishlist = Session::get('wishlist', []);
 $isWishlisted = in_array($product['id'], $wishlist, true);
 ?>
 <div class="product-card">
-  <!-- Studio Showcase Thumbnail with Badges -->
+  <!-- Thumbnail with Badges -->
   <a href="<?= url('product/' . $product['slug']) ?>" class="card-thumb-link">
     <?php if ($discount > 0): ?>
-      <span class="badge-discount-luxury"><?= $discount ?>% OFF</span>
+      <span class="badge-discount"><?= $discount ?>% OFF</span>
     <?php endif; ?>
 
-    <button type="button" class="btn-wishlist-toggle <?= $isWishlisted ? 'active' : '' ?>" data-product-id="<?= e($product['id']) ?>" title="<?= $isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist' ?>">
+    <button type="button" class="btn-wishlist-toggle <?= $isWishlisted ? 'active' : '' ?>" data-product-id="<?= e($product['id']) ?>" title="Add to Wishlist">
       <i class="bi bi-heart<?= $isWishlisted ? '-fill' : '' ?>"></i>
     </button>
 
     <img src="<?= upload_url($product['main_image'] ?? '') ?>" alt="<?= e($product['name']) ?>" loading="lazy">
   </a>
 
-  <!-- Card Body -->
+  <!-- Body -->
   <div class="product-card-body">
-    <div class="category-label"><?= e($product['category'] ?? 'Digital Smart Lock') ?></div>
-    
+    <div class="category-label"><?= e($product['category'] ?? 'Smart Lock') ?></div>
     <a href="<?= url('product/' . $product['slug']) ?>" class="prod-title" title="<?= e($product['name']) ?>">
       <?= e($product['name']) ?>
     </a>
 
     <!-- Rating & Review Count -->
     <div class="rating-row">
-      <span class="rating-pill">
+      <span>
         <i class="bi bi-star-fill text-warning"></i>
-        <span><?= number_format((float)($product['rating'] ?? 4.8), 1) ?></span>
+        <strong class="text-dark ms-1"><?= number_format((float)($product['rating'] ?? 4.8), 1) ?></strong>
       </span>
       <?php if (!empty($product['reviews_count'])): ?>
-        <span class="review-count">(<?= (int)$product['reviews_count'] ?> verified reviews)</span>
-      <?php else: ?>
-        <span class="review-count">(Certified)</span>
+        <span class="review-count">(<?= (int)$product['reviews_count'] ?>)</span>
       <?php endif; ?>
     </div>
 
-    <!-- Stock Status with Live Indicator -->
-    <?php if ($inStock): ?>
-      <div class="badge-stock-live">
-        In Stock • 24h Express Dispatch
-      </div>
-    <?php else: ?>
-      <div class="badge-stock-out">
-        Temporarily Out of Stock
-      </div>
-    <?php endif; ?>
+    <!-- Stock Status -->
+    <div class="mb-2">
+      <?php if ($inStock): ?>
+        <span class="badge bg-light text-success border border-success-subtle small fw-medium">
+          <i class="bi bi-check-circle me-1"></i>In Stock
+        </span>
+      <?php else: ?>
+        <span class="badge bg-light text-danger border border-danger-subtle small fw-medium">
+          <i class="bi bi-x-circle me-1"></i>Out of Stock
+        </span>
+      <?php endif; ?>
+    </div>
 
     <!-- Price Hierarchy -->
     <div class="price-row">
@@ -68,24 +67,25 @@ $isWishlisted = in_array($product['id'], $wishlist, true);
     </div>
 
     <!-- Action Buttons -->
-    <div class="card-actions">
+    <div class="d-grid gap-2">
       <?php if ($inStock): ?>
         <form action="<?= url('cart/add') ?>" method="POST" class="m-0">
           <?= csrf_field() ?>
           <input type="hidden" name="product_id" value="<?= e($product['id']) ?>">
           <input type="hidden" name="quantity" value="1">
-          <button type="submit" class="btn btn-hiq-primary w-100">
+          <button type="submit" class="btn btn-hiq-primary w-100 btn-sm">
             <i class="bi bi-bag-plus"></i> Add to Cart
           </button>
         </form>
       <?php else: ?>
-        <button type="button" class="btn btn-secondary w-100 btn-sm disabled" disabled>
-          Notify When Available
+        <button type="button" class="btn btn-secondary w-100 btn-sm" disabled>
+          Unavailable
         </button>
       <?php endif; ?>
       <a href="<?= url('product/' . $product['slug']) ?>" class="btn btn-hiq-outline btn-sm">
-        Specifications & Details <i class="bi bi-arrow-right ms-1"></i>
+        View Specifications
       </a>
     </div>
   </div>
 </div>
+

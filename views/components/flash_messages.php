@@ -11,35 +11,36 @@ $warning = Session::getFlash('warning');
 <?php if ($success || $error || $info || $warning): ?>
 <div class="container mt-3">
   <?php if ($success): ?>
-    <div class="alert alert-success alert-dismissible fade show d-flex align-items-center shadow-sm" role="alert" style="border-radius: 12px; border-left: 4px solid #10b981;">
-      <i class="bi bi-check-circle-fill text-success me-3 fs-5"></i>
-      <div class="fw-medium"><?= e($success) ?></div>
+    <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+      <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+      <div><?= e($success) ?></div>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   <?php endif; ?>
 
   <?php if ($error): ?>
-    <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center shadow-sm" role="alert" style="border-radius: 12px; border-left: 4px solid #ef4444;">
-      <i class="bi bi-exclamation-triangle-fill text-danger me-3 fs-5"></i>
-      <div class="fw-medium"><?= e($error) ?></div>
+    <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+      <div><?= e($error) ?></div>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   <?php endif; ?>
 
   <?php if ($info): ?>
-    <div class="alert alert-info alert-dismissible fade show d-flex align-items-center shadow-sm" role="alert" style="border-radius: 12px; border-left: 4px solid #0284c7;">
-      <i class="bi bi-info-circle-fill text-info me-3 fs-5"></i>
-      <div class="fw-medium"><?= e($info) ?></div>
+    <div class="alert alert-info alert-dismissible fade show d-flex align-items-center" role="alert">
+      <i class="bi bi-info-circle-fill me-2 fs-5"></i>
+      <div><?= e($info) ?></div>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   <?php endif; ?>
 
   <?php if ($warning): ?>
-    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center shadow-sm" role="alert" style="border-radius: 12px; border-left: 4px solid #f59e0b;">
-      <i class="bi bi-exclamation-circle-fill text-warning me-3 fs-5"></i>
-      <div class="fw-medium"><?= e($warning) ?></div>
+    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center" role="alert">
+      <i class="bi bi-exclamation-circle-fill me-2 fs-5"></i>
+      <div><?= e($warning) ?></div>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   <?php endif; ?>
 </div>
 <?php endif; ?>
+

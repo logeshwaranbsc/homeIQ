@@ -24,15 +24,11 @@ $metaDesc = $siteSettings['meta_description'] ?? 'Biometric digital smart door l
   <meta property="og:description" content="<?= e($metaDesc) ?>">
   <meta property="og:type" content="website">
   <meta property="og:url" content="<?= e(App::getBaseUrl()) ?>">
-  <meta name="theme-color" content="#08090d">
 
-  <!-- Favicon: Architectural Shield Lock -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'><path d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 6c1.66 0 3 1.34 3 3v1h1v5H8v-5h1v-1c0-1.66 1.34-3 3-3zm0 2c-.55 0-1 .45-1 1v1h2v-1c0-.55-.45-1-1-1z'/></svg>">
-
-  <!-- Google Fonts: Plus Jakarta Sans, Manrope & Inter -->
+  <!-- Google Fonts: Manrope (Headings) & Inter (Body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Bootstrap 5 CSS & Bootstrap Icons CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">

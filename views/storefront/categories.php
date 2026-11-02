@@ -5,16 +5,16 @@ use App\Core\View;
 
 /** @var array $categories */
 $breadcrumbs = [
-    ['label' => 'Hardware Collections', 'url' => null]
+    ['label' => 'Product Categories', 'url' => null]
 ];
 ?>
 <div class="container py-4">
   <?= View::component('breadcrumbs', ['items' => $breadcrumbs]) ?>
 
-  <div class="mb-5 text-center mx-auto" style="max-width: 680px;">
-    <span class="text-primary fw-bold small text-uppercase letter-spacing-1">Scope of Engineering</span>
-    <h1 class="display-6 fw-extrabold text-dark mt-1">Smart Door Lock Collections</h1>
-    <p class="text-muted">Browse our collections of 3D face recognition, contactless palm vein, semiconductor fingerprint, and heavy-duty architectural mortise locks.</p>
+  <div class="mb-5 text-center max-w-700 mx-auto">
+    <span class="text-primary fw-bold small text-uppercase letter-spacing-1">Product Scope</span>
+    <h1 class="display-6 fw-bold">Smart Door Lock Categories</h1>
+    <p class="text-muted">Browse our exclusive collections of biometric, face recognition, app-controlled and heavy duty mortise door locks.</p>
   </div>
 
   <div class="row g-4">
@@ -26,11 +26,10 @@ $breadcrumbs = [
           </div>
           <h5 class="cat-title"><?= e($cat['name']) ?></h5>
           <p class="cat-desc"><?= e($cat['description']) ?></p>
-          <span class="cat-action-link">
-            Explore Series <i class="bi bi-arrow-right"></i>
-          </span>
+          <span class="btn btn-outline-dark btn-sm w-100">Browse Collection</span>
         </a>
       </div>
     <?php endforeach; ?>
   </div>
 </div>
+
