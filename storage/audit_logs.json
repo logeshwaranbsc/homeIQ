@@ -259,5 +259,41 @@
         "id": "log_f5586a5e6ae82689",
         "created_at": "2026-11-02 11:28:33",
         "updated_at": "2026-11-02 11:28:33"
+    },
+    {
+        "action": "banner_updated",
+        "user": "admin",
+        "details": "Updated banner: Advanced Security. Elegant Design.",
+        "ip": "",
+        "id": "log_d745e2016ae844c2",
+        "created_at": "2026-11-02 13:37:30",
+        "updated_at": "2026-11-02 13:37:30"
+    },
+    {
+        "action": "banner_updated",
+        "user": "admin",
+        "details": "Updated banner: Built for Security. Designed for Peace.",
+        "ip": "",
+        "id": "log_3cbb74b26ae845b8",
+        "created_at": "2026-11-02 13:41:36",
+        "updated_at": "2026-11-02 13:41:36"
+    },
+    {
+        "action": "banner_updated",
+        "user": "admin",
+        "details": "Updated banner: Your Smart Home Upgrade Starts Here.",
+        "ip": "",
+        "id": "log_0a9e4d396ae84608",
+        "created_at": "2026-11-02 13:42:56",
+        "updated_at": "2026-11-02 13:42:56"
+    },
+    {
+        "action": "banner_updated",
+        "user": "admin",
+        "details": "Updated banner: Your Smart Home Upgrade Starts Here.",
+        "ip": "",
+        "id": "log_cdfa0d346ae846bc",
+        "created_at": "2026-11-02 13:45:56",
+        "updated_at": "2026-11-02 13:45:56"
     }
 ]
