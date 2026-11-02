@@ -141,6 +141,26 @@ a:hover {
   -webkit-backdrop-filter: blur(12px);
 }
 
+.navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  text-decoration: none;
+}
+.navbar-brand .brand-logo-img,
+.brand-logo-img {
+  height: 38px;
+  width: auto;
+  max-width: 190px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.navbar-brand:hover .brand-logo-img {
+  opacity: 0.92;
+  transform: scale(1.02);
+}
 .navbar-brand .brand-logo {
   font-family: var(--hiq-font-heading);
   font-weight: 800;
@@ -925,26 +945,256 @@ a:hover {
 }
 
 /* ==========================================================================
-   Editorial Brand Story Section
+   Editorial Brand Story Section — High-Tech Obsidian & Orange (#FE6B25)
    ========================================================================== */
 .brand-intro-section {
-  background-color: var(--hiq-dark-bg);
+  background: #0b0c10;
+  background-image: 
+    radial-gradient(circle at 80% 30%, rgba(254, 107, 37, 0.16) 0%, transparent 50%),
+    radial-gradient(circle at 10% 75%, rgba(255, 133, 40, 0.08) 0%, transparent 45%);
   color: #ffffff;
-  padding: 96px 0;
-  border-top: 1px solid var(--hiq-dark-border);
-  border-bottom: 1px solid var(--hiq-dark-border);
-  background: radial-gradient(circle at 10% 50%, #151822 0%, #0b0c10 70%);
+  padding: 85px 0;
+  border-top: 1px solid rgba(254, 107, 37, 0.22);
+  border-bottom: 1px solid rgba(254, 107, 37, 0.22);
+  position: relative;
+  overflow: hidden;
+}
+.brand-intro-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #FE6B25 0%, #FE4A1F 50%, #FF8528 100%);
+}
+.story-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(254, 107, 37, 0.12);
+  color: #FF8528;
+  border: 1px solid rgba(254, 107, 37, 0.35);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  padding: 6px 16px;
+  box-shadow: 0 0 15px rgba(254, 107, 37, 0.15);
 }
 .brand-intro-section h2 {
   color: #ffffff;
-  font-size: 2.4rem;
-  line-height: 1.2;
-  margin-bottom: 24px;
+  font-size: 2.35rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  margin-bottom: 16px;
 }
-.brand-intro-section p {
-  color: var(--hiq-text-light-muted);
-  font-size: 1.05rem;
+.story-title-highlight {
+  background: linear-gradient(135deg, #FE6B25 0%, #FF8528 50%, #FE4A1F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.story-subtitle {
+  color: #cbd5e1;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.story-desc {
+  color: #94a3b8;
+  font-size: 1rem;
   line-height: 1.75;
+  margin-bottom: 28px;
+}
+/* Spec Bento Metric Cards */
+.spec-metric-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(8px);
+  border-radius: 14px;
+  padding: 18px 12px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.spec-metric-card:hover {
+  transform: translateY(-3px);
+  border-color: #FE6B25;
+  background: rgba(254, 107, 37, 0.08);
+  box-shadow: 0 10px 24px rgba(254, 107, 37, 0.2);
+}
+.spec-metric-val {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #FF8528;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+.spec-metric-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #94a3b8;
+  margin-top: 6px;
+}
+/* Showcase Card (Guaranteed Image Rendering & Never Overlapping) */
+.story-showcase-card {
+  background: linear-gradient(160deg, #15161c 0%, #0d0e12 100%);
+  border: 1px solid rgba(254, 107, 37, 0.25);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 35px rgba(254, 107, 37, 0.12);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 480px;
+}
+.story-card-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 3;
+}
+.story-chip-badge {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(254, 107, 37, 0.35);
+  color: #ffffff;
+  border-radius: 50px;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.story-chip-status {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #10b981;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.story-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: storyPulse 2s infinite;
+}
+@keyframes storyPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+.story-card-body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  flex: 1;
+}
+.story-halo-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 320px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(254, 107, 37, 0.22) 0%, rgba(254, 107, 37, 0.05) 50%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+.story-lock-img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 320px;
+  height: 360px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  border-radius: 14px;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6));
+  transition: transform 0.4s ease;
+}
+.story-showcase-card:hover .story-lock-img {
+  transform: scale(1.03);
+}
+.story-card-footer {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 3;
+}
+
+/* Light Theme Variant */
+.brand-intro-section.theme-light {
+  background: #fdfbf9;
+  background-image: 
+    radial-gradient(circle at 85% 25%, rgba(254, 107, 37, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 10% 75%, rgba(255, 133, 40, 0.06) 0%, transparent 45%);
+  color: #0f172a;
+  border-top: 1px solid #fed7aa;
+  border-bottom: 1px solid #fed7aa;
+}
+.brand-intro-section.theme-light h2 {
+  color: #0f172a;
+}
+.brand-intro-section.theme-light .story-subtitle {
+  color: #334155;
+}
+.brand-intro-section.theme-light .story-desc {
+  color: #64748b;
+}
+.brand-intro-section.theme-light .spec-metric-card {
+  background: #ffffff;
+  border: 1.5px solid #FFEDDF;
+  box-shadow: 0 4px 16px rgba(254, 107, 37, 0.06);
+}
+.brand-intro-section.theme-light .spec-metric-card:hover {
+  border-color: #FE6B25;
+  box-shadow: 0 10px 24px rgba(254, 107, 37, 0.15);
+}
+.brand-intro-section.theme-light .spec-metric-label {
+  color: #64748b;
+}
+.brand-intro-section.theme-light .story-showcase-card {
+  background: #ffffff;
+  border: 1.5px solid #fed7aa;
+  box-shadow: 0 20px 50px rgba(254, 107, 37, 0.09);
+}
+.brand-intro-section.theme-light .story-chip-badge {
+  background: #fff8f5;
+  color: #1e293b;
+  border-color: #ffd0b5;
+}
+.brand-intro-section.theme-light .story-card-footer span {
+  color: #475569 !important;
+}
+.brand-intro-section.theme-light .story-halo-glow {
+  background: radial-gradient(circle, rgba(254, 107, 37, 0.12) 0%, rgba(254, 107, 37, 0.03) 50%, transparent 70%);
 }
 
 /* Features Box */
@@ -1262,4 +1512,144 @@ a:hover {
 }
 .pagination .page-link:hover {
   color: #FF8528;
+}
+/* ==========================================================================
+   Promotional Campaign Banner Section — High-Tech Obsidian & Orange
+   ========================================================================== */
+.promo-campaign-section {
+  background: #0a0b0e;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(254, 107, 37, 0.16) 0%, transparent 55%),
+    radial-gradient(circle at 85% 50%, rgba(255, 133, 40, 0.1) 0%, transparent 45%);
+  color: #ffffff;
+  padding: 85px 0;
+  border-top: 1px solid rgba(254, 107, 37, 0.22);
+  border-bottom: 1px solid rgba(254, 107, 37, 0.22);
+  position: relative;
+  overflow: hidden;
+}
+.promo-campaign-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #FE4A1F 0%, #FE6B25 50%, #FF8528 100%);
+}
+.promo-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(254, 107, 37, 0.14);
+  color: #FF8528;
+  border: 1px solid rgba(254, 107, 37, 0.4);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  padding: 6px 16px;
+  box-shadow: 0 0 15px rgba(254, 107, 37, 0.15);
+}
+.promo-campaign-section h2 {
+  color: #ffffff;
+  font-size: 2.45rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+.promo-code-highlight {
+  background: linear-gradient(135deg, #FE6B25 0%, #FF8528 50%, #FE4A1F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-bottom: 2px dashed #FE6B25;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+.promo-code-highlight:hover {
+  opacity: 0.85;
+}
+.promo-desc {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  line-height: 1.75;
+  margin-bottom: 30px;
+  max-width: 620px;
+}
+.promo-note-pill {
+  color: #cbd5e1;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.promo-showcase-card {
+  background: linear-gradient(160deg, #15161c 0%, #0d0e12 100%);
+  border: 1px solid rgba(254, 107, 37, 0.25);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 35px rgba(254, 107, 37, 0.12);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 440px;
+}
+.promo-lock-img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 320px;
+  height: 350px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  border-radius: 14px;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6));
+  transition: transform 0.4s ease;
+}
+.promo-showcase-card:hover .promo-lock-img {
+  transform: scale(1.03);
+}
+
+/* Light Theme Variant for Promo */
+.promo-campaign-section.theme-light {
+  background: #fdfbf9;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(254, 107, 37, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 85% 50%, rgba(255, 133, 40, 0.06) 0%, transparent 45%);
+  color: #0f172a;
+  border-top: 1px solid #fed7aa;
+  border-bottom: 1px solid #fed7aa;
+}
+.promo-campaign-section.theme-light h2 {
+  color: #0f172a;
+}
+.promo-campaign-section.theme-light .promo-desc {
+  color: #64748b;
+}
+.promo-campaign-section.theme-light .promo-note-pill {
+  color: #475569;
+}
+.promo-campaign-section.theme-light .promo-showcase-card {
+  background: #ffffff;
+  border: 1.5px solid #fed7aa;
+  box-shadow: 0 20px 50px rgba(254, 107, 37, 0.09);
+}
+.promo-campaign-section.theme-light .story-chip-badge {
+  background: #fff8f5;
+  color: #1e293b;
+  border-color: #ffd0b5;
+}
+.promo-campaign-section.theme-light .story-card-footer span {
+  color: #475569 !important;
+}
+.promo-campaign-section.theme-light .story-halo-glow {
+  background: radial-gradient(circle, rgba(254, 107, 37, 0.12) 0%, rgba(254, 107, 37, 0.03) 50%, transparent 70%);
 }

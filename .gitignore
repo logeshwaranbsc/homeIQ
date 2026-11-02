@@ -33,3 +33,4 @@ desktop.ini
 *.sublime-project
 *.sublime-workspace
 
+storage/newsletter_subscribers.json

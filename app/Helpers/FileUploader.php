@@ -60,6 +60,13 @@ class FileUploader
             return ['success' => false, 'filename' => null, 'error' => 'Failed to save uploaded file to disk.'];
         }
 
+        // Mirror to root uploads folder for environments routing from root or public
+        $rootTargetDir = App::getBasePath() . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . $cleanSubfolder;
+        if (!is_dir($rootTargetDir)) {
+            @mkdir($rootTargetDir, 0755, true);
+        }
+        @copy($destination, $rootTargetDir . DIRECTORY_SEPARATOR . $newFilename);
+
         return [
             'success' => true,
             'filename' => $cleanSubfolder . '/' . $newFilename,

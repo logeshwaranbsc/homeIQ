@@ -57,6 +57,16 @@ if (!function_exists('isActiveAdmin')) {
       </a>
     </li>
     <li>
+      <a href="<?= url('admin/settings') ?>" class="sidebar-link <?= ($currentPath === '/admin/settings') ? 'active' : '' ?>">
+        <i class="bi bi-layout-text-window-reverse"></i> Homepage Story
+      </a>
+    </li>
+    <li>
+      <a href="<?= url('admin/settings#tab-promo') ?>" class="sidebar-link">
+        <i class="bi bi-tag-fill"></i> Promo Banner
+      </a>
+    </li>
+    <li>
       <a href="<?= url('admin/coupons') ?>" class="sidebar-link <?= isActiveAdmin('/admin/coupons', $currentPath) ?>">
         <i class="bi bi-ticket-perforated"></i> Coupons
       </a>

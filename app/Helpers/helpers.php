@@ -109,6 +109,9 @@ function url(string $path = ''): string
 function asset(string $path): string
 {
     $cleanPath = ltrim($path, '/');
+    if (str_starts_with($cleanPath, 'assets/')) {
+        $cleanPath = substr($cleanPath, 7);
+    }
     $fullPath = \App\Core\App::getBasePath() . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $cleanPath);
     $ver = file_exists($fullPath) ? (string)filemtime($fullPath) : '1.0';
     return url('assets/' . $cleanPath) . '?v=' . $ver;
@@ -126,7 +129,12 @@ function upload_url(?string $path, string $fallback = 'assets/images/placeholder
     if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
         return $path;
     }
-    return url('uploads/' . ltrim($path, '/'));
+    // Clean any accidental duplicate subfolders like story/story/ or promo/promo/ or uploads/
+    $cleanPath = ltrim(str_replace('\\', '/', $path), '/');
+    $cleanPath = preg_replace('#^uploads/#i', '', $cleanPath);
+    $cleanPath = preg_replace('#^([a-zA-Z0-9_\-]+)/\1/#i', '$1/', $cleanPath);
+
+    return url('uploads/' . $cleanPath);
 }
 
 /**

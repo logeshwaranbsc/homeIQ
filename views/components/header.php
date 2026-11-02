@@ -21,11 +21,7 @@ $navCategories = $catRepo->getActive();
   <div class="container-fluid px-3 px-xl-5" style="max-width: 1540px;">
     <!-- Brand Logo -->
     <a class="navbar-brand" href="<?= url('/') ?>">
-      <div class="brand-logo">
-        <i class="bi bi-shield-lock-fill brand-icon"></i>
-        <span>HOMEIQ</span>
-      </div>
-      <div class="brand-tag">DIGITAL SMART LOCKS</div>
+      <img src="<?= asset('assets/images/homeiq-logo.png') ?>" alt="HOMEIQ" class="brand-logo-img">
     </a>
 
     <!-- Mobile Toggler -->
