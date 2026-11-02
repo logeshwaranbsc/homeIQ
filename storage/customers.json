@@ -18,5 +18,18 @@
         "updated_at": "2026-11-02 16:34:28",
         "reset_token": "68e419f63b6a801b4668ae28068b49ff9ac0cea6b81d9787",
         "reset_expires_at": "2026-11-02 17:34:28"
+    },
+    {
+        "name": "kaviy",
+        "email": "kaviysan2003@gmail.com",
+        "password_hash": "$2y$12$iAJrQ6xG6C/4Di5VQ.LCfuZFemX131sTaqUFgUTC.wh0I0DprYM/C",
+        "phone": "9342787758",
+        "is_active": true,
+        "addresses": [],
+        "id": "cust_800d70c96ae86ec1",
+        "created_at": "2026-11-02 16:36:41",
+        "updated_at": "2026-11-02 16:36:52",
+        "reset_token": "16933afaccbb1ab9779d11d38f5c3fa8fcb122fd63b22943",
+        "reset_expires_at": "2026-11-02 17:36:52"
     }
 ]
