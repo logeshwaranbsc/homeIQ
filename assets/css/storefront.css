@@ -209,7 +209,7 @@ a:hover {
 }
 
 /* ==========================================================================
-   Hero Banner Slider
+   Hero Banner Slider (Full-Bleed Background Image)
    ========================================================================== */
 .hero-slider-section {
   background-color: var(--hiq-dark-bg);
@@ -217,55 +217,187 @@ a:hover {
   position: relative;
   border-bottom: 1px solid var(--hiq-dark-border);
 }
+
 .carousel-item-hero {
-  min-height: 540px;
-  display: flex;
-  align-items: center;
+  min-height: 580px;
+  position: relative;
+  overflow: hidden;
+  background-color: #07080a;
+}
+
+/* Full-bleed background wrapper & image */
+.hero-bg-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.hero-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(1.02);
+}
+
+.carousel-item.active .hero-bg-image {
+  transform: scale(1.05);
+}
+
+.hero-bg-placeholder {
+  width: 100%;
+  height: 100%;
   background: radial-gradient(circle at 80% 40%, #171b26 0%, #0b0c10 70%);
 }
+
+/* Premium Gradient Scrims (Ensures full background visibility + razor-sharp text) */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Default Left-to-Right Scrim: Dark on left for text, sheer/clear on right so hardware is 100% visible */
+.hero-overlay-gradient {
+  background: linear-gradient(
+    90deg,
+    rgba(6, 8, 11, 0.94) 0%,
+    rgba(6, 8, 11, 0.85) 36%,
+    rgba(6, 8, 11, 0.5) 68%,
+    rgba(6, 8, 11, 0.18) 100%
+  );
+}
+
+.hero-overlay-center {
+  background: radial-gradient(
+    circle at center,
+    rgba(6, 8, 11, 0.88) 0%,
+    rgba(6, 8, 11, 0.6) 60%,
+    rgba(6, 8, 11, 0.25) 100%
+  );
+}
+
+.hero-overlay-subtle {
+  background: linear-gradient(
+    90deg,
+    rgba(6, 8, 11, 0.75) 0%,
+    rgba(6, 8, 11, 0.4) 50%,
+    rgba(6, 8, 11, 0.1) 100%
+  );
+}
+
+.hero-overlay-dark {
+  background: rgba(6, 8, 11, 0.75);
+}
+
+.hero-overlay-none {
+  background: transparent;
+}
+
+/* Content Container on top of background */
+.hero-content-container {
+  position: relative;
+  z-index: 3;
+  min-height: 580px;
+  display: flex;
+  align-items: center;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.hero-content-box {
+  max-width: 660px;
+}
+
 .hero-slide-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(2, 132, 199, 0.15);
-  border: 1px solid rgba(2, 132, 199, 0.35);
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.4);
   color: #38bdf8;
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 6px 14px;
+  padding: 6px 16px;
   border-radius: 30px;
-  margin-bottom: 20px;
-}
-.hero-headline {
-  font-size: 3.35rem;
-  font-weight: 800;
-  color: #ffffff;
-  line-height: 1.12;
-  margin-bottom: 18px;
-  letter-spacing: -0.03em;
-}
-.hero-subhead {
-  font-size: 1.15rem;
-  color: var(--hiq-text-light-muted);
-  margin-bottom: 28px;
-  max-width: 540px;
-  line-height: 1.6;
+  margin-bottom: 22px;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+  backdrop-filter: blur(8px);
 }
 
-/* Sleek Pill Carousel Indicators */
+.hero-headline {
+  font-size: 3.6rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  letter-spacing: -0.035em;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+}
+
+.hero-subhead {
+  font-size: 1.25rem;
+  color: #cbd5e1;
+  margin-bottom: 24px;
+  max-width: 580px;
+  line-height: 1.65;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.hero-supporting-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 7px 18px;
+  border-radius: 30px;
+}
+
+/* Sleek Pill Carousel Indicators & Controls */
+.carousel-indicators {
+  z-index: 10;
+  margin-bottom: 2rem;
+}
 .carousel-indicators [data-bs-target] {
   width: 28px;
   height: 4px;
   border-radius: 2px;
   border: none;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.35);
   transition: width 0.3s ease, background-color 0.3s ease;
 }
 .carousel-indicators .active {
   width: 48px;
   background-color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  z-index: 10;
+  width: 60px;
+  opacity: 0.7;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1;
 }
 
 /* ==========================================================================

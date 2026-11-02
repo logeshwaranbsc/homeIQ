@@ -43,11 +43,6 @@ class AdminBannerController
     {
         $data = $this->extractBannerInput($request);
 
-        if (empty($data['headline'])) {
-            flash('error', 'Headline is required.');
-            redirect('admin/banners/create');
-        }
-
         $imageFile = $request->file('image');
         if ($imageFile) {
             $upload = FileUploader::upload($imageFile, 'banners');
@@ -56,9 +51,14 @@ class AdminBannerController
             }
         }
 
+        if (empty($data['headline']) && empty($data['image'])) {
+            flash('error', 'Headline or background image is required.');
+            redirect('admin/banners/create');
+        }
+
         $created = $this->bannerRepo->create($data);
         $admin = auth_admin();
-        $this->auditRepo->record('banner_created', $admin['username'] ?? 'Admin', "Created banner: {$created['headline']}");
+        $this->auditRepo->record('banner_created', $admin['username'] ?? 'Admin', "Created banner: " . ($created['headline'] ?: 'Hero Slide'));
 
         flash('success', 'Hero banner added successfully.');
         redirect('admin/banners');
@@ -136,6 +136,8 @@ class AdminBannerController
             'offer_badge' => trim((string)$request->post('offer_badge', '')),
             'cta_label' => trim((string)$request->post('cta_label', 'SHOP SMART LOCKS')),
             'cta_url' => trim((string)$request->post('cta_url', 'shop')),
+            'text_position' => trim((string)$request->post('text_position', 'left')),
+            'overlay_style' => trim((string)$request->post('overlay_style', 'gradient')),
             'display_order' => (int)$request->post('display_order', 1),
             'is_active' => (bool)$request->post('is_active', true),
         ];
