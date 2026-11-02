@@ -153,6 +153,13 @@ $breadcrumbs = [
             <span class="fs-4 fw-extrabold text-dark"><?= format_price($cart['grand_total']) ?></span>
           </div>
 
+          <?php if (!auth_customer()): ?>
+            <div class="alert alert-warning py-2 px-3 small mb-3 border-2 rounded-2 d-flex align-items-center justify-content-between" style="border-color: #FE6B25 !important; background: #fff8f5;">
+              <span><i class="bi bi-shield-lock-fill text-primary me-1"></i> Sign-in required to checkout</span>
+              <a href="<?= url('login') ?>?redirect=checkout" class="fw-bold text-primary text-decoration-none">Sign In / Register &rarr;</a>
+            </div>
+          <?php endif; ?>
+
           <a href="<?= url('checkout') ?>" class="btn btn-hiq-accent w-100 py-3 fw-bold fs-6">
             Proceed to Checkout <i class="bi bi-arrow-right ms-1"></i>
           </a>

@@ -21,6 +21,28 @@ $breadcrumbs = [
 
         <form action="<?= url('login') ?>" method="POST">
           <?= csrf_field() ?>
+          <?php 
+          $redirectTarget = $redirect ?? (App\Core\Session::get('redirect_after_login') ?? ($_GET['redirect'] ?? '')); 
+          $isCheckoutRedirect = ($redirectTarget === 'checkout' || str_contains((string)$redirectTarget, 'checkout'));
+          ?>
+          <?php if (!empty($redirectTarget)): ?>
+            <input type="hidden" name="redirect" value="<?= e($redirectTarget) ?>">
+            <?php if ($isCheckoutRedirect): ?>
+              <div class="alert alert-warning py-3 px-3 mb-3 border-2 rounded-3" style="border-color: #FE6B25 !important; background: #fff8f5;">
+                <div class="d-flex align-items-center gap-2 mb-1">
+                  <i class="bi bi-shield-lock-fill text-primary fs-5"></i>
+                  <strong class="text-dark">Sign In Required to Checkout</strong>
+                </div>
+                <div class="small text-muted">
+                  Please sign in to your HOMEIQ account to complete your purchase. Your shopping cart is saved and ready.
+                </div>
+              </div>
+            <?php else: ?>
+              <div class="alert alert-info py-2 px-3 small mb-3">
+                <i class="bi bi-info-circle me-1"></i> Please sign in to continue.
+              </div>
+            <?php endif; ?>
+          <?php endif; ?>
 
           <div class="mb-3">
             <label class="form-label">Email Address *</label>
@@ -39,7 +61,7 @@ $breadcrumbs = [
           </button>
 
           <div class="text-center small text-muted">
-            Don't have an account yet? <a href="<?= url('register') ?>" class="text-primary fw-semibold text-decoration-none">Create Account</a>
+            Don't have an account yet? <a href="<?= url('register') . (!empty($redirectTarget) ? '?redirect=' . urlencode($redirectTarget) : '') ?>" class="text-primary fw-semibold text-decoration-none">Create Account</a>
           </div>
         </form>
       </div>

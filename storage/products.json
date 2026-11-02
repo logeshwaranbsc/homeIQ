@@ -7,7 +7,7 @@
         "category_slug": "ai-face-recognition-smart-locks",
         "price": 24999,
         "sale_price": 19999,
-        "stock": 4,
+        "stock": 5,
         "color": "Black",
         "lock_type": "Mortise Lock",
         "dimensions": "40 × 17 × 9 cm",
@@ -74,7 +74,7 @@
         },
         "id": "prod_531f9c426ae32633",
         "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-10-29 19:13:26"
+        "updated_at": "2026-11-02 15:54:39"
     },
     {
         "name": "HOMEIQ Touch Pro Biometric Fingerprint Smart Lock",
@@ -84,7 +84,7 @@
         "category_slug": "fingerprint-smart-locks",
         "price": 18999,
         "sale_price": 14499,
-        "stock": 28,
+        "stock": 25,
         "color": "Space Grey",
         "lock_type": "Mortise Lock",
         "dimensions": "38 × 15 × 8 cm",
@@ -131,7 +131,7 @@
         },
         "id": "prod_bb4515f86ae32633",
         "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-10-29 16:25:47"
+        "updated_at": "2026-11-02 15:59:36"
     },
     {
         "name": "HOMEIQ VeinGuard Contactless Palm Vein Smart Lock",
@@ -253,7 +253,7 @@
         "category_slug": "pin-and-rfid-digital-locks",
         "price": 12999,
         "sale_price": 9499,
-        "stock": 48,
+        "stock": 50,
         "color": "Satin Silver",
         "lock_type": "Mortise Lock",
         "dimensions": "32 × 14 × 7 cm",
@@ -295,7 +295,7 @@
         },
         "id": "prod_3f3d93cf6ae32633",
         "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-10-29 17:27:19"
+        "updated_at": "2026-11-02 15:26:08"
     },
     {
         "name": "HOMEIQ Vision 2K Video Doorbell Smart Lock",
@@ -471,7 +471,7 @@
         "category_slug": "smart-lock-accessories",
         "price": 1199,
         "sale_price": 799,
-        "stock": 120,
+        "stock": 119,
         "color": "Black & Gunmetal",
         "lock_type": "RFID Accessory",
         "dimensions": "4 × 3 × 0.5 cm",
@@ -503,6 +503,60 @@
         },
         "id": "prod_89fa2d2f6ae32633",
         "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-10-29 16:25:47"
+        "updated_at": "2026-11-02 15:25:04"
+    },
+    {
+        "name": "HOMEIQ Fingerprint & PIN Digital Smart Door Lock",
+        "slug": "homeiq-fingerprint-pin-digital-smart-door-lock",
+        "sku": "HOMEIQ-FP-PIN-001",
+        "category": "Fingerprint Smart Locks",
+        "category_slug": "fingerprint-smart-locks",
+        "price": 22500,
+        "sale_price": 20500,
+        "stock": 10,
+        "short_description": "Secure your home with the HOMEIQ digital door lock featuring fingerprint access, PIN keypad entry and a sleek black design. Built for convenient, keyless everyday access.",
+        "full_description": "The HOMEIQ Fingerprint & PIN Digital Smart Door Lock combines modern access control with a minimalist design. Its sleek black exterior features a fingerprint sensor and numeric keypad, providing convenient keyless entry for compatible doors. Designed for contemporary homes and selected residential spaces, this digital lock brings together a clean appearance and everyday usability. Confirm supported access methods, door compatibility and installation requirements for the exact model before purchase.",
+        "features": [
+            "Fingerprint-based door access",
+            "Numeric PIN keypad for keyless entry",
+            "Integrated fingerprint sensor with illuminated ring",
+            "Sleek black vertical design",
+            "Compact digital keypad interface",
+            "Modern appearance for residential door security"
+        ],
+        "whats_included": [
+            "HOMEIQ digital smart lock unit",
+            "Installation accessories (confirm with supplier)",
+            "User manual (confirm with supplier)",
+            "Mounting hardware (confirm with supplier)"
+        ],
+        "access_methods": [],
+        "connectivity": [],
+        "color": "Black",
+        "lock_type": "Mortise Lock",
+        "specifications": {
+            "Brand": "HOMEIQ",
+            "Product Type": "Digital Smart Door Lock",
+            "Access Method": "Fingerprint + PIN keypad",
+            "Colour": "Black",
+            "Fingerprint Sensor": "Present, as shown in image"
+        },
+        "dimensions": "",
+        "weight": "",
+        "warranty": "2 Years Official Warranty",
+        "installation": "Free Professional Installation Available",
+        "is_featured": true,
+        "is_active": true,
+        "rating": 4.8,
+        "reviews_count": 0,
+        "main_image": "products/687d2d669b12e52c01a6_1793613934.png",
+        "gallery_images": [
+            "products/774e5dfecea72156f2d8_1793613934.png",
+            "products/4d391b29223d7b21665f_1793614079.png",
+            "products/36dfaef8f7939ea7a13c_1793614131.png"
+        ],
+        "id": "prod_de7637126ae8606e",
+        "created_at": "2026-11-02 15:35:34",
+        "updated_at": "2026-11-02 15:53:32"
     }
 ]

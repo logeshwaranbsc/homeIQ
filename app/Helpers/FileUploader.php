@@ -68,6 +68,44 @@ class FileUploader
     }
 
     /**
+     * Upload multiple image files to designated folder
+     * @return array Array of uploaded file paths [ 'products/abc.png', ... ]
+     */
+    public static function uploadMultiple(?array $files, string $subfolder): array
+    {
+        $uploaded = [];
+        if (!$files || empty($files['name']) || !is_array($files['name'])) {
+            return $uploaded;
+        }
+
+        $count = count($files['name']);
+        for ($i = 0; $i < $count; $i++) {
+            $err = $files['error'][$i] ?? UPLOAD_ERR_NO_FILE;
+            $tmp = $files['tmp_name'][$i] ?? '';
+            $name = $files['name'][$i] ?? '';
+
+            if ($err === UPLOAD_ERR_NO_FILE || empty($tmp) || empty($name)) {
+                continue;
+            }
+
+            $singleFile = [
+                'name'     => $name,
+                'type'     => $files['type'][$i] ?? '',
+                'tmp_name' => $tmp,
+                'error'    => $err,
+                'size'     => $files['size'][$i] ?? 0,
+            ];
+
+            $result = self::upload($singleFile, $subfolder);
+            if ($result['success'] && !empty($result['filename'])) {
+                $uploaded[] = $result['filename'];
+            }
+        }
+
+        return $uploaded;
+    }
+
+    /**
      * Delete an uploaded file safely
      */
     public static function delete(?string $path): bool
@@ -78,6 +116,25 @@ class FileUploader
 
         // Prevent path traversal
         if (str_contains($path, '..')) {
+            return false;
+        }
+
+        // Protect seed/default demonstration files
+        $protectedSeeds = [
+            'products/accessories-battery.svg',
+            'products/accessories-fobs.svg',
+            'products/fingerprint-lock.svg',
+            'products/homeiq-ai-face-lock.svg',
+            'products/mortise-lock.svg',
+            'products/palm-vein-lock.svg',
+            'products/pin-rfid-lock.svg',
+            'products/video-door-lock.svg',
+            'products/wifi-smart-lock.svg',
+            'banners/hero-banner-main.svg',
+            'banners/hero-app-control.svg',
+            'banners/hero-fingerprint.svg',
+        ];
+        if (in_array(ltrim(str_replace('\\', '/', $path), '/'), $protectedSeeds, true)) {
             return false;
         }
 

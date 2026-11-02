@@ -71,7 +71,10 @@ function url(string $path = ''): string
  */
 function asset(string $path): string
 {
-    return url('assets/' . ltrim($path, '/'));
+    $cleanPath = ltrim($path, '/');
+    $fullPath = \App\Core\App::getBasePath() . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $cleanPath);
+    $ver = file_exists($fullPath) ? (string)filemtime($fullPath) : '1.0';
+    return url('assets/' . $cleanPath) . '?v=' . $ver;
 }
 
 /**

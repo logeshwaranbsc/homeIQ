@@ -162,6 +162,37 @@ $includedText = $isEdit && is_array($product['whats_included'] ?? null) ? implod
           <small class="text-muted">Allowed: JPG, PNG, WEBP, SVG (Max 5MB).</small>
         </div>
 
+        <div class="mb-3">
+          <label class="form-label fw-bold">Additional Gallery Images</label>
+          <input type="file" name="gallery_images[]" id="galleryImagesInput" class="form-control form-control-sm" multiple accept="image/png,image/jpeg,image/webp,image/svg+xml">
+          <small class="text-muted d-block mt-1">Select one or multiple images to display below the main product view. Allowed: JPG, PNG, WEBP, SVG (Max 5MB each).</small>
+
+          <!-- Dynamic live preview of newly selected files -->
+          <div id="newGalleryPreviewRow" class="d-flex flex-wrap gap-2 mt-2" style="display: none !important;"></div>
+
+          <?php if (!empty($product['gallery_images']) && is_array($product['gallery_images'])): ?>
+            <div class="mt-3 pt-2 border-top">
+              <label class="form-label small fw-bold text-dark mb-2">
+                <i class="bi bi-images me-1 text-primary"></i> Current Gallery Images (<?= count($product['gallery_images']) ?>):
+              </label>
+              <div class="d-flex flex-wrap gap-2">
+                <?php foreach ($product['gallery_images'] as $idx => $gImg): ?>
+                  <div class="card p-1 text-center position-relative shadow-none border bg-light" style="width: 100px;">
+                    <div style="height: 70px; display: flex; align-items: center; justify-content: center; background: #ffffff; border-radius: 4px; overflow: hidden; border: 1px solid #e2e8f0;">
+                      <img src="<?= upload_url($gImg) ?>" alt="Gallery Image" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                    </div>
+                    <div class="form-check form-check-inline m-0 mt-1 d-flex justify-content-center align-items-center">
+                      <input class="form-check-input me-1 border-danger" type="checkbox" name="delete_gallery_images[]" value="<?= e($gImg) ?>" id="del_gimg_<?= $idx ?>">
+                      <label class="form-check-label text-danger small fw-semibold" for="del_gimg_<?= $idx ?>" style="font-size: 11px;">Remove</label>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
+              </div>
+              <small class="text-muted d-block mt-1 fst-italic">Tick "Remove" on any image and click Save Digital Lock to delete it.</small>
+            </div>
+          <?php endif; ?>
+        </div>
+
         <div class="row g-2 mb-3">
           <div class="col-6">
             <label class="form-label">Chassis Finish</label>
@@ -216,4 +247,40 @@ $includedText = $isEdit && is_array($product['whats_included'] ?? null) ? implod
     </div>
   </div>
 </form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const galleryInput = document.getElementById('galleryImagesInput');
+  const previewRow = document.getElementById('newGalleryPreviewRow');
+
+  if (galleryInput && previewRow) {
+    galleryInput.addEventListener('change', function() {
+      previewRow.innerHTML = '';
+      if (!this.files || this.files.length === 0) {
+        previewRow.style.setProperty('display', 'none', 'important');
+        return;
+      }
+
+      previewRow.style.setProperty('display', 'flex', 'important');
+      Array.from(this.files).forEach(file => {
+        if (!file.type.startsWith('image/')) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const card = document.createElement('div');
+          card.className = 'card p-1 text-center position-relative shadow-none border bg-light';
+          card.style.width = '85px';
+          card.innerHTML = `
+            <div style="height: 60px; display: flex; align-items: center; justify-content: center; background: #ffffff; border-radius: 4px; overflow: hidden; border: 1px solid #e2e8f0;">
+              <img src="${e.target.result}" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+            </div>
+            <div class="text-truncate px-1 text-success fw-bold" style="font-size: 10px;" title="${file.name}">+ New</div>
+          `;
+          previewRow.appendChild(card);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+  }
+});
+</script>
 

@@ -58,9 +58,9 @@ $router->post('/cart/coupon', [CartController::class, 'applyCoupon'], [CsrfMiddl
 $router->get('/cart/coupon/remove', [CartController::class, 'removeCoupon']);
 $router->get('/api/cart/count', [CartController::class, 'count']);
 
-// Checkout & Orders
-$router->get('/checkout', [CheckoutController::class, 'index']);
-$router->post('/checkout/process', [CheckoutController::class, 'process'], [CsrfMiddleware::class]);
+// Checkout & Orders (Protected — Customer Sign-In Required)
+$router->get('/checkout', [CheckoutController::class, 'index'], [AuthMiddleware::class]);
+$router->post('/checkout/process', [CheckoutController::class, 'process'], [AuthMiddleware::class, CsrfMiddleware::class]);
 $router->get('/order/confirmation/{orderNumber}', [CheckoutController::class, 'confirmation']);
 $router->get('/order/invoice/{orderNumber}', [CheckoutController::class, 'invoice']);
 $router->get('/order-tracking', [TrackingController::class, 'index']);

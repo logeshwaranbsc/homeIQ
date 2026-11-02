@@ -51,8 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
         thumbnails.forEach(t => t.classList.remove('active'));
         thumb.classList.add('active');
         const newSrc = thumb.getAttribute('data-img-src');
-        if (newSrc) {
+        if (newSrc && mainImage.getAttribute('src') !== newSrc) {
+          mainImage.style.opacity = '0.5';
           mainImage.src = newSrc;
+          mainImage.onload = () => {
+            mainImage.style.opacity = '1';
+          };
+          setTimeout(() => { mainImage.style.opacity = '1'; }, 200);
         }
       });
     });
@@ -125,5 +130,94 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // 5. Featured Products Horizontal Carousel / Slider
+  const track = document.getElementById('featuredProductsTrack');
+  const prevBtns = [
+    document.getElementById('featuredSidePrev'),
+    document.getElementById('featuredHeaderPrev')
+  ].filter(Boolean);
+  const nextBtns = [
+    document.getElementById('featuredSideNext'),
+    document.getElementById('featuredHeaderNext')
+  ].filter(Boolean);
+
+  if (track && (prevBtns.length > 0 || nextBtns.length > 0)) {
+    const getScrollStep = () => {
+      const slide = track.querySelector('.product-slider-slide');
+      if (slide) {
+        const gap = parseFloat(window.getComputedStyle(track).gap) || 24;
+        return slide.getBoundingClientRect().width + gap;
+      }
+      return 300;
+    };
+
+    nextBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const step = getScrollStep();
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        if (track.scrollLeft >= maxScroll - 15) {
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          track.scrollBy({ left: step, behavior: 'smooth' });
+        }
+      });
+    });
+
+    prevBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const step = getScrollStep();
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        if (track.scrollLeft <= 15) {
+          track.scrollTo({ left: maxScroll, behavior: 'smooth' });
+        } else {
+          track.scrollBy({ left: -step, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Mouse drag-to-scroll support for desktop
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    let hasDragged = false;
+
+    track.addEventListener('mousedown', (e) => {
+      if (e.target.closest('button') || e.target.closest('a')) return;
+      isDown = true;
+      hasDragged = false;
+      track.classList.add('is-dragging');
+      startX = e.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDown) return;
+      isDown = false;
+      track.classList.remove('is-dragging');
+    });
+
+    track.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - track.offsetLeft;
+      const walk = (x - startX) * 1.4;
+      if (Math.abs(walk) > 5) {
+        hasDragged = true;
+      }
+      track.scrollLeft = scrollLeft - walk;
+    });
+
+    // Prevent navigation if user dragged
+    track.addEventListener('click', (e) => {
+      if (hasDragged) {
+        e.preventDefault();
+        e.stopPropagation();
+        hasDragged = false;
+      }
+    }, true);
+  }
 });
 

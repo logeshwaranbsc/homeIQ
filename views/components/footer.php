@@ -12,7 +12,7 @@ $settings = $settingsRepo->all();
       <!-- Col 1: Brand Info -->
       <div class="col-lg-4 col-md-6">
         <div class="d-flex align-items-center gap-2 mb-3">
-          <i class="bi bi-shield-lock-fill text-info fs-3"></i>
+          <i class="bi bi-shield-lock-fill brand-icon fs-3"></i>
           <span class="fs-4 fw-bold text-light brand-font letter-spacing-1">HOMEIQ</span>
         </div>
         <p class="text-secondary small pe-lg-4 mb-4">

@@ -22,7 +22,7 @@ $navCategories = $catRepo->getActive();
     <!-- Brand Logo -->
     <a class="navbar-brand" href="<?= url('/') ?>">
       <div class="brand-logo">
-        <i class="bi bi-shield-lock-fill text-info"></i>
+        <i class="bi bi-shield-lock-fill brand-icon"></i>
         <span>HOMEIQ</span>
       </div>
       <div class="brand-tag">DIGITAL SMART LOCKS</div>
@@ -66,7 +66,7 @@ $navCategories = $catRepo->getActive();
       <form class="d-flex me-lg-3 my-2 my-lg-0" action="<?= url('shop') ?>" method="GET">
         <div class="input-group input-group-sm">
           <input class="form-control bg-dark text-light border-secondary" type="search" name="q" placeholder="Search locks, SKU..." aria-label="Search" value="<?= e($_GET['q'] ?? '') ?>">
-          <button class="btn btn-outline-secondary text-light" type="submit">
+          <button class="btn btn-hiq-accent text-white" type="submit" aria-label="Search">
             <i class="bi bi-search"></i>
           </button>
         </div>

@@ -3,7 +3,7 @@ declare(strict_types=1);
 ?>
 <div class="card border-0 rounded-4 shadow-lg p-4 p-md-5" style="background: #141720; border: 1px solid rgba(255,255,255,0.08) !important;">
   <div class="text-center mb-4">
-    <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-dark p-3 text-info mb-2 border border-secondary border-opacity-25">
+    <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-dark p-3 brand-icon mb-2 border border-secondary border-opacity-25">
       <i class="bi bi-shield-lock-fill fs-2"></i>
     </div>
     <h3 class="fw-bold text-white mb-1 brand-font" style="letter-spacing: 2px;">HOMEIQ</h3>

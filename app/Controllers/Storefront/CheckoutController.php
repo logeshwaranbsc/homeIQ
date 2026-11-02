@@ -25,6 +25,13 @@ class CheckoutController
 
     public function index(): void
     {
+        if (!is_customer_logged_in()) {
+            Session::setFlash('error', 'Please sign in or create an account to complete your purchase.');
+            Session::set('redirect_after_login', 'checkout');
+            redirect('login?redirect=checkout');
+            return;
+        }
+
         $cart = $this->cartService->getCartDetails();
 
         if (empty($cart['items'])) {
@@ -32,7 +39,9 @@ class CheckoutController
             redirect('shop');
         }
 
-        $customer = auth_customer();
+        $sessionCustomer = auth_customer();
+        $customerRepo = new \App\Repositories\CustomerRepository();
+        $customer = $customerRepo->find($sessionCustomer['id']) ?: $sessionCustomer;
 
         echo View::render('storefront/checkout', [
             'title' => 'Checkout | HOMEIQ Secure Ordering',
@@ -43,6 +52,13 @@ class CheckoutController
 
     public function process(Request $request): void
     {
+        if (!is_customer_logged_in()) {
+            Session::setFlash('error', 'You must be signed in to your account to place an order.');
+            Session::set('redirect_after_login', 'checkout');
+            redirect('login?redirect=checkout');
+            return;
+        }
+
         $cart = $this->cartService->getCartDetails();
         if (empty($cart['items'])) {
             flash('error', 'Your shopping cart is empty.');
@@ -89,8 +105,26 @@ class CheckoutController
         }
 
         $customer = auth_customer();
+        $sessionCustomer = auth_customer();
+        $customerRepo = new \App\Repositories\CustomerRepository();
+        $fullCust = $customerRepo->find($sessionCustomer['id'] ?? '');
+
+        // Save shipping address into customer profile if empty
+        if ($fullCust && empty($fullCust['addresses'])) {
+            $customerRepo->update($fullCust['id'], [
+                'addresses' => [
+                    [
+                        'street' => $address,
+                        'city' => $city,
+                        'state' => $state,
+                        'pincode' => $pincode,
+                    ]
+                ]
+            ]);
+        }
+
         $customerData = [
-            'customer_id' => $customer['id'] ?? null,
+            'customer_id' => $sessionCustomer['id'] ?? null,
             'name' => $name,
             'email' => $email,
             'phone' => $phone,

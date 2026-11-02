@@ -28,8 +28,19 @@ class ProductRepository extends JsonRepository
     public function getFeatured(int $limit = 8): array
     {
         $active = $this->getActive();
-        $featured = array_filter($active, fn($p) => !empty($p['is_featured']));
-        return array_slice(array_values($featured), 0, $limit);
+        $featured = array_values(array_filter($active, fn($p) => !empty($p['is_featured'])));
+        if (count($featured) < $limit) {
+            $existingIds = array_column($featured, 'id');
+            foreach ($active as $p) {
+                if (!in_array($p['id'], $existingIds, true)) {
+                    $featured[] = $p;
+                    if (count($featured) >= $limit) {
+                        break;
+                    }
+                }
+            }
+        }
+        return array_slice($featured, 0, $limit);
     }
 
     public function getLowStock(int $threshold = 5): array

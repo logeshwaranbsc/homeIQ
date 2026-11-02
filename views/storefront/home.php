@@ -72,7 +72,7 @@ use App\Core\View;
                     <?php if ($hasSupporting): ?>
                       <div class="mb-4 d-flex align-items-center gap-2 flex-wrap <?= $textPos === 'center' ? 'justify-content-center' : ($textPos === 'right' ? 'justify-content-end' : '') ?>">
                         <div class="hero-supporting-pill">
-                          <i class="bi bi-check2-circle text-info"></i>
+                          <i class="bi bi-check2-circle brand-icon"></i>
                           <span><?= e($banner['supporting_text']) ?></span>
                         </div>
                       </div>
@@ -112,7 +112,7 @@ use App\Core\View;
 </section>
 
 <!-- Trust Value Strip (Architectural Security Pillars) -->
-<section class="trust-strip-section">
+<section class="trust-strip-section mt-4 mt-lg-5 py-4">
   <div class="container">
     <div class="row g-3">
       <div class="col-lg-3 col-sm-6">
@@ -262,25 +262,50 @@ use App\Core\View;
   </div>
 </section>
 
-<!-- Featured Products Showcase -->
-<section class="py-5 bg-white">
+<!-- Featured Products Showcase (Slider / Carousel) -->
+<section class="py-5 bg-white position-relative featured-products-section">
   <div class="container py-4">
     <div class="d-flex align-items-end justify-content-between mb-4 flex-wrap gap-2">
       <div>
         <span class="text-primary fw-bold small text-uppercase letter-spacing-1">Curated Selection</span>
         <h2 class="mb-0 fw-bold">Featured Digital Smart Locks</h2>
       </div>
-      <a href="<?= url('shop') ?>" class="text-decoration-none fw-bold small text-dark d-flex align-items-center gap-1">
-        Browse Full Catalog (<?= count($featuredProducts) ?> Models) <i class="bi bi-arrow-right text-primary"></i>
-      </a>
+      <div class="d-flex align-items-center gap-3">
+        <a href="<?= url('shop') ?>" class="text-decoration-none fw-bold small text-dark d-flex align-items-center gap-1">
+          Browse Full Catalog (<?= count($featuredProducts) ?> Models) <i class="bi bi-arrow-right text-primary"></i>
+        </a>
+        <!-- Header Arrow Controls -->
+        <div class="slider-header-controls d-flex align-items-center gap-2">
+          <button type="button" class="btn-slider-arrow btn-slider-prev" id="featuredHeaderPrev" aria-label="Previous Products" title="Previous Products">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button type="button" class="btn-slider-arrow btn-slider-next" id="featuredHeaderNext" aria-label="Next Products" title="Next Products">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
     </div>
 
-    <div class="row g-4">
-      <?php foreach ($featuredProducts as $product): ?>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <?= View::component('product_card', ['product' => $product]) ?>
-        </div>
-      <?php endforeach; ?>
+    <!-- Product Slider Carousel Viewport with Floating Side Arrows -->
+    <div class="product-slider-container position-relative">
+      <!-- Side Floating Left Arrow -->
+      <button type="button" class="product-slider-arrow arrow-prev" id="featuredSidePrev" aria-label="Scroll Left" title="Scroll Left">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <!-- Scrollable Products Track -->
+      <div class="product-slider-track" id="featuredProductsTrack">
+        <?php foreach ($featuredProducts as $product): ?>
+          <div class="product-slider-slide">
+            <?= View::component('product_card', ['product' => $product]) ?>
+          </div>
+        <?php endforeach; ?>
+      </div>
+
+      <!-- Side Floating Right Arrow -->
+      <button type="button" class="product-slider-arrow arrow-next" id="featuredSideNext" aria-label="Scroll Right" title="Scroll Right">
+        <i class="bi bi-chevron-right"></i>
+      </button>
     </div>
   </div>
 </section>
@@ -290,7 +315,7 @@ use App\Core\View;
   <div class="container py-4">
     <div class="row align-items-center g-5">
       <div class="col-lg-7">
-        <span class="badge bg-info text-dark px-3 py-2 text-uppercase letter-spacing-1 fw-bold mb-3">VIP Privilege Campaign</span>
+        <span class="badge bg-info px-3 py-2 text-uppercase letter-spacing-1 fw-bold mb-3">VIP Privilege Campaign</span>
         <h2 class="display-5 fw-extrabold text-white mb-3">Upgrade to Keyless Living with Coupon WELCOME10</h2>
         <p class="text-secondary fs-5 mb-4" style="line-height: 1.7;">
           Enjoy an extra 10% privilege discount on smart locks above ₹10,000. Complete with complimentary doorstep installation by certified security technicians.
@@ -420,7 +445,7 @@ use App\Core\View;
             <p class="text-muted small mb-4 flex-grow-1" style="line-height: 1.6;">"<?= e($rev['comment'] ?? '') ?>"</p>
             <div class="border-top pt-3 text-secondary small d-flex justify-content-between align-items-center">
               <div class="d-flex align-items-center gap-2">
-                <div style="width: 28px; height: 28px; border-radius: 50%; background: #e0f2fe; color: #0284c7; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75rem;">
+                <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(254, 107, 37, 0.12); color: #FE6B25; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75rem;">
                   <?= strtoupper(substr($rev['reviewer_name'] ?? 'H', 0, 1)) ?>
                 </div>
                 <strong><?= e($rev['reviewer_name'] ?? 'Homeowner') ?></strong>

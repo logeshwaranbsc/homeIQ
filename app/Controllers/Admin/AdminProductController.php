@@ -102,6 +102,10 @@ class AdminProductController
             }
         }
 
+        // Handle additional gallery images upload
+        $galleryFiles = $request->file('gallery_images');
+        $data['gallery_images'] = $galleryFiles ? FileUploader::uploadMultiple($galleryFiles, 'products') : [];
+
         // Auto slug if empty
         if (empty($data['slug'])) {
             $data['slug'] = slugify($data['name']);
@@ -181,6 +185,27 @@ class AdminProductController
             }
         }
 
+        // Handle gallery images
+        $existingGallery = (array)($product['gallery_images'] ?? []);
+        $deleteGallery = (array)$request->post('delete_gallery_images', []);
+        if (!empty($deleteGallery)) {
+            foreach ($deleteGallery as $delImg) {
+                if (is_string($delImg) && in_array($delImg, $existingGallery, true)) {
+                    FileUploader::delete($delImg);
+                    $existingGallery = array_values(array_filter($existingGallery, fn($img) => $img !== $delImg));
+                }
+            }
+        }
+
+        $galleryFiles = $request->file('gallery_images');
+        if ($galleryFiles) {
+            $newGallery = FileUploader::uploadMultiple($galleryFiles, 'products');
+            if (!empty($newGallery)) {
+                $existingGallery = array_merge($existingGallery, $newGallery);
+            }
+        }
+        $data['gallery_images'] = array_values(array_unique($existingGallery));
+
         // Stock change tracking
         $oldStock = (int)($product['stock'] ?? 0);
         $newStock = (int)$data['stock'];
@@ -219,6 +244,11 @@ class AdminProductController
         $admin = auth_admin();
         // Remove image
         FileUploader::delete($product['main_image'] ?? null);
+        if (!empty($product['gallery_images']) && is_array($product['gallery_images'])) {
+            foreach ($product['gallery_images'] as $delImg) {
+                FileUploader::delete($delImg);
+            }
+        }
         $this->productRepo->delete($id);
 
         $this->auditRepo->record('product_deleted', $admin['username'] ?? 'Admin', "Deleted product {$product['name']} (SKU: {$product['sku']})");

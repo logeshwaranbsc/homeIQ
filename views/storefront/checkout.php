@@ -5,19 +5,54 @@ use App\Core\View;
 
 /**
  * @var array $cart
- * @var array|null $customer
+ * @var array $customer
  */
+if (empty($customer)) {
+    redirect('login?redirect=checkout');
+    exit;
+}
+
 $breadcrumbs = [
     ['label' => 'Shopping Cart', 'url' => 'cart'],
     ['label' => 'Checkout', 'url' => null]
 ];
 
 $old = old('');
+$savedAddresses = (!empty($customer['addresses']) && is_array($customer['addresses'])) ? $customer['addresses'] : [];
+$primaryAddress = $savedAddresses[0] ?? null;
 ?>
 <div class="container py-4">
   <?= View::component('breadcrumbs', ['items' => $breadcrumbs]) ?>
 
-  <h1 class="h2 fw-bold mb-4">Checkout & Secure Ordering</h1>
+  <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+    <div>
+      <h1 class="h2 fw-bold m-0 text-dark">Checkout & Secure Ordering</h1>
+      <small class="text-muted">Doorstep delivery with certified HOMEIQ technician installation.</small>
+    </div>
+    <div class="d-flex align-items-center gap-2 text-muted small">
+      <i class="bi bi-shield-lock-fill text-success fs-5"></i> 256-Bit SSL Encrypted
+    </div>
+  </div>
+
+  <!-- Authenticated Customer Status Banner -->
+  <div class="card border mb-4 shadow-sm" style="border-radius: 12px; border-left: 5px solid #10b981 !important; background: #f0fdf4;">
+    <div class="card-body p-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
+      <div class="d-flex align-items-center gap-3">
+        <div style="width: 44px; height: 44px; border-radius: 50%; background: #10b981; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">
+          <i class="bi bi-shield-check"></i>
+        </div>
+        <div>
+          <div class="fw-bold text-dark fs-6">Signed in as <?= e($customer['name']) ?></div>
+          <div class="small text-muted"><?= e($customer['email']) ?> <?= !empty($customer['phone']) ? '• ' . e($customer['phone']) : '' ?> • <span class="badge bg-success-subtle text-success border border-success-subtle">HOMEIQ Member</span></div>
+        </div>
+      </div>
+      <div>
+        <a href="<?= url('logout') ?>?redirect=checkout" class="btn btn-outline-secondary btn-sm" title="Log out or switch account">
+          <i class="bi bi-box-arrow-right me-1"></i> Switch Account
+        </a>
+      </div>
+    </div>
+  </div>
 
   <form action="<?= url('checkout/process') ?>" method="POST" id="checkoutForm">
     <?= csrf_field() ?>
@@ -25,51 +60,68 @@ $old = old('');
     <div class="row g-5">
       <!-- Shipping & Customer Details -->
       <div class="col-lg-7">
-        <!-- Contact Information -->
+        <!-- 1. Contact Information -->
         <div class="card border rounded-3 p-4 shadow-sm mb-4">
           <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
             <h5 class="fw-bold m-0"><i class="bi bi-person me-2 text-primary"></i>1. Contact Information</h5>
-            <?php if (!$customer): ?>
-              <small class="text-muted">Already have an account? <a href="<?= url('login') ?>">Log in</a></small>
-            <?php endif; ?>
+            <span class="badge bg-light text-success border border-success-subtle small"><i class="bi bi-check2-circle me-1"></i>Verified Member</span>
           </div>
 
           <div class="row g-3">
             <div class="col-md-6">
               <label class="form-label">Full Name *</label>
-              <input type="text" name="name" class="form-control" required value="<?= e(old('name', $customer['name'] ?? '')) ?>">
+              <input type="text" name="name" id="inputName" class="form-control" required value="<?= e(old('name', $customer['name'] ?? '')) ?>">
             </div>
             <div class="col-md-6">
               <label class="form-label">Email Address *</label>
-              <input type="email" name="email" class="form-control" required value="<?= e(old('email', $customer['email'] ?? '')) ?>">
+              <input type="email" name="email" id="inputEmail" class="form-control" required value="<?= e(old('email', $customer['email'] ?? '')) ?>">
             </div>
             <div class="col-12">
               <label class="form-label">Mobile Number (for delivery updates & technician call) *</label>
-              <input type="tel" name="phone" class="form-control" placeholder="10-digit mobile number" required value="<?= e(old('phone', $customer['phone'] ?? '')) ?>">
+              <input type="tel" name="phone" id="inputPhone" class="form-control" placeholder="10-digit mobile number" required value="<?= e(old('phone', $customer['phone'] ?? '')) ?>">
             </div>
           </div>
         </div>
 
-        <!-- Shipping Address -->
+        <!-- 2. Shipping Address -->
         <div class="card border rounded-3 p-4 shadow-sm mb-4">
-          <h5 class="fw-bold mb-3 border-bottom pb-2"><i class="bi bi-truck me-2 text-primary"></i>2. Shipping Address</h5>
+          <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+            <h5 class="fw-bold m-0"><i class="bi bi-truck me-2 text-primary"></i>2. Shipping Address</h5>
+            <?php if (!empty($savedAddresses)): ?>
+              <small class="text-muted"><i class="bi bi-geo-alt-fill text-primary me-1"></i>Saved address loaded</small>
+            <?php endif; ?>
+          </div>
+
+          <?php if (!empty($savedAddresses) && count($savedAddresses) > 1): ?>
+            <!-- Address Quick Selector for Customers with Multiple Addresses -->
+            <div class="mb-3 p-3 bg-light rounded border">
+              <span class="small fw-bold text-dark d-block mb-2">Choose Saved Delivery Address:</span>
+              <div class="d-flex flex-wrap gap-2">
+                <?php foreach ($savedAddresses as $aIdx => $addr): ?>
+                  <button type="button" class="btn btn-sm btn-outline-secondary bg-white text-start shadow-none" onclick="applySavedAddress(<?= htmlspecialchars(json_encode($addr), ENT_QUOTES) ?>)">
+                    <i class="bi bi-geo-alt me-1 text-primary"></i> <strong><?= e($addr['city']) ?></strong>: <?= e($addr['street']) ?> (<?= e($addr['pincode']) ?>)
+                  </button>
+                <?php endforeach; ?>
+              </div>
+            </div>
+          <?php endif; ?>
 
           <div class="row g-3">
             <div class="col-12">
               <label class="form-label">Door / Flat No., Building, Street Address *</label>
-              <input type="text" name="address" class="form-control" placeholder="e.g. Flat 402, Royal Palms, MG Road" required value="<?= e(old('address', $customer['addresses'][0]['street'] ?? '')) ?>">
+              <input type="text" name="address" id="inputAddress" class="form-control" placeholder="e.g. Flat 402, Royal Palms, MG Road" required value="<?= e(old('address', $primaryAddress['street'] ?? '')) ?>">
             </div>
             <div class="col-md-4">
               <label class="form-label">City *</label>
-              <input type="text" name="city" class="form-control" required value="<?= e(old('city', $customer['addresses'][0]['city'] ?? '')) ?>">
+              <input type="text" name="city" id="inputCity" class="form-control" required value="<?= e(old('city', $primaryAddress['city'] ?? '')) ?>">
             </div>
             <div class="col-md-4">
               <label class="form-label">State *</label>
-              <input type="text" name="state" class="form-control" required value="<?= e(old('state', $customer['addresses'][0]['state'] ?? '')) ?>">
+              <input type="text" name="state" id="inputState" class="form-control" required value="<?= e(old('state', $primaryAddress['state'] ?? '')) ?>">
             </div>
             <div class="col-md-4">
               <label class="form-label">PIN Code *</label>
-              <input type="text" name="pincode" class="form-control" maxlength="6" required value="<?= e(old('pincode', $customer['addresses'][0]['pincode'] ?? '')) ?>">
+              <input type="text" name="pincode" id="inputPincode" class="form-control" maxlength="6" required value="<?= e(old('pincode', $primaryAddress['pincode'] ?? '')) ?>">
             </div>
           </div>
 
@@ -108,7 +160,7 @@ $old = old('');
           </div>
         </div>
 
-        <!-- Payment Method -->
+        <!-- 3. Payment Method -->
         <div class="card border rounded-3 p-4 shadow-sm mb-4">
           <h5 class="fw-bold mb-3 border-bottom pb-2"><i class="bi bi-credit-card me-2 text-primary"></i>3. Select Payment Method</h5>
 
@@ -200,3 +252,12 @@ $old = old('');
   </form>
 </div>
 
+<script>
+function applySavedAddress(addr) {
+  if (!addr) return;
+  if (addr.street) document.getElementById('inputAddress').value = addr.street;
+  if (addr.city) document.getElementById('inputCity').value = addr.city;
+  if (addr.state) document.getElementById('inputState').value = addr.state;
+  if (addr.pincode) document.getElementById('inputPincode').value = addr.pincode;
+}
+</script>

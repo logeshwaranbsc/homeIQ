@@ -8,14 +8,16 @@ $currentPath = $req->getPath();
 $admin = auth_admin();
 $role = $admin['role'] ?? 'Super Admin';
 
-function isActiveAdmin(string $path, string $currentPath): string {
-    return str_starts_with($currentPath, $path) ? 'active' : '';
+if (!function_exists('isActiveAdmin')) {
+    function isActiveAdmin(string $path, string $currentPath): string {
+        return str_starts_with($currentPath, $path) ? 'active' : '';
+    }
 }
 ?>
 <aside class="admin-sidebar">
   <div class="sidebar-header">
     <a href="<?= url('admin/dashboard') ?>" class="sidebar-brand">
-      <i class="bi bi-shield-lock-fill text-info me-2"></i>HOMEIQ
+      <i class="bi bi-shield-lock-fill brand-icon me-2"></i>HOMEIQ
     </a>
     <span class="sidebar-badge"><?= e($role) ?></span>
   </div>

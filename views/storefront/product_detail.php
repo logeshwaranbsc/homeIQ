@@ -37,16 +37,29 @@ $breadcrumbs = [
       </div>
 
       <div class="thumbnail-row">
-        <div class="thumbnail-item active" data-img-src="<?= upload_url($product['main_image'] ?? '') ?>">
-          <img src="<?= upload_url($product['main_image'] ?? '') ?>" alt="Primary view">
-        </div>
-        <!-- Thumbnail variant previews -->
-        <div class="thumbnail-item" data-img-src="<?= upload_url('products/homeiq-ai-face-lock.svg') ?>">
-          <img src="<?= upload_url('products/homeiq-ai-face-lock.svg') ?>" alt="Chassis Profile">
-        </div>
-        <div class="thumbnail-item" data-img-src="<?= upload_url('products/mortise-lock.svg') ?>">
-          <img src="<?= upload_url('products/mortise-lock.svg') ?>" alt="Mortise Detail">
-        </div>
+        <?php if (!empty($product['main_image'])): ?>
+          <div class="thumbnail-item active" data-img-src="<?= upload_url($product['main_image']) ?>">
+            <img src="<?= upload_url($product['main_image']) ?>" alt="Primary view">
+          </div>
+        <?php endif; ?>
+
+        <?php if (!empty($product['gallery_images']) && is_array($product['gallery_images'])): ?>
+          <?php foreach ($product['gallery_images'] as $idx => $gImg): ?>
+            <?php if (!empty($gImg)): ?>
+              <div class="thumbnail-item <?= (empty($product['main_image']) && $idx === 0) ? 'active' : '' ?>" data-img-src="<?= upload_url($gImg) ?>">
+                <img src="<?= upload_url($gImg) ?>" alt="<?= e($product['name']) ?> view <?= $idx + 2 ?>">
+              </div>
+            <?php endif; ?>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <!-- Thumbnail variant previews -->
+          <div class="thumbnail-item" data-img-src="<?= upload_url('products/homeiq-ai-face-lock.svg') ?>">
+            <img src="<?= upload_url('products/homeiq-ai-face-lock.svg') ?>" alt="Chassis Profile">
+          </div>
+          <div class="thumbnail-item" data-img-src="<?= upload_url('products/mortise-lock.svg') ?>">
+            <img src="<?= upload_url('products/mortise-lock.svg') ?>" alt="Mortise Detail">
+          </div>
+        <?php endif; ?>
       </div>
     </div>
 

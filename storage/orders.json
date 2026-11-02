@@ -41,7 +41,7 @@
         "payment_method": "online",
         "payment_status": "Pending",
         "payment_reference": "SIM-PAY-C8E77463",
-        "status": "Processing",
+        "status": "Cancelled",
         "tracking": {
             "courier_name": null,
             "tracking_number": null,
@@ -68,10 +68,382 @@
                 "timestamp": "2026-10-29 17:29:28",
                 "note": "Status updated from Confirmed to Processing",
                 "by": "Super Administrator"
+            },
+            {
+                "status": "Cancelled",
+                "timestamp": "2026-11-02 15:26:08",
+                "note": "Status updated from Processing to Cancelled",
+                "by": "Super Administrator"
             }
         ],
         "id": "ord_19587d586ae3349f",
         "created_at": "2026-10-29 17:27:19",
-        "updated_at": "2026-10-29 17:29:42"
+        "updated_at": "2026-11-02 15:26:08"
+    },
+    {
+        "order_number": "HIQ-20261102-63B4",
+        "customer_id": null,
+        "customer_name": "logeshwaran selvam",
+        "customer_email": "logeshwarans159@gmail.com",
+        "customer_phone": "9342787758",
+        "shipping_address": {
+            "street": "2f,indrakumari street,krishnaveni nagar,medavakkam",
+            "city": "chennai",
+            "state": "Tamil Nadu",
+            "pincode": "600100",
+            "country": "India"
+        },
+        "billing_address": null,
+        "items": [
+            {
+                "product_id": "prod_89fa2d2f6ae32633",
+                "name": "HOMEIQ Encrypted NFC RFID Smart Key Fobs (Pack of 4)",
+                "sku": "HIQ-ACC-FOB-4PK",
+                "price": 799,
+                "quantity": 1,
+                "line_total": 799,
+                "image": "products/accessories-fobs.svg"
+            }
+        ],
+        "subtotal": 799,
+        "discount": 0,
+        "coupon_code": null,
+        "shipping_amount": 250,
+        "total_amount": 1049,
+        "payment_method": "online",
+        "payment_status": "Paid",
+        "payment_reference": "SIM-PAY-0981DF20",
+        "status": "Confirmed",
+        "tracking": {
+            "courier_name": null,
+            "tracking_number": null,
+            "tracking_url": null,
+            "shipped_at": null,
+            "delivered_at": null
+        },
+        "notes": "",
+        "history": [
+            {
+                "status": "Pending",
+                "timestamp": "2026-11-02 15:25:04",
+                "note": "Order placed by customer.",
+                "by": "Customer"
+            },
+            {
+                "status": "Confirmed",
+                "timestamp": "2026-11-02 15:25:04",
+                "note": "Payment verified online.",
+                "by": "Payment Gateway"
+            }
+        ],
+        "id": "ord_315c53336ae85df8",
+        "created_at": "2026-11-02 15:25:04",
+        "updated_at": "2026-11-02 15:25:04"
+    },
+    {
+        "order_number": "HIQ-20261102-9632",
+        "customer_id": null,
+        "customer_name": "logeshwaran selvam",
+        "customer_email": "logeshwarans159@gmail.com",
+        "customer_phone": "9342787758",
+        "shipping_address": {
+            "street": "2f,indrakumari street,krishnaveni nagar,medavakkam",
+            "city": "chennai",
+            "state": "Tamil Nadu",
+            "pincode": "600100",
+            "country": "India"
+        },
+        "billing_address": null,
+        "items": [
+            {
+                "product_id": "prod_bb4515f86ae32633",
+                "name": "HOMEIQ Touch Pro Biometric Fingerprint Smart Lock",
+                "sku": "HIQ-FP-T700-BLK",
+                "price": 14499,
+                "quantity": 1,
+                "line_total": 14499,
+                "image": "products/fingerprint-lock.svg"
+            }
+        ],
+        "subtotal": 14499,
+        "discount": 0,
+        "coupon_code": null,
+        "shipping_amount": 0,
+        "total_amount": 14499,
+        "payment_method": "online",
+        "payment_status": "Paid",
+        "payment_reference": "SIM-PAY-6B0BDC92",
+        "status": "Delivered",
+        "tracking": {
+            "courier_name": null,
+            "tracking_number": null,
+            "tracking_url": null,
+            "shipped_at": null,
+            "delivered_at": null
+        },
+        "notes": "",
+        "history": [
+            {
+                "status": "Pending",
+                "timestamp": "2026-11-02 15:47:12",
+                "note": "Order placed by customer.",
+                "by": "Customer"
+            },
+            {
+                "status": "Confirmed",
+                "timestamp": "2026-11-02 15:47:12",
+                "note": "Payment verified online.",
+                "by": "Payment Gateway"
+            },
+            {
+                "status": "Delivered",
+                "timestamp": "2026-11-02 15:48:10",
+                "note": "Status updated from Confirmed to Delivered",
+                "by": "Super Administrator"
+            }
+        ],
+        "id": "ord_663cebfb6ae86328",
+        "created_at": "2026-11-02 15:47:12",
+        "updated_at": "2026-11-02 15:48:10"
+    },
+    {
+        "order_number": "HIQ-20261102-3F7D",
+        "customer_id": null,
+        "customer_name": "logeshwaran selvam",
+        "customer_email": "logeshwarans159@gmail.com",
+        "customer_phone": "9342787758",
+        "shipping_address": {
+            "street": "2f,indrakumari street,krishnaveni nagar,medavakkam",
+            "city": "chennai",
+            "state": "Tamil Nadu",
+            "pincode": "600100",
+            "country": "India"
+        },
+        "billing_address": null,
+        "items": [
+            {
+                "product_id": "prod_de7637126ae8606e",
+                "name": "HOMEIQ Fingerprint & PIN Digital Smart Door Lock",
+                "sku": "HOMEIQ-FP-PIN-001",
+                "price": 20500,
+                "quantity": 1,
+                "line_total": 20500,
+                "image": "products/687d2d669b12e52c01a6_1793613934.png"
+            }
+        ],
+        "subtotal": 20500,
+        "discount": 0,
+        "coupon_code": null,
+        "shipping_amount": 0,
+        "total_amount": 20500,
+        "payment_method": "online",
+        "payment_status": "Paid",
+        "payment_reference": "SIM-PAY-012495A0",
+        "status": "Confirmed",
+        "tracking": {
+            "courier_name": null,
+            "tracking_number": null,
+            "tracking_url": null,
+            "shipped_at": null,
+            "delivered_at": null
+        },
+        "notes": "",
+        "history": [
+            {
+                "status": "Pending",
+                "timestamp": "2026-11-02 15:52:04",
+                "note": "Order placed by customer.",
+                "by": "Customer"
+            },
+            {
+                "status": "Confirmed",
+                "timestamp": "2026-11-02 15:52:04",
+                "note": "Payment verified online.",
+                "by": "Payment Gateway"
+            }
+        ],
+        "id": "ord_ac423b0a6ae8644c",
+        "created_at": "2026-11-02 15:52:04",
+        "updated_at": "2026-11-02 15:52:04"
+    },
+    {
+        "order_number": "HIQ-20261102-0007",
+        "customer_id": null,
+        "customer_name": "logeshwaran selvam",
+        "customer_email": "logeshwarans159@gmail.com",
+        "customer_phone": "9342787758",
+        "shipping_address": {
+            "street": "2f,indrakumari street,krishnaveni nagar,medavakkam",
+            "city": "chennai",
+            "state": "Tamil Nadu",
+            "pincode": "600100",
+            "country": "India"
+        },
+        "billing_address": null,
+        "items": [
+            {
+                "product_id": "prod_bb4515f86ae32633",
+                "name": "HOMEIQ Touch Pro Biometric Fingerprint Smart Lock",
+                "sku": "HIQ-FP-T700-BLK",
+                "price": 14499,
+                "quantity": 1,
+                "line_total": 14499,
+                "image": "products/fingerprint-lock.svg"
+            }
+        ],
+        "subtotal": 14499,
+        "discount": 0,
+        "coupon_code": null,
+        "shipping_amount": 0,
+        "total_amount": 14499,
+        "payment_method": "online",
+        "payment_status": "Paid",
+        "payment_reference": "SIM-PAY-DAFBE7C3",
+        "status": "Confirmed",
+        "tracking": {
+            "courier_name": null,
+            "tracking_number": null,
+            "tracking_url": null,
+            "shipped_at": null,
+            "delivered_at": null
+        },
+        "notes": "",
+        "history": [
+            {
+                "status": "Pending",
+                "timestamp": "2026-11-02 15:52:55",
+                "note": "Order placed by customer.",
+                "by": "Customer"
+            },
+            {
+                "status": "Confirmed",
+                "timestamp": "2026-11-02 15:52:55",
+                "note": "Payment verified online.",
+                "by": "Payment Gateway"
+            }
+        ],
+        "id": "ord_7df82f0e6ae8647f",
+        "created_at": "2026-11-02 15:52:55",
+        "updated_at": "2026-11-02 15:52:55"
+    },
+    {
+        "order_number": "HIQ-20261102-6582",
+        "customer_id": null,
+        "customer_name": "logeshwaran selvam",
+        "customer_email": "logeshwarans159@gmail.com",
+        "customer_phone": "9342787758",
+        "shipping_address": {
+            "street": "2f,indrakumari street,krishnaveni nagar,medavakkam",
+            "city": "chennai",
+            "state": "Tamil Nadu",
+            "pincode": "600100",
+            "country": "India"
+        },
+        "billing_address": null,
+        "items": [
+            {
+                "product_id": "prod_de7637126ae8606e",
+                "name": "HOMEIQ Fingerprint & PIN Digital Smart Door Lock",
+                "sku": "HOMEIQ-FP-PIN-001",
+                "price": 20500,
+                "quantity": 1,
+                "line_total": 20500,
+                "image": "products/687d2d669b12e52c01a6_1793613934.png"
+            }
+        ],
+        "subtotal": 20500,
+        "discount": 0,
+        "coupon_code": null,
+        "shipping_amount": 0,
+        "total_amount": 20500,
+        "payment_method": "online",
+        "payment_status": "Paid",
+        "payment_reference": "SIM-PAY-C2301439",
+        "status": "Confirmed",
+        "tracking": {
+            "courier_name": null,
+            "tracking_number": null,
+            "tracking_url": null,
+            "shipped_at": null,
+            "delivered_at": null
+        },
+        "notes": "",
+        "history": [
+            {
+                "status": "Pending",
+                "timestamp": "2026-11-02 15:53:32",
+                "note": "Order placed by customer.",
+                "by": "Customer"
+            },
+            {
+                "status": "Confirmed",
+                "timestamp": "2026-11-02 15:53:32",
+                "note": "Payment verified online.",
+                "by": "Payment Gateway"
+            }
+        ],
+        "id": "ord_2b0cadd86ae864a4",
+        "created_at": "2026-11-02 15:53:32",
+        "updated_at": "2026-11-02 15:53:32"
+    },
+    {
+        "order_number": "HIQ-20261102-B5E3",
+        "customer_id": "cust_257d6b356ae865f7",
+        "customer_name": "logeshwaran selvam",
+        "customer_email": "logeshwarans159@gmail.com",
+        "customer_phone": "9342787758",
+        "shipping_address": {
+            "street": "2f,indrakumari street,krishnaveni nagar,medavakkam",
+            "city": "chennai",
+            "state": "Tamil Nadu",
+            "pincode": "600100",
+            "country": "India"
+        },
+        "billing_address": null,
+        "items": [
+            {
+                "product_id": "prod_bb4515f86ae32633",
+                "name": "HOMEIQ Touch Pro Biometric Fingerprint Smart Lock",
+                "sku": "HIQ-FP-T700-BLK",
+                "price": 14499,
+                "quantity": 1,
+                "line_total": 14499,
+                "image": "products/fingerprint-lock.svg"
+            }
+        ],
+        "subtotal": 14499,
+        "discount": 0,
+        "coupon_code": null,
+        "shipping_amount": 0,
+        "total_amount": 14499,
+        "payment_method": "online",
+        "payment_status": "Paid",
+        "payment_reference": "SIM-PAY-C251A6ED",
+        "status": "Confirmed",
+        "tracking": {
+            "courier_name": null,
+            "tracking_number": null,
+            "tracking_url": null,
+            "shipped_at": null,
+            "delivered_at": null
+        },
+        "notes": "",
+        "history": [
+            {
+                "status": "Pending",
+                "timestamp": "2026-11-02 15:59:36",
+                "note": "Order placed by customer.",
+                "by": "Customer"
+            },
+            {
+                "status": "Confirmed",
+                "timestamp": "2026-11-02 15:59:36",
+                "note": "Payment verified online.",
+                "by": "Payment Gateway"
+            }
+        ],
+        "id": "ord_64b497296ae86610",
+        "created_at": "2026-11-02 15:59:36",
+        "updated_at": "2026-11-02 15:59:36"
     }
 ]

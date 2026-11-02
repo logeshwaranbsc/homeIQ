@@ -98,9 +98,25 @@ class Request
 
     public function file(string $key): ?array
     {
-        if (!isset($this->files[$key]) || empty($this->files[$key]['name'])) {
+        if (!isset($this->files[$key])) {
             return null;
         }
+
+        if (is_array($this->files[$key]['name'])) {
+            $hasFiles = false;
+            foreach ($this->files[$key]['name'] as $idx => $name) {
+                if (!empty($name) && ($this->files[$key]['error'][$idx] ?? 4) !== UPLOAD_ERR_NO_FILE) {
+                    $hasFiles = true;
+                    break;
+                }
+            }
+            return $hasFiles ? $this->files[$key] : null;
+        }
+
+        if (empty($this->files[$key]['name']) || ($this->files[$key]['error'] ?? 0) === UPLOAD_ERR_NO_FILE) {
+            return null;
+        }
+
         return $this->files[$key];
     }
 
