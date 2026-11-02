@@ -1,0 +1,44 @@
+[
+    {
+        "headline": "Advanced Security. Elegant Design.",
+        "subheading": "Give your home the smart upgrade it deserves.",
+        "supporting_text": "Starts from ₹9,499 | Free Installation | Technical Support | Warranty Protection",
+        "offer_badge": "STARTS FROM ₹9,499",
+        "cta_label": "SHOP SMART LOCKS",
+        "cta_url": "shop",
+        "display_order": 1,
+        "is_active": true,
+        "image": "banners/hero-banner-1.svg",
+        "id": "bnr_a0f196806ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 16:25:47"
+    },
+    {
+        "headline": "Built for Security. Designed for Peace.",
+        "subheading": "Discover premium smart locks at special prices.",
+        "supporting_text": "Biometric precision meets architectural elegance.",
+        "offer_badge": "UP TO 40% OFF",
+        "cta_label": "SHOP NOW",
+        "cta_url": "shop",
+        "display_order": 2,
+        "is_active": true,
+        "image": "banners/hero-banner-2.svg",
+        "id": "bnr_0deabe3f6ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 16:25:47"
+    },
+    {
+        "headline": "Your Smart Home Upgrade Starts Here.",
+        "subheading": "Exclusive deals on HOMEIQ smart locks.",
+        "supporting_text": "Free express shipping and nationwide door installation support.",
+        "offer_badge": "FREE SHIPPING",
+        "cta_label": "SHOP NOW",
+        "cta_url": "shop",
+        "display_order": 4,
+        "is_active": true,
+        "image": "banners/hero-banner-4.svg",
+        "id": "bnr_ddb4874f6ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 16:25:47"
+    }
+]

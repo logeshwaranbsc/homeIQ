@@ -1,0 +1,13 @@
+[
+    {
+        "name": "Super Administrator",
+        "username": "admin",
+        "email": "admin@homeiq.com",
+        "role": "Super Admin",
+        "password_hash": "$2y$12$j0qQ.ufOwYxeq0K9zcvFw.W4QJA9gGM6gNflbfLSTNbJsCSj69kuO",
+        "is_active": true,
+        "id": "adm_775880486ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 16:25:47"
+    }
+]

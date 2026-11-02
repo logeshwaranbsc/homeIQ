@@ -1,0 +1,508 @@
+[
+    {
+        "name": "HOMEIQ Black AI Face Recognition Smart Door Lock",
+        "slug": "homeiq-black-ai-face-recognition-smart-door-lock",
+        "sku": "HIQ-AI-F900-BLK",
+        "category": "AI Face Recognition Smart Locks",
+        "category_slug": "ai-face-recognition-smart-locks",
+        "price": 24999,
+        "sale_price": 19999,
+        "stock": 4,
+        "color": "Black",
+        "lock_type": "Mortise Lock",
+        "dimensions": "40 × 17 × 9 cm",
+        "weight": "1.5 kg",
+        "warranty": "2-Year Official Manufacturer Warranty",
+        "installation": "Free Professional Door Installation Included",
+        "is_featured": true,
+        "is_active": true,
+        "rating": 4.8,
+        "reviews_count": 0,
+        "main_image": "products/homeiq-ai-face-lock.svg",
+        "short_description": "HOMEIQ Black AI Smart Door Lock — 9-in-1 keyless smart door lock with AI Face Recognition, Palm Vein, Fingerprint, PIN, RFID Card, Mechanical Key, Temporary Password and Tuya App Remote Access.",
+        "full_description": "Smart Security. Keyless Convenience. Complete Access Control.\r\n\r\nThe HOMEIQ Black Smart Door Lock is a premium biometric digital door lock designed for modern homes, apartments, villas, offices and rental properties.\r\n\r\nWith 9-in-1 keyless access, users can unlock their doors using AI Face Recognition, Palm Vein Recognition, Fingerprint, PIN Password, RFID Card, Mechanical Key, Temporary Password, Tuya App Remote Access or Combination Unlock.\r\n\r\nIts biometric access methods, smart app control, automatic locking, access history and security alerts provide a convenient and connected door security experience.",
+        "features": [
+            "AI Face Recognition with 3D Structured Light",
+            "Palm Vein and Fingerprint Unlock (< 0.5s)",
+            "PIN and RFID Card Access",
+            "Tuya App Remote Access & History Log",
+            "Temporary & One-Time Password Support",
+            "HD Camera and Two-Way Video Calling",
+            "Automatic Locking and Tamper Alerts",
+            "Rechargeable Battery with Emergency USB-C Charging",
+            "Premium Black Metal Aerospace Alloy Finish"
+        ],
+        "whats_included": [
+            "Front and Back Lock Body",
+            "6068 Stainless Steel Security Mortise",
+            "High-Capacity Rechargeable Lithium Battery",
+            "2x Encrypted RFID Smart Cards",
+            "2x Mechanical Emergency Keys",
+            "Installation Template & Heavy-Duty Screw Pack",
+            "User Guide & Quick Setup Manual"
+        ],
+        "access_methods": [
+            "AI Face Recognition",
+            "Palm Vein Recognition",
+            "Semiconductor Fingerprint",
+            "Anti-Peep PIN Code",
+            "RFID Smart Card",
+            "Mechanical Key",
+            "Mobile App Remote Access",
+            "One-Time Temporary Password",
+            "Dual-Authentication Combination Unlock"
+        ],
+        "connectivity": [
+            "Wi-Fi (2.4 GHz)",
+            "Bluetooth 5.0",
+            "Tuya Smart Ecosystem"
+        ],
+        "specifications": {
+            "Brand": "HOMEIQ",
+            "Lock Type": "Mortise Lock",
+            "Chassis Material": "Aviation Zinc Alloy & Tempered Glass",
+            "Colour": "Obsidian Black",
+            "Access Methods": "9-in-1 Keyless Access",
+            "Fingerprint Sensor": "Semiconductor 3D Live Recognition",
+            "Recognition Speed": "< 0.5 seconds",
+            "App Support": "Tuya Smart App (iOS & Android)",
+            "Battery": "Rechargeable 4200mAh Lithium-ion",
+            "Emergency Power": "USB-C External Port",
+            "Door Thickness Suitability": "35mm - 90mm",
+            "Dimensions": "40 × 17 × 9 cm",
+            "Weight": "1.5 kg"
+        },
+        "id": "prod_531f9c426ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 19:13:26"
+    },
+    {
+        "name": "HOMEIQ Touch Pro Biometric Fingerprint Smart Lock",
+        "slug": "homeiq-touch-pro-biometric-fingerprint-smart-lock",
+        "sku": "HIQ-FP-T700-BLK",
+        "category": "Fingerprint Smart Locks",
+        "category_slug": "fingerprint-smart-locks",
+        "price": 18999,
+        "sale_price": 14499,
+        "stock": 28,
+        "color": "Space Grey",
+        "lock_type": "Mortise Lock",
+        "dimensions": "38 × 15 × 8 cm",
+        "weight": "1.4 kg",
+        "warranty": "2-Year Official Manufacturer Warranty",
+        "installation": "Free Professional Installation",
+        "is_featured": true,
+        "is_active": true,
+        "rating": 4.9,
+        "reviews_count": 118,
+        "main_image": "products/fingerprint-lock.svg",
+        "short_description": "Fast touch fingerprint digital door lock with integrated semiconductor scanner on handle and 100-fingerprint storage.",
+        "full_description": "Unlock in one natural fluid motion. The handle-integrated semiconductor fingerprint sensor scans your biometric profile in under 0.4 seconds as you grip the handle.",
+        "features": [
+            "Semiconductor Fingerprint on Handle",
+            "Anti-Peep Virtual Password Security",
+            "Auto-Locking Mechanism with Sensor Bolt",
+            "Up to 100 User Fingerprints Storage",
+            "Emergency Mechanical Key Override"
+        ],
+        "whats_included": [
+            "Front & Rear Panels",
+            "Mortise Lock Body",
+            "4x AA Alkaline Batteries",
+            "2x Physical Keys",
+            "Fitting Kit"
+        ],
+        "access_methods": [
+            "Fingerprint",
+            "PIN Password",
+            "RFID Card",
+            "Mechanical Key"
+        ],
+        "connectivity": [
+            "Bluetooth BLE",
+            "Tuya Smart App"
+        ],
+        "specifications": {
+            "Brand": "HOMEIQ",
+            "Finish": "Matte Gunmetal / Space Grey",
+            "Fingerprint Capacity": "100 Biometric Profiles",
+            "Battery": "4x AA Standard Alkaline (12-Month Life)",
+            "Door Compatibility": "Wooden, Flush & Metal Doors (38-75mm)"
+        },
+        "id": "prod_bb4515f86ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 16:25:47"
+    },
+    {
+        "name": "HOMEIQ VeinGuard Contactless Palm Vein Smart Lock",
+        "slug": "homeiq-veinguard-contactless-palm-vein-smart-lock",
+        "sku": "HIQ-PV-V800-TIT",
+        "category": "Palm Vein Recognition Smart Locks",
+        "category_slug": "palm-vein-recognition-smart-locks",
+        "price": 28999,
+        "sale_price": 22999,
+        "stock": 19,
+        "color": "Titanium Grey",
+        "lock_type": "Push-Pull Mortise",
+        "dimensions": "42 × 18 × 9 cm",
+        "weight": "1.8 kg",
+        "warranty": "3-Year Premium Warranty",
+        "installation": "Free Professional Installation",
+        "is_featured": true,
+        "is_active": true,
+        "rating": 5,
+        "reviews_count": 64,
+        "main_image": "products/palm-vein-lock.svg",
+        "short_description": "Ultra-secure near-infrared biometric palm vein sensor that cannot be spoofed, duplicated, or smudged.",
+        "full_description": "Near-infrared light detects the unique deoxidized hemoglobin flow inside your palm veins. Completely hygienic, contactless, and unaffected by worn fingerprints or wet hands.",
+        "features": [
+            "Contactless Palm Vein Vascular Recognition",
+            "Impossible to Replicate or Spoof Biometrics",
+            "Integrated Push-Pull Automatic Deadbolt",
+            "Tuya Remote Authorization",
+            "Dual Verification Mode"
+        ],
+        "whats_included": [
+            "VeinGuard Exterior & Interior Lock",
+            "Multi-Latch Mortise",
+            "Rechargeable 5000mAh Battery",
+            "2x Backup Keys",
+            "Cutout Template"
+        ],
+        "access_methods": [
+            "Palm Vein",
+            "Fingerprint",
+            "PIN Password",
+            "RFID Card",
+            "Tuya App",
+            "Mechanical Key"
+        ],
+        "connectivity": [
+            "Wi-Fi 2.4GHz",
+            "Tuya Smart App"
+        ],
+        "specifications": {
+            "Brand": "HOMEIQ",
+            "Biometric Technology": "Subcutaneous Palm Vein Infrared Scan",
+            "False Acceptance Rate": "< 0.00001%",
+            "Battery Life": "Approx. 8-10 Months per Charge"
+        },
+        "id": "prod_bbca60db6ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 16:25:47"
+    },
+    {
+        "name": "HOMEIQ Connect Wi-Fi Smart Deadbolt Lock",
+        "slug": "homeiq-connect-wifi-smart-deadbolt-lock",
+        "sku": "HIQ-WF-D300-BLK",
+        "category": "Wi-Fi and App-Controlled Smart Locks",
+        "category_slug": "wifi-and-app-controlled-smart-locks",
+        "price": 15999,
+        "sale_price": 11999,
+        "stock": 35,
+        "color": "Black",
+        "lock_type": "Deadbolt",
+        "dimensions": "25 × 12 × 7 cm",
+        "weight": "1.1 kg",
+        "warranty": "2-Year Official Manufacturer Warranty",
+        "installation": "Free Professional Installation",
+        "is_featured": false,
+        "is_active": true,
+        "rating": 4.7,
+        "reviews_count": 86,
+        "main_image": "products/wifi-smart-lock.svg",
+        "short_description": "Direct Wi-Fi connected smart deadbolt with built-in Tuya remote access, access logs, and one-time visitor passwords.",
+        "full_description": "Retrofits cleanly onto standard deadbolt-prepped residential doors. Directly connects to your home Wi-Fi network without requiring any third-party bridge or hub.",
+        "features": [
+            "Direct Wi-Fi Connection (No Hub Required)",
+            "Real-Time Smartphone Entry Notifications",
+            "Timed One-Time Passwords for Guests & Cleaners",
+            "Low Battery Warning via App & Beep Alert"
+        ],
+        "whats_included": [
+            "Smart Deadbolt Escutcheon",
+            "Adjustable 60/70mm Backset Deadbolt",
+            "Strike Plate",
+            "4x AA Batteries",
+            "2x Keys"
+        ],
+        "access_methods": [
+            "Tuya App",
+            "PIN Password",
+            "Fingerprint",
+            "Mechanical Key"
+        ],
+        "connectivity": [
+            "Direct Wi-Fi 2.4GHz",
+            "Tuya Smart"
+        ],
+        "specifications": {
+            "Brand": "HOMEIQ",
+            "Standard Backset": "Adjustable 60mm or 70mm",
+            "Connectivity": "Built-in Wi-Fi 802.11 b/g/n"
+        },
+        "id": "prod_3064aac36ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 16:25:47"
+    },
+    {
+        "name": "HOMEIQ Keyless PIN & RFID Commercial Door Lock",
+        "slug": "homeiq-keyless-pin-rfid-commercial-door-lock",
+        "sku": "HIQ-CR-P400-SIL",
+        "category": "PIN and RFID Digital Locks",
+        "category_slug": "pin-and-rfid-digital-locks",
+        "price": 12999,
+        "sale_price": 9499,
+        "stock": 48,
+        "color": "Satin Silver",
+        "lock_type": "Mortise Lock",
+        "dimensions": "32 × 14 × 7 cm",
+        "weight": "1.3 kg",
+        "warranty": "2-Year Official Warranty",
+        "installation": "Free Professional Installation",
+        "is_featured": false,
+        "is_active": true,
+        "rating": 4.6,
+        "reviews_count": 52,
+        "main_image": "products/pin-rfid-lock.svg",
+        "short_description": "Heavy-duty digital keypad lock with encrypted RFID card access designed for Airbnb, co-working, and residential rentals.",
+        "full_description": "Simple, dependable security. Features anti-peeping scramble keypad code entry so observers cannot decipher your passcode.",
+        "features": [
+            "Anti-Peep Scramble Code Technology",
+            "13.56MHz High-Security RFID Cards",
+            "Passage Mode for High-Traffic Office Hours",
+            "IP54 Weather Resistant External Escutcheon"
+        ],
+        "whats_included": [
+            "Digital Keypad Handle Lock",
+            "Mortise",
+            "4x Encrypted RFID Cards",
+            "2x Computer Keys",
+            "Mounting Hardware"
+        ],
+        "access_methods": [
+            "PIN Password",
+            "RFID Card",
+            "Mechanical Key"
+        ],
+        "connectivity": [
+            "Standalone Keyless"
+        ],
+        "specifications": {
+            "Brand": "HOMEIQ",
+            "RFID Frequency": "13.56MHz Mifare Classic Encrypted",
+            "Water Resistance": "IP54 Rated External Unit"
+        },
+        "id": "prod_3f3d93cf6ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 17:27:19"
+    },
+    {
+        "name": "HOMEIQ Vision 2K Video Doorbell Smart Lock",
+        "slug": "homeiq-vision-2k-video-doorbell-smart-lock",
+        "sku": "HIQ-VD-V950-BLK",
+        "category": "Video Door Smart Locks",
+        "category_slug": "video-door-smart-locks",
+        "price": 27499,
+        "sale_price": 21499,
+        "stock": 14,
+        "color": "Black",
+        "lock_type": "Push-Pull Mortise",
+        "dimensions": "42 × 18 × 9 cm",
+        "weight": "1.9 kg",
+        "warranty": "2-Year Official Warranty",
+        "installation": "Free Professional Installation",
+        "is_featured": true,
+        "is_active": true,
+        "rating": 4.9,
+        "reviews_count": 97,
+        "main_image": "products/video-door-lock.svg",
+        "short_description": "Integrated 2K HD wide-angle camera with two-way audio talk and motion-activated security video doorbell.",
+        "full_description": "Combines a premium automatic deadbolt lock with an ultra-clear 2K smart video doorbell. When visitors ring your bell, receive a live video call directly on your smartphone.",
+        "features": [
+            "2K Ultra HD Camera with 160° Wide Angle",
+            "Two-Way Live Audio Intercom",
+            "PIR Motion Detection Video Recording",
+            "Built-In 4-Inch Interior IPS Color Screen",
+            "Semiconductor Fingerprint & Face Scan"
+        ],
+        "whats_included": [
+            "Vision 2K Smart Lock (Front & Rear with Screen)",
+            "Electronic Mortise",
+            "5000mAh Battery",
+            "2x RFID Cards",
+            "2x Emergency Keys"
+        ],
+        "access_methods": [
+            "Fingerprint",
+            "Face Scan",
+            "PIN Password",
+            "RFID Card",
+            "Tuya App Video Call",
+            "Mechanical Key"
+        ],
+        "connectivity": [
+            "Wi-Fi 2.4GHz",
+            "Tuya Smart / Smart Life"
+        ],
+        "specifications": {
+            "Camera": "2K QHD (2560x1440) Night Vision",
+            "Screen": "4.0-inch Color IPS Display inside",
+            "Storage": "Cloud & MicroSD Slot Support (up to 128GB)"
+        },
+        "id": "prod_ca1280556ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 16:25:47"
+    },
+    {
+        "name": "HOMEIQ Heavy Duty Smart Mortise 6068 Lock",
+        "slug": "homeiq-heavy-duty-smart-mortise-6068-lock",
+        "sku": "HIQ-MT-M600-STL",
+        "category": "Digital Mortise Locks",
+        "category_slug": "digital-mortise-locks",
+        "price": 21999,
+        "sale_price": 16999,
+        "stock": 22,
+        "color": "Brushed Gunmetal",
+        "lock_type": "Mortise Lock",
+        "dimensions": "39 × 16 × 8 cm",
+        "weight": "2.1 kg",
+        "warranty": "3-Year Commercial Warranty",
+        "installation": "Free Professional Installation",
+        "is_featured": false,
+        "is_active": true,
+        "rating": 4.8,
+        "reviews_count": 41,
+        "main_image": "products/mortise-lock.svg",
+        "short_description": "Stainless steel triple deadbolt mortise body engineered for extreme tamper resistance and maximum break-in prevention.",
+        "full_description": "Built with high-tensile 304 stainless steel solid deadbolts that resist sawing, prying, and heavy impact force.",
+        "features": [
+            "304 Stainless Steel Triple Latch Mortise (6068)",
+            "Anti-Tamper Physical Intrusion Alarm",
+            "Biometric Semiconductor Fingerprint Sensor",
+            "Class-C Anti-Drill Key Cylinder"
+        ],
+        "whats_included": [
+            "Heavy Duty Mortise Lockset",
+            "6068 Stainless Steel Mortise",
+            "Hardware Pack",
+            "Batteries",
+            "Keys"
+        ],
+        "access_methods": [
+            "Fingerprint",
+            "PIN Password",
+            "RFID Card",
+            "Mechanical Key"
+        ],
+        "connectivity": [
+            "Bluetooth BLE",
+            "Tuya App"
+        ],
+        "specifications": {
+            "Mortise Standard": "6068 European Mortise Profile",
+            "Deadbolt Strength": "Grade-1 Certified High-Security"
+        },
+        "id": "prod_65cf727d6ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 16:25:47"
+    },
+    {
+        "name": "HOMEIQ High-Capacity Rechargeable Li-Ion Battery Pack",
+        "slug": "homeiq-rechargeable-li-ion-battery-pack-5000mah",
+        "sku": "HIQ-ACC-BAT-5K",
+        "category": "Smart Lock Accessories",
+        "category_slug": "smart-lock-accessories",
+        "price": 1999,
+        "sale_price": 1499,
+        "stock": 75,
+        "color": "Black",
+        "lock_type": "Battery Accessory",
+        "dimensions": "10 × 6 × 2 cm",
+        "weight": "0.2 kg",
+        "warranty": "1-Year Warranty",
+        "installation": "Plug & Play Self-Installation",
+        "is_featured": false,
+        "is_active": true,
+        "rating": 4.9,
+        "reviews_count": 38,
+        "main_image": "products/accessories-battery.svg",
+        "short_description": "Original spare 5000mAh rechargeable lithium battery pack with direct USB-C charging port for HOMEIQ AI & Video locks.",
+        "full_description": "Keep a charged spare ready so your smart lock never runs out of power. Features direct USB-C fast recharging and internal over-voltage protection.",
+        "features": [
+            "5000mAh Real Lithium-Ion Capacity",
+            "Direct USB-C Charging Port with LED Indicator",
+            "Over-charge and Short-Circuit Protection Circuitry",
+            "Compatible with HOMEIQ AI Face & Vision Models"
+        ],
+        "whats_included": [
+            "5000mAh Li-ion Battery Pack",
+            "USB-A to USB-C Charging Cable"
+        ],
+        "access_methods": [
+            "AI Face Recognition",
+            "Palm Vein Recognition",
+            "Semiconductor Fingerprint",
+            "Anti-Peep PIN Code",
+            "RFID Smart Card",
+            "Mechanical Key",
+            "Mobile App Remote Access",
+            "One-Time Temporary Password",
+            "Dual-Authentication Combination Unlock"
+        ],
+        "connectivity": [
+            "Wi-Fi (2.4 GHz)",
+            "Bluetooth 5.0",
+            "Tuya Smart Ecosystem"
+        ],
+        "specifications": {
+            "Capacity": "5000mAh 7.4V",
+            "Charging Port": "USB Type-C (5V/2A)"
+        },
+        "id": "prod_7e8ea7536ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 16:25:47"
+    },
+    {
+        "name": "HOMEIQ Encrypted NFC RFID Smart Key Fobs (Pack of 4)",
+        "slug": "homeiq-encrypted-nfc-rfid-smart-key-fobs-4-pack",
+        "sku": "HIQ-ACC-FOB-4PK",
+        "category": "Smart Lock Accessories",
+        "category_slug": "smart-lock-accessories",
+        "price": 1199,
+        "sale_price": 799,
+        "stock": 120,
+        "color": "Black & Gunmetal",
+        "lock_type": "RFID Accessory",
+        "dimensions": "4 × 3 × 0.5 cm",
+        "weight": "0.05 kg",
+        "warranty": "1-Year Warranty",
+        "installation": "One-Touch Pairing via App/Keypad",
+        "is_featured": false,
+        "is_active": true,
+        "rating": 4.8,
+        "reviews_count": 45,
+        "main_image": "products/accessories-fobs.svg",
+        "short_description": "Compact encrypted high-frequency RFID smart tags suitable for children and elderly family members.",
+        "full_description": "High-security encrypted anti-cloning key fobs. Pair in seconds via your HOMEIQ door lock or app.",
+        "features": [
+            "Military-Grade Rolling Encryption Protocol",
+            "Waterproof & Scratch-Resistant Epoxy Coated",
+            "Convenient Keychain Hole Included"
+        ],
+        "whats_included": [
+            "4x Encrypted RFID Smart Key Fobs"
+        ],
+        "access_methods": [
+            "RFID Card"
+        ],
+        "connectivity": [],
+        "specifications": {
+            "Frequency": "13.56MHz Anti-Cloning Encryption",
+            "Quantity": "4 Units per Pack"
+        },
+        "id": "prod_89fa2d2f6ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 16:25:47"
+    }
+]

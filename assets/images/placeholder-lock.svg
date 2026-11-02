@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#121316"/>
+      <stop offset="50%" stop-color="#1a1c23"/>
+      <stop offset="100%" stop-color="#0c0d10"/>
+    </linearGradient>
+    <linearGradient id="chassisGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1c1d21"/>
+      <stop offset="25%" stop-color="#2a2c33"/>
+      <stop offset="70%" stop-color="#1f2127"/>
+      <stop offset="100%" stop-color="#141518"/>
+    </linearGradient>
+    <linearGradient id="metalBevel" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#606676"/>
+      <stop offset="50%" stop-color="#32353e"/>
+      <stop offset="100%" stop-color="#1a1b20"/>
+    </linearGradient>
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#181a20"/>
+      <stop offset="100%" stop-color="#090a0d"/>
+    </linearGradient>
+    <linearGradient id="accentCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d2ff"/>
+      <stop offset="100%" stop-color="#0077ff"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="25" stdDeviation="35" flood-color="#000000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle architectural background door panel grid -->
+  <rect x="100" y="50" width="600" height="900" rx="8" fill="#14161a" stroke="#242730" stroke-width="1.5"/>
+  <line x1="400" y1="50" x2="400" y2="950" stroke="#1f2229" stroke-width="1"/>
+
+  <!-- Lock Body Shadow -->
+  <g filter="url(#subtleShadow)">
+    <!-- Outer Bevel Rim -->
+    <rect x="290" y="100" width="220" height="800" rx="28" fill="url(#metalBevel)"/>
+    <!-- Lock Main Chassis -->
+    <rect x="294" y="104" width="212" height="792" rx="25" fill="url(#chassisGrad)"/>
+  </g>
+
+  <!-- Front Black Tempered Glass Panel -->
+  <rect x="312" y="125" width="176" height="520" rx="16" fill="url(#glassGrad)" stroke="#2b2e38" stroke-width="1"/>
+
+  <!-- AI Face Recognition Camera & 3D Sensor Pod -->
+  <circle cx="400" cy="180" r="26" fill="#0c0d10" stroke="#2a2d36" stroke-width="2"/>
+  <circle cx="400" cy="180" r="16" fill="#040810" stroke="url(#accentCyan)" stroke-width="1.5"/>
+  <circle cx="400" cy="180" r="6" fill="#00d2ff" filter="url(#glow)"/>
+  <circle cx="398" cy="178" r="2" fill="#ffffff"/>
+  <!-- Infrared 3D Projectors -->
+  <circle cx="348" cy="180" r="4" fill="#323745"/>
+  <circle cx="452" cy="180" r="4" fill="#323745"/>
+  <text x="400" y="222" font-family="'Manrope', sans-serif" font-size="9" fill="#00d2ff" text-anchor="middle" letter-spacing="2">3D AI FACE SCANNER</text>
+
+  <!-- Biometric Palm / Fingerprint Scanner Module -->
+  <circle cx="400" cy="275" r="28" fill="#111317" stroke="url(#accentCyan)" stroke-width="2" filter="url(#glow)"/>
+  <path d="M 388,275 C 388,268 412,268 412,275 C 412,284 394,284 394,290" fill="none" stroke="#00d2ff" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="400" cy="275" r="34" fill="none" stroke="#252a36" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Backlit Digital Keypad Grid -->
+  <g fill="#e2e8f0" font-family="'Inter', sans-serif" font-weight="500" font-size="16" text-anchor="middle">
+    <!-- Row 1 -->
+    <text x="350" y="340">1</text>
+    <text x="400" y="340">2</text>
+    <text x="450" y="340">3</text>
+    <!-- Row 2 -->
+    <text x="350" y="380">4</text>
+    <text x="400" y="380">5</text>
+    <text x="450" y="380">6</text>
+    <!-- Row 3 -->
+    <text x="350" y="420">7</text>
+    <text x="400" y="420">8</text>
+    <text x="450" y="420">9</text>
+    <!-- Row 4 -->
+    <text x="350" y="460" font-size="14">✱</text>
+    <text x="400" y="460">0</text>
+    <text x="450" y="460" font-size="14">#</text>
+  </g>
+
+  <!-- RFID Card Tap Zone Indicator -->
+  <rect x="360" y="490" width="80" height="24" rx="4" fill="#16181f" stroke="#2d313d" stroke-width="1"/>
+  <text x="400" y="506" font-family="'Inter', sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle" letter-spacing="1">CARD</text>
+
+  <!-- HOMEIQ Brand Wordmark -->
+  <text x="400" y="570" font-family="'Manrope', sans-serif" font-weight="800" font-size="18" fill="#f8fafc" text-anchor="middle" letter-spacing="4">HOMEIQ</text>
+  <text x="400" y="586" font-family="'Inter', sans-serif" font-weight="600" font-size="8" fill="#00d2ff" text-anchor="middle" letter-spacing="2">AI SECURITY</text>
+
+  <!-- Push-Pull Ergonomic Solid Metal Handle -->
+  <g filter="url(#subtleShadow)">
+    <rect x="340" y="660" width="120" height="190" rx="14" fill="url(#metalBevel)"/>
+    <rect x="344" y="664" width="112" height="182" rx="12" fill="url(#chassisGrad)"/>
+    <rect x="356" y="675" width="88" height="160" rx="8" fill="#121317"/>
+    <!-- Handle grip texture lines -->
+    <line x1="375" y1="720" x2="425" y2="720" stroke="#2b2e38" stroke-width="2"/>
+    <line x1="375" y1="740" x2="425" y2="740" stroke="#2b2e38" stroke-width="2"/>
+    <line x1="375" y1="760" x2="425" y2="760" stroke="#2b2e38" stroke-width="2"/>
+    <line x1="375" y1="780" x2="425" y2="780" stroke="#2b2e38" stroke-width="2"/>
+  </g>
+
+  <!-- Bottom Emergency USB-C Port & Keyhole Cover -->
+  <circle cx="400" cy="870" r="10" fill="#15171d" stroke="#2c303c" stroke-width="1.5"/>
+  <rect x="394" y="868" width="12" height="4" rx="1.5" fill="#090a0d"/>
+</svg>

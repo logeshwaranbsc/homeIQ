@@ -1,0 +1,26 @@
+[
+    {
+        "code": "WELCOME10",
+        "type": "percentage",
+        "value": 10,
+        "min_order_amount": 10000,
+        "max_discount": 2000,
+        "expires_at": "2027-10-29",
+        "is_active": true,
+        "id": "cpn_c75a634d6ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 16:25:47"
+    },
+    {
+        "code": "HOMEIQ500",
+        "type": "fixed",
+        "value": 500,
+        "min_order_amount": 8000,
+        "max_discount": 500,
+        "expires_at": "2027-10-29",
+        "is_active": true,
+        "id": "cpn_831d5a0f6ae32633",
+        "created_at": "2026-10-29 16:25:47",
+        "updated_at": "2026-10-29 16:25:47"
+    }
+]

@@ -1,0 +1,21 @@
+{
+    "store_name": "HOMEIQ",
+    "tagline": "Advanced Security. Elegant Design.",
+    "support_email": "support@homeiq-security.com",
+    "support_phone": "+91 98765 43210",
+    "address": "HOMEIQ Technologies, 402 Smart Tech Park, Cyber City, Bengaluru 560100",
+    "currency_symbol": "₹",
+    "currency_code": "INR",
+    "free_shipping_min": 5000,
+    "flat_shipping_rate": 250,
+    "enable_cod": true,
+    "announcement_bar_enabled": true,
+    "announcements": [
+        "Free Installation on Eligible Products",
+        "Free Express Shipping on Orders Above ₹5,000",
+        "2-Year Official Manufacturer Warranty Protection",
+        "24/7 Dedicated Smart Security Technical Support"
+    ],
+    "meta_title": "HOMEIQ | Premium Digital Smart Door Locks & Security Hardware",
+    "meta_description": "Explore HOMEIQ biometric digital door locks featuring AI face recognition, fingerprint access, palm vein unlock, Tuya app integration and premium mortise security."
+}
