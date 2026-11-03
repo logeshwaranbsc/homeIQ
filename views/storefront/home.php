@@ -166,37 +166,349 @@ use App\Core\View;
   </div>
 </section>
 
-<!-- Shop by Category -->
-<section class="py-5" style="background-color: #f8fafc;">
-  <div class="container py-4">
-    <div class="d-flex align-items-end justify-content-between mb-4 flex-wrap gap-2">
-      <div>
-        <span class="text-primary fw-bold small text-uppercase letter-spacing-1">Product Scope</span>
-        <h2 class="mb-0 fw-bold">Explore Smart Door Lock Collections</h2>
+<!-- Creative Smart Lock Collections Showcase Section -->
+<?php
+// Function mapping intelligent category metadata, badges, and technology accents
+$getCategoryMeta = function(array $cat, int $index): array {
+    $slug = strtolower((string)($cat['slug'] ?? ''));
+    $name = strtolower((string)($cat['name'] ?? ''));
+
+    // Base default metadata
+    $meta = [
+        'code' => sprintf('SYS // %02d', $index + 1),
+        'icon' => 'bi-shield-lock',
+        'tag' => 'Active Defense',
+        'group' => 'security',
+        'badge' => 'High Security',
+        'chips' => ['Architectural', 'Keyless Access', 'Emergency Key'],
+        'accent' => '#FE6B25',
+        'accent_end' => '#FE4A1F',
+        'glow' => 'rgba(254, 107, 37, 0.25)',
+        'border' => 'rgba(254, 107, 37, 0.4)',
+        'badge_bg' => 'rgba(254, 107, 37, 0.1)',
+        'badge_color' => '#FE6B25',
+        'badge_border' => 'rgba(254, 107, 37, 0.22)',
+        'stage_glow' => 'rgba(254, 107, 37, 0.22)',
+    ];
+
+    if (str_contains($slug, 'face') || str_contains($name, 'face')) {
+        $meta['icon'] = 'bi-person-bounding-box';
+        $meta['tag'] = '3D Infrared Scan';
+        $meta['group'] = 'biometric';
+        $meta['badge'] = 'Flagship 3D AI';
+        $meta['chips'] = ['Hands-Free Unlock', '3D Light Camera', '< 0.4s Instant'];
+        $meta['accent'] = '#FE6B25';
+        $meta['accent_end'] = '#FE4A1F';
+        $meta['glow'] = 'rgba(254, 107, 37, 0.3)';
+        $meta['border'] = 'rgba(254, 107, 37, 0.45)';
+        $meta['badge_bg'] = 'rgba(254, 107, 37, 0.12)';
+        $meta['badge_color'] = '#FE6B25';
+        $meta['badge_border'] = 'rgba(254, 107, 37, 0.25)';
+        $meta['stage_glow'] = 'rgba(254, 107, 37, 0.25)';
+    } elseif (str_contains($slug, 'fingerprint') || str_contains($name, 'fingerprint')) {
+        $meta['icon'] = 'bi-fingerprint';
+        $meta['tag'] = 'Biometric Touch';
+        $meta['group'] = 'biometric';
+        $meta['badge'] = '0.3s Sub-Second';
+        $meta['chips'] = ['Handle Sensor', '100 Fingerprints', 'Semiconductor'];
+        $meta['accent'] = '#10B981';
+        $meta['accent_end'] = '#059669';
+        $meta['glow'] = 'rgba(16, 185, 129, 0.3)';
+        $meta['border'] = 'rgba(16, 185, 129, 0.45)';
+        $meta['badge_bg'] = 'rgba(16, 185, 129, 0.12)';
+        $meta['badge_color'] = '#059669';
+        $meta['badge_border'] = 'rgba(16, 185, 129, 0.25)';
+        $meta['stage_glow'] = 'rgba(16, 185, 129, 0.25)';
+    } elseif (str_contains($slug, 'vein') || str_contains($name, 'vein')) {
+        $meta['icon'] = 'bi-hand-index-thumb';
+        $meta['tag'] = 'Vascular IR';
+        $meta['group'] = 'biometric';
+        $meta['badge'] = 'Military-Grade';
+        $meta['chips'] = ['Contactless Palm', 'Zero Duplication', 'Subcutaneous IR'];
+        $meta['accent'] = '#8B5CF6';
+        $meta['accent_end'] = '#6D28D9';
+        $meta['glow'] = 'rgba(139, 92, 246, 0.3)';
+        $meta['border'] = 'rgba(139, 92, 246, 0.45)';
+        $meta['badge_bg'] = 'rgba(139, 92, 246, 0.12)';
+        $meta['badge_color'] = '#7C3AED';
+        $meta['badge_border'] = 'rgba(139, 92, 246, 0.25)';
+        $meta['stage_glow'] = 'rgba(139, 92, 246, 0.25)';
+    } elseif (str_contains($slug, 'wifi') || str_contains($name, 'wifi') || str_contains($slug, 'app') || str_contains($name, 'app')) {
+        $meta['icon'] = 'bi-wifi';
+        $meta['tag'] = 'Tuya Smart IoT';
+        $meta['group'] = 'connected';
+        $meta['badge'] = 'Real-Time App';
+        $meta['chips'] = ['Remote One-Time OTP', 'Access Logs', 'Smart Life Sync'];
+        $meta['accent'] = '#0284C7';
+        $meta['accent_end'] = '#0369A1';
+        $meta['glow'] = 'rgba(2, 132, 199, 0.3)';
+        $meta['border'] = 'rgba(2, 132, 199, 0.45)';
+        $meta['badge_bg'] = 'rgba(2, 132, 199, 0.12)';
+        $meta['badge_color'] = '#0284C7';
+        $meta['badge_border'] = 'rgba(2, 132, 199, 0.25)';
+        $meta['stage_glow'] = 'rgba(2, 132, 199, 0.25)';
+    } elseif (str_contains($slug, 'video') || str_contains($name, 'video') || str_contains($slug, 'camera') || str_contains($name, 'camera')) {
+        $meta['icon'] = 'bi-camera-video';
+        $meta['tag'] = 'Visual Intercom';
+        $meta['group'] = 'connected';
+        $meta['badge'] = '1080p HD Video';
+        $meta['chips'] = ['Two-Way Audio', 'IR Night Vision', 'Instant Doorbell'];
+        $meta['accent'] = '#E11D48';
+        $meta['accent_end'] = '#BE123C';
+        $meta['glow'] = 'rgba(225, 29, 72, 0.3)';
+        $meta['border'] = 'rgba(225, 29, 72, 0.45)';
+        $meta['badge_bg'] = 'rgba(225, 29, 72, 0.12)';
+        $meta['badge_color'] = '#E11D48';
+        $meta['badge_border'] = 'rgba(225, 29, 72, 0.25)';
+        $meta['stage_glow'] = 'rgba(225, 29, 72, 0.25)';
+    } elseif (str_contains($slug, 'pin') || str_contains($slug, 'rfid') || str_contains($name, 'pin') || str_contains($name, 'rfid')) {
+        $meta['icon'] = 'bi-keypad';
+        $meta['tag'] = 'Digital Access';
+        $meta['group'] = 'security';
+        $meta['badge'] = 'Anti-Peep PIN';
+        $meta['chips'] = ['Virtual Scramble', 'Encrypted Smart RFID', 'Backlit Touch'];
+        $meta['accent'] = '#D97706';
+        $meta['accent_end'] = '#B45309';
+        $meta['glow'] = 'rgba(217, 119, 6, 0.3)';
+        $meta['border'] = 'rgba(217, 119, 6, 0.45)';
+        $meta['badge_bg'] = 'rgba(217, 119, 6, 0.12)';
+        $meta['badge_color'] = '#D97706';
+        $meta['badge_border'] = 'rgba(217, 119, 6, 0.25)';
+        $meta['stage_glow'] = 'rgba(217, 119, 6, 0.25)';
+    } elseif (str_contains($slug, 'mortise') || str_contains($name, 'mortise')) {
+        $meta['icon'] = 'bi-safe2';
+        $meta['tag'] = 'Heavy Mortise';
+        $meta['group'] = 'security';
+        $meta['badge'] = '304 Stainless';
+        $meta['chips'] = ['Multi-Point Deadbolt', 'Anti-Pry Mortise', 'Main Door Armor'];
+        $meta['accent'] = '#475569';
+        $meta['accent_end'] = '#334155';
+        $meta['glow'] = 'rgba(71, 85, 105, 0.3)';
+        $meta['border'] = 'rgba(71, 85, 105, 0.45)';
+        $meta['badge_bg'] = 'rgba(71, 85, 105, 0.12)';
+        $meta['badge_color'] = '#334155';
+        $meta['badge_border'] = 'rgba(71, 85, 105, 0.25)';
+        $meta['stage_glow'] = 'rgba(71, 85, 105, 0.25)';
+    } elseif (str_contains($slug, 'accessories') || str_contains($name, 'accessories')) {
+        $meta['icon'] = 'bi-plug';
+        $meta['tag'] = 'Power & Parts';
+        $meta['group'] = 'security';
+        $meta['badge'] = 'OEM Hardware';
+        $meta['chips'] = ['Lithium Battery', 'Gateway Hubs', 'RFID Key Fobs'];
+        $meta['accent'] = '#0D9488';
+        $meta['accent_end'] = '#0F766E';
+        $meta['glow'] = 'rgba(13, 148, 136, 0.3)';
+        $meta['border'] = 'rgba(13, 148, 136, 0.45)';
+        $meta['badge_bg'] = 'rgba(13, 148, 136, 0.12)';
+        $meta['badge_color'] = '#0F766E';
+        $meta['badge_border'] = 'rgba(13, 148, 136, 0.25)';
+        $meta['stage_glow'] = 'rgba(13, 148, 136, 0.25)';
+    }
+
+    return $meta;
+};
+?>
+<section class="hiq-collections-section">
+  <div class="container position-relative" style="z-index: 2;">
+    <!-- Section Header -->
+    <div class="row align-items-end justify-content-between mb-2 g-3">
+      <div class="col-lg-8">
+        <span class="cat-sec-badge">
+          <span class="cat-pulse-dot"></span> Architectural Access Systems
+        </span>
+        <h2 class="cat-sec-title">
+          Explore Smart Door <span class="hiq-accent-gradient">Lock Collections</span>
+        </h2>
+        <p class="cat-sec-subtitle">
+          From hands-free 3D facial biometrics to hardened 304 stainless steel mortises — precision security hardware tailored to your architectural entrance.
+        </p>
       </div>
-      <a href="<?= url('categories') ?>" class="text-decoration-none fw-bold small text-dark d-flex align-items-center gap-1">
-        View All Collections <i class="bi bi-arrow-right text-primary"></i>
-      </a>
+      <div class="col-lg-4 text-lg-end">
+        <a href="<?= url('categories') ?>" class="cat-view-all-pill">
+          <span>View All Collections</span>
+          <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
     </div>
 
-    <div class="row g-4">
-      <?php foreach ($categories as $cat): ?>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <a href="<?= url('category/' . $cat['slug']) ?>" class="category-card">
-            <div class="cat-img-wrapper">
-              <img src="<?= upload_url($cat['image'] ?? '') ?>" alt="<?= e($cat['name']) ?>" loading="lazy">
+    <!-- Interactive Category Filter Tabs -->
+    <div class="cat-filter-wrapper">
+      <div class="cat-filter-nav" id="catFilterNav">
+        <button type="button" class="cat-filter-btn active" data-filter="all">
+          <span>All Systems</span>
+          <span class="cat-count-pill"><?= count($categories) ?></span>
+        </button>
+        <button type="button" class="cat-filter-btn" data-filter="biometric">
+          <i class="bi bi-person-bounding-box text-primary"></i>
+          <span>Biometric &amp; AI</span>
+        </button>
+        <button type="button" class="cat-filter-btn" data-filter="connected">
+          <i class="bi bi-wifi text-info"></i>
+          <span>Smart &amp; Connected</span>
+        </button>
+        <button type="button" class="cat-filter-btn" data-filter="security">
+          <i class="bi bi-shield-shaded text-warning"></i>
+          <span>Core Hardware &amp; Parts</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Category Cards Grid -->
+    <div class="row g-4" id="catCardsGrid">
+      <?php foreach ($categories as $idx => $cat): ?>
+        <?php $meta = $getCategoryMeta($cat, $idx); ?>
+        <div class="col-xl-3 col-lg-4 col-sm-6 cat-col-item" data-category-group="<?= e($meta['group']) ?>">
+          <a href="<?= url('category/' . $cat['slug']) ?>" class="hiq-cat-card" style="
+            --cat-accent-color: <?= $meta['accent'] ?>;
+            --cat-accent-color-end: <?= $meta['accent_end'] ?>;
+            --cat-accent-glow: <?= $meta['glow'] ?>;
+            --cat-accent-border: <?= $meta['border'] ?>;
+            --cat-badge-bg: <?= $meta['badge_bg'] ?>;
+            --cat-badge-color: <?= $meta['badge_color'] ?>;
+            --cat-badge-border: <?= $meta['badge_border'] ?>;
+            --cat-stage-glow: <?= $meta['stage_glow'] ?>;
+          ">
+            <!-- Top HUD Row -->
+            <div class="cat-hud-row">
+              <span class="cat-code"><?= e($meta['code']) ?></span>
+              <span class="cat-hud-badge">
+                <i class="bi <?= e($meta['icon']) ?>"></i> <?= e($meta['tag']) ?>
+              </span>
             </div>
-            <h5 class="cat-title"><?= e($cat['name']) ?></h5>
-            <p class="cat-desc"><?= e($cat['description']) ?></p>
-            <span class="cat-action-link">
-              Explore Models <i class="bi bi-arrow-right"></i>
-            </span>
+
+            <!-- Hardware Showcase Stage -->
+            <div class="cat-hardware-stage">
+              <div class="cat-stage-radar"></div>
+              <img src="<?= upload_url($cat['image'] ?? '') ?>" alt="<?= e($cat['name']) ?>" class="cat-lock-visual" loading="lazy" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
+              <span class="cat-stage-tag">
+                <i class="bi bi-patch-check-fill"></i> <?= e($meta['badge']) ?>
+              </span>
+            </div>
+
+            <!-- Card Body Content -->
+            <div class="cat-body-content">
+              <h3 class="cat-title-text"><?= e($cat['name']) ?></h3>
+              
+              <!-- Spec Chips -->
+              <div class="cat-chips-row">
+                <?php foreach ($meta['chips'] as $chip): ?>
+                  <span class="cat-spec-chip"><?= e($chip) ?></span>
+                <?php endforeach; ?>
+              </div>
+
+              <!-- Category Description -->
+              <p class="cat-summary-text"><?= e($cat['description']) ?></p>
+
+              <!-- Action Footer -->
+              <div class="cat-action-row">
+                <span class="cat-action-label">Explore Models</span>
+                <span class="cat-action-circle">
+                  <i class="bi bi-arrow-right"></i>
+                </span>
+              </div>
+            </div>
+
+            <!-- Bottom Glowing Line -->
+            <div class="cat-bottom-line"></div>
           </a>
         </div>
       <?php endforeach; ?>
     </div>
+
+    <!-- Architectural Security Engineering Pillars -->
+    <div class="cat-bottom-pillars">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-3 col-sm-6">
+          <div class="cat-pillar-item">
+            <div class="cat-pillar-icon" style="background: rgba(254, 107, 37, 0.1); color: #FE6B25;">
+              <i class="bi bi-cpu-fill"></i>
+            </div>
+            <div>
+              <div class="cat-pillar-title">3D AI Structured Light</div>
+              <div class="cat-pillar-sub">Contactless instant unlocking</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+          <div class="cat-pillar-item">
+            <div class="cat-pillar-icon" style="background: rgba(16, 185, 129, 0.1); color: #10B981;">
+              <i class="bi bi-fingerprint"></i>
+            </div>
+            <div>
+              <div class="cat-pillar-title">&lt; 0.4s Bio Recognition</div>
+              <div class="cat-pillar-sub">Live semiconductor scanner</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+          <div class="cat-pillar-item">
+            <div class="cat-pillar-icon" style="background: rgba(2, 132, 199, 0.1); color: #0284C7;">
+              <i class="bi bi-shield-lock-fill"></i>
+            </div>
+            <div>
+              <div class="cat-pillar-title">304 Stainless Mortise</div>
+              <div class="cat-pillar-sub">Multi-point anti-drill deadbolts</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+          <div class="cat-pillar-item">
+            <div class="cat-pillar-icon" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;">
+              <i class="bi bi-tools"></i>
+            </div>
+            <div>
+              <div class="cat-pillar-title">Certified Installation</div>
+              <div class="cat-pillar-sub">Free door check &amp; chisel routing</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- Category Filtering Vanilla JS -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const filterNav = document.getElementById('catFilterNav');
+  const cardsGrid = document.getElementById('catCardsGrid');
+  if (!filterNav || !cardsGrid) return;
+
+  const buttons = filterNav.querySelectorAll('.cat-filter-btn');
+  const items = cardsGrid.querySelectorAll('.cat-col-item');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', function () {
+      const filter = this.getAttribute('data-filter');
+
+      // Update active button state
+      buttons.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+
+      // Filter category items
+      items.forEach(item => {
+        const group = item.getAttribute('data-category-group');
+        if (filter === 'all' || group === filter) {
+          item.classList.remove('is-hidden');
+          item.style.opacity = '0';
+          item.style.transform = 'translateY(12px) scale(0.97)';
+          requestAnimationFrame(() => {
+            item.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0) scale(1)';
+          });
+        } else {
+          item.classList.add('is-hidden');
+        }
+      });
+    });
+  });
+});
+</script>
+
 
 <!-- Brand Editorial Story Section (Fully Customizable from Admin Panel) -->
 <?php if (!empty($settings['story_enabled'] ?? true)): ?>
@@ -334,33 +646,66 @@ use App\Core\View;
   </section>
 <?php endif; ?>
 
-<!-- Featured Products Showcase (Slider / Carousel) -->
+<!-- Featured Products Showcase (Creative Modern Slider Carousel with Arrow Controls) -->
 <section class="py-5 bg-white position-relative featured-products-section">
   <div class="container py-4">
-    <div class="d-flex align-items-end justify-content-between mb-4 flex-wrap gap-2">
-      <div>
-        <span class="text-primary fw-bold small text-uppercase letter-spacing-1">Curated Selection</span>
-        <h2 class="mb-0 fw-bold">Featured Digital Smart Locks</h2>
+    <!-- Section Header -->
+    <div class="row align-items-end justify-content-between mb-3 g-3">
+      <div class="col-lg-7">
+        <span class="cat-sec-badge">
+          <span class="cat-pulse-dot"></span> Curated Hardware Lineup
+        </span>
+        <h2 class="cat-sec-title">
+          Featured Digital <span class="hiq-accent-gradient">Smart Locks</span>
+        </h2>
+        <p class="cat-sec-subtitle">
+          Engineered for biometric velocity, architectural elegance, and impenetrable multi-point deadbolt protection.
+        </p>
       </div>
-      <div class="d-flex align-items-center gap-3">
-        <a href="<?= url('shop') ?>" class="text-decoration-none fw-bold small text-dark d-flex align-items-center gap-1">
-          Browse Full Catalog (<?= count($featuredProducts) ?> Models) <i class="bi bi-arrow-right text-primary"></i>
+
+      <div class="col-lg-5 text-lg-end d-flex align-items-center justify-content-lg-end gap-3 flex-wrap">
+        <a href="<?= url('shop') ?>" class="cat-view-all-pill">
+          <span>Explore Catalog (<?= count($featuredProducts) ?> Models)</span>
+          <i class="bi bi-arrow-right"></i>
         </a>
+
         <!-- Header Arrow Controls -->
         <div class="slider-header-controls d-flex align-items-center gap-2">
-          <button type="button" class="btn-slider-arrow btn-slider-prev" id="featuredHeaderPrev" aria-label="Previous Products" title="Previous Products">
+          <button type="button" class="btn-slider-arrow btn-slider-prev" id="featuredHeaderPrev" aria-label="Previous Locks" title="Previous Locks">
             <i class="bi bi-chevron-left"></i>
           </button>
-          <button type="button" class="btn-slider-arrow btn-slider-next" id="featuredHeaderNext" aria-label="Next Products" title="Next Products">
+          <button type="button" class="btn-slider-arrow btn-slider-next" id="featuredHeaderNext" aria-label="Next Locks" title="Next Locks">
             <i class="bi bi-chevron-right"></i>
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Product Slider Carousel Viewport with Floating Side Arrows -->
+    <!-- Interactive Featured Filter Tabs -->
+    <div class="cat-filter-wrapper mb-4">
+      <div class="cat-filter-nav" id="featuredFilterNav">
+        <button type="button" class="cat-filter-btn active" data-filter="all">
+          <span>All Featured</span>
+          <span class="cat-count-pill"><?= count($featuredProducts) ?></span>
+        </button>
+        <button type="button" class="cat-filter-btn" data-filter="face">
+          <i class="bi bi-person-bounding-box text-primary"></i>
+          <span>AI Face Locks</span>
+        </button>
+        <button type="button" class="cat-filter-btn" data-filter="fingerprint">
+          <i class="bi bi-fingerprint text-success"></i>
+          <span>Biometric Touch</span>
+        </button>
+        <button type="button" class="cat-filter-btn" data-filter="smart">
+          <i class="bi bi-camera-video text-danger"></i>
+          <span>Video &amp; Smart IoT</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Product Slider Carousel Viewport with Gutter Side Arrows (Never Overlapping Cards) -->
     <div class="product-slider-container position-relative">
-      <!-- Side Floating Left Arrow -->
+      <!-- Side Floating Left Arrow (Positioned in gutter channel) -->
       <button type="button" class="product-slider-arrow arrow-prev" id="featuredSidePrev" aria-label="Scroll Left" title="Scroll Left">
         <i class="bi bi-chevron-left"></i>
       </button>
@@ -368,19 +713,168 @@ use App\Core\View;
       <!-- Scrollable Products Track -->
       <div class="product-slider-track" id="featuredProductsTrack">
         <?php foreach ($featuredProducts as $product): ?>
-          <div class="product-slider-slide">
+          <?php
+            $slug = strtolower((string)($product['slug'] ?? ''));
+            $catSlug = strtolower((string)($product['category_slug'] ?? $product['category'] ?? ''));
+            $pGroup = 'all';
+            if (str_contains($slug, 'face') || str_contains($catSlug, 'face')) {
+                $pGroup = 'face';
+            } elseif (str_contains($slug, 'fingerprint') || str_contains($slug, 'touch') || str_contains($catSlug, 'fingerprint')) {
+                $pGroup = 'fingerprint';
+            } elseif (str_contains($slug, 'video') || str_contains($slug, 'vision') || str_contains($slug, 'wifi') || str_contains($catSlug, 'video') || str_contains($catSlug, 'wifi')) {
+                $pGroup = 'smart';
+            }
+          ?>
+          <div class="product-slider-slide" data-product-group="<?= $pGroup ?>">
             <?= View::component('product_card', ['product' => $product]) ?>
           </div>
         <?php endforeach; ?>
       </div>
 
-      <!-- Side Floating Right Arrow -->
+      <!-- Side Floating Right Arrow (Positioned in gutter channel) -->
       <button type="button" class="product-slider-arrow arrow-next" id="featuredSideNext" aria-label="Scroll Right" title="Scroll Right">
         <i class="bi bi-chevron-right"></i>
       </button>
     </div>
+
+    <!-- Custom Architecture Callout Banner -->
+    <div class="featured-custom-banner mt-5">
+      <div class="row align-items-center g-3">
+        <div class="col-lg-8">
+          <div class="d-flex align-items-center gap-3">
+            <div class="banner-icon-badge">
+              <i class="bi bi-shield-check"></i>
+            </div>
+            <div>
+              <h6 class="fw-bold mb-1 text-dark">Need Custom Mortise Sizing or Villa Multi-Door Provisioning?</h6>
+              <p class="text-muted small mb-0">Our certified security technicians offer architectural door measurements and bespoke master-keying support.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <a href="<?= url('contact') ?>" class="btn btn-hiq-primary py-2 px-4 fs-7 fw-bold">
+            Request Architectural Consultation <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- Featured Slider & Filter Navigation JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const track = document.getElementById('featuredProductsTrack');
+  const prevBtns = [
+    document.getElementById('featuredSidePrev'),
+    document.getElementById('featuredHeaderPrev')
+  ].filter(Boolean);
+  const nextBtns = [
+    document.getElementById('featuredSideNext'),
+    document.getElementById('featuredHeaderNext')
+  ].filter(Boolean);
+
+  if (track && (prevBtns.length > 0 || nextBtns.length > 0)) {
+    const getScrollStep = () => {
+      const slide = track.querySelector('.product-slider-slide');
+      if (slide) {
+        const gap = parseFloat(window.getComputedStyle(track).gap) || 24;
+        return slide.getBoundingClientRect().width + gap;
+      }
+      return 320;
+    };
+
+    nextBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const step = getScrollStep();
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        if (track.scrollLeft >= maxScroll - 15) {
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          track.scrollBy({ left: step, behavior: 'smooth' });
+        }
+      });
+    });
+
+    prevBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const step = getScrollStep();
+        if (track.scrollLeft <= 15) {
+          track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+        } else {
+          track.scrollBy({ left: -step, behavior: 'smooth' });
+        }
+      });
+    });
+  }
+
+  // Interactive Filter Tabs on Carousel
+  const fNav = document.getElementById('featuredFilterNav');
+  if (fNav && track) {
+    const fBtns = fNav.querySelectorAll('.cat-filter-btn');
+    const fSlides = track.querySelectorAll('.product-slider-slide');
+
+    fBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const filter = this.getAttribute('data-filter');
+        fBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        fSlides.forEach(slide => {
+          const group = slide.getAttribute('data-product-group');
+          if (filter === 'all' || group === filter) {
+            slide.style.display = 'flex';
+            slide.style.opacity = '1';
+          } else {
+            slide.style.display = 'none';
+          }
+        });
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+      });
+    });
+  }
+});
+</script>
+
+
+<!-- Featured Products Filter Vanilla JS -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const fNav = document.getElementById('featuredFilterNav');
+  const fGrid = document.getElementById('featuredProductsGrid');
+  if (!fNav || !fGrid) return;
+
+  const fBtns = fNav.querySelectorAll('.cat-filter-btn');
+  const fItems = fGrid.querySelectorAll('.featured-grid-col');
+
+  fBtns.forEach(btn => {
+    btn.addEventListener('click', function () {
+      const filter = this.getAttribute('data-filter');
+      fBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+
+      fItems.forEach(item => {
+        const group = item.getAttribute('data-product-group');
+        if (filter === 'all' || group === filter) {
+          item.classList.remove('is-hidden');
+          item.style.opacity = '0';
+          item.style.transform = 'translateY(10px) scale(0.98)';
+          requestAnimationFrame(() => {
+            item.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0) scale(1)';
+          });
+        } else {
+          item.classList.add('is-hidden');
+        }
+      });
+    });
+  });
+});
+</script>
+
 
 <!-- Exclusive Promotional Campaign Banner (Fully Customizable from Admin Panel) -->
 <?php if (!empty($settings['promo_enabled'] ?? true)): ?>
