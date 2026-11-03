@@ -8,6 +8,8 @@
         "comment": "The face recognition works even in low hallway lighting. Hands-free entry when carrying groceries is a game changer. The technician arrived on time for installation.",
         "verified_purchase": true,
         "is_approved": true,
+        "is_site_review": true,
+        "review_type": "site",
         "id": "rev_4c4b60ea6ae32633",
         "created_at": "2026-10-29 16:25:47",
         "updated_at": "2026-10-29 16:25:47"
@@ -21,6 +23,8 @@
         "comment": "Installed on our main teak wood villa door. The mortise is heavy duty stainless steel. The app sends instant alerts if someone rings the doorbell.",
         "verified_purchase": true,
         "is_approved": true,
+        "is_site_review": true,
+        "review_type": "site",
         "id": "rev_9babfa756ae32633",
         "created_at": "2026-10-29 16:25:47",
         "updated_at": "2026-10-29 16:25:47"
@@ -34,6 +38,8 @@
         "comment": "Immediate unlock as you grip the handle. Battery life has been excellent after 4 months of daily use.",
         "verified_purchase": true,
         "is_approved": true,
+        "is_site_review": true,
+        "review_type": "site",
         "id": "rev_b361e3d56ae32633",
         "created_at": "2026-10-29 16:25:47",
         "updated_at": "2026-10-29 16:25:47"
@@ -47,6 +53,8 @@
         "comment": "Excellent product i have purchased value for money",
         "verified_purchase": false,
         "is_approved": true,
+        "is_site_review": false,
+        "review_type": "product",
         "id": "rev_e0a0b0236ae85e9b",
         "created_at": "2026-11-02 15:27:47",
         "updated_at": "2026-11-02 15:27:59"

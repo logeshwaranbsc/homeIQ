@@ -775,24 +775,29 @@ document.addEventListener('DOMContentLoaded', function () {
   ].filter(Boolean);
 
   if (track && (prevBtns.length > 0 || nextBtns.length > 0)) {
+    const getVisibleSlides = () => {
+      return Array.from(track.querySelectorAll('.product-slider-slide')).filter(s => s.style.display !== 'none');
+    };
+
     const getScrollStep = () => {
-      const slide = track.querySelector('.product-slider-slide');
-      if (slide) {
-        const gap = parseFloat(window.getComputedStyle(track).gap) || 24;
-        return slide.getBoundingClientRect().width + gap;
+      const slides = getVisibleSlides();
+      if (slides.length > 0) {
+        const gap = parseFloat(window.getComputedStyle(track).gap) || 20;
+        return Math.round(slides[0].getBoundingClientRect().width + gap);
       }
-      return 320;
+      return 280;
     };
 
     nextBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         const step = getScrollStep();
-        const maxScroll = track.scrollWidth - track.clientWidth;
-        if (track.scrollLeft >= maxScroll - 15) {
+        const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+        if (track.scrollLeft >= maxScroll - 10) {
           track.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
-          track.scrollBy({ left: step, behavior: 'smooth' });
+          const target = Math.min(track.scrollLeft + step, maxScroll);
+          track.scrollTo({ left: target, behavior: 'smooth' });
         }
       });
     });
@@ -801,10 +806,12 @@ document.addEventListener('DOMContentLoaded', function () {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         const step = getScrollStep();
-        if (track.scrollLeft <= 15) {
-          track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+        const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+        if (track.scrollLeft <= 10) {
+          track.scrollTo({ left: maxScroll, behavior: 'smooth' });
         } else {
-          track.scrollBy({ left: -step, behavior: 'smooth' });
+          const target = Math.max(track.scrollLeft - step, 0);
+          track.scrollTo({ left: target, behavior: 'smooth' });
         }
       });
     });

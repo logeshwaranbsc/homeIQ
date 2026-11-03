@@ -590,6 +590,8 @@ $sampleReviews = [
         'comment' => 'The face recognition works even in low hallway lighting. Hands-free entry when carrying groceries is a game changer. The technician arrived on time for installation.',
         'verified_purchase' => true,
         'is_approved' => true,
+        'is_site_review' => true,
+        'review_type' => 'site',
     ],
     [
         'product_id' => 'prod_1',
@@ -600,6 +602,8 @@ $sampleReviews = [
         'comment' => 'Installed on our main teak wood villa door. The mortise is heavy duty stainless steel. The app sends instant alerts if someone rings the doorbell.',
         'verified_purchase' => true,
         'is_approved' => true,
+        'is_site_review' => true,
+        'review_type' => 'site',
     ],
     [
         'product_id' => 'prod_2',
@@ -610,6 +614,8 @@ $sampleReviews = [
         'comment' => 'Immediate unlock as you grip the handle. Battery life has been excellent after 4 months of daily use.',
         'verified_purchase' => true,
         'is_approved' => true,
+        'is_site_review' => true,
+        'review_type' => 'site',
     ]
 ];
 foreach ($sampleReviews as $r) {

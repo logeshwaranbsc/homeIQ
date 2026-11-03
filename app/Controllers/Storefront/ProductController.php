@@ -218,6 +218,8 @@ class ProductController
             'comment' => $comment,
             'verified_purchase' => $verifiedPurchase,
             'is_approved' => false, // Requires admin moderation
+            'review_type' => 'product', // Shows exclusively under this product
+            'is_site_review' => false,
         ]);
 
         flash('success', 'Thank you! Your review has been submitted and will appear after moderation.');

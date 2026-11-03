@@ -132,11 +132,11 @@ $breadcrumbs = [
             </div>
           </div>
 
-          <div class="d-flex gap-3">
-            <button type="submit" class="btn btn-hiq-primary flex-grow-1 py-3">
+          <div class="d-flex flex-wrap gap-2 gap-sm-3">
+            <button type="submit" class="btn btn-hiq-primary flex-grow-1 py-2.5 py-md-3">
               <i class="bi bi-bag-plus"></i> Add to Cart
             </button>
-            <button type="submit" name="buy_now" value="1" class="btn btn-hiq-accent flex-grow-1 py-3">
+            <button type="submit" name="buy_now" value="1" class="btn btn-hiq-accent flex-grow-1 py-2.5 py-md-3">
               <i class="bi bi-lightning-charge"></i> Buy Now
             </button>
             <button type="button" class="btn btn-outline-secondary btn-wishlist-toggle px-3 <?= $isWishlisted ? 'active' : '' ?>" data-product-id="<?= e($product['id']) ?>" title="Add to Wishlist">
@@ -187,7 +187,7 @@ $breadcrumbs = [
   <!-- Detailed Tabs Section -->
   <div class="card border rounded-3 mb-5 shadow-sm">
     <div class="card-header bg-white border-bottom p-0">
-      <ul class="nav nav-tabs card-header-tabs m-0 px-3 border-0" id="productTabs" role="tablist">
+      <ul class="nav nav-tabs card-header-tabs m-0 px-2 px-md-3 border-0 flex-nowrap overflow-x-auto text-nowrap" id="productTabs" role="tablist">
         <li class="nav-item">
           <button class="nav-link active fw-bold py-3" id="desc-tab" data-bs-toggle="tab" data-bs-target="#descTab" type="button" role="tab">Full Description</button>
         </li>

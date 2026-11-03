@@ -18,20 +18,48 @@ $catRepo = new CategoryRepository();
 $navCategories = $catRepo->getActive();
 ?>
 <nav class="navbar navbar-expand-lg navbar-hiq">
-  <div class="container-fluid px-3 px-xl-5" style="max-width: 1540px;">
+  <div class="container-fluid px-2 px-sm-3 px-xl-5" style="max-width: 1540px;">
     <!-- Brand Logo -->
-    <a class="navbar-brand" href="<?= url('/') ?>">
+    <a class="navbar-brand me-2 me-sm-3" href="<?= url('/') ?>">
       <img src="<?= asset('assets/images/homeiq-logo.png') ?>" alt="HOMEIQ" class="brand-logo-img">
     </a>
 
+    <!-- Mobile Header Quick Action Icons (Visible only on < 992px) -->
+    <div class="d-flex align-items-center gap-1 d-lg-none ms-auto me-2">
+      <!-- Wishlist -->
+      <a href="<?= url('wishlist') ?>" class="nav-action-btn mobile-header-btn" title="Wishlist" aria-label="Wishlist">
+        <i class="bi bi-heart"></i>
+        <?php if ($wishlistCount > 0): ?>
+          <span class="badge-counter"><?= $wishlistCount ?></span>
+        <?php endif; ?>
+      </a>
+
+      <!-- Shopping Cart -->
+      <a href="<?= url('cart') ?>" class="nav-action-btn mobile-header-btn" title="Shopping Cart" aria-label="Cart">
+        <i class="bi bi-bag"></i>
+        <span class="badge-counter" id="mobileHeaderCartCount"><?= $cartCount ?></span>
+      </a>
+
+      <!-- Customer Account -->
+      <?php if ($customer): ?>
+        <a href="<?= url('account') ?>" class="nav-action-btn mobile-header-btn" title="My Account" aria-label="Account">
+          <i class="bi bi-person-check-fill text-warning"></i>
+        </a>
+      <?php else: ?>
+        <a href="<?= url('login') ?>" class="nav-action-btn mobile-header-btn" title="Sign In" aria-label="Sign In">
+          <i class="bi bi-person"></i>
+        </a>
+      <?php endif; ?>
+    </div>
+
     <!-- Mobile Toggler -->
-    <button class="navbar-toggler border-secondary text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler border-secondary text-light p-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
       <i class="bi bi-list fs-2"></i>
     </button>
 
-    <!-- Nav Items -->
+    <!-- Nav Items Collapse -->
     <div class="collapse navbar-collapse" id="navbarMain">
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 py-2 py-lg-0">
         <li class="nav-item">
           <a class="nav-link nav-link-hiq" href="<?= url('/') ?>">Home</a>
         </li>
@@ -58,8 +86,8 @@ $navCategories = $catRepo->getActive();
         </li>
       </ul>
 
-      <!-- User Action Icons -->
-      <div class="d-flex align-items-center gap-2">
+      <!-- Desktop User Action Icons (Visible only on >= 992px) -->
+      <div class="d-none d-lg-flex align-items-center gap-2">
         <!-- Account -->
         <?php if ($customer): ?>
           <div class="dropdown">
@@ -98,4 +126,3 @@ $navCategories = $catRepo->getActive();
     </div>
   </div>
 </nav>
-

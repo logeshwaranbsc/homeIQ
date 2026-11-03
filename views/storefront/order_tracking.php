@@ -88,14 +88,14 @@ $currentStatusIdx = $order ? array_search($order['status'], $allStatuses, true) 
                 $isCurrent = $currentStatusIdx !== false && $idx === $currentStatusIdx;
               ?>
               <div class="text-center position-relative" style="z-index: 3;">
-                <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2 <?= $isDone ? 'bg-primary text-white' : 'bg-light text-muted border' ?>" style="width: 36px; height: 36px; font-weight: bold;">
+                <div class="rounded-circle timeline-step-circle d-flex align-items-center justify-content-center mx-auto mb-2 <?= $isDone ? 'bg-primary text-white' : 'bg-light text-muted border' ?>" style="width: 36px; height: 36px; font-weight: bold;">
                   <?php if ($isDone): ?>
                     <i class="bi bi-check"></i>
                   <?php else: ?>
                     <?= $idx + 1 ?>
                   <?php endif; ?>
                 </div>
-                <div class="small <?= $isCurrent ? 'fw-bold text-primary' : 'text-muted' ?>" style="font-size: 0.75rem;">
+                <div class="small timeline-step-label <?= $isCurrent ? 'fw-bold text-primary' : 'text-muted' ?>" style="font-size: 0.75rem;">
                   <?= e($st) ?>
                 </div>
               </div>

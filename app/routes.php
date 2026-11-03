@@ -185,6 +185,7 @@ $router->get('/admin/coupons/delete/{id}', [AdminCouponController::class, 'delet
 $router->get('/admin/reviews', [AdminReviewController::class, 'index'], [AdminAuthMiddleware::class]);
 $router->get('/admin/reviews/approve/{id}', [AdminReviewController::class, 'approve'], [AdminAuthMiddleware::class]);
 $router->get('/admin/reviews/reject/{id}', [AdminReviewController::class, 'reject'], [AdminAuthMiddleware::class]);
+$router->get('/admin/reviews/toggle-site/{id}', [AdminReviewController::class, 'toggleSiteReview'], [AdminAuthMiddleware::class]);
 
 // Admin Reports
 $router->get('/admin/reports', [AdminReportController::class, 'index'], [AdminAuthMiddleware::class]);

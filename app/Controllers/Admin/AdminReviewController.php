@@ -59,5 +59,28 @@ class AdminReviewController
 
         redirect('admin/reviews');
     }
+
+    public function toggleSiteReview(Request $request, array $params): void
+    {
+        $id = $params['id'] ?? '';
+        $review = $this->reviewRepo->find($id);
+
+        if ($review) {
+            $isCurrentlySite = !empty($review['is_site_review']) || ($review['review_type'] ?? '') === 'site';
+            $newIsSite = !$isCurrentlySite;
+
+            $this->reviewRepo->update($id, [
+                'is_site_review' => $newIsSite,
+                'review_type' => $newIsSite ? 'site' : 'product',
+            ]);
+
+            $admin = auth_admin();
+            $label = $newIsSite ? 'Site Review (Homepage)' : 'Product Review Only';
+            $this->auditRepo->record('review_type_changed', $admin['username'] ?? 'Admin', "Changed review #{$id} type to {$label}");
+            flash('success', "Review updated to {$label}.");
+        }
+
+        redirect('admin/reviews');
+    }
 }
 

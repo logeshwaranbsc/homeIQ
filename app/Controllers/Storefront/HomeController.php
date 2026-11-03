@@ -36,8 +36,8 @@ class HomeController
         $featuredProducts = $this->productRepo->getFeatured(8);
         $settings = $this->settingsRepo->all();
 
-        // Get reviews for verified display
-        $recentReviews = array_slice($this->reviewRepo->filter(fn($r) => !empty($r['is_approved'])), 0, 6);
+        // Get only verified site/platform reviews for homepage display (product reviews show exclusively under products)
+        $recentReviews = array_slice($this->reviewRepo->getSiteReviews(true), 0, 6);
 
         echo View::render('storefront/home', [
             'title' => 'HOMEIQ | Advanced Smart Locks & Keyless Security Hardware',
