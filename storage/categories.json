@@ -3,12 +3,12 @@
         "name": "AI Face Recognition Smart Locks",
         "slug": "ai-face-recognition-smart-locks",
         "description": "Flagship locks featuring 3D structured-light infrared face scanning for hands-free instant door unlock.",
-        "image": "products/homeiq-ai-face-lock.svg",
+        "image": "categories/bd6ec11485f93e5bc4b2_1793687132.png",
         "display_order": 1,
         "is_active": true,
         "id": "cat_e09d26ca6ae32633",
         "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-10-29 16:25:47"
+        "updated_at": "2026-11-03 11:55:32"
     },
     {
         "name": "Fingerprint Smart Locks",

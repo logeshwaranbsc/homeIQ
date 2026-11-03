@@ -17,15 +17,32 @@ $breadcrumbs = [
 <div class="container py-4">
   <?= View::component('breadcrumbs', ['items' => $breadcrumbs]) ?>
 
-  <div class="p-4 p-md-5 rounded-4 bg-dark text-white mb-5" style="background: linear-gradient(135deg, #0e1014 0%, #1e222d 100%);">
+  <div class="category-hero-banner mb-5">
     <div class="row align-items-center g-4">
-      <div class="col-lg-8">
-        <span class="badge bg-primary text-white mb-2">Category</span>
-        <h1 class="display-6 fw-bold mb-3"><?= e($category['name']) ?></h1>
-        <p class="text-secondary fs-6 mb-0"><?= e($category['description']) ?></p>
+      <div class="col-lg-8 category-hero-content">
+        <div class="category-hero-badge">
+          <span class="badge-dot"></span>
+          <span>Category Collection</span>
+        </div>
+        <h1 class="category-hero-title"><?= e($category['name']) ?></h1>
+        <p class="category-hero-desc"><?= e($category['description']) ?></p>
+        <div class="category-hero-chips">
+          <span class="category-chip">
+            <i class="bi bi-shield-check"></i> <?= count($products) ?> Available Model<?= count($products) !== 1 ? 's' : '' ?>
+          </span>
+          <span class="category-chip">
+            <i class="bi bi-patch-check"></i> Certified Security Grade
+          </span>
+          <span class="category-chip">
+            <i class="bi bi-truck"></i> Free Express Delivery
+          </span>
+        </div>
       </div>
       <div class="col-lg-4 text-center">
-        <img src="<?= upload_url($category['image'] ?? '') ?>" alt="<?= e($category['name']) ?>" class="img-fluid rounded-3" style="max-height: 180px;">
+        <div class="category-hero-showcase">
+          <div class="showcase-glow"></div>
+          <img src="<?= upload_url($category['image'] ?? '') ?>" alt="<?= e($category['name']) ?>" class="category-hero-img" loading="lazy">
+        </div>
       </div>
     </div>
   </div>
