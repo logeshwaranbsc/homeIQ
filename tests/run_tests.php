@@ -14,6 +14,7 @@ use App\Repositories\JsonRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\CouponRepository;
 use App\Repositories\OrderRepository;
+use App\Repositories\VideoTestimonialRepository;
 use App\Services\CartService;
 use App\Services\OrderService;
 use App\Services\AuthService;
@@ -149,6 +150,37 @@ assertTest("Authenticates valid administrator login", $adminLogin['success']);
 
 $adminBadLogin = $authService->loginAdmin('admin', 'WrongPass', '127.0.0.1');
 assertTest("Denies invalid administrator password", !$adminBadLogin['success']);
+
+// TEST GROUP 7: Video Testimonials 4-Limit Enforcement & Ordering
+echo "\nTest Group 7: Video Testimonials Strict 4-Item Limit & Ordering\n";
+$videoRepo = new VideoTestimonialRepository();
+// Ensure clean state
+$originalData = $videoRepo->all();
+$videoRepo->atomicWrite([]);
+
+assertTest("Repository canAdd() is true when empty", $videoRepo->canAdd());
+assertTest("Remaining slots is 4 when empty", $videoRepo->getRemainingSlots() === 4);
+
+$v1 = $videoRepo->create(['customer_name' => 'User 1', 'display_order' => 2, 'is_active' => true]);
+$v2 = $videoRepo->create(['customer_name' => 'User 2', 'display_order' => 1, 'is_active' => true]);
+$v3 = $videoRepo->create(['customer_name' => 'User 3', 'display_order' => 4, 'is_active' => false]);
+$v4 = $videoRepo->create(['customer_name' => 'User 4', 'display_order' => 3, 'is_active' => true]);
+
+assertTest("Count equals 4 after 4 creations", $videoRepo->count() === 4);
+assertTest("canAdd() is false after reaching 4 items limit", !$videoRepo->canAdd());
+assertTest("Remaining slots is 0 when 4 items exist", $videoRepo->getRemainingSlots() === 0);
+
+$active = $videoRepo->getActive();
+assertTest("getActive() excludes inactive item and returns 3 active items", count($active) === 3);
+assertTest("getActive() sorts correctly by display_order", $active[0]['customer_name'] === 'User 2' && $active[1]['customer_name'] === 'User 1' && $active[2]['customer_name'] === 'User 4');
+
+$videoRepo->delete($v1['id']);
+assertTest("canAdd() returns true after deleting an item (slot freed)", $videoRepo->canAdd());
+assertTest("Count is 3 after deletion", $videoRepo->count() === 3);
+
+// Restore original empty state as user requested no pre-uploaded dummy data
+$videoRepo->atomicWrite($originalData);
+assertTest("Video testimonials storage reset to pristine empty state", $videoRepo->count() === count($originalData));
 
 // SUMMARY
 echo "\n====================================================\n";

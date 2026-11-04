@@ -1,0 +1,15 @@
+[
+    {
+        "customer_name": "logeshwaran selvam",
+        "description": "Testing",
+        "review_text": "Testing",
+        "video_url": "",
+        "display_order": 1,
+        "is_active": true,
+        "video_path": "video_testimonials/vid_b15d0cacd031665dd59d_1793793703.mp4",
+        "thumbnail_path": "video_testimonials/6fcb9c904ae67e13da42_1793793703.jpg",
+        "id": "vid_9d0ecef96aeb1ea7",
+        "created_at": "2026-11-04 17:31:43",
+        "updated_at": "2026-11-04 17:31:43"
+    }
+]

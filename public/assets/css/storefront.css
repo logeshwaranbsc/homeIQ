@@ -3996,3 +3996,255 @@ img, svg, video {
 .product-slider-arrow.arrow-next {
   right: 2px !important;
 }
+
+
+/* ========================================================
+   Vertical Video Reels Section (Instagram / Shorts Style)
+   ======================================================== */
+.hiq-reels-section {
+  position: relative;
+  background: #fbfbfc;
+  overflow: hidden;
+}
+
+.hiq-reels-wrapper {
+  position: relative;
+}
+
+.hiq-reels-track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 10px 4px 20px 4px;
+}
+
+.hiq-reels-track::-webkit-scrollbar {
+  display: none;
+}
+
+.hiq-reel-item {
+  flex: 0 0 calc(25% - 18px);
+  max-width: calc(25% - 18px);
+  min-width: 260px;
+}
+
+@media (max-width: 1199.98px) {
+  .hiq-reel-item {
+    flex: 0 0 calc(33.333% - 16px);
+    max-width: calc(33.333% - 16px);
+    min-width: 240px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hiq-reel-item {
+    flex: 0 0 calc(50% - 12px);
+    max-width: calc(50% - 12px);
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hiq-reel-item {
+    flex: 0 0 82%;
+    max-width: 82%;
+    min-width: 240px;
+  }
+}
+
+.hiq-reel-card {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0f172a;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08), 0 2px 8px rgba(15, 23, 42, 0.04);
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.hiq-reel-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16), 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.hiq-reel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #0f172a;
+}
+
+.hiq-reel-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.85) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hiq-reel-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  padding-left: 3px;
+  z-index: 3;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.hiq-reel-card:hover .hiq-reel-play-btn {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: #FE6B25;
+  border-color: #FE6B25;
+}
+
+.hiq-reel-card.is-playing .hiq-reel-play-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hiq-reel-card.is-playing:hover .hiq-reel-play-btn {
+  opacity: 0.9;
+  pointer-events: auto;
+  padding-left: 0;
+}
+
+.hiq-reel-card.is-playing .hiq-reel-play-btn i::before {
+  content: "\F4C2";
+}
+
+.hiq-reel-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 18px 16px 14px 16px;
+  z-index: 4;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.hiq-reel-name {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 3px;
+  line-height: 1.25;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hiq-reel-desc {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.35;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+}
+
+.hiq-reel-audio-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.9);
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.hiq-reel-audio-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+}
+
+.hiq-reel-mute-btn {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.2s ease;
+}
+
+.hiq-reel-mute-btn:hover {
+  background: #FE6B25;
+  border-color: #FE6B25;
+  transform: scale(1.12);
+}
+
+/* Round Slider Navigation Arrows */
+.hiq-reel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hiq-reel-nav-btn:hover {
+  background: #0f172a;
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.hiq-reel-nav-btn.prev-btn {
+  left: -20px;
+}
+
+.hiq-reel-nav-btn.next-btn {
+  right: -20px;
+}
+
+@media (max-width: 767.98px) {
+  .hiq-reel-nav-btn {
+    display: none;
+  }
+}

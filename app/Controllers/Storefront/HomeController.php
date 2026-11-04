@@ -10,6 +10,7 @@ use App\Repositories\CategoryRepository;
 use App\Repositories\BannerRepository;
 use App\Repositories\ReviewRepository;
 use App\Repositories\SettingsRepository;
+use App\Repositories\VideoTestimonialRepository;
 use App\Repositories\JsonRepository;
 
 class HomeController
@@ -19,6 +20,7 @@ class HomeController
     private BannerRepository $bannerRepo;
     private ReviewRepository $reviewRepo;
     private SettingsRepository $settingsRepo;
+    private VideoTestimonialRepository $videoTestimonialRepo;
 
     public function __construct()
     {
@@ -27,6 +29,7 @@ class HomeController
         $this->bannerRepo = new BannerRepository();
         $this->reviewRepo = new ReviewRepository();
         $this->settingsRepo = new SettingsRepository();
+        $this->videoTestimonialRepo = new VideoTestimonialRepository();
     }
 
     public function index(Request $request): void
@@ -39,12 +42,16 @@ class HomeController
         // Get only verified site/platform reviews for homepage display (product reviews show exclusively under products)
         $recentReviews = array_slice($this->reviewRepo->getSiteReviews(true), 0, 6);
 
+        // Get active customer video testimonials (up to 4)
+        $videoTestimonials = $this->videoTestimonialRepo->getActive();
+
         echo View::render('storefront/home', [
             'title' => 'HOMEIQ | Advanced Smart Locks & Keyless Security Hardware',
             'banners' => $banners,
             'categories' => $categories,
             'featuredProducts' => $featuredProducts,
             'recentReviews' => $recentReviews,
+            'videoTestimonials' => $videoTestimonials,
             'settings' => $settings,
         ]);
     }
@@ -73,4 +80,3 @@ class HomeController
         redirect('/');
     }
 }
-

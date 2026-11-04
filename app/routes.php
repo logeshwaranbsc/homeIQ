@@ -30,6 +30,7 @@ use App\Controllers\Admin\AdminReportController;
 use App\Controllers\Admin\AdminSeoController;
 use App\Controllers\Admin\AdminStaffController;
 use App\Controllers\Admin\AdminSettingsController;
+use App\Controllers\Admin\AdminVideoTestimonialController;
 
 $router = App::getRouter();
 
@@ -186,6 +187,15 @@ $router->get('/admin/reviews', [AdminReviewController::class, 'index'], [AdminAu
 $router->get('/admin/reviews/approve/{id}', [AdminReviewController::class, 'approve'], [AdminAuthMiddleware::class]);
 $router->get('/admin/reviews/reject/{id}', [AdminReviewController::class, 'reject'], [AdminAuthMiddleware::class]);
 $router->get('/admin/reviews/toggle-site/{id}', [AdminReviewController::class, 'toggleSiteReview'], [AdminAuthMiddleware::class]);
+
+// Admin Video Testimonials (Max 4 Videos)
+$router->get('/admin/video-testimonials', [AdminVideoTestimonialController::class, 'index'], [AdminAuthMiddleware::class]);
+$router->get('/admin/video-testimonials/create', [AdminVideoTestimonialController::class, 'create'], [AdminAuthMiddleware::class]);
+$router->post('/admin/video-testimonials/store', [AdminVideoTestimonialController::class, 'store'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+$router->get('/admin/video-testimonials/edit/{id}', [AdminVideoTestimonialController::class, 'edit'], [AdminAuthMiddleware::class]);
+$router->post('/admin/video-testimonials/update/{id}', [AdminVideoTestimonialController::class, 'update'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+$router->get('/admin/video-testimonials/delete/{id}', [AdminVideoTestimonialController::class, 'delete'], [AdminAuthMiddleware::class]);
+$router->get('/admin/video-testimonials/status/{id}', [AdminVideoTestimonialController::class, 'toggleStatus'], [AdminAuthMiddleware::class]);
 
 // Admin Reports
 $router->get('/admin/reports', [AdminReportController::class, 'index'], [AdminAuthMiddleware::class]);

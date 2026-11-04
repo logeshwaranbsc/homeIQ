@@ -77,6 +77,11 @@ if (!function_exists('isActiveAdmin')) {
       </a>
     </li>
     <li>
+      <a href="<?= url('admin/video-testimonials') ?>" class="sidebar-link <?= isActiveAdmin('/admin/video-testimonials', $currentPath) ?>">
+        <i class="bi bi-camera-video"></i> Video Testimonials
+      </a>
+    </li>
+    <li>
       <a href="<?= url('admin/customers') ?>" class="sidebar-link <?= isActiveAdmin('/admin/customers', $currentPath) ?>">
         <i class="bi bi-people"></i> Customers
       </a>
@@ -120,4 +125,3 @@ if (!function_exists('isActiveAdmin')) {
     </a>
   </div>
 </aside>
-
