@@ -1,15 +1,15 @@
 [
     {
-        "customer_name": "logeshwaran selvam",
-        "description": "Testing",
-        "review_text": "Testing",
+        "customer_name": "Testing",
+        "description": "Enhance your security with a smart fingerprint digital lock featuring fast, secure, and keyless access for your home or",
+        "review_text": "Enhance your security with a smart fingerprint digital lock featuring fast, secure, and keyless access for your home or",
         "video_url": "",
         "display_order": 1,
         "is_active": true,
-        "video_path": "video_testimonials/vid_b15d0cacd031665dd59d_1793793703.mp4",
-        "thumbnail_path": "video_testimonials/6fcb9c904ae67e13da42_1793793703.jpg",
-        "id": "vid_9d0ecef96aeb1ea7",
-        "created_at": "2026-11-04 17:31:43",
-        "updated_at": "2026-11-04 17:31:43"
+        "video_path": "video_testimonials/vid_ab7b781391207c8c9ca9_1793798439.mp4",
+        "thumbnail_path": "video_testimonials/371c9fa9f388240d8205_1793798439.jpg",
+        "id": "vid_55e3c1f56aeb3127",
+        "created_at": "2026-11-04 18:50:39",
+        "updated_at": "2026-11-04 18:50:39"
     }
 ]

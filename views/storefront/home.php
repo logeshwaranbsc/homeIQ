@@ -883,6 +883,243 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 
+
+<!-- Customer Video Reels Section (Max 4 Videos - Inline Playback) -->
+<?php if (!empty($videoTestimonials)): ?>
+<section class="hiq-reels-section py-5 bg-white position-relative border-top">
+  <div class="container py-4">
+    <!-- Section Header (Matching Featured Products Header Alignment & Style) -->
+    <div class="row align-items-end justify-content-between mb-4 g-3">
+      <div class="col-lg-7">
+        <span class="cat-sec-badge">
+          <span class="cat-pulse-dot"></span> Real Customer Experiences
+        </span>
+        <h2 class="cat-sec-title">
+          Customer Video <span class="hiq-accent-gradient">Reels &amp; Reviews</span>
+        </h2>
+        <p class="cat-sec-subtitle">
+          Watch real homeowners share their daily experience with HOMEIQ digital smart locks.
+        </p>
+      </div>
+
+      <div class="col-lg-5 text-lg-end d-flex align-items-center justify-content-lg-end gap-3 flex-wrap">
+        <!-- Header Arrow Controls -->
+        <div class="slider-header-controls d-flex align-items-center gap-2">
+          <button type="button" class="btn-slider-arrow btn-slider-prev" id="hiqReelHeaderPrev" aria-label="Previous Reels" title="Previous Reels">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button type="button" class="btn-slider-arrow btn-slider-next" id="hiqReelHeaderNext" aria-label="Next Reels" title="Next Reels">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reels Slider Carousel with Gutter Side Arrows (Matching Product Slider Alignment & Margins) -->
+    <div class="hiq-reels-container position-relative">
+      <!-- Side Floating Left Arrow (Positioned in gutter channel) -->
+      <button type="button" class="product-slider-arrow arrow-prev" id="hiqReelSidePrev" aria-label="Scroll Left" title="Scroll Left">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <!-- Reels Track -->
+      <div class="hiq-reels-track" id="hiqReelsTrack">
+        <?php foreach ($videoTestimonials as $vid): 
+          $vidSource = !empty($vid['video_path']) ? upload_url($vid['video_path']) : ($vid['video_url'] ?? '');
+          $thumbSource = !empty($vid['thumbnail_path']) ? upload_url($vid['thumbnail_path']) : '';
+          $name = $vid['customer_name'] ?? 'Homeowner';
+          $desc = $vid['description'] ?? ($vid['review_text'] ?? ($vid['title'] ?? ''));
+        ?>
+          <div class="hiq-reel-slide">
+            <div class="hiq-reel-card" role="button" tabindex="0" title="Click to play inline">
+              <!-- Direct Inline Video Player -->
+              <video class="hiq-reel-video" 
+                     playsinline 
+                     loop 
+                     preload="metadata"
+                     <?= !empty($thumbSource) ? 'poster="' . e($thumbSource) . '"' : '' ?>>
+                <source src="<?= e($vidSource) ?>" type="video/mp4">
+              </video>
+
+              <!-- Gradient Scrim Overlay -->
+              <div class="hiq-reel-scrim"></div>
+
+              <!-- Center Play / Pause Indicator Button -->
+              <button class="hiq-reel-play-btn" type="button" aria-label="Play or pause video">
+                <i class="bi bi-play-fill"></i>
+              </button>
+
+              <!-- Bottom Caption (Name & Single Line Description) -->
+              <div class="hiq-reel-caption">
+                <div class="hiq-reel-name"><?= e($name) ?></div>
+                <?php if (!empty($desc)): ?>
+                  <div class="hiq-reel-desc" title="<?= e($desc) ?>"><?= e($desc) ?></div>
+                <?php endif; ?>
+                <div class="hiq-reel-audio-bar">
+                  <div class="hiq-reel-audio-label">
+                    <i class="bi bi-music-note-beamed"></i>
+                    <span>Original Audio</span>
+                  </div>
+                  <button class="hiq-reel-mute-btn" type="button" aria-label="Toggle sound" title="Sound on/off">
+                    <i class="bi bi-volume-mute-fill"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+
+      <!-- Side Floating Right Arrow (Positioned in gutter channel) -->
+      <button type="button" class="product-slider-arrow arrow-next" id="hiqReelSideNext" aria-label="Scroll Right" title="Scroll Right">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var track = document.getElementById('hiqReelsTrack');
+  var prevBtns = [
+    document.getElementById('hiqReelSidePrev'),
+    document.getElementById('hiqReelHeaderPrev')
+  ].filter(Boolean);
+  var nextBtns = [
+    document.getElementById('hiqReelSideNext'),
+    document.getElementById('hiqReelHeaderNext')
+  ].filter(Boolean);
+
+  if (track && (prevBtns.length > 0 || nextBtns.length > 0)) {
+    var getScrollStep = function () {
+      var slide = track.querySelector('.hiq-reel-slide');
+      if (slide) {
+        var gap = parseFloat(window.getComputedStyle(track).gap) || 20;
+        return Math.round(slide.getBoundingClientRect().width + gap);
+      }
+      return 300;
+    };
+
+    nextBtns.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var step = getScrollStep();
+        var maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+        if (maxScroll <= 0) return;
+        if (track.scrollLeft >= maxScroll - 10) {
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          track.scrollTo({ left: Math.min(track.scrollLeft + step, maxScroll), behavior: 'smooth' });
+        }
+      });
+    });
+
+    prevBtns.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var step = getScrollStep();
+        var maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+        if (maxScroll <= 0) return;
+        if (track.scrollLeft <= 10) {
+          track.scrollTo({ left: maxScroll, behavior: 'smooth' });
+        } else {
+          track.scrollTo({ left: Math.max(track.scrollLeft - step, 0), behavior: 'smooth' });
+        }
+      });
+    });
+  }
+
+  var cards = document.querySelectorAll('.hiq-reel-card');
+  cards.forEach(function (card) {
+    var video = card.querySelector('video');
+    var muteBtn = card.querySelector('.hiq-reel-mute-btn');
+    var muteIcon = muteBtn ? muteBtn.querySelector('i') : null;
+
+    if (!video) return;
+
+    // Start video muted so browser allows smooth playback
+    video.muted = true;
+
+    var togglePlay = function (e) {
+      if (e && e.target && muteBtn && (muteBtn === e.target || muteBtn.contains(e.target))) {
+        return;
+      }
+
+      if (video.paused) {
+        cards.forEach(function (otherCard) {
+          if (otherCard !== card) {
+            var otherVideo = otherCard.querySelector('video');
+            if (otherVideo && !otherVideo.paused) {
+              otherVideo.pause();
+              otherCard.classList.remove('is-playing');
+            }
+          }
+        });
+
+        var p = video.play();
+        if (p !== undefined) {
+          p.then(function () {
+            card.classList.add('is-playing');
+          }).catch(function () {
+            video.muted = true;
+            if (muteIcon) muteIcon.className = 'bi bi-volume-mute-fill';
+            video.play().then(function () {
+              card.classList.add('is-playing');
+            }).catch(function () {});
+          });
+        }
+      } else {
+        video.pause();
+        card.classList.remove('is-playing');
+      }
+    };
+
+    card.addEventListener('click', togglePlay);
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        togglePlay(e);
+      }
+    });
+
+    if (muteBtn) {
+      muteBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        video.muted = !video.muted;
+        if (muteIcon) {
+          muteIcon.className = video.muted ? 'bi bi-volume-mute-fill' : 'bi bi-volume-up-fill';
+        }
+      });
+    }
+
+    video.addEventListener('ended', function () {
+      card.classList.remove('is-playing');
+    });
+  });
+});
+</script>
+<?php elseif (auth_admin()): ?>
+  <!-- Admin Guidance Banner -->
+  <section class="py-4 bg-light border-top">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between p-3 rounded-3 border bg-white flex-wrap gap-3">
+        <div class="d-flex align-items-center gap-3">
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(254, 107, 37, 0.12); color: #FE6B25; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+            <i class="bi bi-camera-video"></i>
+          </div>
+          <div>
+            <div class="fw-bold text-dark">Video Reels Section Ready</div>
+            <small class="text-muted">Upload up to 4 customer reels (video, name, and single line description) in the admin panel.</small>
+          </div>
+        </div>
+        <a href="<?= url('admin/video-testimonials') ?>" class="btn btn-sm btn-dark">
+          <i class="bi bi-cloud-arrow-up-fill me-1"></i> Upload Videos in Admin (<?= count($videoTestimonials ?? []) ?> / 4)
+        </a>
+      </div>
+    </div>
+  </section>
+<?php endif; ?>
+
 <!-- Exclusive Promotional Campaign Banner (Fully Customizable from Admin Panel) -->
 <?php if (!empty($settings['promo_enabled'] ?? true)): ?>
   <?php
@@ -1099,192 +1336,3 @@ document.addEventListener('DOMContentLoaded', function () {
 <?php endif; ?>
 
 
-<!-- Customer Video Reels Section (Max 4 Videos - Inline Playback) -->
-<?php if (!empty($videoTestimonials)): ?>
-<section class="hiq-reels-section py-5 border-top">
-  <div class="container py-3">
-    <!-- Header -->
-    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
-      <div>
-        <span class="text-primary fw-bold small text-uppercase letter-spacing-1 d-inline-flex align-items-center gap-1">
-          <i class="bi bi-camera-reels-fill text-primary"></i> Real Stories
-        </span>
-        <h2 class="mb-0 fw-bold">Customer Experiences</h2>
-      </div>
-      <div class="text-muted small d-none d-sm-flex align-items-center gap-1">
-        <i class="bi bi-patch-check-fill text-success fs-5"></i>
-        <span>100% Verified Homeowners</span>
-      </div>
-    </div>
-
-    <!-- Reels Carousel Wrapper -->
-    <div class="hiq-reels-wrapper position-relative">
-      <!-- Previous Arrow -->
-      <button class="hiq-reel-nav-btn prev-btn" id="hiqReelPrev" type="button" aria-label="Previous reels">
-        <i class="bi bi-chevron-left"></i>
-      </button>
-
-      <!-- Reels Track -->
-      <div class="hiq-reels-track" id="hiqReelsTrack">
-        <?php foreach ($videoTestimonials as $vid): 
-          $vidSource = !empty($vid['video_path']) ? upload_url($vid['video_path']) : ($vid['video_url'] ?? '');
-          $thumbSource = !empty($vid['thumbnail_path']) ? upload_url($vid['thumbnail_path']) : '';
-          $name = $vid['customer_name'] ?? 'Homeowner';
-          $desc = $vid['description'] ?? ($vid['review_text'] ?? ($vid['title'] ?? ''));
-        ?>
-          <div class="hiq-reel-item">
-            <div class="hiq-reel-card" role="button" tabindex="0" title="Click to play inline">
-              <!-- Direct Inline Video Player -->
-              <video class="hiq-reel-video" 
-                     playsinline 
-                     loop 
-                     preload="metadata"
-                     <?= !empty($thumbSource) ? 'poster="' . e($thumbSource) . '"' : '' ?>>
-                <source src="<?= e($vidSource) ?>" type="video/mp4">
-              </video>
-
-              <!-- Gradient Scrim Overlay -->
-              <div class="hiq-reel-scrim"></div>
-
-              <!-- Center Play / Pause Indicator Button -->
-              <button class="hiq-reel-play-btn" type="button" aria-label="Play or pause video">
-                <i class="bi bi-play-fill"></i>
-              </button>
-
-              <!-- Bottom Caption (Name & Single Line Description) -->
-              <div class="hiq-reel-caption">
-                <div class="hiq-reel-name"><?= e($name) ?></div>
-                <?php if (!empty($desc)): ?>
-                  <div class="hiq-reel-desc" title="<?= e($desc) ?>"><?= e($desc) ?></div>
-                <?php endif; ?>
-                <div class="hiq-reel-audio-bar">
-                  <div class="hiq-reel-audio-label">
-                    <i class="bi bi-music-note-beamed"></i>
-                    <span>Original Audio</span>
-                  </div>
-                  <button class="hiq-reel-mute-btn" type="button" aria-label="Toggle sound" title="Sound on/off">
-                    <i class="bi bi-volume-mute-fill"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        <?php endforeach; ?>
-      </div>
-
-      <!-- Next Arrow -->
-      <button class="hiq-reel-nav-btn next-btn" id="hiqReelNext" type="button" aria-label="Next reels">
-        <i class="bi bi-chevron-right"></i>
-      </button>
-    </div>
-  </div>
-</section>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  var track = document.getElementById('hiqReelsTrack');
-  var prevBtn = document.getElementById('hiqReelPrev');
-  var nextBtn = document.getElementById('hiqReelNext');
-
-  if (track && prevBtn && nextBtn) {
-    prevBtn.addEventListener('click', function () {
-      track.scrollBy({ left: -320, behavior: 'smooth' });
-    });
-    nextBtn.addEventListener('click', function () {
-      track.scrollBy({ left: 320, behavior: 'smooth' });
-    });
-  }
-
-  var cards = document.querySelectorAll('.hiq-reel-card');
-  cards.forEach(function (card) {
-    var video = card.querySelector('video');
-    var playBtn = card.querySelector('.hiq-reel-play-btn');
-    var muteBtn = card.querySelector('.hiq-reel-mute-btn');
-    var muteIcon = muteBtn ? muteBtn.querySelector('i') : null;
-
-    if (!video) return;
-
-    // Start video muted so browser allows smooth playback
-    video.muted = true;
-
-    var togglePlay = function (e) {
-      // Don't toggle play if sound button was clicked
-      if (e && e.target && muteBtn && (muteBtn === e.target || muteBtn.contains(e.target))) {
-        return;
-      }
-
-      if (video.paused) {
-        // Pause any other playing video cards
-        cards.forEach(function (otherCard) {
-          if (otherCard !== card) {
-            var otherVideo = otherCard.querySelector('video');
-            if (otherVideo && !otherVideo.paused) {
-              otherVideo.pause();
-              otherCard.classList.remove('is-playing');
-            }
-          }
-        });
-
-        var p = video.play();
-        if (p !== undefined) {
-          p.then(function () {
-            card.classList.add('is-playing');
-          }).catch(function () {
-            video.muted = true;
-            if (muteIcon) muteIcon.className = 'bi bi-volume-mute-fill';
-            video.play().then(function () {
-              card.classList.add('is-playing');
-            }).catch(function () {});
-          });
-        }
-      } else {
-        video.pause();
-        card.classList.remove('is-playing');
-      }
-    };
-
-    card.addEventListener('click', togglePlay);
-    card.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        togglePlay(e);
-      }
-    });
-
-    if (muteBtn) {
-      muteBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        video.muted = !video.muted;
-        if (muteIcon) {
-          muteIcon.className = video.muted ? 'bi bi-volume-mute-fill' : 'bi bi-volume-up-fill';
-        }
-      });
-    }
-
-    video.addEventListener('ended', function () {
-      card.classList.remove('is-playing');
-    });
-  });
-});
-</script>
-<?php elseif (auth_admin()): ?>
-  <!-- Admin Guidance Banner -->
-  <section class="py-4 bg-light border-top">
-    <div class="container">
-      <div class="d-flex align-items-center justify-content-between p-3 rounded-3 border bg-white flex-wrap gap-3">
-        <div class="d-flex align-items-center gap-3">
-          <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(254, 107, 37, 0.12); color: #FE6B25; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
-            <i class="bi bi-camera-video"></i>
-          </div>
-          <div>
-            <div class="fw-bold text-dark">Video Reels Section Ready</div>
-            <small class="text-muted">Upload up to 4 customer reels (video, name, and single line description) in the admin panel.</small>
-          </div>
-        </div>
-        <a href="<?= url('admin/video-testimonials') ?>" class="btn btn-sm btn-dark">
-          <i class="bi bi-cloud-arrow-up-fill me-1"></i> Upload Videos in Admin (0 / 4)
-        </a>
-      </div>
-    </div>
-  </section>
-<?php endif; ?>
