@@ -40,7 +40,7 @@ $addr = $customer['addresses'][0] ?? [];
     <!-- Main Column -->
     <div class="col-lg-9">
       <!-- Profile Information -->
-      <div class="card border rounded-3 p-4 shadow-sm mb-4">
+      <div class="card border rounded-3 p-3 p-sm-4 shadow-sm mb-4">
         <h5 class="fw-bold mb-3 border-bottom pb-2">Personal & Delivery Details</h5>
         <form action="<?= url('account/profile') ?>" method="POST">
           <?= csrf_field() ?>
@@ -85,7 +85,7 @@ $addr = $customer['addresses'][0] ?? [];
       </div>
 
       <!-- Password Change -->
-      <div class="card border rounded-3 p-4 shadow-sm">
+      <div class="card border rounded-3 p-3 p-sm-4 shadow-sm">
         <h5 class="fw-bold mb-3 border-bottom pb-2">Change Password</h5>
         <form action="<?= url('account/password') ?>" method="POST">
           <?= csrf_field() ?>

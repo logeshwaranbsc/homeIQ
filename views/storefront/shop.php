@@ -32,7 +32,7 @@ $hasActiveFilters = !empty($criteria['q']) || !empty($criteria['category']) || !
     </div>
 
     <!-- Sorting -->
-    <div class="d-flex align-items-center gap-2 align-self-start align-self-sm-auto">
+    <div class="d-flex align-items-center justify-content-sm-start gap-2 shop-sort-bar">
       <label for="sortSelect" class="form-label mb-0 text-muted small fw-medium text-nowrap">Sort:</label>
       <select id="sortSelect" class="form-select form-select-sm" style="min-width: 170px;" onchange="location = this.value;">
         <option value="<?= url('shop?' . http_build_query(array_merge($criteria, ['sort' => 'newest', 'page' => 1]))) ?>" <?= ($criteria['sort'] ?? '') === 'newest' ? 'selected' : '' ?>>Newest Arrivals</option>
@@ -46,7 +46,7 @@ $hasActiveFilters = !empty($criteria['q']) || !empty($criteria['category']) || !
   <div class="row g-4">
     <!-- Mobile Filter Toggle Button (Visible only on < 992px) -->
     <div class="col-12 d-lg-none">
-      <button class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-between py-2.5 px-3 rounded-3 shadow-sm bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#shopFilterCollapse" aria-expanded="false" aria-controls="shopFilterCollapse">
+      <button class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-between py-2 px-3 rounded-3 shadow-sm bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#shopFilterCollapse" aria-expanded="false" aria-controls="shopFilterCollapse">
         <span class="fw-bold d-flex align-items-center">
           <i class="bi bi-funnel-fill text-primary me-2"></i>Filter Products
           <?php if ($hasActiveFilters): ?>

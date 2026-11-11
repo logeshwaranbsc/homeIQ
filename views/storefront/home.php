@@ -79,11 +79,11 @@ use App\Core\View;
                     <?php endif; ?>
 
                     <?php if ($hasCta): ?>
-                      <div class="d-flex align-items-center gap-3 flex-wrap <?= $textPos === 'center' ? 'justify-content-center' : ($textPos === 'right' ? 'justify-content-end' : '') ?>">
-                        <a href="<?= url($banner['cta_url'] ?? 'shop') ?>" class="btn btn-hiq-accent py-2.5 px-4 fs-6 fw-bold">
+                      <div class="d-flex align-items-center gap-2 gap-sm-3 flex-wrap <?= $textPos === 'center' ? 'justify-content-center' : ($textPos === 'right' ? 'justify-content-end' : '') ?>">
+                        <a href="<?= url($banner['cta_url'] ?? 'shop') ?>" class="btn btn-hiq-accent py-2 px-4 fs-6 fw-bold">
                           <?= e($banner['cta_label']) ?> <i class="bi bi-arrow-right ms-2"></i>
                         </a>
-                        <a href="<?= url('about') ?>" class="btn btn-hiq-glass py-2.5 px-4 fs-6 fw-semibold">
+                        <a href="<?= url('about') ?>" class="btn btn-hiq-glass py-2 px-4 fs-6 fw-semibold">
                           Why HOMEIQ
                         </a>
                       </div>
@@ -166,492 +166,76 @@ use App\Core\View;
   </div>
 </section>
 
-<!-- Creative Smart Lock Collections Showcase Section -->
-<?php
-// Function mapping intelligent category metadata, badges, and technology accents
-$getCategoryMeta = function(array $cat, int $index): array {
-    $slug = strtolower((string)($cat['slug'] ?? ''));
-    $name = strtolower((string)($cat['name'] ?? ''));
+<!-- Smart Lock Collection Showcase Section -->
+<section class="hiq-collection-showcase-section">
+  <div class="container">
+    <div class="hiq-collection-header text-center">
+      <div class="hiq-collection-eyebrow">FEATURED LOCKS</div>
+      <h2 class="hiq-collection-title">Our Smart Lock Collection</h2>
+      <p class="hiq-collection-subtitle">A handpicked range of smart locks for your home and office.</p>
+    </div>
 
-    // Base default metadata
-    $meta = [
-        'code' => sprintf('SYS // %02d', $index + 1),
-        'icon' => 'bi-shield-lock',
-        'tag' => 'Complete Lineup',
-        'group' => 'security',
-        'badge' => '5 Flagship Models',
-        'chips' => ['3D Face & Palm Vein', 'Biometric Touch', '2K Video & PIN'],
-        'accent' => '#FE6B25',
-        'accent_end' => '#FE4A1F',
-        'glow' => 'rgba(254, 107, 37, 0.25)',
-        'border' => 'rgba(254, 107, 37, 0.4)',
-        'badge_bg' => 'rgba(254, 107, 37, 0.1)',
-        'badge_color' => '#FE6B25',
-        'badge_border' => 'rgba(254, 107, 37, 0.22)',
-        'stage_glow' => 'rgba(254, 107, 37, 0.22)',
-    ];
-
-    if (str_contains($slug, 'face') || str_contains($name, 'face')) {
-        $meta['icon'] = 'bi-person-bounding-box';
-        $meta['tag'] = '3D Infrared Scan';
-        $meta['group'] = 'biometric';
-        $meta['badge'] = 'Flagship 3D AI';
-        $meta['chips'] = ['Hands-Free Unlock', '3D Light Camera', '< 0.4s Instant'];
-        $meta['accent'] = '#FE6B25';
-        $meta['accent_end'] = '#FE4A1F';
-        $meta['glow'] = 'rgba(254, 107, 37, 0.3)';
-        $meta['border'] = 'rgba(254, 107, 37, 0.45)';
-        $meta['badge_bg'] = 'rgba(254, 107, 37, 0.12)';
-        $meta['badge_color'] = '#FE6B25';
-        $meta['badge_border'] = 'rgba(254, 107, 37, 0.25)';
-        $meta['stage_glow'] = 'rgba(254, 107, 37, 0.25)';
-    } elseif (str_contains($slug, 'fingerprint') || str_contains($name, 'fingerprint')) {
-        $meta['icon'] = 'bi-fingerprint';
-        $meta['tag'] = 'Biometric Touch';
-        $meta['group'] = 'biometric';
-        $meta['badge'] = '0.3s Sub-Second';
-        $meta['chips'] = ['Handle Sensor', '100 Fingerprints', 'Semiconductor'];
-        $meta['accent'] = '#10B981';
-        $meta['accent_end'] = '#059669';
-        $meta['glow'] = 'rgba(16, 185, 129, 0.3)';
-        $meta['border'] = 'rgba(16, 185, 129, 0.45)';
-        $meta['badge_bg'] = 'rgba(16, 185, 129, 0.12)';
-        $meta['badge_color'] = '#059669';
-        $meta['badge_border'] = 'rgba(16, 185, 129, 0.25)';
-        $meta['stage_glow'] = 'rgba(16, 185, 129, 0.25)';
-    } elseif (str_contains($slug, 'vein') || str_contains($name, 'vein')) {
-        $meta['icon'] = 'bi-hand-index-thumb';
-        $meta['tag'] = 'Vascular IR';
-        $meta['group'] = 'biometric';
-        $meta['badge'] = 'Military-Grade';
-        $meta['chips'] = ['Contactless Palm', 'Zero Duplication', 'Subcutaneous IR'];
-        $meta['accent'] = '#8B5CF6';
-        $meta['accent_end'] = '#6D28D9';
-        $meta['glow'] = 'rgba(139, 92, 246, 0.3)';
-        $meta['border'] = 'rgba(139, 92, 246, 0.45)';
-        $meta['badge_bg'] = 'rgba(139, 92, 246, 0.12)';
-        $meta['badge_color'] = '#7C3AED';
-        $meta['badge_border'] = 'rgba(139, 92, 246, 0.25)';
-        $meta['stage_glow'] = 'rgba(139, 92, 246, 0.25)';
-    } elseif (str_contains($slug, 'wifi') || str_contains($name, 'wifi') || str_contains($slug, 'app') || str_contains($name, 'app')) {
-        $meta['icon'] = 'bi-wifi';
-        $meta['tag'] = 'Tuya Smart IoT';
-        $meta['group'] = 'connected';
-        $meta['badge'] = 'Real-Time App';
-        $meta['chips'] = ['Remote One-Time OTP', 'Access Logs', 'Smart Life Sync'];
-        $meta['accent'] = '#0284C7';
-        $meta['accent_end'] = '#0369A1';
-        $meta['glow'] = 'rgba(2, 132, 199, 0.3)';
-        $meta['border'] = 'rgba(2, 132, 199, 0.45)';
-        $meta['badge_bg'] = 'rgba(2, 132, 199, 0.12)';
-        $meta['badge_color'] = '#0284C7';
-        $meta['badge_border'] = 'rgba(2, 132, 199, 0.25)';
-        $meta['stage_glow'] = 'rgba(2, 132, 199, 0.25)';
-    } elseif (str_contains($slug, 'video') || str_contains($name, 'video') || str_contains($slug, 'camera') || str_contains($name, 'camera')) {
-        $meta['icon'] = 'bi-camera-video';
-        $meta['tag'] = 'Visual Intercom';
-        $meta['group'] = 'connected';
-        $meta['badge'] = '1080p HD Video';
-        $meta['chips'] = ['Two-Way Audio', 'IR Night Vision', 'Instant Doorbell'];
-        $meta['accent'] = '#E11D48';
-        $meta['accent_end'] = '#BE123C';
-        $meta['glow'] = 'rgba(225, 29, 72, 0.3)';
-        $meta['border'] = 'rgba(225, 29, 72, 0.45)';
-        $meta['badge_bg'] = 'rgba(225, 29, 72, 0.12)';
-        $meta['badge_color'] = '#E11D48';
-        $meta['badge_border'] = 'rgba(225, 29, 72, 0.25)';
-        $meta['stage_glow'] = 'rgba(225, 29, 72, 0.25)';
-    } elseif (str_contains($slug, 'pin') || str_contains($slug, 'rfid') || str_contains($name, 'pin') || str_contains($name, 'rfid')) {
-        $meta['icon'] = 'bi-keypad';
-        $meta['tag'] = 'Digital Access';
-        $meta['group'] = 'security';
-        $meta['badge'] = 'Anti-Peep PIN';
-        $meta['chips'] = ['Virtual Scramble', 'Encrypted Smart RFID', 'Backlit Touch'];
-        $meta['accent'] = '#D97706';
-        $meta['accent_end'] = '#B45309';
-        $meta['glow'] = 'rgba(217, 119, 6, 0.3)';
-        $meta['border'] = 'rgba(217, 119, 6, 0.45)';
-        $meta['badge_bg'] = 'rgba(217, 119, 6, 0.12)';
-        $meta['badge_color'] = '#D97706';
-        $meta['badge_border'] = 'rgba(217, 119, 6, 0.25)';
-        $meta['stage_glow'] = 'rgba(217, 119, 6, 0.25)';
-    } elseif (str_contains($slug, 'mortise') || str_contains($name, 'mortise')) {
-        $meta['icon'] = 'bi-safe2';
-        $meta['tag'] = 'Heavy Mortise';
-        $meta['group'] = 'security';
-        $meta['badge'] = '304 Stainless';
-        $meta['chips'] = ['Multi-Point Deadbolt', 'Anti-Pry Mortise', 'Main Door Armor'];
-        $meta['accent'] = '#475569';
-        $meta['accent_end'] = '#334155';
-        $meta['glow'] = 'rgba(71, 85, 105, 0.3)';
-        $meta['border'] = 'rgba(71, 85, 105, 0.45)';
-        $meta['badge_bg'] = 'rgba(71, 85, 105, 0.12)';
-        $meta['badge_color'] = '#334155';
-        $meta['badge_border'] = 'rgba(71, 85, 105, 0.25)';
-        $meta['stage_glow'] = 'rgba(71, 85, 105, 0.25)';
-    } elseif (str_contains($slug, 'accessories') || str_contains($name, 'accessories')) {
-        $meta['icon'] = 'bi-plug';
-        $meta['tag'] = 'Power & Parts';
-        $meta['group'] = 'security';
-        $meta['badge'] = 'OEM Hardware';
-        $meta['chips'] = ['Lithium Battery', 'Gateway Hubs', 'RFID Key Fobs'];
-        $meta['accent'] = '#0D9488';
-        $meta['accent_end'] = '#0F766E';
-        $meta['glow'] = 'rgba(13, 148, 136, 0.3)';
-        $meta['border'] = 'rgba(13, 148, 136, 0.45)';
-        $meta['badge_bg'] = 'rgba(13, 148, 136, 0.12)';
-        $meta['badge_color'] = '#0F766E';
-        $meta['badge_border'] = 'rgba(13, 148, 136, 0.25)';
-        $meta['stage_glow'] = 'rgba(13, 148, 136, 0.25)';
-    }
-
-    return $meta;
-};
-?>
-<section class="hiq-collections-section">
-  <div class="container position-relative" style="z-index: 2;">
-    <!-- Section Header -->
-    <div class="row align-items-end justify-content-between mb-2 g-3">
-      <div class="col-lg-8">
-        <span class="cat-sec-badge">
-          <span class="cat-pulse-dot"></span> Architectural Access Systems
-        </span>
-        <h2 class="cat-sec-title">
-          Explore Smart Door <span class="hiq-accent-gradient">Lock Collections</span>
-        </h2>
-        <p class="cat-sec-subtitle">
-          From hands-free 3D facial biometrics to hardened 304 stainless steel mortises — precision security hardware tailored to your architectural entrance.
-        </p>
-      </div>
-      <div class="col-lg-4 text-lg-end">
-        <a href="<?= url('categories') ?>" class="cat-view-all-pill">
-          <span>View All Collections</span>
-          <i class="bi bi-arrow-right"></i>
+    <div class="hiq-collection-grid">
+      <?php foreach (array_slice($featuredProducts, 0, 5) as $product): ?>
+        <a href="<?= url('product/' . $product['slug']) ?>" class="hiq-collection-tile" title="<?= e($product['name']) ?>">
+          <div class="hiq-collection-tile-media">
+            <img src="<?= upload_url($product['main_image'] ?? '') ?>"
+                 alt="<?= e($product['name']) ?>"
+                 loading="lazy"
+                 onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
+          </div>
+          <div class="hiq-collection-tile-body">
+            <h3 class="hiq-collection-tile-title"><?= e($product['name']) ?></h3>
+          </div>
         </a>
-      </div>
-    </div>
-
-    <!-- Interactive Category Filter Tabs -->
-    <?php if (count($categories) > 1): ?>
-    <div class="cat-filter-wrapper">
-      <div class="cat-filter-nav" id="catFilterNav">
-        <button type="button" class="cat-filter-btn active" data-filter="all">
-          <span>All Systems</span>
-          <span class="cat-count-pill"><?= count($categories) ?></span>
-        </button>
-        <button type="button" class="cat-filter-btn" data-filter="biometric">
-          <i class="bi bi-person-bounding-box text-primary"></i>
-          <span>Biometric &amp; AI</span>
-        </button>
-        <button type="button" class="cat-filter-btn" data-filter="connected">
-          <i class="bi bi-wifi text-info"></i>
-          <span>Smart &amp; Connected</span>
-        </button>
-        <button type="button" class="cat-filter-btn" data-filter="security">
-          <i class="bi bi-shield-shaded text-warning"></i>
-          <span>Core Hardware &amp; Parts</span>
-        </button>
-      </div>
-    </div>
-    <?php endif; ?>
-
-    <!-- Category Cards Grid -->
-    <?php $catColClass = count($categories) === 1 ? 'col-lg-5 col-md-7 mx-auto cat-col-item' : 'col-xl-3 col-lg-4 col-sm-6 cat-col-item'; ?>
-    <div class="row g-4 mt-2" id="catCardsGrid">
-      <?php foreach ($categories as $idx => $cat): ?>
-        <?php $meta = $getCategoryMeta($cat, $idx); ?>
-        <div class="<?= $catColClass ?>" data-category-group="<?= e($meta['group']) ?>">
-          <a href="<?= url('category/' . $cat['slug']) ?>" class="hiq-cat-card" style="
-            --cat-accent-color: <?= $meta['accent'] ?>;
-            --cat-accent-color-end: <?= $meta['accent_end'] ?>;
-            --cat-accent-glow: <?= $meta['glow'] ?>;
-            --cat-accent-border: <?= $meta['border'] ?>;
-            --cat-badge-bg: <?= $meta['badge_bg'] ?>;
-            --cat-badge-color: <?= $meta['badge_color'] ?>;
-            --cat-badge-border: <?= $meta['badge_border'] ?>;
-            --cat-stage-glow: <?= $meta['stage_glow'] ?>;
-          ">
-            <!-- Top HUD Row -->
-            <div class="cat-hud-row">
-              <span class="cat-code"><?= e($meta['code']) ?></span>
-              <span class="cat-hud-badge">
-                <i class="bi <?= e($meta['icon']) ?>"></i> <?= e($meta['tag']) ?>
-              </span>
-            </div>
-
-            <!-- Hardware Showcase Stage -->
-            <div class="cat-hardware-stage">
-              <div class="cat-stage-radar"></div>
-              <img src="<?= upload_url($cat['image'] ?? '') ?>" alt="<?= e($cat['name']) ?>" class="cat-lock-visual" loading="lazy" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
-              <span class="cat-stage-tag">
-                <i class="bi bi-patch-check-fill"></i> <?= e($meta['badge']) ?>
-              </span>
-            </div>
-
-            <!-- Card Body Content -->
-            <div class="cat-body-content">
-              <h3 class="cat-title-text"><?= e($cat['name']) ?></h3>
-              
-              <!-- Spec Chips -->
-              <div class="cat-chips-row">
-                <?php foreach ($meta['chips'] as $chip): ?>
-                  <span class="cat-spec-chip"><?= e($chip) ?></span>
-                <?php endforeach; ?>
-              </div>
-
-              <!-- Category Description -->
-              <p class="cat-summary-text"><?= e($cat['description']) ?></p>
-
-              <!-- Action Footer -->
-              <div class="cat-action-row">
-                <span class="cat-action-label">Explore Models</span>
-                <span class="cat-action-circle">
-                  <i class="bi bi-arrow-right"></i>
-                </span>
-              </div>
-            </div>
-
-            <!-- Bottom Glowing Line -->
-            <div class="cat-bottom-line"></div>
-          </a>
-        </div>
       <?php endforeach; ?>
     </div>
 
-    <!-- Architectural Security Engineering Pillars -->
-    <div class="cat-bottom-pillars">
-      <div class="row g-4 align-items-center">
-        <div class="col-lg-3 col-sm-6">
-          <div class="cat-pillar-item">
-            <div class="cat-pillar-icon" style="background: rgba(254, 107, 37, 0.1); color: #FE6B25;">
-              <i class="bi bi-cpu-fill"></i>
-            </div>
-            <div>
-              <div class="cat-pillar-title">3D AI Structured Light</div>
-              <div class="cat-pillar-sub">Contactless instant unlocking</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="cat-pillar-item">
-            <div class="cat-pillar-icon" style="background: rgba(16, 185, 129, 0.1); color: #10B981;">
-              <i class="bi bi-fingerprint"></i>
-            </div>
-            <div>
-              <div class="cat-pillar-title">&lt; 0.4s Bio Recognition</div>
-              <div class="cat-pillar-sub">Live semiconductor scanner</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="cat-pillar-item">
-            <div class="cat-pillar-icon" style="background: rgba(2, 132, 199, 0.1); color: #0284C7;">
-              <i class="bi bi-shield-lock-fill"></i>
-            </div>
-            <div>
-              <div class="cat-pillar-title">304 Stainless Mortise</div>
-              <div class="cat-pillar-sub">Multi-point anti-drill deadbolts</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="cat-pillar-item">
-            <div class="cat-pillar-icon" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;">
-              <i class="bi bi-tools"></i>
-            </div>
-            <div>
-              <div class="cat-pillar-title">Certified Installation</div>
-              <div class="cat-pillar-sub">Free door check &amp; chisel routing</div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="text-center hiq-collection-cta-wrap">
+      <a href="<?= url('shop') ?>" class="hiq-collection-cta">
+        Explore All Products <i class="bi bi-arrow-right ms-2"></i>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- Category Filtering Vanilla JS -->
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const filterNav = document.getElementById('catFilterNav');
-  const cardsGrid = document.getElementById('catCardsGrid');
-  if (!filterNav || !cardsGrid) return;
 
-  const buttons = filterNav.querySelectorAll('.cat-filter-btn');
-  const items = cardsGrid.querySelectorAll('.cat-col-item');
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', function () {
-      const filter = this.getAttribute('data-filter');
-
-      // Update active button state
-      buttons.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-
-      // Filter category items
-      items.forEach(item => {
-        const group = item.getAttribute('data-category-group');
-        if (filter === 'all' || group === filter) {
-          item.classList.remove('is-hidden');
-          item.style.opacity = '0';
-          item.style.transform = 'translateY(12px) scale(0.97)';
-          requestAnimationFrame(() => {
-            item.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
-            item.style.opacity = '1';
-            item.style.transform = 'translateY(0) scale(1)';
-          });
-        } else {
-          item.classList.add('is-hidden');
-        }
-      });
-    });
-  });
-});
-</script>
-
-
-<!-- Brand Editorial Story Section (Fully Customizable from Admin Panel) -->
+<!-- Brand Hardware Showcase Video Section -->
 <?php if (!empty($settings['story_enabled'] ?? true)): ?>
-  <?php
-    $storyTheme = $settings['story_theme'] ?? 'dark';
-    $storyBadge = $settings['story_badge'] ?? 'HARDWARE PHILOSOPHY';
-    $storyBadgeIcon = $settings['story_badge_icon'] ?? 'bi-cpu';
-    $storyTitle = $settings['story_title'] ?? 'A NEW STANDARD IN ARCHITECTURAL DEFENSE';
-    $storySubtitle = $settings['story_subtitle'] ?? 'HOMEIQ — where intelligent engineering meets residential peace of mind.';
-    $storyDesc = $settings['story_description'] ?? 'We’re reimagining how discerning homeowners secure their properties. Crafted from aerospace-grade aluminum alloys and hardened 304 stainless steel mortises, each lock pairs impenetrable mechanical deadbolts with lightning-fast semiconductor biometrics.';
-    $metric1Val = $settings['story_metric1_val'] ?? '<0.3s';
-    $metric1Lbl = $settings['story_metric1_label'] ?? 'Sensor Scan';
-    $metric2Val = $settings['story_metric2_val'] ?? '9-in-1';
-    $metric2Lbl = $settings['story_metric2_label'] ?? 'Access Modes';
-    $metric3Val = $settings['story_metric3_val'] ?? '304';
-    $metric3Lbl = $settings['story_metric3_label'] ?? 'Steel Mortise';
-    $metric4Val = $settings['story_metric4_val'] ?? 'AES';
-    $metric4Lbl = $settings['story_metric4_label'] ?? '128-Bit Safe';
-    $btn1Text = $settings['story_btn1_text'] ?? 'Explore All Hardware';
-    $btn1Url = $settings['story_btn1_url'] ?? 'shop';
-    $btn2Text = $settings['story_btn2_text'] ?? 'Read Security Briefing';
-    $btn2Url = $settings['story_btn2_url'] ?? 'about';
-    $storyImg = $settings['story_image'] ?? 'products/homeiq-ai-face-lock.svg';
-    $storyPill = $settings['story_pill_text'] ?? 'Aerospace 6063-T6 • 304 Stainless Steel Mortise';
-  ?>
-  <section class="brand-intro-section position-relative <?= ($storyTheme === 'light') ? 'theme-light' : '' ?>">
-    <div class="container position-relative" style="z-index: 2;">
-      <div class="row align-items-center g-5">
-        <div class="col-lg-6">
-          <div class="mb-3">
-            <span class="story-badge-pill">
-              <i class="bi <?= e($storyBadgeIcon) ?>"></i> <?= e($storyBadge) ?>
-            </span>
-          </div>
-
-          <?php
-            $titleWords = explode(' ', $storyTitle);
-            if (count($titleWords) >= 3) {
-                $lastTwo = implode(' ', array_splice($titleWords, -2));
-                $formattedTitle = e(implode(' ', $titleWords)) . ' <span class="story-title-highlight">' . e($lastTwo) . '</span>';
-            } else {
-                $formattedTitle = e($storyTitle);
-            }
-          ?>
-          <h2 class="mb-3">
-            <?= $formattedTitle ?>
-          </h2>
-
-          <?php if (!empty($storySubtitle)): ?>
-            <p class="story-subtitle">
-              <?= e($storySubtitle) ?>
-            </p>
-          <?php endif; ?>
-
-          <?php if (!empty($storyDesc)): ?>
-            <p class="story-desc">
-              <?= nl2br(e($storyDesc)) ?>
-            </p>
-          <?php endif; ?>
-
-          <!-- Spec Metrics Bento Grid -->
-          <div class="row g-3 mb-4">
-            <div class="col-6 col-sm-3">
-              <div class="spec-metric-card">
-                <div class="spec-metric-val"><?= e($metric1Val) ?></div>
-                <div class="spec-metric-label"><?= e($metric1Lbl) ?></div>
-              </div>
-            </div>
-            <div class="col-6 col-sm-3">
-              <div class="spec-metric-card">
-                <div class="spec-metric-val"><?= e($metric2Val) ?></div>
-                <div class="spec-metric-label"><?= e($metric2Lbl) ?></div>
-              </div>
-            </div>
-            <div class="col-6 col-sm-3">
-              <div class="spec-metric-card">
-                <div class="spec-metric-val"><?= e($metric3Val) ?></div>
-                <div class="spec-metric-label"><?= e($metric3Lbl) ?></div>
-              </div>
-            </div>
-            <div class="col-6 col-sm-3">
-              <div class="spec-metric-card">
-                <div class="spec-metric-val"><?= e($metric4Val) ?></div>
-                <div class="spec-metric-label"><?= e($metric4Lbl) ?></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="d-flex gap-3 flex-wrap align-items-center">
-            <?php if (!empty($btn1Text)): ?>
-              <a href="<?= url($btn1Url) ?>" class="btn btn-hiq-primary px-4 py-2 fw-bold shadow-sm d-inline-flex align-items-center gap-2">
-                <span><?= e($btn1Text) ?></span>
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            <?php endif; ?>
-            <?php if (!empty($btn2Text)): ?>
-              <a href="<?= url($btn2Url) ?>" class="btn btn-outline-light px-4 py-2 fw-semibold" style="<?= ($storyTheme === 'light') ? 'border-color: #ffd0b5; color: #1e293b; background: #ffffff;' : 'background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); color: #ffffff;' ?>">
-                <i class="bi bi-shield-check text-primary me-1"></i> <?= e($btn2Text) ?>
-              </a>
-            <?php endif; ?>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="story-showcase-card">
-            <div class="story-card-top-bar">
-              <span class="story-chip-badge" title="<?= e($storyPill) ?>">
-                <i class="bi bi-shield-check text-warning"></i>
-                <?= e($storyPill) ?>
-              </span>
-              <span class="story-chip-status">
-                <span class="story-pulse-dot"></span> Active Defense
-              </span>
-            </div>
-
-            <div class="story-card-body">
-              <div class="story-halo-glow"></div>
-              <img src="<?= upload_url($storyImg) ?>" alt="<?= e($storyTitle) ?>" class="story-lock-img" loading="lazy" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
-            </div>
-
-            <div class="story-card-footer">
-              <div class="d-flex align-items-center justify-content-between w-100 flex-wrap gap-2">
-                <span class="small text-light opacity-90 d-flex align-items-center gap-1">
-                  <i class="bi bi-patch-check-fill text-success"></i> HOMEIQ Certified Biometrics
-                </span>
-                <span class="badge bg-dark border border-secondary text-light small px-2 py-1">
-                  Grade 1 Mortise
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <section class="brand-intro-section brand-video-section position-relative">
+    <div class="brand-video-wrapper">
+      <video id="brandShowcaseVideo"
+             class="brand-showcase-video"
+             autoplay
+             muted
+             loop
+             playsinline
+             preload="auto">
+        <source src="https://res.cloudinary.com/uep3k36v/video/upload/v1794397919/Untitled_video_gwr_video_mvp.mp4" type="video/mp4">
+      </video>
     </div>
   </section>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const video = document.getElementById('brandShowcaseVideo');
+    const muteBtn = document.getElementById('brandVideoMuteBtn');
+    if (!video || !muteBtn) return;
+
+    const icon = muteBtn.querySelector('i');
+    muteBtn.addEventListener('click', function () {
+      video.muted = !video.muted;
+      if (icon) {
+        icon.className = video.muted ? 'bi bi-volume-mute-fill' : 'bi bi-volume-up-fill';
+      }
+    });
+  });
+  </script>
 <?php endif; ?>
 
 <!-- Featured Products Showcase (Creative Modern Slider Carousel with Arrow Controls) -->
-<section class="py-5 bg-white position-relative featured-products-section">
-  <div class="container py-4">
+<section class="py-4 py-md-5 bg-white position-relative featured-products-section">
+  <div class="container py-2 py-md-4">
     <!-- Section Header -->
     <div class="row align-items-end justify-content-between mb-3 g-3">
       <div class="col-lg-7">
@@ -666,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
         </p>
       </div>
 
-      <div class="col-lg-5 text-lg-end d-flex align-items-center justify-content-lg-end gap-3 flex-wrap">
+      <div class="col-lg-5 text-lg-end d-flex align-items-center justify-content-between justify-content-lg-end gap-3 flex-wrap">
         <a href="<?= url('shop') ?>" class="cat-view-all-pill">
           <span>Explore Catalog (<?= count($featuredProducts) ?> Models)</span>
           <i class="bi bi-arrow-right"></i>
@@ -722,7 +306,14 @@ document.addEventListener('DOMContentLoaded', function () {
             $pGroup = 'all';
             if (str_contains($slug, 'face') || str_contains($catSlug, 'face')) {
                 $pGroup = 'face';
-            } elseif (str_contains($slug, 'fingerprint') || str_contains($slug, 'touch') || str_contains($catSlug, 'fingerprint')) {
+            } elseif (
+                str_contains($slug, 'fingerprint')
+                || str_contains($slug, 'touch')
+                || str_contains($slug, 'vein')
+                || str_contains($slug, 'palm')
+                || str_contains($slug, 'biometric')
+                || str_contains($catSlug, 'fingerprint')
+            ) {
                 $pGroup = 'fingerprint';
             } elseif (str_contains($slug, 'video') || str_contains($slug, 'vision') || str_contains($slug, 'wifi') || str_contains($catSlug, 'video') || str_contains($catSlug, 'wifi')) {
                 $pGroup = 'smart';
@@ -741,10 +332,10 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>
 
     <!-- Custom Architecture Callout Banner -->
-    <div class="featured-custom-banner mt-5">
+    <div class="featured-custom-banner mt-4 mt-md-5">
       <div class="row align-items-center g-3">
         <div class="col-lg-8">
-          <div class="d-flex align-items-center gap-3">
+          <div class="d-flex align-items-start align-items-sm-center gap-3">
             <div class="banner-icon-badge">
               <i class="bi bi-shield-check"></i>
             </div>
@@ -764,100 +355,15 @@ document.addEventListener('DOMContentLoaded', function () {
   </div>
 </section>
 
-<!-- Featured Slider & Filter Navigation JavaScript -->
+<!-- Featured Slider Filter Navigation JavaScript -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const track = document.getElementById('featuredProductsTrack');
-  const prevBtns = [
-    document.getElementById('featuredSidePrev'),
-    document.getElementById('featuredHeaderPrev')
-  ].filter(Boolean);
-  const nextBtns = [
-    document.getElementById('featuredSideNext'),
-    document.getElementById('featuredHeaderNext')
-  ].filter(Boolean);
-
-  if (track && (prevBtns.length > 0 || nextBtns.length > 0)) {
-    const getVisibleSlides = () => {
-      return Array.from(track.querySelectorAll('.product-slider-slide')).filter(s => s.style.display !== 'none');
-    };
-
-    const getScrollStep = () => {
-      const slides = getVisibleSlides();
-      if (slides.length > 0) {
-        const gap = parseFloat(window.getComputedStyle(track).gap) || 20;
-        return Math.round(slides[0].getBoundingClientRect().width + gap);
-      }
-      return 280;
-    };
-
-    nextBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const step = getScrollStep();
-        const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
-        if (track.scrollLeft >= maxScroll - 10) {
-          track.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          const target = Math.min(track.scrollLeft + step, maxScroll);
-          track.scrollTo({ left: target, behavior: 'smooth' });
-        }
-      });
-    });
-
-    prevBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const step = getScrollStep();
-        const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
-        if (track.scrollLeft <= 10) {
-          track.scrollTo({ left: maxScroll, behavior: 'smooth' });
-        } else {
-          const target = Math.max(track.scrollLeft - step, 0);
-          track.scrollTo({ left: target, behavior: 'smooth' });
-        }
-      });
-    });
-  }
-
-  // Interactive Filter Tabs on Carousel
   const fNav = document.getElementById('featuredFilterNav');
-  if (fNav && track) {
-    const fBtns = fNav.querySelectorAll('.cat-filter-btn');
-    const fSlides = track.querySelectorAll('.product-slider-slide');
-
-    fBtns.forEach(btn => {
-      btn.addEventListener('click', function () {
-        const filter = this.getAttribute('data-filter');
-        fBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-
-        fSlides.forEach(slide => {
-          const group = slide.getAttribute('data-product-group');
-          if (filter === 'all' || group === filter) {
-            slide.style.display = 'flex';
-            slide.style.opacity = '1';
-          } else {
-            slide.style.display = 'none';
-          }
-        });
-        track.scrollTo({ left: 0, behavior: 'smooth' });
-      });
-    });
-  }
-});
-</script>
-
-
-<!-- Featured Products Filter Vanilla JS -->
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const fNav = document.getElementById('featuredFilterNav');
-  const fGrid = document.getElementById('featuredProductsGrid');
-  if (!fNav || !fGrid) return;
+  if (!fNav || !track) return;
 
   const fBtns = fNav.querySelectorAll('.cat-filter-btn');
-  const fItems = fGrid.querySelectorAll('.featured-grid-col');
+  const fSlides = track.querySelectorAll('.product-slider-slide');
 
   fBtns.forEach(btn => {
     btn.addEventListener('click', function () {
@@ -865,21 +371,16 @@ document.addEventListener('DOMContentLoaded', function () {
       fBtns.forEach(b => b.classList.remove('active'));
       this.classList.add('active');
 
-      fItems.forEach(item => {
-        const group = item.getAttribute('data-product-group');
+      fSlides.forEach(slide => {
+        const group = slide.getAttribute('data-product-group');
         if (filter === 'all' || group === filter) {
-          item.classList.remove('is-hidden');
-          item.style.opacity = '0';
-          item.style.transform = 'translateY(10px) scale(0.98)';
-          requestAnimationFrame(() => {
-            item.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
-            item.style.opacity = '1';
-            item.style.transform = 'translateY(0) scale(1)';
-          });
+          slide.style.display = 'flex';
+          slide.style.opacity = '1';
         } else {
-          item.classList.add('is-hidden');
+          slide.style.display = 'none';
         }
       });
+      track.scrollTo({ left: 0, behavior: 'smooth' });
     });
   });
 });
@@ -889,10 +390,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <!-- Customer Video Reels Section (Max 4 Videos - Inline Playback) -->
 <?php if (!empty($videoTestimonials)): ?>
-<section class="hiq-reels-section py-5 bg-white position-relative border-top">
-  <div class="container py-4">
+<section class="hiq-reels-section py-4 py-md-5 bg-white position-relative border-top">
+  <div class="container py-2 py-md-4">
     <!-- Section Header (Matching Featured Products Header Alignment & Style) -->
-    <div class="row align-items-end justify-content-between mb-4 g-3">
+    <div class="row align-items-end justify-content-between mb-3 mb-md-4 g-3">
       <div class="col-lg-7">
         <span class="cat-sec-badge">
           <span class="cat-pulse-dot"></span> Real Customer Experiences
@@ -905,7 +406,7 @@ document.addEventListener('DOMContentLoaded', function () {
         </p>
       </div>
 
-      <div class="col-lg-5 text-lg-end d-flex align-items-center justify-content-lg-end gap-3 flex-wrap">
+      <div class="col-lg-5 text-lg-end d-flex align-items-center justify-content-end gap-3 flex-wrap">
         <!-- Header Arrow Controls -->
         <div class="slider-header-controls d-flex align-items-center gap-2">
           <button type="button" class="btn-slider-arrow btn-slider-prev" id="hiqReelHeaderPrev" aria-label="Previous Reels" title="Previous Reels">
@@ -1140,7 +641,7 @@ document.addEventListener('DOMContentLoaded', function () {
   ?>
   <section class="promo-campaign-section position-relative <?= ($promoTheme === 'light') ? 'theme-light' : '' ?>">
     <div class="container position-relative" style="z-index: 2;">
-      <div class="row align-items-center g-5">
+      <div class="row align-items-center g-4 g-lg-5">
         <div class="col-lg-7">
           <div class="mb-3">
             <span class="promo-badge-pill">
@@ -1217,9 +718,9 @@ document.addEventListener('DOMContentLoaded', function () {
 <?php endif; ?>
 
 <!-- Hardware Engineering Highlights (Why Modern Homes Trust HOMEIQ) -->
-<section class="py-5" style="background-color: #f8fafc;">
-  <div class="container py-4">
-    <div class="text-center mx-auto mb-5" style="max-width: 680px;">
+<section class="py-4 py-md-5" style="background-color: #f8fafc;">
+  <div class="container py-2 py-md-4">
+    <div class="text-center mx-auto mb-4 mb-md-5" style="max-width: 680px;">
       <span class="text-primary fw-bold small text-uppercase letter-spacing-1">Engineering Excellence</span>
       <h2 class="fw-bold mt-1">Why Modern Homes Trust HOMEIQ</h2>
       <p class="text-muted">Precision security engineering built specifically for executive residences, luxury apartments, and modern villas.</p>
@@ -1291,9 +792,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <!-- Verified Customer Reviews Section -->
 <?php if (!empty($recentReviews)): ?>
-<section class="py-5 bg-white border-top">
-  <div class="container py-4">
-    <div class="d-flex align-items-end justify-content-between mb-4 flex-wrap gap-2">
+<section class="py-4 py-md-5 bg-white border-top">
+  <div class="container py-2 py-md-4">
+    <div class="d-flex align-items-start align-items-md-end justify-content-between mb-4 flex-wrap gap-2">
       <div>
         <span class="text-primary fw-bold small text-uppercase letter-spacing-1">Verified Homeowners</span>
         <h2 class="mb-0 fw-bold">Client Experiences & Endorsements</h2>
@@ -1304,11 +805,11 @@ document.addEventListener('DOMContentLoaded', function () {
       </div>
     </div>
 
-    <div class="row g-4">
+    <div class="row g-3 g-md-4">
       <?php foreach ($recentReviews as $rev): ?>
         <div class="col-lg-4 col-md-6">
-          <div class="card h-100 border p-4 shadow-sm" style="border-radius: 14px; background: #ffffff;">
-            <div class="d-flex align-items-center justify-content-between mb-3">
+          <div class="card h-100 border p-3 p-sm-4 shadow-sm" style="border-radius: 14px; background: #ffffff;">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
               <div class="rating-pill">
                 <i class="bi bi-star-fill text-warning"></i>
                 <span><?= (int)($rev['rating'] ?? 5) ?>.0 / 5.0</span>

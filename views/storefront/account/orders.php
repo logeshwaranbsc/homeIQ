@@ -50,7 +50,7 @@ $breadcrumbs = [
       <?php else: ?>
         <div class="d-flex flex-column gap-3">
           <?php foreach ($orders as $order): ?>
-            <div class="card border rounded-3 shadow-sm p-4">
+            <div class="card border rounded-3 shadow-sm p-3 p-sm-4">
               <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 border-bottom pb-3 mb-3">
                 <div>
                   <h6 class="fw-bold m-0">Order #<?= e($order['order_number']) ?></h6>
@@ -65,12 +65,12 @@ $breadcrumbs = [
               <!-- Items in this order -->
               <div class="d-flex flex-column gap-2 mb-3">
                 <?php foreach ($order['items'] as $item): ?>
-                  <div class="d-flex align-items-center justify-content-between small">
-                    <div class="d-flex align-items-center gap-2">
-                      <img src="<?= upload_url($item['image']) ?>" alt="" style="width: 36px; height: 36px; object-fit: contain;">
-                      <span><?= e($item['name']) ?> (×<?= $item['quantity'] ?>)</span>
+                  <div class="d-flex align-items-center justify-content-between gap-2 small">
+                    <div class="d-flex align-items-center gap-2" style="min-width: 0;">
+                      <img src="<?= upload_url($item['image']) ?>" alt="" class="flex-shrink-0" style="width: 36px; height: 36px; object-fit: contain;">
+                      <span class="text-truncate"><?= e($item['name']) ?> (×<?= $item['quantity'] ?>)</span>
                     </div>
-                    <span class="fw-semibold"><?= format_price($item['line_total']) ?></span>
+                    <span class="fw-semibold flex-shrink-0"><?= format_price($item['line_total']) ?></span>
                   </div>
                 <?php endforeach; ?>
               </div>

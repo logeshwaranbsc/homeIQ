@@ -14,7 +14,7 @@ $breadcrumbs = [
 <div class="container py-4">
   <?= View::component('breadcrumbs', ['items' => $breadcrumbs]) ?>
 
-  <div class="row g-5">
+  <div class="row g-4 g-lg-5">
     <div class="col-lg-5">
       <span class="text-primary fw-bold small text-uppercase letter-spacing-1">Direct Assistance</span>
       <h1 class="h2 fw-bold mb-3">Speak With a Smart Security Consultant</h1>

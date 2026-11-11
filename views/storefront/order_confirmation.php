@@ -22,8 +22,8 @@ declare(strict_types=1);
       </div>
 
       <!-- Order Details Card -->
-      <div class="card border rounded-3 p-4 shadow-sm mb-4">
-        <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
+      <div class="card border rounded-3 p-3 p-sm-4 shadow-sm mb-4">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 border-bottom pb-3 mb-3">
           <h5 class="fw-bold m-0">Order Summary</h5>
           <a href="<?= url('order/invoice/' . $order['order_number']) ?>" target="_blank" class="btn btn-outline-dark btn-sm">
             <i class="bi bi-printer me-1"></i> Print / Download Invoice
@@ -103,7 +103,7 @@ declare(strict_types=1);
       </div>
 
       <!-- Actions -->
-      <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
         <a href="<?= url('shop') ?>" class="btn btn-outline-secondary">
           <i class="bi bi-arrow-left me-1"></i> Return to Shop
         </a>

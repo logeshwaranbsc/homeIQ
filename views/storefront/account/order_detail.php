@@ -116,11 +116,11 @@ $breadcrumbs = [
 
   <!-- Order Activity History Timeline -->
   <?php if (!empty($order['history'])): ?>
-    <div class="card border rounded-3 p-4 shadow-sm">
+    <div class="card border rounded-3 p-3 p-sm-4 shadow-sm">
       <h6 class="fw-bold mb-3 border-bottom pb-2">Status History & Updates</h6>
       <ul class="list-group list-group-flush small">
         <?php foreach ($order['history'] as $h): ?>
-          <li class="list-group-item d-flex justify-content-between align-items-start px-0">
+          <li class="list-group-item d-flex justify-content-between align-items-start flex-wrap gap-2 px-0">
             <div>
               <strong><?= e($h['status']) ?></strong> — <?= e($h['note'] ?? '') ?>
               <div class="text-muted" style="font-size: 0.75rem;">Updated by: <?= e($h['by'] ?? 'System') ?></div>

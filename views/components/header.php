@@ -49,8 +49,8 @@ $customer = auth_customer();
     </div>
 
     <!-- Mobile Toggler -->
-    <button class="navbar-toggler border-secondary text-light p-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="bi bi-list fs-2"></i>
+    <button class="navbar-toggler border-secondary text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list fs-4"></i>
     </button>
 
     <!-- Nav Items Collapse -->

@@ -5,21 +5,21 @@ declare(strict_types=1);
 $admin = auth_admin();
 ?>
 <header class="admin-header">
-  <div class="d-flex align-items-center gap-3">
-    <button class="btn btn-sm btn-outline-secondary d-lg-none" id="btnToggleSidebar">
+  <div class="d-flex align-items-center gap-2 gap-sm-3" style="min-width: 0;">
+    <button class="btn btn-sm btn-outline-secondary d-lg-none flex-shrink-0" id="btnToggleSidebar" aria-label="Toggle Menu">
       <i class="bi bi-list fs-5"></i>
     </button>
-    <h5 class="m-0 fw-bold brand-font text-dark"><?= e($title ?? 'Management') ?></h5>
+    <h5 class="m-0 fw-bold brand-font text-dark text-truncate"><?= e($title ?? 'Management') ?></h5>
   </div>
 
-  <div class="d-flex align-items-center gap-3">
-    <a href="<?= url('/') ?>" target="_blank" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2">
-      <i class="bi bi-box-arrow-up-right"></i> View Storefront
+  <div class="d-flex align-items-center gap-2 gap-sm-3 flex-shrink-0">
+    <a href="<?= url('/') ?>" target="_blank" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2" title="View Storefront">
+      <i class="bi bi-box-arrow-up-right"></i><span class="d-none d-sm-inline">View Storefront</span>
     </a>
-    <div class="vr mx-1"></div>
+    <div class="vr mx-1 d-none d-sm-block"></div>
     <div class="dropdown">
       <a href="#" class="d-flex align-items-center gap-2 text-decoration-none dropdown-toggle text-dark" data-bs-toggle="dropdown">
-        <span class="badge bg-dark"><?= e($admin['role'] ?? 'Admin') ?></span>
+        <span class="badge bg-dark d-none d-md-inline"><?= e($admin['role'] ?? 'Admin') ?></span>
         <span class="small fw-semibold"><?= e($admin['name'] ?? 'Admin') ?></span>
       </a>
       <ul class="dropdown-menu dropdown-menu-end shadow-sm border">

@@ -38,7 +38,7 @@ $isSmtpLive = !empty($mailResult['success']) && ($mailResult['driver'] ?? '') ==
 
         <!-- 1. Direct Instant Reset Action (Guaranteed to work without waiting for external email) -->
         <div class="p-3 p-md-4 rounded-3 border mb-4" style="background: linear-gradient(135deg, #fff9f5 0%, #ffffff 100%); border-color: #ffd8bf !important;">
-          <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
             <span class="small fw-bold text-dark d-flex align-items-center">
               <i class="bi bi-shield-check text-success fs-5 me-2"></i> Instant Reset Access:
             </span>
@@ -56,7 +56,7 @@ $isSmtpLive = !empty($mailResult['success']) && ($mailResult['driver'] ?? '') ==
 
         <!-- 2. Local Outbox & Email Preview -->
         <div class="p-3 bg-light rounded-3 border mb-4">
-          <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
             <span class="small fw-bold text-secondary">
               <i class="bi bi-inbox-fill me-1 text-primary"></i> Generated Email (Local Outbox)
             </span>
@@ -88,7 +88,7 @@ $isSmtpLive = !empty($mailResult['success']) && ($mailResult['driver'] ?? '') ==
                   <li>Open the <code>.env</code> file in your project folder.</li>
                   <li>Add your Gmail address and a <strong>Google App Password</strong>:</li>
                 </ol>
-                <pre class="bg-dark text-light p-2 rounded mb-2" style="font-size: 11px;"><code>MAIL_DRIVER=smtp
+                <pre class="bg-dark text-light p-2 rounded mb-2 overflow-x-auto" style="font-size: 11px;"><code>MAIL_DRIVER=smtp
 MAIL_HOST=smtp.gmail.com
 MAIL_PORT=587
 MAIL_ENCRYPTION=tls
@@ -103,8 +103,8 @@ MAIL_PASSWORD=your_16_character_app_password</code></pre>
         </div>
 
         <!-- Footer Links -->
-        <div class="text-center small text-muted">
-          <a href="<?= url('forgot-password') . (!empty($redirectTarget) ? '?redirect=' . urlencode($redirectTarget) : '') ?>" class="text-muted text-decoration-none me-3">
+        <div class="text-center small text-muted d-flex flex-wrap justify-content-center gap-3">
+          <a href="<?= url('forgot-password') . (!empty($redirectTarget) ? '?redirect=' . urlencode($redirectTarget) : '') ?>" class="text-muted text-decoration-none">
             <i class="bi bi-arrow-repeat me-1"></i> Request Another Link
           </a>
           <a href="<?= url('login') . (!empty($redirectTarget) ? '?redirect=' . urlencode($redirectTarget) : '') ?>" class="text-primary fw-semibold text-decoration-none">

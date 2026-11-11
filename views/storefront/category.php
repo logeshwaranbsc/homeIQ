@@ -62,9 +62,9 @@ $breadcrumbs = [
       <p class="text-muted m-0">No active products currently found in this category.</p>
     </div>
   <?php else: ?>
-    <div class="row g-4">
+    <div class="row g-3 g-md-4">
       <?php foreach ($products as $p): ?>
-        <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
           <?= View::component('product_card', ['product' => $p]) ?>
         </div>
       <?php endforeach; ?>

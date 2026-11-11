@@ -38,13 +38,17 @@ $footerProducts = array_slice($footerProdRepo->getActive(), 0, 5);
       <!-- Col 2: Shop Digital Locks -->
       <div class="col-lg-2 col-md-3 col-6">
         <h6>Digital Locks</h6>
-        <ul class="list-unstyled d-flex flex-direction-column flex-column gap-2 small">
+        <ul class="list-unstyled d-flex flex-column gap-2 small">
           <li><a href="<?= url('shop') ?>">Shop All Locks</a></li>
           <?php foreach ($footerCategories as $fCat): ?>
             <li><a href="<?= url('category/' . $fCat['slug']) ?>"><?= e($fCat['name']) ?></a></li>
           <?php endforeach; ?>
           <?php foreach ($footerProducts as $fProd): ?>
-            <li><a href="<?= url('product/' . $fProd['slug']) ?>"><?= e($fProd['name']) ?></a></li>
+            <?php
+              $fShortName = preg_replace('/^HOMEIQ\s+/i', '', (string)($fProd['name'] ?? ''));
+              $fShortName = preg_replace('/\s+Smart\s+(?:Door\s+)?Lock$/i', '', (string)$fShortName);
+            ?>
+            <li><a href="<?= url('product/' . $fProd['slug']) ?>" title="<?= e($fProd['name']) ?>"><?= e(trim((string)$fShortName)) ?></a></li>
           <?php endforeach; ?>
         </ul>
       </div>
@@ -52,7 +56,7 @@ $footerProducts = array_slice($footerProdRepo->getActive(), 0, 5);
       <!-- Col 3: Customer Care & Policies -->
       <div class="col-lg-2 col-md-3 col-6">
         <h6>Customer Care</h6>
-        <ul class="list-unstyled d-flex flex-direction-column flex-column gap-2 small">
+        <ul class="list-unstyled d-flex flex-column gap-2 small">
           <li><a href="<?= url('order-tracking') ?>">Track Your Order</a></li>
           <li><a href="<?= url('shipping-policy') ?>">Shipping & Delivery</a></li>
           <li><a href="<?= url('returns-policy') ?>">Return & Refund</a></li>
@@ -84,13 +88,13 @@ $footerProducts = array_slice($footerProdRepo->getActive(), 0, 5);
     </div>
 
     <!-- Bottom Copyright -->
-    <div class="footer-bottom d-flex flex-column flex-md-row align-items-center justify-content-between text-secondary">
+    <div class="footer-bottom d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 text-secondary text-center text-md-start">
       <div>
         &copy; <?= date('Y') ?> HOMEIQ Technologies Pvt Ltd. All rights reserved.
       </div>
-      <div class="d-flex align-items-center gap-3 mt-3 mt-md-0">
+      <div class="d-flex align-items-center justify-content-center flex-wrap gap-3 mt-2 mt-md-0">
         <span class="small"><i class="bi bi-shield-check text-success me-1"></i>256-Bit SSL Secured Checkout</span>
-        <a href="<?= url('admin/login') ?>" class="text-secondary small ms-2"><i class="bi bi-lock me-1"></i>Staff Portal</a>
+        <a href="<?= url('admin/login') ?>" class="text-secondary small"><i class="bi bi-lock me-1"></i>Staff Portal</a>
       </div>
     </div>
   </div>

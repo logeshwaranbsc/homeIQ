@@ -115,7 +115,7 @@ if (str_contains($slug, 'face') || str_contains($cat, 'face')) {
     <!-- Streamlined Modern Actions -->
     <div class="modern-card-actions">
       <?php if ($inStock): ?>
-        <form action="<?= url('cart/add') ?>" method="POST" class="w-100 m-0">
+        <form action="<?= url('cart/add') ?>" method="POST" class="flex-grow-1 m-0" style="min-width: 0;">
           <?= csrf_field() ?>
           <input type="hidden" name="product_id" value="<?= e($product['id'] ?? '') ?>">
           <input type="hidden" name="quantity" value="1">

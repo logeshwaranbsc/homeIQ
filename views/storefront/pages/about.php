@@ -12,7 +12,7 @@ $breadcrumbs = [
 
   <!-- Editorial Hero Section -->
   <div class="editorial-hero-card p-4 p-md-5 mb-5 text-white">
-    <div class="row align-items-center g-5">
+    <div class="row align-items-center g-4 g-lg-5">
       <div class="col-lg-7">
         <div class="mb-3">
           <span class="story-badge-pill">
@@ -40,11 +40,11 @@ $breadcrumbs = [
         </div>
 
         <!-- Action CTAs -->
-        <div class="d-flex flex-wrap gap-3">
-          <a href="<?= url('shop') ?>" class="btn btn-hiq-primary px-4 py-2.5 fs-6 fw-bold">
+        <div class="d-flex flex-wrap gap-2 gap-sm-3">
+          <a href="<?= url('shop') ?>" class="btn btn-hiq-primary px-4 py-2 fs-6 fw-bold">
             <i class="bi bi-grid-3x3-gap-fill me-2"></i>Explore Locks
           </a>
-          <a href="<?= url('contact') ?>" class="btn btn-hiq-glass px-4 py-2.5 fs-6 fw-semibold">
+          <a href="<?= url('contact') ?>" class="btn btn-hiq-glass px-4 py-2 fs-6 fw-semibold">
             <i class="bi bi-headset me-2"></i>Get in Touch
           </a>
         </div>
@@ -77,7 +77,7 @@ $breadcrumbs = [
   </div>
 
   <!-- Philosophy & Principles -->
-  <div class="row g-5 mb-5 align-items-center">
+  <div class="row g-4 g-lg-5 mb-5 align-items-center">
     <div class="col-lg-6">
       <span class="badge bg-warning bg-opacity-10 text-primary border border-warning border-opacity-25 px-3 py-2 rounded-pill small fw-bold text-uppercase mb-2">
         <i class="bi bi-shield-shaded me-1"></i> Our Philosophy
@@ -163,7 +163,7 @@ $breadcrumbs = [
         </p>
       </div>
       <div class="col-lg-4 text-lg-end">
-        <a href="<?= url('contact') ?>" class="btn btn-hiq-primary px-4 py-2.5 fs-6 fw-bold">
+        <a href="<?= url('contact') ?>" class="btn btn-hiq-primary px-4 py-2 fs-6 fw-bold">
           <i class="bi bi-calendar-check me-2"></i>Schedule Consultation
         </a>
       </div>

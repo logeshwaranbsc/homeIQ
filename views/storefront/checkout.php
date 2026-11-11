@@ -57,12 +57,12 @@ $primaryAddress = $savedAddresses[0] ?? null;
   <form action="<?= url('checkout/process') ?>" method="POST" id="checkoutForm">
     <?= csrf_field() ?>
 
-    <div class="row g-5">
+    <div class="row g-4 g-lg-5">
       <!-- Shipping & Customer Details -->
       <div class="col-lg-7">
         <!-- 1. Contact Information -->
-        <div class="card border rounded-3 p-4 shadow-sm mb-4">
-          <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+        <div class="card border rounded-3 p-3 p-sm-4 shadow-sm mb-4">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 border-bottom pb-2">
             <h5 class="fw-bold m-0"><i class="bi bi-person me-2 text-primary"></i>1. Contact Information</h5>
             <span class="badge bg-light text-success border border-success-subtle small"><i class="bi bi-check2-circle me-1"></i>Verified Member</span>
           </div>
@@ -84,8 +84,8 @@ $primaryAddress = $savedAddresses[0] ?? null;
         </div>
 
         <!-- 2. Shipping Address -->
-        <div class="card border rounded-3 p-4 shadow-sm mb-4">
-          <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+        <div class="card border rounded-3 p-3 p-sm-4 shadow-sm mb-4">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 border-bottom pb-2">
             <h5 class="fw-bold m-0"><i class="bi bi-truck me-2 text-primary"></i>2. Shipping Address</h5>
             <?php if (!empty($savedAddresses)): ?>
               <small class="text-muted"><i class="bi bi-geo-alt-fill text-primary me-1"></i>Saved address loaded</small>
@@ -161,14 +161,14 @@ $primaryAddress = $savedAddresses[0] ?? null;
         </div>
 
         <!-- 3. Payment Method -->
-        <div class="card border rounded-3 p-4 shadow-sm mb-4">
+        <div class="card border rounded-3 p-3 p-sm-4 shadow-sm mb-4">
           <h5 class="fw-bold mb-3 border-bottom pb-2"><i class="bi bi-credit-card me-2 text-primary"></i>3. Select Payment Method</h5>
 
           <div class="d-flex flex-column gap-3">
-            <div class="border rounded p-3 d-flex align-items-center gap-3">
-              <input class="form-check-input mt-0" type="radio" name="payment_method" id="payOnline" value="online" checked>
+            <div class="border rounded p-3 d-flex align-items-start align-items-sm-center gap-3">
+              <input class="form-check-input mt-1 mt-sm-0 flex-shrink-0" type="radio" name="payment_method" id="payOnline" value="online" checked>
               <label class="form-check-label w-100" for="payOnline">
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                   <strong>Online Payment (UPI, Credit/Debit Card, NetBanking)</strong>
                   <span class="badge bg-success small">Instant Confirmation</span>
                 </div>
@@ -176,10 +176,10 @@ $primaryAddress = $savedAddresses[0] ?? null;
               </label>
             </div>
 
-            <div class="border rounded p-3 d-flex align-items-center gap-3">
-              <input class="form-check-input mt-0" type="radio" name="payment_method" id="payCod" value="cod">
+            <div class="border rounded p-3 d-flex align-items-start align-items-sm-center gap-3">
+              <input class="form-check-input mt-1 mt-sm-0 flex-shrink-0" type="radio" name="payment_method" id="payCod" value="cod">
               <label class="form-check-label w-100" for="payCod">
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                   <strong>Cash on Delivery (COD)</strong>
                   <span class="badge bg-light text-dark border small">Pay at Doorstep</span>
                 </div>
@@ -192,21 +192,21 @@ $primaryAddress = $savedAddresses[0] ?? null;
 
       <!-- Order Review Sidebar -->
       <div class="col-lg-5">
-        <div class="card border rounded-3 p-4 shadow-sm sticky-top" style="top: 90px;">
+        <div class="card border rounded-3 p-3 p-sm-4 shadow-sm sticky-top" style="top: 90px;">
           <h5 class="fw-bold mb-3 border-bottom pb-2">Order Review (<?= $cart['total_items'] ?> Items)</h5>
 
           <!-- Items list -->
           <div class="d-flex flex-column gap-3 mb-3" style="max-height: 280px; overflow-y: auto;">
             <?php foreach ($cart['items'] as $item): ?>
-              <div class="d-flex align-items-center justify-content-between gap-3">
-                <div class="d-flex align-items-center gap-2">
-                  <img src="<?= upload_url($item['image']) ?>" alt="<?= e($item['name']) ?>" class="img-thumbnail" style="width: 48px; height: 48px; object-fit: contain;">
-                  <div>
-                    <div class="fw-semibold small text-truncate" style="max-width: 200px;"><?= e($item['name']) ?></div>
+              <div class="d-flex align-items-center justify-content-between gap-2 gap-sm-3">
+                <div class="d-flex align-items-center gap-2 flex-grow-1" style="min-width: 0;">
+                  <img src="<?= upload_url($item['image']) ?>" alt="<?= e($item['name']) ?>" class="img-thumbnail flex-shrink-0" style="width: 48px; height: 48px; object-fit: contain;">
+                  <div style="min-width: 0;">
+                    <div class="fw-semibold small text-truncate"><?= e($item['name']) ?></div>
                     <small class="text-muted">Qty: <?= $item['quantity'] ?> × <?= format_price($item['price']) ?></small>
                   </div>
                 </div>
-                <div class="fw-bold small"><?= format_price($item['line_total']) ?></div>
+                <div class="fw-bold small flex-shrink-0"><?= format_price($item['line_total']) ?></div>
               </div>
             <?php endforeach; ?>
           </div>

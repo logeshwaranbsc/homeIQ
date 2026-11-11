@@ -21,7 +21,7 @@ use App\Core\View;
       </div>
     </div>
 
-    <div class="d-flex align-items-center justify-content-center gap-3">
+    <div class="d-flex align-items-center justify-content-center flex-wrap gap-3">
       <a href="<?= url('/') ?>" class="btn btn-hiq-primary">
         <i class="bi bi-house me-1"></i> Return Home
       </a>

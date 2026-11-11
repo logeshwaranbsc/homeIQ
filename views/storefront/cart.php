@@ -14,7 +14,7 @@ $breadcrumbs = [
   <h1 class="h2 fw-bold mb-4">Your Shopping Cart</h1>
 
   <?php if (empty($cart['items'])): ?>
-    <div class="card border p-5 text-center my-4 shadow-sm">
+    <div class="card border p-4 p-md-5 text-center my-4 shadow-sm">
       <i class="bi bi-bag-x fs-1 text-muted mb-3"></i>
       <h3 class="fw-bold">Your Cart is Currently Empty</h3>
       <p class="text-muted">Discover our state-of-the-art AI face recognition and biometric digital locks to secure your home.</p>
@@ -33,7 +33,7 @@ $breadcrumbs = [
             <h6 class="fw-bold m-0">Cart Items (<?= $cart['total_items'] ?>)</h6>
           </div>
           <div class="table-responsive">
-            <table class="table align-middle mb-0">
+            <table class="table align-middle mb-0 cart-items-table">
               <thead class="table-light small text-uppercase">
                 <tr>
                   <th style="width: 45%;">Product</th>
@@ -154,7 +154,7 @@ $breadcrumbs = [
           </div>
 
           <?php if (!auth_customer()): ?>
-            <div class="alert alert-warning py-2 px-3 small mb-3 border-2 rounded-2 d-flex align-items-center justify-content-between" style="border-color: #FE6B25 !important; background: #fff8f5;">
+            <div class="alert alert-warning py-2 px-3 small mb-3 border-2 rounded-2 d-flex align-items-center justify-content-between flex-wrap gap-2" style="border-color: #FE6B25 !important; background: #fff8f5;">
               <span><i class="bi bi-shield-lock-fill text-primary me-1"></i> Sign-in required to checkout</span>
               <a href="<?= url('login') ?>?redirect=checkout" class="fw-bold text-primary text-decoration-none">Sign In / Register &rarr;</a>
             </div>

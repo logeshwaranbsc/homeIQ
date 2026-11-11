@@ -26,10 +26,10 @@ $breadcrumbs = [
 ];
 ?>
 
-<div class="container py-4">
+<div class="container py-3 py-md-4">
   <?= View::component('breadcrumbs', ['items' => $breadcrumbs]) ?>
 
-  <div class="row g-5 mb-5">
+  <div class="row g-4 g-lg-5 mb-4 mb-lg-5">
     <!-- Gallery Column -->
     <div class="col-lg-6">
       <div class="product-gallery-main">
@@ -64,7 +64,7 @@ $breadcrumbs = [
       <h1 class="h2 fw-bold text-dark mb-3"><?= e($product['name']) ?></h1>
 
       <!-- Rating & Reviews -->
-      <div class="d-flex align-items-center gap-3 mb-3">
+      <div class="d-flex align-items-center flex-wrap gap-2 gap-sm-3 mb-3">
         <div class="d-flex align-items-center text-warning">
           <?php for ($i = 1; $i <= 5; $i++): ?>
             <i class="bi bi-star<?= $i <= round((float)($product['rating'] ?? 4.8)) ? '-fill' : '' ?>"></i>
@@ -78,13 +78,13 @@ $breadcrumbs = [
       </div>
 
       <!-- Price Hierarchy -->
-      <div class="d-flex align-items-baseline gap-3 mb-3 p-3 bg-light rounded-3">
+      <div class="d-flex align-items-baseline flex-wrap gap-2 gap-sm-3 mb-3 p-3 bg-light rounded-3">
         <span class="fs-2 fw-extrabold text-dark"><?= format_price($salePrice) ?></span>
         <?php if ($mrp > $salePrice): ?>
           <span class="fs-5 text-muted text-decoration-line-through"><?= format_price($mrp) ?></span>
           <span class="badge bg-danger fs-6"><?= $discount ?>% OFF</span>
         <?php endif; ?>
-        <span class="text-secondary small ms-auto">Inclusive of all taxes</span>
+        <span class="text-secondary small ms-sm-auto">Inclusive of all taxes</span>
       </div>
 
       <!-- Short Description -->
@@ -124,11 +124,11 @@ $breadcrumbs = [
             </div>
           </div>
 
-          <div class="d-flex flex-wrap gap-2 gap-sm-3">
-            <button type="submit" class="btn btn-hiq-primary flex-grow-1 py-2.5 py-md-3">
+          <div class="d-flex flex-wrap gap-2 gap-sm-3 product-purchase-actions">
+            <button type="submit" class="btn btn-hiq-primary flex-grow-1 py-2 py-md-3">
               <i class="bi bi-bag-plus"></i> Add to Cart
             </button>
-            <button type="submit" name="buy_now" value="1" class="btn btn-hiq-accent flex-grow-1 py-2.5 py-md-3">
+            <button type="submit" name="buy_now" value="1" class="btn btn-hiq-accent flex-grow-1 py-2 py-md-3">
               <i class="bi bi-lightning-charge"></i> Buy Now
             </button>
             <button type="button" class="btn btn-outline-secondary btn-wishlist-toggle px-3 <?= $isWishlisted ? 'active' : '' ?>" data-product-id="<?= e($product['id']) ?>" title="Add to Wishlist">
@@ -155,21 +155,21 @@ $breadcrumbs = [
       </div>
 
       <!-- Trust Badges -->
-      <div class="row g-2 text-secondary small">
+      <div class="row g-2 g-sm-3 text-secondary small">
         <div class="col-6 d-flex align-items-center gap-2">
-          <i class="bi bi-shield-check text-primary fs-5"></i>
+          <i class="bi bi-shield-check text-primary fs-5 flex-shrink-0"></i>
           <span><?= e($product['warranty'] ?? '2-Year Official Warranty') ?></span>
         </div>
         <div class="col-6 d-flex align-items-center gap-2">
-          <i class="bi bi-tools text-primary fs-5"></i>
+          <i class="bi bi-tools text-primary fs-5 flex-shrink-0"></i>
           <span><?= e($product['installation'] ?? 'Free Door Installation') ?></span>
         </div>
         <div class="col-6 d-flex align-items-center gap-2">
-          <i class="bi bi-arrow-repeat text-primary fs-5"></i>
+          <i class="bi bi-arrow-repeat text-primary fs-5 flex-shrink-0"></i>
           <span>7-Day Return Policy</span>
         </div>
         <div class="col-6 d-flex align-items-center gap-2">
-          <i class="bi bi-headset text-primary fs-5"></i>
+          <i class="bi bi-headset text-primary fs-5 flex-shrink-0"></i>
           <span>Lifetime Tech Support</span>
         </div>
       </div>
@@ -198,7 +198,7 @@ $breadcrumbs = [
       </ul>
     </div>
 
-    <div class="card-body p-4 p-md-5">
+    <div class="card-body p-3 p-sm-4 p-md-5">
       <div class="tab-content" id="productTabsContent">
         <!-- 1. Description Tab -->
         <div class="tab-pane fade show active" id="descTab" role="tabpanel">
@@ -316,7 +316,7 @@ $breadcrumbs = [
             <div class="d-flex flex-column gap-3">
               <?php foreach ($reviews as $rev): ?>
                 <div class="card p-3 border shadow-sm">
-                  <div class="d-flex align-items-center justify-content-between mb-2">
+                  <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
                     <div class="text-warning small">
                       <?php for ($i = 1; $i <= 5; $i++): ?>
                         <i class="bi bi-star<?= $i <= ($rev['rating'] ?? 5) ? '-fill' : '' ?>"></i>
@@ -389,11 +389,11 @@ $breadcrumbs = [
 
   <!-- Related Digital Locks -->
   <?php if (!empty($related)): ?>
-    <div class="mb-5">
+    <div class="mb-4 mb-md-5">
       <h3 class="fw-bold mb-4">Related Smart Door Locks</h3>
-      <div class="row g-4">
+      <div class="row g-3 g-md-4">
         <?php foreach ($related as $rel): ?>
-          <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-4 col-sm-6 col-12">
             <?= View::component('product_card', ['product' => $rel]) ?>
           </div>
         <?php endforeach; ?>

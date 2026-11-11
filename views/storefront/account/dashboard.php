@@ -50,7 +50,7 @@ $breadcrumbs = [
     <!-- Main Content -->
     <div class="col-lg-9">
       <!-- Welcome Card -->
-      <div class="card border rounded-3 p-4 shadow-sm mb-4 bg-light">
+      <div class="card border rounded-3 p-3 p-sm-4 shadow-sm mb-4 bg-light">
         <h4 class="fw-bold mb-1">Welcome back, <?= e($customer['name']) ?>!</h4>
         <p class="text-muted small m-0">From your HOMEIQ dashboard you can check your orders, update contact addresses, and view invoices.</p>
       </div>
@@ -82,7 +82,7 @@ $breadcrumbs = [
 
       <!-- Recent Orders Table -->
       <div class="card border rounded-3 shadow-sm">
-        <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+        <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
           <h6 class="fw-bold m-0">Recent Orders</h6>
           <a href="<?= url('account/orders') ?>" class="small text-decoration-none">View All</a>
         </div>
