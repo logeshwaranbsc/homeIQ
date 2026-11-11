@@ -3953,6 +3953,7 @@ video {
 
 /* 4. Product Sliders & Carousels Touch Optimization */
 @media (max-width: 767.98px) {
+
   .featured-products-section,
   .hiq-reels-section {
     padding-left: 0 !important;
@@ -4874,12 +4875,16 @@ video {
     padding: 0;
   }
 
+  .brand-video-wrapper {
+    height: clamp(210px, 56.25vw, 420px);
+  }
+
   .brand-video-mute-btn {
-    top: 14px;
-    right: 14px;
-    width: 38px;
-    height: 38px;
-    font-size: 0.95rem;
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
   }
 }
 
@@ -5034,18 +5039,18 @@ video {
     gap: 12px;
   }
 
-  .hiq-collection-grid > .hiq-collection-tile:last-child:nth-child(odd) {
+  .hiq-collection-grid>.hiq-collection-tile:last-child:nth-child(odd) {
     grid-column: 1 / -1;
     flex-direction: row;
     align-items: center;
   }
 
-  .hiq-collection-grid > .hiq-collection-tile:last-child:nth-child(odd) .hiq-collection-tile-media {
+  .hiq-collection-grid>.hiq-collection-tile:last-child:nth-child(odd) .hiq-collection-tile-media {
     width: 112px;
     flex-shrink: 0;
   }
 
-  .hiq-collection-grid > .hiq-collection-tile:last-child:nth-child(odd) .hiq-collection-tile-body {
+  .hiq-collection-grid>.hiq-collection-tile:last-child:nth-child(odd) .hiq-collection-tile-body {
     justify-content: flex-start;
     text-align: left;
     padding: 14px 16px;
