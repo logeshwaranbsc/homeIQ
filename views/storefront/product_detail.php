@@ -33,7 +33,7 @@ $breadcrumbs = [
     <!-- Gallery Column -->
     <div class="col-lg-6">
       <div class="product-gallery-main">
-        <img id="productMainImage" src="<?= upload_url($product['main_image'] ?? '') ?>" alt="<?= e($product['name']) ?>" class="img-fluid">
+        <img id="productMainImage" src="<?= upload_url($product['main_image'] ?? '') ?>" alt="<?= e($product['name']) ?>" class="img-fluid" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
       </div>
 
       <div class="thumbnail-row">
@@ -51,14 +51,6 @@ $breadcrumbs = [
               </div>
             <?php endif; ?>
           <?php endforeach; ?>
-        <?php else: ?>
-          <!-- Thumbnail variant previews -->
-          <div class="thumbnail-item" data-img-src="<?= upload_url('products/homeiq-ai-face-lock.svg') ?>">
-            <img src="<?= upload_url('products/homeiq-ai-face-lock.svg') ?>" alt="Chassis Profile">
-          </div>
-          <div class="thumbnail-item" data-img-src="<?= upload_url('products/mortise-lock.svg') ?>">
-            <img src="<?= upload_url('products/mortise-lock.svg') ?>" alt="Mortise Detail">
-          </div>
         <?php endif; ?>
       </div>
     </div>

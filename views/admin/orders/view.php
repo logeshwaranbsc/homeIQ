@@ -73,7 +73,7 @@ declare(strict_types=1);
               <tr>
                 <td>
                   <div class="d-flex align-items-center gap-3">
-                    <img src="<?= upload_url($item['image']) ?>" alt="" style="width: 40px; height: 40px; object-fit: contain;" class="img-thumbnail">
+                    <img src="<?= upload_url($item['image']) ?>" alt="" style="width: 40px; height: 40px; object-fit: contain;" class="img-thumbnail" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
                     <strong class="text-dark"><?= e($item['name']) ?></strong>
                   </div>
                 </td>

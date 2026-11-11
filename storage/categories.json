@@ -1,90 +1,13 @@
 [
     {
-        "name": "AI Face Recognition Smart Locks",
-        "slug": "ai-face-recognition-smart-locks",
-        "description": "Flagship locks featuring 3D structured-light infrared face scanning for hands-free instant door unlock.",
+        "name": "Digital Smart Locks",
+        "slug": "digital-smart-locks",
+        "description": "Next-generation biometric digital door locks featuring 3D AI face recognition, palm vein scanning, semiconductor fingerprint, 2K video intercom, and smart keypad access.",
         "image": "categories/bd6ec11485f93e5bc4b2_1793687132.png",
         "display_order": 1,
         "is_active": true,
         "id": "cat_e09d26ca6ae32633",
         "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-11-03 11:55:32"
-    },
-    {
-        "name": "Fingerprint Smart Locks",
-        "slug": "fingerprint-smart-locks",
-        "description": "Semiconductor biometric fingerprint door locks with rapid sub-0.5 second recognition speed.",
-        "image": "products/fingerprint-lock.svg",
-        "display_order": 2,
-        "is_active": true,
-        "id": "cat_c1996fa56ae32633",
-        "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-11-02 15:22:35"
-    },
-    {
-        "name": "Palm Vein Recognition Smart Locks",
-        "slug": "palm-vein-recognition-smart-locks",
-        "description": "Military-grade contactless vascular biometrics reading internal subcutaneous vein patterns.",
-        "image": "products/palm-vein-lock.svg",
-        "display_order": 3,
-        "is_active": true,
-        "id": "cat_5343e90f6ae32633",
-        "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-10-29 16:25:47"
-    },
-    {
-        "name": "Wi-Fi and App-Controlled Smart Locks",
-        "slug": "wifi-and-app-controlled-smart-locks",
-        "description": "Connect via Tuya Smart or Smart Life for real-time unlock logs, one-time passwords, and remote monitoring.",
-        "image": "products/wifi-smart-lock.svg",
-        "display_order": 4,
-        "is_active": true,
-        "id": "cat_d6c85ac76ae32633",
-        "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-10-29 16:25:47"
-    },
-    {
-        "name": "PIN and RFID Digital Locks",
-        "slug": "pin-and-rfid-digital-locks",
-        "description": "Anti-peeping backlit touch keypads and encrypted high-frequency RFID cards for homes and offices.",
-        "image": "products/pin-rfid-lock.svg",
-        "display_order": 5,
-        "is_active": true,
-        "id": "cat_4891d5646ae32633",
-        "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-10-29 16:25:47"
-    },
-    {
-        "name": "Video Door Smart Locks",
-        "slug": "video-door-smart-locks",
-        "description": "Integrated wide-angle HD camera with two-way audio intercom and video doorbell functionality.",
-        "image": "products/video-door-lock.svg",
-        "display_order": 6,
-        "is_active": true,
-        "id": "cat_28a29cc26ae32633",
-        "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-10-29 16:25:47"
-    },
-    {
-        "name": "Digital Mortise Locks",
-        "slug": "digital-mortise-locks",
-        "description": "Multi-point heavy-duty stainless steel security mortise locks engineered for main exterior doors.",
-        "image": "products/mortise-lock.svg",
-        "display_order": 7,
-        "is_active": true,
-        "id": "cat_6dcd9a1b6ae32633",
-        "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-10-29 16:25:47"
-    },
-    {
-        "name": "Smart Lock Accessories",
-        "slug": "smart-lock-accessories",
-        "description": "OEM lithium-ion replacement battery packs, encrypted RFID key fobs, Wi-Fi gateways, and strike plates.",
-        "image": "products/accessories-battery.svg",
-        "display_order": 8,
-        "is_active": true,
-        "id": "cat_f30582e76ae32633",
-        "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-10-29 16:25:47"
+        "updated_at": "2026-11-11 12:35:00"
     }
 ]

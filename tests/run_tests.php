@@ -11,6 +11,7 @@ require_once $baseDir . '/app/Core/App.php';
 
 use App\Core\App;
 use App\Repositories\JsonRepository;
+use App\Repositories\CategoryRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\CouponRepository;
 use App\Repositories\OrderRepository;
@@ -68,8 +69,13 @@ assertTest("Flagship product 'HOMEIQ Black AI Face Recognition Smart Door Lock' 
 assertTest("Flagship MRP is ₹24,999 and Selling Price is ₹19,999", (float)$flagship['price'] === 24999.0 && (float)$flagship['sale_price'] === 19999.0);
 assertTest("Flagship includes 9-in-1 access methods", in_array('AI Face Recognition', $flagship['access_methods'] ?? [], true));
 
+$categoryRepo = new CategoryRepository();
+$allCategories = $categoryRepo->all();
+assertTest("Catalog contains exactly 1 unified category ('digital-smart-locks')", count($allCategories) === 1 && ($allCategories[0]['slug'] ?? '') === 'digital-smart-locks');
+
 $allProducts = $productRepo->all();
-assertTest("Catalog contains only digital locks and smart accessories", count($allProducts) >= 8);
+$allMappedToSingleCategory = count($allProducts) === 5 && count(array_filter($allProducts, fn($p) => ($p['category_slug'] ?? '') === 'digital-smart-locks')) === 5;
+assertTest("Catalog maintains exactly 5 products mapped to the 1 category", $allMappedToSingleCategory);
 
 // TEST GROUP 3: Cart Calculation & Server-Side Price Verification
 echo "\nTest Group 3: Cart Pricing, Quantity & Shipping Rules\n";

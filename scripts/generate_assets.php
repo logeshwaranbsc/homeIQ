@@ -202,22 +202,16 @@ function generateLockSvg(string $name, string $accentColor, string $subtitle, st
 SVG;
 }
 
-// Generate models for all categories
+// Generate models for active smart locks
 $models = [
     'fingerprint-lock' => ['HOMEIQ TOUCH PRO', '#10b981', 'BIOMETRIC SCAN', 'FINGERPRINT UNLOCK'],
     'palm-vein-lock' => ['HOMEIQ VEINGUARD', '#a855f7', 'PALM VEIN SCAN', 'INFRARED VEIN'],
-    'wifi-smart-lock' => ['HOMEIQ CONNECT', '#3b82f6', 'TUYA / WI-FI APP', 'REMOTE UNLOCK'],
-    'pin-rfid-lock' => ['HOMEIQ KEYLESS PRO', '#f59e0b', 'PIN & RFID SYSTEM', 'SECURITY CARD'],
     'video-door-lock' => ['HOMEIQ VISION 2K', '#06b6d4', 'VIDEO INTERCOM', '2K HD CAMERA'],
-    'mortise-lock' => ['HOMEIQ MORTISE 6068', '#64748b', 'HEAVY DUTY STAINLESS', 'CLASSIC MORTISE'],
-    'accessories-battery' => ['HOMEIQ LI-ION PACK', '#22c55e', 'RECHARGEABLE 5000MAH', 'POWER ACCESSORY'],
-    'accessories-fobs' => ['HOMEIQ ENCRYPTED FOBS', '#e11d48', 'NFC RFID TAGS (4-PK)', 'ACCESSORY RFID'],
 ];
 
 foreach ($models as $filename => [$name, $color, $subtitle, $badge]) {
     $svg = generateLockSvg($name, $color, $subtitle, $badge);
     file_put_contents($productsDir . '/' . $filename . '.svg', $svg);
-    file_put_contents($categoriesDir . '/' . $filename . '.svg', $svg);
 }
 
 // 3. Hero Banners Generator (4 independent banners)

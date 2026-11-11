@@ -51,42 +51,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:8000/category/ai-face-recognition-smart-locks</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>http://localhost:8000/category/fingerprint-smart-locks</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>http://localhost:8000/category/palm-vein-recognition-smart-locks</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>http://localhost:8000/category/wifi-and-app-controlled-smart-locks</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>http://localhost:8000/category/pin-and-rfid-digital-locks</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>http://localhost:8000/category/video-door-smart-locks</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>http://localhost:8000/category/digital-mortise-locks</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>http://localhost:8000/category/smart-lock-accessories</loc>
+    <loc>http://localhost:8000/category/digital-smart-locks</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -106,32 +71,12 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://localhost:8000/product/homeiq-connect-wifi-smart-deadbolt-lock</loc>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>http://localhost:8000/product/homeiq-keyless-pin-rfid-commercial-door-lock</loc>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
     <loc>http://localhost:8000/product/homeiq-vision-2k-video-doorbell-smart-lock</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://localhost:8000/product/homeiq-heavy-duty-smart-mortise-6068-lock</loc>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>http://localhost:8000/product/homeiq-rechargeable-li-ion-battery-pack-5000mah</loc>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>http://localhost:8000/product/homeiq-encrypted-nfc-rfid-smart-key-fobs-4-pack</loc>
+    <loc>http://localhost:8000/product/homeiq-fingerprint-pin-digital-smart-door-lock</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>

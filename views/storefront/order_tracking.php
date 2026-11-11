@@ -123,7 +123,7 @@ $currentStatusIdx = $order ? array_search($order['status'], $allStatuses, true) 
             <?php foreach ($order['items'] as $item): ?>
               <div class="list-group-item d-flex align-items-center justify-content-between p-3">
                 <div class="d-flex align-items-center gap-3">
-                  <img src="<?= upload_url($item['image']) ?>" alt="<?= e($item['name']) ?>" class="img-thumbnail" style="width: 48px; height: 48px; object-fit: contain;">
+                  <img src="<?= upload_url($item['image']) ?>" alt="<?= e($item['name']) ?>" class="img-thumbnail" style="width: 48px; height: 48px; object-fit: contain;" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
                   <div>
                     <h6 class="mb-0 fw-bold small"><?= e($item['name']) ?></h6>
                     <small class="text-muted">SKU: <?= e($item['sku']) ?> • Qty: <?= $item['quantity'] ?></small>

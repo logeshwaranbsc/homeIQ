@@ -77,7 +77,7 @@ $breadcrumbs = [
             <tr>
               <td>
                 <div class="d-flex align-items-center gap-3">
-                  <img src="<?= upload_url($item['image']) ?>" alt="" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: contain;">
+                  <img src="<?= upload_url($item['image']) ?>" alt="" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: contain;" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
                   <div>
                     <strong class="small d-block"><?= e($item['name']) ?></strong>
                     <span class="text-muted small">SKU: <?= e($item['sku']) ?></span>

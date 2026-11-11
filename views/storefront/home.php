@@ -177,10 +177,10 @@ $getCategoryMeta = function(array $cat, int $index): array {
     $meta = [
         'code' => sprintf('SYS // %02d', $index + 1),
         'icon' => 'bi-shield-lock',
-        'tag' => 'Active Defense',
+        'tag' => 'Complete Lineup',
         'group' => 'security',
-        'badge' => 'High Security',
-        'chips' => ['Architectural', 'Keyless Access', 'Emergency Key'],
+        'badge' => '5 Flagship Models',
+        'chips' => ['3D Face & Palm Vein', 'Biometric Touch', '2K Video & PIN'],
         'accent' => '#FE6B25',
         'accent_end' => '#FE4A1F',
         'glow' => 'rgba(254, 107, 37, 0.25)',
@@ -332,6 +332,7 @@ $getCategoryMeta = function(array $cat, int $index): array {
     </div>
 
     <!-- Interactive Category Filter Tabs -->
+    <?php if (count($categories) > 1): ?>
     <div class="cat-filter-wrapper">
       <div class="cat-filter-nav" id="catFilterNav">
         <button type="button" class="cat-filter-btn active" data-filter="all">
@@ -352,12 +353,14 @@ $getCategoryMeta = function(array $cat, int $index): array {
         </button>
       </div>
     </div>
+    <?php endif; ?>
 
     <!-- Category Cards Grid -->
-    <div class="row g-4" id="catCardsGrid">
+    <?php $catColClass = count($categories) === 1 ? 'col-lg-5 col-md-7 mx-auto cat-col-item' : 'col-xl-3 col-lg-4 col-sm-6 cat-col-item'; ?>
+    <div class="row g-4 mt-2" id="catCardsGrid">
       <?php foreach ($categories as $idx => $cat): ?>
         <?php $meta = $getCategoryMeta($cat, $idx); ?>
-        <div class="col-xl-3 col-lg-4 col-sm-6 cat-col-item" data-category-group="<?= e($meta['group']) ?>">
+        <div class="<?= $catColClass ?>" data-category-group="<?= e($meta['group']) ?>">
           <a href="<?= url('category/' . $cat['slug']) ?>" class="hiq-cat-card" style="
             --cat-accent-color: <?= $meta['accent'] ?>;
             --cat-accent-color-end: <?= $meta['accent_end'] ?>;

@@ -216,18 +216,10 @@ class FileUploader
 
         // Protect seed/default demonstration files
         $protectedSeeds = [
-            'products/accessories-battery.svg',
-            'products/accessories-fobs.svg',
             'products/fingerprint-lock.svg',
             'products/homeiq-ai-face-lock.svg',
-            'products/mortise-lock.svg',
             'products/palm-vein-lock.svg',
-            'products/pin-rfid-lock.svg',
             'products/video-door-lock.svg',
-            'products/wifi-smart-lock.svg',
-            'banners/hero-banner-main.svg',
-            'banners/hero-app-control.svg',
-            'banners/hero-fingerprint.svg',
         ];
         if (in_array(ltrim(str_replace('\\', '/', $path), '/'), $protectedSeeds, true)) {
             return false;

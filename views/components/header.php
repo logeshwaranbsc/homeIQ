@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 use App\Core\Session;
 use App\Services\CartService;
-use App\Repositories\CategoryRepository;
 
 $cartService = new CartService();
 $cartDetails = $cartService->getCartDetails(false);
@@ -13,9 +12,6 @@ $wishlist = Session::get('wishlist', []);
 $wishlistCount = count($wishlist);
 
 $customer = auth_customer();
-
-$catRepo = new CategoryRepository();
-$navCategories = $catRepo->getActive();
 ?>
 <nav class="navbar navbar-expand-lg navbar-hiq">
   <div class="container-fluid px-2 px-sm-3 px-xl-5" style="max-width: 1540px;">
@@ -64,19 +60,7 @@ $navCategories = $catRepo->getActive();
           <a class="nav-link nav-link-hiq" href="<?= url('/') ?>">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link nav-link-hiq" href="<?= url('shop') ?>">Shop Digital Locks</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link nav-link-hiq dropdown-toggle" href="<?= url('categories') ?>" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Categories
-          </a>
-          <ul class="dropdown-menu dropdown-menu-dark shadow border-secondary" aria-labelledby="categoriesDropdown">
-            <li><a class="dropdown-item py-2" href="<?= url('categories') ?>"><strong>All Categories</strong></a></li>
-            <li><hr class="dropdown-divider border-secondary"></li>
-            <?php foreach ($navCategories as $cat): ?>
-              <li><a class="dropdown-item py-2" href="<?= url('category/' . $cat['slug']) ?>"><?= e($cat['name']) ?></a></li>
-            <?php endforeach; ?>
-          </ul>
+          <a class="nav-link nav-link-hiq" href="<?= url('shop') ?>">Store</a>
         </li>
         <li class="nav-item">
           <a class="nav-link nav-link-hiq" href="<?= url('about') ?>">About Us</a>

@@ -18,8 +18,9 @@ $breadcrumbs = [
   </div>
 
   <div class="row g-4">
+    <?php $catColClass = count($categories) === 1 ? 'col-lg-5 col-md-7 mx-auto' : 'col-lg-3 col-md-4 col-sm-6'; ?>
     <?php foreach ($categories as $cat): ?>
-      <div class="col-lg-3 col-md-4 col-sm-6">
+      <div class="<?= $catColClass ?>">
         <a href="<?= url('category/' . $cat['slug']) ?>" class="category-card">
           <div class="cat-img-wrapper">
             <img src="<?= upload_url($cat['image'] ?? '') ?>" alt="<?= e($cat['name']) ?>" loading="lazy">

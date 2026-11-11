@@ -1,10 +1,18 @@
 <?php
 declare(strict_types=1);
 
+use App\Repositories\CategoryRepository;
+use App\Repositories\ProductRepository;
 use App\Repositories\SettingsRepository;
 
 $settingsRepo = new SettingsRepository();
 $settings = $settingsRepo->all();
+
+$footerCatRepo = new CategoryRepository();
+$footerCategories = $footerCatRepo->getActive();
+
+$footerProdRepo = new ProductRepository();
+$footerProducts = array_slice($footerProdRepo->getActive(), 0, 5);
 ?>
 <footer class="footer-hiq">
   <div class="container">
@@ -31,12 +39,13 @@ $settings = $settingsRepo->all();
       <div class="col-lg-2 col-md-3 col-6">
         <h6>Digital Locks</h6>
         <ul class="list-unstyled d-flex flex-direction-column flex-column gap-2 small">
-          <li><a href="<?= url('category/ai-face-recognition-smart-locks') ?>">AI Face Recognition</a></li>
-          <li><a href="<?= url('category/fingerprint-smart-locks') ?>">Fingerprint Locks</a></li>
-          <li><a href="<?= url('category/palm-vein-recognition-smart-locks') ?>">Palm Vein Locks</a></li>
-          <li><a href="<?= url('category/wifi-and-app-controlled-smart-locks') ?>">Wi-Fi Smart Locks</a></li>
-          <li><a href="<?= url('category/video-door-smart-locks') ?>">Video Door Locks</a></li>
-          <li><a href="<?= url('category/smart-lock-accessories') ?>">Accessories</a></li>
+          <li><a href="<?= url('shop') ?>">Shop All Locks</a></li>
+          <?php foreach ($footerCategories as $fCat): ?>
+            <li><a href="<?= url('category/' . $fCat['slug']) ?>"><?= e($fCat['name']) ?></a></li>
+          <?php endforeach; ?>
+          <?php foreach ($footerProducts as $fProd): ?>
+            <li><a href="<?= url('product/' . $fProd['slug']) ?>"><?= e($fProd['name']) ?></a></li>
+          <?php endforeach; ?>
         </ul>
       </div>
 
