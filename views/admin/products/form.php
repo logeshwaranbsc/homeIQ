@@ -235,9 +235,16 @@ $includedText = $isEdit && is_array($product['whats_included'] ?? null) ? implod
           <label class="form-check-label fw-bold" for="isActiveCheck">Published on Storefront</label>
         </div>
 
-        <div class="form-check form-switch mb-4">
+        <div class="form-check form-switch mb-3">
           <input class="form-check-input" type="checkbox" name="is_featured" value="1" id="isFeaturedCheck" <?= !empty($product['is_featured']) ? 'checked' : '' ?>>
           <label class="form-check-label fw-bold" for="isFeaturedCheck">Feature on Homepage</label>
+        </div>
+
+        <div class="form-check form-switch mb-4">
+          <input class="form-check-input" type="checkbox" name="is_bestseller" value="1" id="isBestsellerCheck" <?= !empty($product['is_bestseller']) ? 'checked' : '' ?>>
+          <label class="form-check-label fw-bold" for="isBestsellerCheck">
+            <i class="bi bi-star-fill text-warning me-1"></i> Best Seller Badge
+          </label>
         </div>
 
         <button type="submit" class="btn btn-dark w-100 py-2 fw-bold">

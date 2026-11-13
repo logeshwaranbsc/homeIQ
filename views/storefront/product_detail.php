@@ -18,6 +18,7 @@ $inStock = $stock > 0;
 
 $wishlist = Session::get('wishlist', []);
 $isWishlisted = in_array($product['id'], $wishlist, true);
+$isBestSeller = !empty($product['is_bestseller']) || !empty($product['best_seller']) || (($product['badge'] ?? '') === 'Best Seller');
 
 $breadcrumbs = [
     ['label' => 'Shop', 'url' => 'shop'],
@@ -33,6 +34,14 @@ $breadcrumbs = [
     <!-- Gallery Column -->
     <div class="col-lg-6">
       <div class="product-gallery-main position-relative">
+        <?php if ($isBestSeller): ?>
+          <div class="gallery-badge-stack">
+            <span class="modern-bestseller-badge">
+              <i class="bi bi-star-fill"></i> Best Seller
+            </span>
+          </div>
+        <?php endif; ?>
+
         <!-- Floating Action Stack (Wishlist & Share) -->
         <div class="gallery-action-stack">
           <button type="button"
@@ -77,8 +86,13 @@ $breadcrumbs = [
 
     <!-- Product Purchase Column -->
     <div class="col-lg-6">
-      <div class="mb-2 text-uppercase text-primary fw-bold small letter-spacing-1">
-        <?= e($product['category'] ?? 'Smart Lock') ?> • SKU: <?= e($product['sku']) ?>
+      <div class="mb-2 text-uppercase text-primary fw-bold small letter-spacing-1 d-flex align-items-center gap-2 flex-wrap">
+        <?php if ($isBestSeller): ?>
+          <span class="product-detail-bestseller-badge">
+            <i class="bi bi-star-fill"></i> Best Seller
+          </span>
+        <?php endif; ?>
+        <span><?= e($product['category'] ?? 'Smart Lock') ?> • SKU: <?= e($product['sku']) ?></span>
       </div>
 
       <h1 class="h2 fw-bold text-dark mb-3"><?= e($product['name']) ?></h1>

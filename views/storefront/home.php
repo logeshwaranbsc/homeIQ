@@ -115,7 +115,7 @@ use App\Core\View;
 <!-- Smart Lock Collection Showcase Section (Categories) -->
 <section class="hiq-collection-showcase-section">
   <div class="container">
-    <div class="hiq-collection-header text-center">
+    <div class="hiq-collection-header text-start">
       <div class="hiq-collection-eyebrow">FEATURED LOCKS</div>
       <h2 class="hiq-collection-title">Our Smart Lock Collection</h2>
       <p class="hiq-collection-subtitle">A handpicked range of smart locks for your home and office.</p>
@@ -159,7 +159,7 @@ use App\Core\View;
       </button>
     </div>
 
-    <div class="text-center hiq-collection-cta-wrap">
+    <div class="text-start hiq-collection-cta-wrap">
       <a href="<?= url('shop') ?>" class="hiq-collection-cta">
         Explore All Products <i class="bi bi-arrow-right ms-2"></i>
       </a>

@@ -12,6 +12,7 @@ $inStock = $stock > 0;
 
 $wishlist = Session::get('wishlist', []);
 $isWishlisted = in_array($product['id'] ?? '', $wishlist, true);
+$isBestSeller = !empty($product['is_bestseller']) || !empty($product['best_seller']) || (($product['badge'] ?? '') === 'Best Seller');
 
 // Stage tag
 $primaryBadge = 'Active Defense';
@@ -36,11 +37,20 @@ if (str_contains($slug, 'face') || str_contains($cat, 'face')) {
   <a href="<?= url('product/' . $product['slug']) ?>" class="card-thumb-link">
     <div class="thumb-stage-radar"></div>
 
-    <?php if ($discount > 0): ?>
-      <span class="modern-discount-badge">
-        <i class="bi bi-tag-fill me-1"></i><?= $discount ?>% OFF
-      </span>
-    <?php endif; ?>
+    <!-- Floating Badges Stack (Top Left) -->
+    <div class="card-badges-stack">
+      <?php if ($isBestSeller): ?>
+        <span class="modern-bestseller-badge">
+          <i class="bi bi-star-fill"></i> Best Seller
+        </span>
+      <?php endif; ?>
+
+      <?php if ($discount > 0): ?>
+        <span class="modern-discount-badge">
+          <i class="bi bi-tag-fill me-1"></i><?= $discount ?>% OFF
+        </span>
+      <?php endif; ?>
+    </div>
 
     <!-- Floating Action Stack (Wishlist & Share) -->
     <div class="card-action-stack">

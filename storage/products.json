@@ -15,6 +15,7 @@
         "warranty": "2-Year Official Manufacturer Warranty",
         "installation": "Free Professional Door Installation Included",
         "is_featured": true,
+        "is_bestseller": true,
         "is_active": true,
         "rating": 4.8,
         "reviews_count": 0,
@@ -74,7 +75,7 @@
         },
         "id": "prod_531f9c426ae32633",
         "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-11-13 13:30:25",
+        "updated_at": "2026-11-13 14:53:31",
         "gallery_images": []
     },
     {

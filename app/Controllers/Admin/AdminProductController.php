@@ -320,6 +320,7 @@ class AdminProductController
             'warranty' => trim((string)$request->post('warranty', '2 Years Official Warranty')),
             'installation' => trim((string)$request->post('installation', 'Free Professional Installation Available')),
             'is_featured' => (bool)$request->post('is_featured', false),
+            'is_bestseller' => (bool)$request->post('is_bestseller', false),
             'is_active' => (bool)$request->post('is_active', true),
             'rating' => (float)$request->post('rating', 4.8),
             'reviews_count' => (int)$request->post('reviews_count', 0),
