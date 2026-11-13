@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Quantity Adjusters
   document.querySelectorAll('.btn-qty-minus').forEach(btn => {
     btn.addEventListener('click', () => {
-      const input = btn.closest('.input-group')?.querySelector('.input-qty');
+      const input = btn.closest('.pdp-qty-stepper, .input-group')?.querySelector('.input-qty');
       if (input) {
         let val = parseInt(input.value, 10) || 1;
         if (val > 1) {
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.btn-qty-plus').forEach(btn => {
     btn.addEventListener('click', () => {
-      const input = btn.closest('.input-group')?.querySelector('.input-qty');
+      const input = btn.closest('.pdp-qty-stepper, .input-group')?.querySelector('.input-qty');
       if (input) {
         let val = parseInt(input.value, 10) || 1;
         const max = parseInt(input.getAttribute('max'), 10) || 99;

@@ -23,8 +23,8 @@ $announcementsText = is_array($settings['announcements'] ?? null) ? implode("\n"
   <!-- Settings Nav Tabs -->
   <ul class="nav nav-pills mb-4 gap-2" id="settingsTabs" role="tablist">
     <li class="nav-item" role="presentation">
-      <button class="nav-link active fw-bold px-3 py-2" id="tab-story-btn" data-bs-toggle="pill" data-bs-target="#tab-story" type="button" role="tab">
-        <i class="bi bi-cpu me-1 text-primary"></i> Brand Story Section
+      <button class="nav-link active fw-bold px-3 py-2" id="tab-about-hero-btn" data-bs-toggle="pill" data-bs-target="#tab-about-hero" type="button" role="tab">
+        <i class="bi bi-info-circle me-1 text-primary"></i> About Page Hero Section
       </button>
     </li>
     <li class="nav-item" role="presentation">
@@ -47,103 +47,107 @@ $announcementsText = is_array($settings['announcements'] ?? null) ? implode("\n"
   <div class="tab-content" id="settingsTabContent">
 
     <!-- ========================================== -->
-    <!-- TAB 1: HOMEPAGE BRAND STORY SECTION        -->
+    <!-- TAB 1: ABOUT PAGE HERO SECTION             -->
     <!-- ========================================== -->
-    <div class="tab-pane fade show active" id="tab-story" role="tabpanel" aria-labelledby="tab-story-btn">
+    <div class="tab-pane fade show active" id="tab-about-hero" role="tabpanel" aria-labelledby="tab-about-hero-btn">
       <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
         <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom flex-wrap gap-2">
           <div>
             <h5 class="fw-bold mb-1 d-flex align-items-center gap-2">
-              <span class="badge bg-primary-subtle text-primary p-2 rounded-circle"><i class="bi bi-cpu fs-6"></i></span>
-              Brand Editorial Story & Hardware Philosophy Section
+              <span class="badge bg-primary-subtle text-primary p-2 rounded-circle"><i class="bi bi-info-circle fs-6"></i></span>
+              About Page Editorial Hero Section
             </h5>
-            <small class="text-muted">Customize the featured story section on the homepage with your own headline, specs, buttons, and product image.</small>
+            <small class="text-muted">Customize the featured editorial hero banner on the About page (/about) with headline, orange highlight, feature chips, buttons, and showcase hardware.</small>
           </div>
           <div class="form-check form-switch fs-5">
-            <input class="form-check-input" type="checkbox" name="story_enabled" value="1" id="storyEnabledSwitch" <?= !empty($settings['story_enabled']) ? 'checked' : '' ?>>
-            <label class="form-check-label fs-6 fw-bold" for="storyEnabledSwitch">Display on Homepage</label>
+            <input class="form-check-input" type="checkbox" name="about_hero_enabled" value="1" id="aboutHeroEnabledSwitch" <?= !empty($settings['about_hero_enabled'] ?? ($settings['story_enabled'] ?? true)) ? 'checked' : '' ?>>
+            <label class="form-check-label fs-6 fw-bold" for="aboutHeroEnabledSwitch">Display on About Page</label>
           </div>
         </div>
 
         <div class="row g-4">
           <!-- Left: Texts & Copy -->
           <div class="col-lg-7">
-            <!-- Visual Theme Style -->
-            <div class="mb-3">
-              <label class="form-label fw-bold small text-uppercase">Section Visual Theme</label>
-              <select name="story_theme" class="form-select">
-                <option value="dark" <?= ($settings['story_theme'] ?? 'dark') === 'dark' ? 'selected' : '' ?>>
-                  Obsidian Carbon & Orange Glow (Dark High-Tech — Recommended)
-                </option>
-                <option value="light" <?= ($settings['story_theme'] ?? '') === 'light' ? 'selected' : '' ?>>
-                  Clean Studio Light (Warm Titanium & Orange Accents)
-                </option>
-              </select>
-              <small class="text-muted">Choose between the high-tech obsidian carbon look or the clean studio light look.</small>
-            </div>
-
-            <!-- Badge & Title -->
+            <!-- Badge & Icon -->
             <div class="row g-3 mb-3">
               <div class="col-md-7">
                 <label class="form-label fw-bold small text-uppercase">Section Badge Tag</label>
-                <input type="text" name="story_badge" class="form-control" value="<?= e($settings['story_badge'] ?? 'HARDWARE PHILOSOPHY') ?>" placeholder="e.g. HARDWARE PHILOSOPHY">
+                <input type="text" name="about_hero_badge" class="form-control" value="<?= e($settings['about_hero_badge'] ?? ($settings['story_badge'] ?? 'Architectural Security')) ?>" placeholder="e.g. Architectural Security">
               </div>
               <div class="col-md-5">
-                <label class="form-label fw-bold small text-uppercase">Badge Bootstrap Icon</label>
+                <label class="form-label fw-bold small text-uppercase">Badge Icon</label>
                 <div class="input-group">
-                  <span class="input-group-text"><i class="bi <?= e($settings['story_badge_icon'] ?? 'bi-cpu') ?>"></i></span>
-                  <input type="text" name="story_badge_icon" class="form-control" value="<?= e($settings['story_badge_icon'] ?? 'bi-cpu') ?>" placeholder="e.g. bi-cpu, bi-shield-lock">
+                  <span class="input-group-text"><i class="bi <?= e($settings['about_hero_badge_icon'] ?? ($settings['story_badge_icon'] ?? 'bi-shield-lock-fill')) ?>"></i></span>
+                  <input type="text" name="about_hero_badge_icon" class="form-control" value="<?= e($settings['about_hero_badge_icon'] ?? ($settings['story_badge_icon'] ?? 'bi-shield-lock-fill')) ?>" placeholder="e.g. bi-shield-lock-fill">
                 </div>
               </div>
             </div>
 
-            <div class="mb-3">
-              <label class="form-label fw-bold small text-uppercase">Main Headline *</label>
-              <input type="text" name="story_title" class="form-control fw-bold" value="<?= e($settings['story_title'] ?? 'A NEW STANDARD IN ARCHITECTURAL DEFENSE') ?>" required>
-              <small class="text-muted">High-impact headline displayed in clean, bold typography.</small>
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label fw-bold small text-uppercase">Subheading / Philosophy Tagline</label>
-              <input type="text" name="story_subtitle" class="form-control" value="<?= e($settings['story_subtitle'] ?? 'HOMEIQ — where intelligent engineering meets residential peace of mind.') ?>">
+            <!-- Headline: Main Text + Orange Highlight -->
+            <div class="row g-3 mb-3">
+              <div class="col-md-7">
+                <label class="form-label fw-bold small text-uppercase">Headline Prefix *</label>
+                <input type="text" name="about_hero_title" class="form-control fw-bold" value="<?= e($settings['about_hero_title'] ?? 'Engineered for Security.') ?>" required placeholder="e.g. Engineered for Security.">
+                <small class="text-muted">Standard bold white headline text.</small>
+              </div>
+              <div class="col-md-5">
+                <label class="form-label fw-bold small text-uppercase">Headline Highlight</label>
+                <input type="text" name="about_hero_title_highlight" class="form-control fw-bold text-primary" value="<?= e($settings['about_hero_title_highlight'] ?? 'Designed for Living.') ?>" placeholder="e.g. Designed for Living.">
+                <small class="text-muted">Rendered with vibrant orange gradient accent.</small>
+              </div>
             </div>
 
             <div class="mb-4">
-              <label class="form-label fw-bold small text-uppercase">Editorial Story Paragraph</label>
-              <textarea name="story_description" rows="4" class="form-control" placeholder="Describe your hardware engineering, materials, and security craftsmanship..."><?= e($settings['story_description'] ?? '') ?></textarea>
+              <label class="form-label fw-bold small text-uppercase">Hero Subtitle / Description Paragraph</label>
+              <textarea name="about_hero_description" rows="3" class="form-control" placeholder="Describe the mission, security philosophy, and architectural vision..."><?= e($settings['about_hero_description'] ?? ($settings['story_description'] ?? 'HOMEIQ was conceived to bring uncompromising biometric door security and refined architectural elegance to modern residences.')) ?></textarea>
             </div>
 
-            <!-- 4 Spec Metric Bento Cards -->
-            <h6 class="fw-bold text-dark border-bottom pb-2 mb-3">
-              <i class="bi bi-grid-fill text-primary me-1"></i> 4 Spec Metric Cards (Bento Grid)
+            <!-- 3 Feature Chips -->
+            <h6 class="fw-bold text-dark border-bottom pb-2 mb-3 d-flex align-items-center justify-content-between">
+              <span><i class="bi bi-tag-fill text-primary me-1"></i> 3 Feature Highlight Chips</span>
+              <small class="text-muted fw-normal" style="font-size: 11px;">Displayed beneath hero description</small>
             </h6>
-            <div class="row g-3 mb-4">
-              <div class="col-sm-6 col-md-3">
-                <div class="p-2 border rounded bg-light">
-                  <label class="form-label small fw-bold mb-1">Metric 1</label>
-                  <input type="text" name="story_metric1_val" class="form-control form-control-sm fw-bold mb-1" placeholder="<0.3s" value="<?= e($settings['story_metric1_val'] ?? '<0.3s') ?>">
-                  <input type="text" name="story_metric1_label" class="form-control form-control-sm" placeholder="Sensor Scan" value="<?= e($settings['story_metric1_label'] ?? 'Sensor Scan') ?>">
+            <div class="row g-2 mb-4">
+              <div class="col-12 col-md-4">
+                <div class="p-3 border rounded-3 bg-light h-100">
+                  <div class="fw-bold small text-primary mb-2 d-flex align-items-center gap-1">
+                    <i class="bi bi-1-circle-fill"></i> Chip 1
+                  </div>
+                  <label class="form-label small text-muted mb-1" style="font-size: 11px;">Feature Label</label>
+                  <input type="text" name="about_hero_chip1_text" class="form-control form-control-sm fw-bold mb-2" placeholder="3D AI Facial Biometrics" value="<?= e($settings['about_hero_chip1_text'] ?? '3D AI Facial Biometrics') ?>">
+                  <label class="form-label small text-muted mb-1" style="font-size: 11px;">Icon Class</label>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-white"><i class="bi <?= e($settings['about_hero_chip1_icon'] ?? 'bi-cpu-fill text-warning') ?>"></i></span>
+                    <input type="text" name="about_hero_chip1_icon" class="form-control form-control-sm text-muted" placeholder="bi-cpu-fill text-warning" value="<?= e($settings['about_hero_chip1_icon'] ?? 'bi-cpu-fill text-warning') ?>">
+                  </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-md-3">
-                <div class="p-2 border rounded bg-light">
-                  <label class="form-label small fw-bold mb-1">Metric 2</label>
-                  <input type="text" name="story_metric2_val" class="form-control form-control-sm fw-bold mb-1" placeholder="9-in-1" value="<?= e($settings['story_metric2_val'] ?? '9-in-1') ?>">
-                  <input type="text" name="story_metric2_label" class="form-control form-control-sm" placeholder="Access Modes" value="<?= e($settings['story_metric2_label'] ?? 'Access Modes') ?>">
+              <div class="col-12 col-md-4">
+                <div class="p-3 border rounded-3 bg-light h-100">
+                  <div class="fw-bold small text-primary mb-2 d-flex align-items-center gap-1">
+                    <i class="bi bi-2-circle-fill"></i> Chip 2
+                  </div>
+                  <label class="form-label small text-muted mb-1" style="font-size: 11px;">Feature Label</label>
+                  <input type="text" name="about_hero_chip2_text" class="form-control form-control-sm fw-bold mb-2" placeholder="304 Stainless Steel Mortise" value="<?= e($settings['about_hero_chip2_text'] ?? '304 Stainless Steel Mortise') ?>">
+                  <label class="form-label small text-muted mb-1" style="font-size: 11px;">Icon Class</label>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-white"><i class="bi <?= e($settings['about_hero_chip2_icon'] ?? 'bi-shield-check text-success') ?>"></i></span>
+                    <input type="text" name="about_hero_chip2_icon" class="form-control form-control-sm text-muted" placeholder="bi-shield-check text-success" value="<?= e($settings['about_hero_chip2_icon'] ?? 'bi-shield-check text-success') ?>">
+                  </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-md-3">
-                <div class="p-2 border rounded bg-light">
-                  <label class="form-label small fw-bold mb-1">Metric 3</label>
-                  <input type="text" name="story_metric3_val" class="form-control form-control-sm fw-bold mb-1" placeholder="304" value="<?= e($settings['story_metric3_val'] ?? '304') ?>">
-                  <input type="text" name="story_metric3_label" class="form-control form-control-sm" placeholder="Steel Mortise" value="<?= e($settings['story_metric3_label'] ?? 'Steel Mortise') ?>">
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3">
-                <div class="p-2 border rounded bg-light">
-                  <label class="form-label small fw-bold mb-1">Metric 4</label>
-                  <input type="text" name="story_metric4_val" class="form-control form-control-sm fw-bold mb-1" placeholder="AES" value="<?= e($settings['story_metric4_val'] ?? 'AES') ?>">
-                  <input type="text" name="story_metric4_label" class="form-control form-control-sm" placeholder="128-Bit Safe" value="<?= e($settings['story_metric4_label'] ?? '128-Bit Safe') ?>">
+              <div class="col-12 col-md-4">
+                <div class="p-3 border rounded-3 bg-light h-100">
+                  <div class="fw-bold small text-primary mb-2 d-flex align-items-center gap-1">
+                    <i class="bi bi-3-circle-fill"></i> Chip 3
+                  </div>
+                  <label class="form-label small text-muted mb-1" style="font-size: 11px;">Feature Label</label>
+                  <input type="text" name="about_hero_chip3_text" class="form-control form-control-sm fw-bold mb-2" placeholder="Bank-Grade Local AES-256" value="<?= e($settings['about_hero_chip3_text'] ?? 'Bank-Grade Local AES-256') ?>">
+                  <label class="form-label small text-muted mb-1" style="font-size: 11px;">Icon Class</label>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-white"><i class="bi <?= e($settings['about_hero_chip3_icon'] ?? 'bi-fingerprint text-info') ?>"></i></span>
+                    <input type="text" name="about_hero_chip3_icon" class="form-control form-control-sm text-muted" placeholder="bi-fingerprint text-info" value="<?= e($settings['about_hero_chip3_icon'] ?? 'bi-fingerprint text-info') ?>">
+                  </div>
                 </div>
               </div>
             </div>
@@ -155,60 +159,103 @@ $announcementsText = is_array($settings['announcements'] ?? null) ? implode("\n"
             <div class="row g-3">
               <div class="col-md-6">
                 <label class="form-label small fw-bold mb-1">Primary Button Text</label>
-                <input type="text" name="story_btn1_text" class="form-control mb-2" value="<?= e($settings['story_btn1_text'] ?? 'Explore All Hardware') ?>">
+                <input type="text" name="about_hero_btn1_text" class="form-control mb-2" value="<?= e($settings['about_hero_btn1_text'] ?? ($settings['story_btn1_text'] ?? 'Explore Locks')) ?>">
                 <label class="form-label small fw-bold mb-1">Primary Button URL</label>
-                <input type="text" name="story_btn1_url" class="form-control" value="<?= e($settings['story_btn1_url'] ?? 'shop') ?>" placeholder="e.g. shop or /categories">
+                <input type="text" name="about_hero_btn1_url" class="form-control" value="<?= e($settings['about_hero_btn1_url'] ?? ($settings['story_btn1_url'] ?? 'shop')) ?>" placeholder="e.g. shop or /categories">
               </div>
               <div class="col-md-6">
                 <label class="form-label small fw-bold mb-1">Secondary Button Text</label>
-                <input type="text" name="story_btn2_text" class="form-control mb-2" value="<?= e($settings['story_btn2_text'] ?? 'Read Security Briefing') ?>">
+                <input type="text" name="about_hero_btn2_text" class="form-control mb-2" value="<?= e($settings['about_hero_btn2_text'] ?? ($settings['story_btn2_text'] ?? 'Get in Touch')) ?>">
                 <label class="form-label small fw-bold mb-1">Secondary Button URL</label>
-                <input type="text" name="story_btn2_url" class="form-control" value="<?= e($settings['story_btn2_url'] ?? 'about') ?>" placeholder="e.g. about or /contact">
+                <input type="text" name="about_hero_btn2_url" class="form-control" value="<?= e($settings['about_hero_btn2_url'] ?? ($settings['story_btn2_url'] ?? 'contact')) ?>" placeholder="e.g. contact or /about">
               </div>
             </div>
           </div>
 
-          <!-- Right: Visual Media & Showcase -->
+          <!-- Right: Visual Media & Showcase Hardware Card -->
           <div class="col-lg-5">
             <div class="p-3 border rounded-3 bg-light h-100 d-flex flex-column justify-content-between">
               <div>
                 <h6 class="fw-bold text-dark mb-3">
-                  <i class="bi bi-image text-primary me-1"></i> Featured Showcase Image
+                  <i class="bi bi-image text-primary me-1"></i> Right Showcase Hardware Card
                 </h6>
 
-                <!-- Current Image Preview -->
-                <div class="text-center p-3 mb-3 bg-white border rounded-3 shadow-sm position-relative">
-                  <img src="<?= upload_url($settings['story_image'] ?? 'products/homeiq-ai-face-lock.svg') ?>" alt="Showcase Preview" class="img-fluid rounded" style="max-height: 240px; object-fit: contain;" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
-                  <div class="small text-muted mt-2">
-                    Current: <code><?= e($settings['story_image'] ?? 'products/homeiq-ai-face-lock.svg') ?></code>
+                <!-- Live WYSIWYG Hardware Card Preview -->
+                <div class="mb-3">
+                  <label class="form-label small fw-bold text-uppercase text-muted d-flex align-items-center justify-content-between mb-2">
+                    <span>Live Hardware Card Preview</span>
+                    <span class="badge bg-success-subtle text-success small"><i class="bi bi-check2 me-1"></i>100% Cover + Overlaid Metrics</span>
+                  </label>
+                  
+                  <div class="admin-showcase-preview-wrapper" style="position: relative; width: 100%; height: 260px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(254, 107, 37, 0.35); box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35); display: flex; flex-direction: column; justify-content: space-between; padding: 14px 16px; background: #0d0e12;">
+                    <!-- 100% Full-Cover Image -->
+                    <img id="adminShowcaseImg" src="<?= upload_url($settings['about_hero_image'] ?? ($settings['story_image'] ?? 'products/homeiq-ai-face-lock.svg')) ?>" alt="Showcase Preview" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 1; transition: transform 0.4s ease;" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
+                    
+                    <!-- Gradient Scrim for Readability -->
+                    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 11, 14, 0.72) 0%, rgba(10, 11, 14, 0.05) 30%, rgba(10, 11, 14, 0.1) 65%, rgba(10, 11, 14, 0.82) 100%); z-index: 2; pointer-events: none;"></div>
+                    
+                    <!-- Top Bar Badges Overlaid -->
+                    <div class="d-flex align-items-center justify-content-between gap-2" style="position: relative; z-index: 3;">
+                      <span id="adminPreviewSeriesChip" style="background: rgba(11, 12, 16, 0.72); border: 1px solid rgba(254, 107, 37, 0.35); color: #ffffff; border-radius: 50px; padding: 5px 12px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; backdrop-filter: blur(8px); max-width: 65%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <i class="bi bi-patch-check-fill text-warning"></i> <span><?= e($settings['about_hero_card_badge'] ?? 'Flagship Biometric Series') ?></span>
+                      </span>
+                      <span id="adminPreviewStatusPill" style="font-size: 0.72rem; font-weight: 700; color: #10b981; display: inline-flex; align-items: center; gap: 6px; background: rgba(11, 12, 16, 0.72); border: 1px solid rgba(16, 185, 129, 0.3); padding: 5px 10px; border-radius: 50px; backdrop-filter: blur(8px);">
+                        <span style="width: 7px; height: 7px; border-radius: 50%; background: #10b981; box-shadow: 0 0 6px #10b981; display: inline-block;"></span> <span><?= e($settings['about_hero_card_status'] ?? 'Live Biometrics') ?></span>
+                      </span>
+                    </div>
+
+                    <!-- Bottom Footer Durability Pill Overlaid -->
+                    <div class="text-center" style="position: relative; z-index: 3;">
+                      <small id="adminPreviewFooterPill" style="background: rgba(11, 12, 16, 0.75); border: 1px solid rgba(255, 255, 255, 0.14); padding: 5px 14px; border-radius: 50px; backdrop-filter: blur(8px); color: #ffffff; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+                        <i class="bi bi-check-circle-fill text-success"></i> <span><?= e($settings['about_hero_card_footer'] ?? ($settings['story_pill_text'] ?? '500,000 Cycle Durability • IP65 Weatherproof')) ?></span>
+                      </small>
+                    </div>
                   </div>
+
+                  <div class="d-flex align-items-center justify-content-between mt-2 px-1">
+                    <small class="text-muted" style="font-size: 11px;">Current: <code class="text-primary"><?= e($settings['about_hero_image'] ?? ($settings['story_image'] ?? 'products/homeiq-ai-face-lock.svg')) ?></code></small>
+                    <small class="text-success" style="font-size: 11px;"><i class="bi bi-eye me-1"></i>Matches live storefront</small>
+                  </div>
+                </div>
+
+                <!-- Card Top Badges Inputs -->
+                <div class="row g-2 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label small fw-bold">Top Series Chip Text</label>
+                    <input type="text" id="inputCardBadge" name="about_hero_card_badge" class="form-control form-control-sm" value="<?= e($settings['about_hero_card_badge'] ?? 'Flagship Biometric Series') ?>" placeholder="e.g. Flagship Biometric Series">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label small fw-bold">Top Status Pill Text</label>
+                    <input type="text" id="inputCardStatus" name="about_hero_card_status" class="form-control form-control-sm" value="<?= e($settings['about_hero_card_status'] ?? 'Live Biometrics') ?>" placeholder="e.g. Live Biometrics">
+                  </div>
+                </div>
+
+                <!-- Footer Pill Input -->
+                <div class="mb-3">
+                  <label class="form-label small fw-bold">Footer Durability / Spec Text</label>
+                  <input type="text" id="inputCardFooter" name="about_hero_card_footer" class="form-control form-control-sm" value="<?= e($settings['about_hero_card_footer'] ?? ($settings['story_pill_text'] ?? '500,000 Cycle Durability • IP65 Weatherproof')) ?>" placeholder="e.g. 500,000 Cycle Durability • IP65 Weatherproof">
                 </div>
 
                 <!-- Upload New Image -->
                 <div class="mb-3">
-                  <label class="form-label small fw-bold">Upload New Showcase Image</label>
-                  <input type="file" name="story_image_file" class="form-control" accept="image/png,image/jpeg,image/webp,image/svg+xml">
-                  <small class="text-muted">Accepts PNG, JPG, WEBP, or SVG (Max 5MB).</small>
+                  <label class="form-label small fw-bold">Upload New Lock Image</label>
+                  <input type="file" id="inputCardImageFile" name="about_hero_image_file" class="form-control form-control-sm" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+                  <small class="text-muted" style="font-size: 11px;">Accepts PNG, JPG, WEBP, or SVG (Max 5MB). Replaces image on preview immediately.</small>
                 </div>
 
                 <!-- Or Specify Relative Path -->
                 <div class="mb-3">
                   <label class="form-label small fw-bold">Or Relative Image Path / URL</label>
-                  <input type="text" name="story_image" class="form-control form-control-sm" value="<?= e($settings['story_image'] ?? 'products/homeiq-ai-face-lock.svg') ?>">
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label small fw-bold">Floating Highlight Pill Text</label>
-                  <input type="text" name="story_pill_text" class="form-control" value="<?= e($settings['story_pill_text'] ?? 'Aerospace 6063-T6 • 304 Stainless Steel Mortise') ?>" placeholder="e.g. Aerospace Grade • 304 Stainless Steel">
+                  <input type="text" id="inputCardImagePath" name="about_hero_image" class="form-control form-control-sm" value="<?= e($settings['about_hero_image'] ?? ($settings['story_image'] ?? 'products/homeiq-ai-face-lock.svg')) ?>">
                 </div>
               </div>
 
               <div class="p-3 bg-white rounded border mt-3">
                 <div class="d-flex align-items-center gap-2 text-primary fw-bold small mb-1">
-                  <i class="bi bi-palette-fill"></i> Modern UI Applied
+                  <i class="bi bi-eye-fill"></i> Storefront Location
                 </div>
                 <div class="text-muted" style="font-size: 12px;">
-                  The storefront section has been updated with a crisp, modern light-luxury aesthetic using brand orange (#FE6B25) accents. Dark blue has been completely removed.
+                  This editorial hero section is featured exclusively at the top of <a href="<?= url('about') ?>" target="_blank" class="text-primary fw-semibold text-decoration-none">/about (About Us)</a>. Updates take effect immediately.
                 </div>
               </div>
             </div>
@@ -454,6 +501,60 @@ document.addEventListener('DOMContentLoaded', function() {
       const tab = new bootstrap.Tab(targetTabBtn);
       tab.show();
     }
+  }
+
+  // Live Hardware Card Preview Updates
+  const badgeInput = document.getElementById('inputCardBadge');
+  const statusInput = document.getElementById('inputCardStatus');
+  const footerInput = document.getElementById('inputCardFooter');
+  const imgInput = document.getElementById('inputCardImageFile');
+  const imgPathInput = document.getElementById('inputCardImagePath');
+  
+  const previewSeries = document.getElementById('adminPreviewSeriesChip');
+  const previewStatus = document.getElementById('adminPreviewStatusPill');
+  const previewFooter = document.getElementById('adminPreviewFooterPill');
+  const previewImg = document.getElementById('adminShowcaseImg');
+
+  if (badgeInput && previewSeries) {
+    badgeInput.addEventListener('input', function () {
+      const textSpan = previewSeries.querySelector('span');
+      if (textSpan) textSpan.textContent = this.value || 'Flagship Biometric Series';
+    });
+  }
+
+  if (statusInput && previewStatus) {
+    statusInput.addEventListener('input', function () {
+      const textSpan = previewStatus.querySelector('span');
+      if (textSpan) textSpan.textContent = this.value || 'Live Biometrics';
+    });
+  }
+
+  if (footerInput && previewFooter) {
+    footerInput.addEventListener('input', function () {
+      const textSpan = previewFooter.querySelector('span');
+      if (textSpan) textSpan.textContent = this.value || '500,000 Cycle Durability • IP65 Weatherproof';
+    });
+  }
+
+  if (imgInput && previewImg) {
+    imgInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          previewImg.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  if (imgPathInput && previewImg) {
+    imgPathInput.addEventListener('input', function () {
+      if (this.value) {
+        previewImg.src = this.value.startsWith('http') ? this.value : '<?= url('uploads') ?>/' + this.value.replace(/^uploads\//, '');
+      }
+    });
   }
 });
 </script>

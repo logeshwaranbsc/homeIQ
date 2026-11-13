@@ -6,13 +6,22 @@ namespace App\Controllers\Storefront;
 use App\Core\Request;
 use App\Core\View;
 use App\Repositories\JsonRepository;
+use App\Repositories\SettingsRepository;
 
 class PageController
 {
+    private SettingsRepository $settingsRepo;
+
+    public function __construct()
+    {
+        $this->settingsRepo = new SettingsRepository();
+    }
+
     public function about(): void
     {
         echo View::render('storefront/pages/about', [
             'title' => 'About HOMEIQ | Intelligent Smart Door Locks & Security Hardware',
+            'settings' => $this->settingsRepo->all(),
         ]);
     }
 

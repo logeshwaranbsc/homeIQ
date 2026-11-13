@@ -45,40 +45,64 @@ class AdminSettingsController
         $announcementsRaw = (string)$request->post('announcements', '');
         $announcements = array_values(array_filter(array_map('trim', explode("\n", str_replace("\r", "", $announcementsRaw)))));
 
-        // Homepage Editorial Brand Story Section
-        $storyEnabled = (bool)$request->post('story_enabled', false);
-        $storyTheme = trim((string)$request->post('story_theme', 'dark'));
-        $storyBadge = trim((string)$request->post('story_badge', 'HARDWARE PHILOSOPHY'));
-        $storyBadgeIcon = trim((string)$request->post('story_badge_icon', 'bi-cpu'));
-        $storyTitle = trim((string)$request->post('story_title', 'A NEW STANDARD IN ARCHITECTURAL DEFENSE'));
-        $storySubtitle = trim((string)$request->post('story_subtitle', ''));
-        $storyDescription = trim((string)$request->post('story_description', ''));
-        $storyMetric1Val = trim((string)$request->post('story_metric1_val', '<0.3s'));
-        $storyMetric1Label = trim((string)$request->post('story_metric1_label', 'Sensor Scan'));
-        $storyMetric2Val = trim((string)$request->post('story_metric2_val', '9-in-1'));
-        $storyMetric2Label = trim((string)$request->post('story_metric2_label', 'Access Modes'));
-        $storyMetric3Val = trim((string)$request->post('story_metric3_val', '304'));
-        $storyMetric3Label = trim((string)$request->post('story_metric3_label', 'Steel Mortise'));
-        $storyMetric4Val = trim((string)$request->post('story_metric4_val', 'AES'));
-        $storyMetric4Label = trim((string)$request->post('story_metric4_label', '128-Bit Safe'));
-        $storyBtn1Text = trim((string)$request->post('story_btn1_text', 'Explore All Hardware'));
-        $storyBtn1Url = trim((string)$request->post('story_btn1_url', 'shop'));
-        $storyBtn2Text = trim((string)$request->post('story_btn2_text', 'Read Security Briefing'));
-        $storyBtn2Url = trim((string)$request->post('story_btn2_url', 'about'));
-        $storyPillText = trim((string)$request->post('story_pill_text', 'Aerospace 6063-T6 • 304 Stainless Steel Mortise'));
-        $storyImage = trim((string)$request->post('story_image', 'products/homeiq-ai-face-lock.svg'));
+        // About Page Editorial Hero Section
+        $aboutHeroEnabled = (bool)$request->post('about_hero_enabled', false);
+        $aboutHeroBadge = trim((string)$request->post('about_hero_badge', 'Architectural Security'));
+        $aboutHeroBadgeIcon = trim((string)$request->post('about_hero_badge_icon', 'bi-shield-lock-fill'));
+        $aboutHeroTitle = trim((string)$request->post('about_hero_title', 'Engineered for Security.'));
+        $aboutHeroTitleHighlight = trim((string)$request->post('about_hero_title_highlight', 'Designed for Living.'));
+        $aboutHeroDescription = trim((string)$request->post('about_hero_description', 'HOMEIQ was conceived to bring uncompromising biometric door security and refined architectural elegance to modern residences.'));
 
-        $imageFile = $request->file('story_image_file');
-        if ($imageFile) {
-            $upload = FileUploader::upload($imageFile, 'story');
-            if (!empty($upload['success']) && !empty($upload['filename'])) {
-                $storyImage = $upload['filename'];
+        $aboutHeroChip1Text = trim((string)$request->post('about_hero_chip1_text', '3D AI Facial Biometrics'));
+        $aboutHeroChip1Icon = trim((string)$request->post('about_hero_chip1_icon', 'bi-cpu-fill text-warning'));
+        $aboutHeroChip2Text = trim((string)$request->post('about_hero_chip2_text', '304 Stainless Steel Mortise'));
+        $aboutHeroChip2Icon = trim((string)$request->post('about_hero_chip2_icon', 'bi-shield-check text-success'));
+        $aboutHeroChip3Text = trim((string)$request->post('about_hero_chip3_text', 'Bank-Grade Local AES-256'));
+        $aboutHeroChip3Icon = trim((string)$request->post('about_hero_chip3_icon', 'bi-fingerprint text-info'));
+
+        $aboutHeroBtn1Text = trim((string)$request->post('about_hero_btn1_text', 'Explore Locks'));
+        $aboutHeroBtn1Url = trim((string)$request->post('about_hero_btn1_url', 'shop'));
+        $aboutHeroBtn2Text = trim((string)$request->post('about_hero_btn2_text', 'Get in Touch'));
+        $aboutHeroBtn2Url = trim((string)$request->post('about_hero_btn2_url', 'contact'));
+
+        $aboutHeroCardBadge = trim((string)$request->post('about_hero_card_badge', 'Flagship Biometric Series'));
+        $aboutHeroCardStatus = trim((string)$request->post('about_hero_card_status', 'Live Biometrics'));
+        $aboutHeroCardFooter = trim((string)$request->post('about_hero_card_footer', '500,000 Cycle Durability • IP65 Weatherproof'));
+        $aboutHeroImage = trim((string)$request->post('about_hero_image', 'products/homeiq-ai-face-lock.svg'));
+
+        $aboutHeroImageFile = $request->file('about_hero_image_file');
+        if ($aboutHeroImageFile) {
+            $uploadAbout = FileUploader::upload($aboutHeroImageFile, 'about');
+            if (!empty($uploadAbout['success']) && !empty($uploadAbout['filename'])) {
+                $aboutHeroImage = $uploadAbout['filename'];
             }
         }
-        // Sanitize path (strip leading slashes, uploads/ prefix, and duplicate subfolder names)
-        $storyImage = ltrim($storyImage, '/\\');
-        $storyImage = preg_replace('#^uploads[\\\\/]+#i', '', $storyImage);
-        $storyImage = preg_replace('#^story[\\\\/]+story[\\\\/]+#i', 'story/', $storyImage);
+        $aboutHeroImage = ltrim($aboutHeroImage, '/\\');
+        $aboutHeroImage = preg_replace('#^uploads[\\\\/]+#i', '', $aboutHeroImage);
+        $aboutHeroImage = preg_replace('#^about[\\\\/]+about[\\\\/]+#i', 'about/', $aboutHeroImage);
+
+        // Keep legacy story_* keys aligned for backward compatibility
+        $storyEnabled = $aboutHeroEnabled;
+        $storyTheme = 'dark';
+        $storyBadge = $aboutHeroBadge;
+        $storyBadgeIcon = $aboutHeroBadgeIcon;
+        $storyTitle = trim($aboutHeroTitle . ' ' . $aboutHeroTitleHighlight);
+        $storySubtitle = $aboutHeroTitleHighlight;
+        $storyDescription = $aboutHeroDescription;
+        $storyMetric1Val = '<0.3s';
+        $storyMetric1Label = 'Sensor Scan';
+        $storyMetric2Val = '9-in-1';
+        $storyMetric2Label = 'Access Modes';
+        $storyMetric3Val = '304';
+        $storyMetric3Label = 'Steel Mortise';
+        $storyMetric4Val = 'AES';
+        $storyMetric4Label = '128-Bit Safe';
+        $storyBtn1Text = $aboutHeroBtn1Text;
+        $storyBtn1Url = $aboutHeroBtn1Url;
+        $storyBtn2Text = $aboutHeroBtn2Text;
+        $storyBtn2Url = $aboutHeroBtn2Url;
+        $storyPillText = $aboutHeroCardFooter;
+        $storyImage = $aboutHeroImage;
 
         // Homepage Promotional Campaign Banner Section
         $promoEnabled = (bool)$request->post('promo_enabled', false);
@@ -117,6 +141,26 @@ class AdminSettingsController
             'enable_cod' => $enableCod,
             'announcement_bar_enabled' => $announcementBarEnabled,
             'announcements' => $announcements,
+            'about_hero_enabled' => $aboutHeroEnabled,
+            'about_hero_badge' => $aboutHeroBadge,
+            'about_hero_badge_icon' => $aboutHeroBadgeIcon,
+            'about_hero_title' => $aboutHeroTitle,
+            'about_hero_title_highlight' => $aboutHeroTitleHighlight,
+            'about_hero_description' => $aboutHeroDescription,
+            'about_hero_chip1_text' => $aboutHeroChip1Text,
+            'about_hero_chip1_icon' => $aboutHeroChip1Icon,
+            'about_hero_chip2_text' => $aboutHeroChip2Text,
+            'about_hero_chip2_icon' => $aboutHeroChip2Icon,
+            'about_hero_chip3_text' => $aboutHeroChip3Text,
+            'about_hero_chip3_icon' => $aboutHeroChip3Icon,
+            'about_hero_btn1_text' => $aboutHeroBtn1Text,
+            'about_hero_btn1_url' => $aboutHeroBtn1Url,
+            'about_hero_btn2_text' => $aboutHeroBtn2Text,
+            'about_hero_btn2_url' => $aboutHeroBtn2Url,
+            'about_hero_card_badge' => $aboutHeroCardBadge,
+            'about_hero_card_status' => $aboutHeroCardStatus,
+            'about_hero_card_footer' => $aboutHeroCardFooter,
+            'about_hero_image' => $aboutHeroImage,
             'story_enabled' => $storyEnabled,
             'story_theme' => $storyTheme,
             'story_badge' => $storyBadge,
@@ -153,9 +197,9 @@ class AdminSettingsController
         ]);
 
         $admin = auth_admin();
-        $this->auditRepo->record('settings_updated', $admin['username'] ?? 'Admin', 'Updated system, store, and homepage promotional campaign settings');
+        $this->auditRepo->record('settings_updated', $admin['username'] ?? 'Admin', 'Updated system, store, about page hero, and promotional campaign settings');
 
-        flash('success', 'Store configuration, brand story, and promo campaign banner updated successfully.');
+        flash('success', 'Store configuration, about page hero section, and promo campaign banner updated successfully.');
         redirect('admin/settings');
     }
 }

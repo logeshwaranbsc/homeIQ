@@ -337,7 +337,7 @@ use App\Core\View;
 </section>
 
 <!-- Brand Hardware Showcase Video Section -->
-<?php if (!empty($settings['story_enabled'] ?? true)): ?>
+<?php if (!empty($settings['video_showcase_enabled'] ?? true)): ?>
   <section class="brand-intro-section brand-video-section position-relative">
     <div class="brand-video-wrapper">
       <video id="brandShowcaseVideo"

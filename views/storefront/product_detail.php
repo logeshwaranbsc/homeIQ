@@ -112,13 +112,15 @@ $breadcrumbs = [
       </div>
 
       <!-- Price Hierarchy -->
-      <div class="d-flex align-items-baseline flex-wrap gap-2 gap-sm-3 mb-3 p-3 bg-light rounded-3">
-        <span class="fs-2 fw-extrabold text-dark"><?= format_price($salePrice) ?></span>
-        <?php if ($mrp > $salePrice): ?>
-          <span class="fs-5 text-muted text-decoration-line-through"><?= format_price($mrp) ?></span>
-          <span class="badge bg-danger fs-6"><?= $discount ?>% OFF</span>
-        <?php endif; ?>
-        <span class="text-secondary small ms-sm-auto">Inclusive of all taxes</span>
+      <div class="pdp-price-panel mb-3">
+        <div class="d-flex align-items-baseline flex-wrap gap-2 gap-sm-3">
+          <span class="fs-2 fw-extrabold text-dark"><?= format_price($salePrice) ?></span>
+          <?php if ($mrp > $salePrice): ?>
+            <span class="fs-5 text-muted text-decoration-line-through"><?= format_price($mrp) ?></span>
+            <span class="pdp-discount-badge"><?= $discount ?>% OFF</span>
+          <?php endif; ?>
+          <span class="text-secondary small ms-sm-auto">Inclusive of all taxes</span>
+        </div>
       </div>
 
       <!-- Short Description -->
@@ -153,8 +155,31 @@ $breadcrumbs = [
               <div class="product-access-label">Supported Unlock Methods:</div>
               <div class="product-access-tags">
                 <?php foreach ($product['access_methods'] as $method): ?>
+                  <?php
+                    $methodIcon = 'bi-shield-lock-fill';
+                    $mLower = strtolower($method);
+                    if (str_contains($mLower, 'face')) {
+                        $methodIcon = 'bi-camera-video-fill';
+                    } elseif (str_contains($mLower, 'fingerprint')) {
+                        $methodIcon = 'bi-fingerprint';
+                    } elseif (str_contains($mLower, 'vein')) {
+                        $methodIcon = 'bi-hand-index-thumb-fill';
+                    } elseif (str_contains($mLower, 'pin')) {
+                        $methodIcon = 'bi-grid-3x3-gap-fill';
+                    } elseif (str_contains($mLower, 'card') || str_contains($mLower, 'rfid')) {
+                        $methodIcon = 'bi-credit-card-2-front-fill';
+                    } elseif (str_contains($mLower, 'key')) {
+                        $methodIcon = 'bi-key-fill';
+                    } elseif (str_contains($mLower, 'app') || str_contains($mLower, 'mobile')) {
+                        $methodIcon = 'bi-phone-fill';
+                    } elseif (str_contains($mLower, 'password')) {
+                        $methodIcon = 'bi-lock-fill';
+                    } elseif (str_contains($mLower, 'auth') || str_contains($mLower, 'dual')) {
+                        $methodIcon = 'bi-shield-check';
+                    }
+                  ?>
                   <span class="product-access-tag">
-                    <i class="bi bi-key-fill"></i> <?= e($method) ?>
+                    <i class="bi <?= $methodIcon ?>"></i> <?= e($method) ?>
                   </span>
                 <?php endforeach; ?>
               </div>
@@ -182,28 +207,28 @@ $breadcrumbs = [
           <?= csrf_field() ?>
           <input type="hidden" name="product_id" value="<?= e($product['id']) ?>">
 
-          <div class="row g-3 align-items-center mb-3">
-            <div class="col-auto">
-              <label class="form-label small fw-bold text-muted mb-0">Quantity:</label>
-            </div>
-            <div class="col-auto">
-              <div class="input-group" style="width: 130px;">
-                <button type="button" class="btn btn-outline-secondary btn-qty-minus"><i class="bi bi-dash"></i></button>
-                <input type="number" name="quantity" class="form-control text-center input-qty" value="1" min="1" max="<?= $stock ?>">
-                <button type="button" class="btn btn-outline-secondary btn-qty-plus"><i class="bi bi-plus"></i></button>
-              </div>
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <label class="form-label small fw-bold text-muted mb-0">Quantity:</label>
+            <div class="pdp-qty-stepper input-group">
+              <button type="button" class="pdp-qty-btn btn-qty-minus" aria-label="Decrease quantity">
+                <i class="bi bi-dash"></i>
+              </button>
+              <input type="number" name="quantity" class="pdp-qty-input input-qty" value="1" min="1" max="<?= $stock ?>" readonly>
+              <button type="button" class="pdp-qty-btn btn-qty-plus" aria-label="Increase quantity">
+                <i class="bi bi-plus"></i>
+              </button>
             </div>
           </div>
 
           <div class="d-flex flex-wrap gap-2 gap-sm-3 product-purchase-actions">
-            <button type="submit" class="btn btn-hiq-primary flex-grow-1 py-2 py-md-3">
+            <button type="submit" class="btn btn-pdp-cart flex-grow-1 py-2 py-md-3">
               <i class="bi bi-bag-plus"></i> Add to Cart
             </button>
-            <button type="submit" name="buy_now" value="1" class="btn btn-hiq-accent flex-grow-1 py-2 py-md-3">
+            <button type="submit" name="buy_now" value="1" class="btn btn-pdp-buy flex-grow-1 py-2 py-md-3">
               <i class="bi bi-lightning-charge"></i> Buy Now
             </button>
-            <button type="button" class="btn btn-outline-secondary btn-wishlist-toggle px-3 <?= $isWishlisted ? 'active' : '' ?>" data-product-id="<?= e($product['id']) ?>" title="Add to Wishlist">
-              <i class="bi bi-heart<?= $isWishlisted ? '-fill' : '' ?> fs-5"></i>
+            <button type="button" class="btn btn-pdp-wishlist btn-wishlist-toggle <?= $isWishlisted ? 'active' : '' ?>" data-product-id="<?= e($product['id']) ?>" title="Add to Wishlist" aria-label="Add to Wishlist">
+              <i class="bi bi-heart<?= $isWishlisted ? '-fill text-danger' : '' ?> fs-5"></i>
             </button>
           </div>
         </form>
@@ -218,9 +243,9 @@ $breadcrumbs = [
         <label for="pincodeCheckInput" class="form-label fw-bold small text-dark d-flex align-items-center gap-2 mb-2">
           <i class="bi bi-geo-alt-fill text-primary"></i> Check Delivery & Free Installation Availability
         </label>
-        <div class="input-group">
-          <input type="text" id="pincodeCheckInput" class="form-control" placeholder="Enter 6-digit PIN code" maxlength="6">
-          <button type="button" id="btnCheckPincode" class="btn btn-dark">Check</button>
+        <div class="pincode-input-group">
+          <input type="text" id="pincodeCheckInput" class="form-control pincode-input" placeholder="Enter 6-digit PIN code" maxlength="6">
+          <button type="button" id="btnCheckPincode" class="btn btn-pincode-check">Check</button>
         </div>
         <div id="pincodeResult"></div>
       </div>
