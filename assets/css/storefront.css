@@ -3367,7 +3367,7 @@ a:hover {
     radial-gradient(circle at 20% 50%, rgba(254, 107, 37, 0.16) 0%, transparent 55%),
     radial-gradient(circle at 85% 50%, rgba(255, 133, 40, 0.1) 0%, transparent 45%);
   color: #ffffff;
-  padding: 85px 0;
+  padding: 42px 0;
   border-top: 1px solid rgba(254, 107, 37, 0.22);
   border-bottom: 1px solid rgba(254, 107, 37, 0.22);
   position: relative;
@@ -3402,11 +3402,11 @@ a:hover {
 
 .promo-campaign-section h2 {
   color: #ffffff;
-  font-size: 2.45rem;
+  font-size: 2.05rem;
   font-weight: 800;
   letter-spacing: -0.5px;
   line-height: 1.25;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .promo-code-highlight {
@@ -3427,32 +3427,49 @@ a:hover {
 
 .promo-desc {
   color: #94a3b8;
-  font-size: 1.1rem;
-  line-height: 1.75;
-  margin-bottom: 30px;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
   max-width: 620px;
 }
 
 .promo-note-pill {
   color: #cbd5e1;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
 .promo-showcase-card {
-  background: transparent;
-  border: 1px solid rgba(254, 107, 37, 0.25);
-  border-radius: 24px;
-  padding: 24px;
-  box-shadow: none;
+  background: #0d0e12;
+  border: 1px solid rgba(254, 107, 37, 0.35);
+  border-radius: 20px;
+  padding: 16px 18px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 440px;
+  min-height: 340px;
+  height: 100%;
+}
+
+.promo-showcase-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 11, 14, 0.6) 0%, rgba(10, 11, 14, 0.05) 35%, rgba(10, 11, 14, 0.1) 65%, rgba(10, 11, 14, 0.75) 100%);
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 20px;
+}
+
+.promo-showcase-card .story-card-top-bar {
+  position: relative;
+  z-index: 3;
+  margin-bottom: 0;
 }
 
 .promo-showcase-card .story-halo-glow {
@@ -3460,28 +3477,28 @@ a:hover {
 }
 
 .promo-showcase-card .story-card-body {
+  position: static;
   width: 100%;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 0;
-  overflow: hidden;
-  border-radius: 16px;
+  padding: 0;
+  margin: 0;
+  display: contents;
 }
 
 .promo-lock-img {
-  position: relative;
-  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
   max-width: 100%;
-  height: 380px;
+  max-height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
   margin: 0;
-  border-radius: 16px;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 20px;
+  z-index: 1;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .promo-lock-img[src$=".svg"],
@@ -3491,7 +3508,15 @@ a:hover {
 }
 
 .promo-showcase-card:hover .promo-lock-img {
-  transform: scale(1.02);
+  transform: scale(1.03);
+}
+
+.promo-showcase-card .story-card-footer {
+  position: relative;
+  z-index: 3;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
 }
 
 /* Light Theme Variant for Promo */
@@ -4080,13 +4105,14 @@ video {
   }
 
   .promo-showcase-card {
-    min-height: auto;
-    padding: 18px;
+    min-height: 280px;
+    height: 280px;
+    padding: 14px 16px;
     border-radius: 18px;
   }
 
   .promo-lock-img {
-    height: 300px;
+    height: 100%;
     max-width: 100%;
     object-fit: cover;
   }
@@ -4104,6 +4130,7 @@ video {
 
 /* 4. Product Sliders & Carousels Touch Optimization */
 @media (max-width: 767.98px) {
+
   .featured-products-section,
   .hiq-reels-section {
     padding-left: 0 !important;
@@ -4260,8 +4287,14 @@ video {
     padding: 40px 0 !important;
   }
 
-  .promo-lock-img {
+  .promo-showcase-card {
+    min-height: 250px !important;
     height: 250px !important;
+    padding: 12px 14px !important;
+  }
+
+  .promo-lock-img {
+    height: 100% !important;
     max-width: 100% !important;
     object-fit: cover !important;
   }
@@ -5113,8 +5146,7 @@ video {
   position: relative;
   width: 100%;
   max-width: 100%;
-  height: 100vh;
-  height: 100dvh;
+  height: clamp(450px, 58vh, 600px);
   margin: 0;
   background: #000000;
   overflow: hidden;
@@ -5158,7 +5190,7 @@ video {
   }
 
   .brand-video-wrapper {
-    height: clamp(210px, 56.25vw, 420px);
+    height: clamp(240px, 62vw, 380px);
   }
 
   .brand-video-mute-btn {
@@ -5894,7 +5926,7 @@ video {
 .drawer-qty-btn:hover:not(:disabled) {
   background: #ffffff;
   color: #0f172a;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
 .drawer-qty-btn:disabled {
@@ -6111,10 +6143,10 @@ video {
   opacity: 0;
   pointer-events: none;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.28s ease,
-              box-shadow 0.25s ease,
-              padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              gap 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.28s ease,
+    box-shadow 0.25s ease,
+    padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    gap 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .floating-cart-btn.is-visible {
@@ -6208,8 +6240,8 @@ body[data-page="cart"] .btn-drawer-view-cart {
   white-space: nowrap;
   overflow: hidden;
   transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.25s ease,
-              margin 0.25s ease;
+    opacity 0.25s ease,
+    margin 0.25s ease;
 }
 
 .floating-cart-title {
@@ -6262,16 +6294,16 @@ body[data-page="cart"] .btn-drawer-view-cart {
     font-size: 0.7rem;
   }
 }
-    height: 32px;
-    font-size: 0.95rem;
-  }
 
-  .floating-cart-title {
-    font-size: 0.78rem;
-  }
-
-  .floating-cart-total {
-    font-size: 0.7rem;
-  }
+height: 32px;
+font-size: 0.95rem;
 }
 
+.floating-cart-title {
+  font-size: 0.78rem;
+}
+
+.floating-cart-total {
+  font-size: 0.7rem;
+}
+}
