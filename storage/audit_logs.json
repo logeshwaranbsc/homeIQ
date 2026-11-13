@@ -1690,5 +1690,113 @@
         "id": "log_99acd3be6af6a6a3",
         "created_at": "2026-11-13 11:26:51",
         "updated_at": "2026-11-13 11:26:51"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261113-D6EF for ₹ 17,999",
+        "ip": "",
+        "id": "log_b62c230f6af6a805",
+        "created_at": "2026-11-13 11:32:45",
+        "updated_at": "2026-11-13 11:32:45"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261113-D6EF status changed to Cancelled",
+        "ip": "",
+        "id": "log_247a48076af6a805",
+        "created_at": "2026-11-13 11:32:45",
+        "updated_at": "2026-11-13 11:32:45"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_bd12d87d6af6a805",
+        "created_at": "2026-11-13 11:32:45",
+        "updated_at": "2026-11-13 11:32:45"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261113-7BA4 for ₹ 17,999",
+        "ip": "",
+        "id": "log_26e2ac646af6b220",
+        "created_at": "2026-11-13 12:15:52",
+        "updated_at": "2026-11-13 12:15:52"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261113-7BA4 status changed to Cancelled",
+        "ip": "",
+        "id": "log_6e17155c6af6b220",
+        "created_at": "2026-11-13 12:15:52",
+        "updated_at": "2026-11-13 12:15:52"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_f09c05356af6b221",
+        "created_at": "2026-11-13 12:15:53",
+        "updated_at": "2026-11-13 12:15:53"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261113-9BDB for ₹ 17,999",
+        "ip": "",
+        "id": "log_aa87d7a66af6b340",
+        "created_at": "2026-11-13 12:20:40",
+        "updated_at": "2026-11-13 12:20:40"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261113-9BDB status changed to Cancelled",
+        "ip": "",
+        "id": "log_267de2536af6b340",
+        "created_at": "2026-11-13 12:20:40",
+        "updated_at": "2026-11-13 12:20:40"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_89b715e46af6b340",
+        "created_at": "2026-11-13 12:20:40",
+        "updated_at": "2026-11-13 12:20:40"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261113-AC20 for ₹ 17,999",
+        "ip": "",
+        "id": "log_4d028bea6af6b46a",
+        "created_at": "2026-11-13 12:25:38",
+        "updated_at": "2026-11-13 12:25:38"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261113-AC20 status changed to Cancelled",
+        "ip": "",
+        "id": "log_e80094a36af6b46a",
+        "created_at": "2026-11-13 12:25:38",
+        "updated_at": "2026-11-13 12:25:38"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_4368ffcf6af6b46b",
+        "created_at": "2026-11-13 12:25:39",
+        "updated_at": "2026-11-13 12:25:39"
     }
 ]

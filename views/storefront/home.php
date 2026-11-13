@@ -254,25 +254,29 @@ use App\Core\View;
         </p>
       </div>
 
-      <div class="col-lg-5 text-lg-end d-flex align-items-center justify-content-end gap-3 flex-wrap">
-        <!-- Header Arrow Controls -->
-        <div class="slider-header-controls d-flex align-items-center gap-2">
-          <button type="button" class="btn-slider-arrow btn-slider-prev" id="hiqReelHeaderPrev" aria-label="Previous Reels" title="Previous Reels">
-            <i class="bi bi-chevron-left"></i>
-          </button>
-          <button type="button" class="btn-slider-arrow btn-slider-next" id="hiqReelHeaderNext" aria-label="Next Reels" title="Next Reels">
-            <i class="bi bi-chevron-right"></i>
-          </button>
+      <?php if (count($videoTestimonials) > 1): ?>
+        <div class="col-lg-5 text-lg-end d-flex align-items-center justify-content-end gap-3 flex-wrap">
+          <!-- Header Arrow Controls -->
+          <div class="slider-header-controls d-flex align-items-center gap-2">
+            <button type="button" class="btn-slider-arrow btn-slider-prev" id="hiqReelHeaderPrev" aria-label="Previous Reels" title="Previous Reels">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <button type="button" class="btn-slider-arrow btn-slider-next" id="hiqReelHeaderNext" aria-label="Next Reels" title="Next Reels">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </div>
         </div>
-      </div>
+      <?php endif; ?>
     </div>
 
     <!-- Reels Slider Carousel with Gutter Side Arrows (Matching Product Slider Alignment & Margins) -->
     <div class="hiq-reels-container position-relative">
-      <!-- Side Floating Left Arrow (Positioned in gutter channel) -->
-      <button type="button" class="product-slider-arrow arrow-prev" id="hiqReelSidePrev" aria-label="Scroll Left" title="Scroll Left">
-        <i class="bi bi-chevron-left"></i>
-      </button>
+      <?php if (count($videoTestimonials) > 1): ?>
+        <!-- Side Floating Left Arrow (Positioned in gutter channel) -->
+        <button type="button" class="product-slider-arrow arrow-prev" id="hiqReelSidePrev" aria-label="Scroll Left" title="Scroll Left">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+      <?php endif; ?>
 
       <!-- Reels Track -->
       <div class="hiq-reels-track" id="hiqReelsTrack">
@@ -322,10 +326,12 @@ use App\Core\View;
         <?php endforeach; ?>
       </div>
 
-      <!-- Side Floating Right Arrow (Positioned in gutter channel) -->
-      <button type="button" class="product-slider-arrow arrow-next" id="hiqReelSideNext" aria-label="Scroll Right" title="Scroll Right">
-        <i class="bi bi-chevron-right"></i>
-      </button>
+      <?php if (count($videoTestimonials) > 1): ?>
+        <!-- Side Floating Right Arrow (Positioned in gutter channel) -->
+        <button type="button" class="product-slider-arrow arrow-next" id="hiqReelSideNext" aria-label="Scroll Right" title="Scroll Right">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      <?php endif; ?>
     </div>
   </div>
 </section>

@@ -385,9 +385,47 @@ document.addEventListener('DOMContentLoaded', () => {
              document.body.dataset.page === 'cart';
     };
 
-    if (floatingBtn && isCartPage()) {
-      floatingBtn.classList.remove('is-visible');
-      floatingBtn.style.display = 'none';
+    let collapseTimer = null;
+
+    const clearCollapseTimer = () => {
+      if (collapseTimer) {
+        clearTimeout(collapseTimer);
+        collapseTimer = null;
+      }
+    };
+
+    const startCollapseTimer = (delay = 3000) => {
+      clearCollapseTimer();
+      if (!floatingBtn || isCartPage()) return;
+      collapseTimer = setTimeout(() => {
+        if (floatingBtn && floatingBtn.classList.contains('is-visible') && !floatingBtn.matches(':hover')) {
+          floatingBtn.classList.add('is-collapsed');
+        }
+      }, delay);
+    };
+
+    const expandFloatingBtn = () => {
+      clearCollapseTimer();
+      if (floatingBtn) {
+        floatingBtn.classList.remove('is-collapsed');
+      }
+    };
+
+    if (floatingBtn) {
+      if (isCartPage()) {
+        floatingBtn.classList.remove('is-visible', 'is-collapsed');
+        floatingBtn.style.display = 'none';
+      }
+
+      floatingBtn.addEventListener('mouseenter', () => {
+        expandFloatingBtn();
+      });
+
+      floatingBtn.addEventListener('mouseleave', () => {
+        if (floatingBtn.classList.contains('is-visible')) {
+          startCollapseTimer(3000);
+        }
+      });
     }
 
     const updateHeaderCounters = (count) => {
@@ -404,7 +442,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (drawerEmpty) drawerEmpty.classList.remove('d-none');
         if (drawerFooter) drawerFooter.classList.add('d-none');
         if (shippingMeter) shippingMeter.classList.add('d-none');
-        if (floatingBtn) floatingBtn.classList.remove('is-visible');
+        clearCollapseTimer();
+        if (floatingBtn) floatingBtn.classList.remove('is-visible', 'is-collapsed');
         updateHeaderCounters(0);
         return;
       }
@@ -417,11 +456,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (floatingTotal) floatingTotal.textContent = cart.formatted_grand_total || cart.formatted_subtotal || ('₹' + Number(cart.grand_total || cart.subtotal).toLocaleString('en-IN'));
       if (floatingBtn) {
         if (isCartPage()) {
-          floatingBtn.classList.remove('is-visible');
+          clearCollapseTimer();
+          floatingBtn.classList.remove('is-visible', 'is-collapsed');
           floatingBtn.style.display = 'none';
         } else if (!drawerEl.classList.contains('show')) {
+          floatingBtn.classList.remove('is-collapsed');
           floatingBtn.classList.add('is-visible');
           floatingBtn.style.display = '';
+          startCollapseTimer(3000);
         }
       }
 
@@ -535,8 +577,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Populate drawer when opened and hide floating button
     drawerEl.addEventListener('show.bs.offcanvas', () => {
       fetchCartData();
+      clearCollapseTimer();
       if (floatingBtn) {
-        floatingBtn.classList.remove('is-visible');
+        floatingBtn.classList.remove('is-visible', 'is-collapsed');
       }
     });
 
@@ -557,12 +600,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // When drawer starts closing, reveal the floating cart button (suppressed on cart page)
+    // Full button shows first, then collapses after 3 seconds to just bag icon + count and arrow
     drawerEl.addEventListener('hide.bs.offcanvas', () => {
       clearAutoCloseTimer();
       const count = parseInt(drawerCount ? drawerCount.textContent : '0', 10) || 0;
       if (floatingBtn && count > 0 && !isCartPage()) {
+        floatingBtn.classList.remove('is-collapsed');
         floatingBtn.classList.add('is-visible');
         floatingBtn.style.display = '';
+        startCollapseTimer(3000);
       }
     });
 
