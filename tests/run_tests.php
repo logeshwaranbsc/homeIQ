@@ -16,6 +16,7 @@ use App\Repositories\ProductRepository;
 use App\Repositories\CouponRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\VideoTestimonialRepository;
+use App\Repositories\BannerRepository;
 use App\Services\CartService;
 use App\Services\OrderService;
 use App\Services\AuthService;
@@ -187,6 +188,35 @@ assertTest("Count is 3 after deletion", $videoRepo->count() === 3);
 // Restore original empty state as user requested no pre-uploaded dummy data
 $videoRepo->atomicWrite($originalData);
 assertTest("Video testimonials storage reset to pristine empty state", $videoRepo->count() === count($originalData));
+
+// TEST GROUP 8: Hero Banners & Mobile Screen Banner Art Direction
+echo "\nTest Group 8: Hero Banners & Mobile Screen Banner Art Direction\n";
+$bannerRepo = new BannerRepository();
+$originalBanners = $bannerRepo->all();
+
+$testBanner = $bannerRepo->create([
+    'headline' => 'Test Next-Gen AI Lock',
+    'subheading' => 'Engineered for Luxury Homes',
+    'image' => 'banners/desktop_test_1920x600.png',
+    'mobile_image' => 'banners/mobile_test_750x1000.png',
+    'display_order' => 99,
+    'is_active' => true,
+]);
+
+assertTest("Banner created with both desktop image and separate mobile_image", !empty($testBanner['id']) && $testBanner['image'] === 'banners/desktop_test_1920x600.png' && $testBanner['mobile_image'] === 'banners/mobile_test_750x1000.png');
+
+$retrievedBanner = $bannerRepo->find($testBanner['id']);
+assertTest("Banner repository accurately stores and retrieves mobile_image", ($retrievedBanner['mobile_image'] ?? '') === 'banners/mobile_test_750x1000.png');
+
+// Update to replace mobile image
+$bannerRepo->update($testBanner['id'], ['mobile_image' => 'banners/mobile_updated_1080x1350.png']);
+$updatedBanner = $bannerRepo->find($testBanner['id']);
+assertTest("Banner update updates dedicated mobile_image independently", ($updatedBanner['mobile_image'] ?? '') === 'banners/mobile_updated_1080x1350.png');
+
+// Delete test banner to leave repository in original state
+$bannerRepo->delete($testBanner['id']);
+$bannerRepo->atomicWrite($originalBanners);
+assertTest("Test banner removed and original banners preserved", count($bannerRepo->all()) === count($originalBanners));
 
 // SUMMARY
 echo "\n====================================================\n";

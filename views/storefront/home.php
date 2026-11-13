@@ -26,74 +26,32 @@ use App\Core\View;
     <div class="carousel-inner">
       <?php foreach ($banners as $idx => $banner): ?>
         <?php
-          $textPos = $banner['text_position'] ?? 'left';
-          $overlayStyle = $banner['overlay_style'] ?? 'gradient';
-          $hasHeadline = !empty(trim((string)($banner['headline'] ?? '')));
-          $hasSubhead = !empty(trim((string)($banner['subheading'] ?? '')));
-          $hasBadge = !empty(trim((string)($banner['offer_badge'] ?? '')));
-          $hasSupporting = !empty(trim((string)($banner['supporting_text'] ?? '')));
-          $hasCta = !empty(trim((string)($banner['cta_label'] ?? '')));
+          $ctaUrl = $banner['cta_url'] ?? 'shop';
+          $ctaLabel = trim((string)($banner['cta_label'] ?? ''));
+          $ctaPos = $banner['cta_position'] ?? 'bottom-left';
+          $bannerTitle = !empty($banner['title']) ? $banner['title'] : ($banner['headline'] ?? 'HOMEIQ Smart Locks');
         ?>
         <div class="carousel-item carousel-item-hero <?= $idx === 0 ? 'active' : '' ?>">
-          <!-- Full Background Image covering whole hero section -->
+          <!-- Full Background Image covering whole hero section (Content is inside the image graphic) -->
           <div class="hero-bg-wrapper">
-            <?php if (!empty($banner['image'])): ?>
-              <img src="<?= upload_url($banner['image']) ?>" alt="<?= e(strip_tags((string)($banner['headline'] ?? 'HOMEIQ Smart Locks'))) ?>" class="hero-bg-image">
+            <?php if (!empty($banner['image']) || !empty($banner['mobile_image'])): ?>
+              <picture class="hero-bg-picture">
+                <?php if (!empty($banner['mobile_image'])): ?>
+                  <source media="(max-width: 767.98px)" srcset="<?= upload_url($banner['mobile_image']) ?>">
+                <?php endif; ?>
+                <img src="<?= upload_url(!empty($banner['image']) ? $banner['image'] : $banner['mobile_image']) ?>"
+                     alt="<?= e(strip_tags((string)$bannerTitle)) ?>"
+                     class="hero-bg-image"
+                     loading="<?= $idx === 0 ? 'eager' : 'lazy' ?>">
+              </picture>
             <?php else: ?>
               <div class="hero-bg-placeholder"></div>
             <?php endif; ?>
-            <div class="hero-overlay hero-overlay-<?= e($overlayStyle) ?>"></div>
           </div>
 
-          <!-- Modifiable Hero Content on top of background -->
-          <?php if ($textPos !== 'none' && ($hasHeadline || $hasSubhead || $hasCta)): ?>
-            <div class="container hero-content-container">
-              <div class="row w-100 <?= $textPos === 'center' ? 'justify-content-center text-center' : ($textPos === 'right' ? 'justify-content-end text-end' : '') ?>">
-                <div class="col-lg-8 col-xl-7">
-                  <div class="hero-content-box <?= $textPos === 'center' ? 'mx-auto' : '' ?>">
-                    <?php if ($hasBadge): ?>
-                      <div class="hero-slide-badge">
-                        <i class="bi bi-shield-check"></i> <?= e($banner['offer_badge']) ?>
-                      </div>
-                    <?php endif; ?>
-
-                    <?php if ($hasHeadline): ?>
-                      <h1 class="hero-headline">
-                        <?= $banner['headline'] ?>
-                      </h1>
-                    <?php endif; ?>
-
-                    <?php if ($hasSubhead): ?>
-                      <p class="hero-subhead">
-                        <?= e($banner['subheading']) ?>
-                      </p>
-                    <?php endif; ?>
-
-                    <?php if ($hasSupporting): ?>
-                      <div class="mb-3 d-flex align-items-center gap-2 flex-wrap <?= $textPos === 'center' ? 'justify-content-center' : ($textPos === 'right' ? 'justify-content-end' : '') ?>">
-                        <div class="hero-supporting-pill">
-                          <i class="bi bi-check2-circle brand-icon"></i>
-                          <span><?= e($banner['supporting_text']) ?></span>
-                        </div>
-                      </div>
-                    <?php endif; ?>
-
-                    <?php if ($hasCta): ?>
-                      <div class="d-flex align-items-center gap-2 gap-sm-3 flex-wrap <?= $textPos === 'center' ? 'justify-content-center' : ($textPos === 'right' ? 'justify-content-end' : '') ?>">
-                        <a href="<?= url($banner['cta_url'] ?? 'shop') ?>" class="btn btn-hiq-accent py-2 px-4 fs-6 fw-bold">
-                          <?= e($banner['cta_label']) ?> <i class="bi bi-arrow-right ms-2"></i>
-                        </a>
-                        <a href="<?= url('about') ?>" class="btn btn-hiq-glass py-2 px-4 fs-6 fw-semibold">
-                          Why HOMEIQ
-                        </a>
-                      </div>
-                    <?php endif; ?>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <?php else: ?>
-            <a href="<?= url($banner['cta_url'] ?? 'shop') ?>" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 4;" aria-label="Explore Smart Locks"></a>
+          <?php if (!empty($ctaUrl)): ?>
+            <!-- Entire Banner Clickable Link (No CTA button overlay) -->
+            <a href="<?= url($ctaUrl) ?>" class="hero-banner-hitbox" aria-label="<?= e(strip_tags((string)$bannerTitle)) ?>"></a>
           <?php endif; ?>
         </div>
       <?php endforeach; ?>

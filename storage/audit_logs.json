@@ -2779,5 +2779,230 @@
         "id": "log_4913f16e6af705ff",
         "created_at": "2026-11-13 18:13:43",
         "updated_at": "2026-11-13 18:13:43"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261113-78E0 for ₹ 17,999",
+        "ip": "",
+        "id": "log_fe37cddf6af70cf2",
+        "created_at": "2026-11-13 18:43:22",
+        "updated_at": "2026-11-13 18:43:22"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261113-78E0 status changed to Cancelled",
+        "ip": "",
+        "id": "log_e8e459d76af70cf2",
+        "created_at": "2026-11-13 18:43:22",
+        "updated_at": "2026-11-13 18:43:22"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_b90bcf2f6af70cf2",
+        "created_at": "2026-11-13 18:43:22",
+        "updated_at": "2026-11-13 18:43:22"
+    },
+    {
+        "action": "banner_updated",
+        "user": "admin",
+        "details": "Updated banner: Advanced Security. Elegant Design.",
+        "ip": "",
+        "id": "log_346825866af70e95",
+        "created_at": "2026-11-13 18:50:21",
+        "updated_at": "2026-11-13 18:50:21"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261113-34BD for ₹ 17,999",
+        "ip": "",
+        "id": "log_41dfaccc6af70ebd",
+        "created_at": "2026-11-13 18:51:01",
+        "updated_at": "2026-11-13 18:51:01"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261113-34BD status changed to Cancelled",
+        "ip": "",
+        "id": "log_c42578456af70ebd",
+        "created_at": "2026-11-13 18:51:01",
+        "updated_at": "2026-11-13 18:51:01"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_c7d2c2d96af70ebe",
+        "created_at": "2026-11-13 18:51:02",
+        "updated_at": "2026-11-13 18:51:02"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261113-47D7 for ₹ 17,999",
+        "ip": "",
+        "id": "log_4f05e5836af70ef0",
+        "created_at": "2026-11-13 18:51:52",
+        "updated_at": "2026-11-13 18:51:52"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261113-47D7 status changed to Cancelled",
+        "ip": "",
+        "id": "log_3516802c6af70ef0",
+        "created_at": "2026-11-13 18:51:52",
+        "updated_at": "2026-11-13 18:51:52"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_6d9d0eb96af70ef1",
+        "created_at": "2026-11-13 18:51:53",
+        "updated_at": "2026-11-13 18:51:53"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261113-3464 for ₹ 17,999",
+        "ip": "",
+        "id": "log_1ef3a81e6af70f6a",
+        "created_at": "2026-11-13 18:53:54",
+        "updated_at": "2026-11-13 18:53:54"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261113-3464 status changed to Cancelled",
+        "ip": "",
+        "id": "log_7ae7e8386af70f6a",
+        "created_at": "2026-11-13 18:53:54",
+        "updated_at": "2026-11-13 18:53:54"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_ef05949d6af70f6a",
+        "created_at": "2026-11-13 18:53:54",
+        "updated_at": "2026-11-13 18:53:54"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261113-D0B3 for ₹ 17,999",
+        "ip": "",
+        "id": "log_cf47c17e6af7110d",
+        "created_at": "2026-11-13 19:00:53",
+        "updated_at": "2026-11-13 19:00:53"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261113-D0B3 status changed to Cancelled",
+        "ip": "",
+        "id": "log_0ad49dff6af7110d",
+        "created_at": "2026-11-13 19:00:53",
+        "updated_at": "2026-11-13 19:00:53"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_8c1472326af7110e",
+        "created_at": "2026-11-13 19:00:54",
+        "updated_at": "2026-11-13 19:00:54"
+    },
+    {
+        "action": "banner_updated",
+        "user": "admin",
+        "details": "Updated banner: Advanced Security. Elegant Design.",
+        "ip": "",
+        "id": "log_8a99fa4b6af71165",
+        "created_at": "2026-11-13 19:02:21",
+        "updated_at": "2026-11-13 19:02:21"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261113-BBEE for ₹ 17,999",
+        "ip": "",
+        "id": "log_b44f2e636af711f6",
+        "created_at": "2026-11-13 19:04:46",
+        "updated_at": "2026-11-13 19:04:46"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261113-BBEE status changed to Cancelled",
+        "ip": "",
+        "id": "log_2993b3066af711f6",
+        "created_at": "2026-11-13 19:04:46",
+        "updated_at": "2026-11-13 19:04:46"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_8461c9f46af711f6",
+        "created_at": "2026-11-13 19:04:46",
+        "updated_at": "2026-11-13 19:04:46"
+    },
+    {
+        "action": "banner_updated",
+        "user": "admin",
+        "details": "Updated banner: Advanced Security. Elegant Design.",
+        "ip": "",
+        "id": "log_9a65c4816af7125d",
+        "created_at": "2026-11-13 19:06:29",
+        "updated_at": "2026-11-13 19:06:29"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261113-A497 for ₹ 17,999",
+        "ip": "",
+        "id": "log_2352018d6af7127e",
+        "created_at": "2026-11-13 19:07:02",
+        "updated_at": "2026-11-13 19:07:02"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261113-A497 status changed to Cancelled",
+        "ip": "",
+        "id": "log_bb160b866af7127e",
+        "created_at": "2026-11-13 19:07:02",
+        "updated_at": "2026-11-13 19:07:02"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_3cca910c6af7127e",
+        "created_at": "2026-11-13 19:07:02",
+        "updated_at": "2026-11-13 19:07:02"
+    },
+    {
+        "action": "banner_updated",
+        "user": "admin",
+        "details": "Updated banner: Advanced Security. Elegant Design.",
+        "ip": "",
+        "id": "log_663152876af7129f",
+        "created_at": "2026-11-13 19:07:35",
+        "updated_at": "2026-11-13 19:07:35"
     }
 ]

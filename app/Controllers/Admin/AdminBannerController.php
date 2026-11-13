@@ -51,14 +51,22 @@ class AdminBannerController
             }
         }
 
-        if (empty($data['headline']) && empty($data['image'])) {
-            flash('error', 'Headline or background image is required.');
+        $mobileImageFile = $request->file('mobile_image');
+        if ($mobileImageFile) {
+            $uploadMobile = FileUploader::upload($mobileImageFile, 'banners');
+            if ($uploadMobile['success']) {
+                $data['mobile_image'] = $uploadMobile['filename'];
+            }
+        }
+
+        if (empty($data['title']) && empty($data['image']) && empty($data['mobile_image'])) {
+            flash('error', 'Slide title or banner image is required.');
             redirect('admin/banners/create');
         }
 
         $created = $this->bannerRepo->create($data);
         $admin = auth_admin();
-        $this->auditRepo->record('banner_created', $admin['username'] ?? 'Admin', "Created banner: " . ($created['headline'] ?: 'Hero Slide'));
+        $this->auditRepo->record('banner_created', $admin['username'] ?? 'Admin', "Created banner: " . ($created['title'] ?: 'Hero Slide'));
 
         flash('success', 'Hero banner added successfully.');
         redirect('admin/banners');
@@ -92,20 +100,42 @@ class AdminBannerController
 
         $data = $this->extractBannerInput($request);
 
+        // Desktop banner image
         $imageFile = $request->file('image');
         if ($imageFile) {
             $upload = FileUploader::upload($imageFile, 'banners');
             if ($upload['success']) {
                 FileUploader::delete($banner['image'] ?? null);
                 $data['image'] = $upload['filename'];
+            } else {
+                $data['image'] = $banner['image'] ?? null;
             }
         } else {
             $data['image'] = $banner['image'] ?? null;
         }
 
+        // Dedicated mobile screen banner image
+        $mobileImageFile = $request->file('mobile_image');
+        $deleteMobileImage = (bool)$request->post('delete_mobile_image', false);
+
+        if ($mobileImageFile) {
+            $uploadMobile = FileUploader::upload($mobileImageFile, 'banners');
+            if ($uploadMobile['success']) {
+                FileUploader::delete($banner['mobile_image'] ?? null);
+                $data['mobile_image'] = $uploadMobile['filename'];
+            } else {
+                $data['mobile_image'] = $banner['mobile_image'] ?? null;
+            }
+        } elseif ($deleteMobileImage) {
+            FileUploader::delete($banner['mobile_image'] ?? null);
+            $data['mobile_image'] = null;
+        } else {
+            $data['mobile_image'] = $banner['mobile_image'] ?? null;
+        }
+
         $this->bannerRepo->update($id, $data);
         $admin = auth_admin();
-        $this->auditRepo->record('banner_updated', $admin['username'] ?? 'Admin', "Updated banner: {$data['headline']}");
+        $this->auditRepo->record('banner_updated', $admin['username'] ?? 'Admin', "Updated banner: " . ($data['title'] ?: 'Hero Slide'));
 
         flash('success', 'Hero banner updated successfully.');
         redirect('admin/banners');
@@ -118,9 +148,10 @@ class AdminBannerController
 
         if ($banner) {
             FileUploader::delete($banner['image'] ?? null);
+            FileUploader::delete($banner['mobile_image'] ?? null);
             $this->bannerRepo->delete($id);
             $admin = auth_admin();
-            $this->auditRepo->record('banner_deleted', $admin['username'] ?? 'Admin', "Deleted banner: {$banner['headline']}");
+            $this->auditRepo->record('banner_deleted', $admin['username'] ?? 'Admin', "Deleted banner: " . ($banner['title'] ?? ($banner['headline'] ?? 'Hero Slide')));
             flash('success', 'Banner deleted.');
         }
 
@@ -129,15 +160,15 @@ class AdminBannerController
 
     private function extractBannerInput(Request $request): array
     {
+        $title = trim((string)$request->post('title', ''));
+        if (empty($title)) {
+            $title = trim((string)$request->post('headline', 'Hero Slide'));
+        }
+
         return [
-            'headline' => trim((string)$request->post('headline', '')),
-            'subheading' => trim((string)$request->post('subheading', '')),
-            'supporting_text' => trim((string)$request->post('supporting_text', '')),
-            'offer_badge' => trim((string)$request->post('offer_badge', '')),
-            'cta_label' => trim((string)$request->post('cta_label', 'SHOP SMART LOCKS')),
-            'cta_url' => trim((string)$request->post('cta_url', 'shop')),
-            'text_position' => trim((string)$request->post('text_position', 'left')),
-            'overlay_style' => trim((string)$request->post('overlay_style', 'gradient')),
+            'title' => $title,
+            'headline' => $title, // maintain compatibility with existing records
+            'cta_url' => trim((string)$request->post('cta_url', '')),
             'display_order' => (int)$request->post('display_order', 1),
             'is_active' => (bool)$request->post('is_active', true),
         ];

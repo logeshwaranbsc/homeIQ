@@ -20,10 +20,9 @@ declare(strict_types=1);
       <thead>
         <tr>
           <th>Order</th>
-          <th>Preview</th>
-          <th>Headline & Subheading</th>
-          <th>Offer Badge</th>
-          <th>CTA Button</th>
+          <th>Banners (Desktop / Mobile)</th>
+          <th>Banner Reference</th>
+          <th>Destination Link</th>
           <th>Status</th>
           <th style="width: 120px; text-align: right;">Actions</th>
         </tr>
@@ -33,22 +32,38 @@ declare(strict_types=1);
           <tr>
             <td><strong>#<?= $b['display_order'] ?? 1 ?></strong></td>
             <td>
-              <img src="<?= upload_url($b['image'] ?? '') ?>" alt="" style="width: 70px; height: 40px; object-fit: cover;" class="rounded border">
+              <div class="d-flex align-items-center gap-2">
+                <?php if (!empty($b['image'])): ?>
+                  <div class="position-relative" title="Desktop Banner: <?= e($b['image']) ?>">
+                    <img src="<?= upload_url($b['image']) ?>" alt="Desktop Banner" style="width: 68px; height: 38px; object-fit: cover;" class="rounded border">
+                    <span class="badge bg-dark position-absolute bottom-0 end-0 p-1 lh-1" style="font-size: 0.58rem;" title="Desktop Banner"><i class="bi bi-display"></i></span>
+                  </div>
+                <?php endif; ?>
+
+                <?php if (!empty($b['mobile_image'])): ?>
+                  <div class="position-relative" title="Mobile Screen Banner: <?= e($b['mobile_image']) ?>">
+                    <img src="<?= upload_url($b['mobile_image']) ?>" alt="Mobile Banner" style="width: 25px; height: 38px; object-fit: cover;" class="rounded border border-warning">
+                    <span class="badge bg-warning text-dark position-absolute bottom-0 end-0 p-1 lh-1" style="font-size: 0.58rem;" title="Mobile Screen Banner"><i class="bi bi-phone"></i></span>
+                  </div>
+                <?php else: ?>
+                  <span class="badge bg-light text-muted border py-1 px-1 text-center" style="font-size: 0.65rem; width: 26px; height: 38px; display: inline-flex; align-items: center; justify-content: center;" title="No dedicated mobile banner (uses desktop banner on mobile)">
+                    <i class="bi bi-phone opacity-50"></i>
+                  </span>
+                <?php endif; ?>
+              </div>
             </td>
             <td>
-              <strong class="d-block text-dark"><?= $b['headline'] ?></strong>
-              <small class="text-muted"><?= e($b['subheading'] ?? '') ?></small>
+              <strong class="d-block text-dark"><?= e(!empty($b['title']) ? $b['title'] : ($b['headline'] ?? 'Hero Slide')) ?></strong>
+              <small class="text-muted font-monospace" style="font-size: 0.72rem;">ID: <?= e($b['id']) ?></small>
             </td>
             <td>
-              <?php if (!empty($b['offer_badge'])): ?>
-                <span class="badge bg-info text-dark"><?= e($b['offer_badge']) ?></span>
+              <?php if (!empty($b['cta_url'])): ?>
+                <a href="<?= url($b['cta_url']) ?>" target="_blank" class="badge bg-light text-dark border text-decoration-none font-monospace">
+                  <i class="bi bi-link-45deg me-1"></i><?= e($b['cta_url']) ?>
+                </a>
               <?php else: ?>
-                <span class="text-muted small">—</span>
+                <span class="text-muted small">None (Static Display)</span>
               <?php endif; ?>
-            </td>
-            <td>
-              <span class="badge bg-light text-dark border"><?= e($b['cta_label'] ?? 'SHOP') ?></span>
-              <div class="text-muted small" style="font-size: 0.7rem;"><?= e($b['cta_url'] ?? 'shop') ?></div>
             </td>
             <td>
               <span class="badge-status <?= !empty($b['is_active']) ? 'badge-active' : 'badge-inactive' ?>">
