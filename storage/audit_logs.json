@@ -1798,5 +1798,23 @@
         "id": "log_4368ffcf6af6b46b",
         "created_at": "2026-11-13 12:25:39",
         "updated_at": "2026-11-13 12:25:39"
+    },
+    {
+        "action": "product_updated",
+        "user": "admin",
+        "details": "Updated product HOMEIQ Black AI Face Recognition Smart Door Lock",
+        "ip": "",
+        "id": "log_fee5ea5c6af6be04",
+        "created_at": "2026-11-13 13:06:36",
+        "updated_at": "2026-11-13 13:06:36"
+    },
+    {
+        "action": "product_updated",
+        "user": "admin",
+        "details": "Updated product HOMEIQ Touch Pro Biometric Fingerprint Smart Lock",
+        "ip": "",
+        "id": "log_5a36eb2e6af6be80",
+        "created_at": "2026-11-13 13:08:40",
+        "updated_at": "2026-11-13 13:08:40"
     }
 ]
