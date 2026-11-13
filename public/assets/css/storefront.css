@@ -4023,6 +4023,7 @@ video {
 
 /* 4. Product Sliders & Carousels Touch Optimization */
 @media (max-width: 767.98px) {
+
   .featured-products-section,
   .hiq-reels-section {
     padding-left: 0 !important;
@@ -5157,6 +5158,10 @@ video {
   display: flex;
 }
 
+.hiq-collection-slide:only-child {
+  margin: 0 auto;
+}
+
 .hiq-collection-tile {
   display: flex;
   flex-direction: column;
@@ -5176,26 +5181,33 @@ video {
 }
 
 .hiq-collection-tile-media {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   width: 100%;
-  background: #121418;
+  background: radial-gradient(circle at 50% 50%, #161b26 0%, #080a0f 85%);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  padding: 14px;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .hiq-collection-tile-media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
   object-position: center;
   display: block;
-  transition: transform 0.35s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.65));
 }
 
 .hiq-collection-tile:hover .hiq-collection-tile-media img {
-  transform: scale(1.04);
+  transform: translateY(-4px) scale(1.05);
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.8));
 }
 
 .hiq-collection-tile-body {
@@ -5308,8 +5320,13 @@ video {
   }
 
   .hiq-collection-tile-media {
-    aspect-ratio: 16 / 11;
-    max-height: 135px;
+    aspect-ratio: 1 / 1;
+    max-height: 170px;
+    padding: 10px;
+  }
+
+  .hiq-collection-tile-media img {
+    object-fit: contain !important;
   }
 
   .hiq-collection-tile-body {
@@ -5385,8 +5402,13 @@ video {
   }
 
   .hiq-collection-tile-media {
-    aspect-ratio: 16 / 11;
-    max-height: 115px;
+    aspect-ratio: 1 / 1;
+    max-height: 150px;
+    padding: 8px;
+  }
+
+  .hiq-collection-tile-media img {
+    object-fit: contain !important;
   }
 
   .hiq-collection-tile-body {
@@ -5750,7 +5772,7 @@ video {
 .drawer-qty-btn:hover:not(:disabled) {
   background: #ffffff;
   color: #0f172a;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
 .drawer-qty-btn:disabled {
@@ -5967,10 +5989,10 @@ video {
   opacity: 0;
   pointer-events: none;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.28s ease,
-              box-shadow 0.25s ease,
-              padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              gap 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.28s ease,
+    box-shadow 0.25s ease,
+    padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    gap 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .floating-cart-btn.is-visible {
@@ -6064,8 +6086,8 @@ body[data-page="cart"] .btn-drawer-view-cart {
   white-space: nowrap;
   overflow: hidden;
   transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.25s ease,
-              margin 0.25s ease;
+    opacity 0.25s ease,
+    margin 0.25s ease;
 }
 
 .floating-cart-title {
@@ -6118,16 +6140,16 @@ body[data-page="cart"] .btn-drawer-view-cart {
     font-size: 0.7rem;
   }
 }
-    height: 32px;
-    font-size: 0.95rem;
-  }
 
-  .floating-cart-title {
-    font-size: 0.78rem;
-  }
-
-  .floating-cart-total {
-    font-size: 0.7rem;
-  }
+height: 32px;
+font-size: 0.95rem;
 }
 
+.floating-cart-title {
+  font-size: 0.78rem;
+}
+
+.floating-cart-total {
+  font-size: 0.7rem;
+}
+}
