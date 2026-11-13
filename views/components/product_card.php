@@ -85,13 +85,13 @@ $isBestSeller = !empty($product['is_bestseller']) || !empty($product['best_selle
     <!-- Price Hierarchy -->
     <div class="price-row">
       <div class="prices-left">
-        <div class="sale-price"><?= format_price($salePrice) ?></div>
+        <div class="sale-price"><?= str_replace(' ', '&nbsp;', format_price($salePrice)) ?></div>
         <?php if ($mrp > $salePrice): ?>
-          <div class="regular-mrp"><?= format_price($mrp) ?></div>
+          <div class="regular-mrp"><?= str_replace(' ', '&nbsp;', format_price($mrp)) ?></div>
         <?php endif; ?>
       </div>
       <?php if ($mrp > $salePrice): ?>
-        <span class="modern-save-badge">Save <?= format_price($mrp - $salePrice) ?></span>
+        <span class="modern-save-badge">Save&nbsp;<?= str_replace(' ', '&nbsp;', format_price($mrp - $salePrice)) ?></span>
       <?php endif; ?>
     </div>
 
