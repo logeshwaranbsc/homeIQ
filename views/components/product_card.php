@@ -13,21 +13,6 @@ $inStock = $stock > 0;
 $wishlist = Session::get('wishlist', []);
 $isWishlisted = in_array($product['id'] ?? '', $wishlist, true);
 
-// Smart extraction of spec chips
-$chips = [];
-if (!empty($product['features']) && is_array($product['features'])) {
-    foreach (array_slice($product['features'], 0, 3) as $feat) {
-        $short = preg_replace('/^(AI|HD|OEM|3D)\s+/i', '', (string)$feat);
-        $words = explode(' ', trim($short));
-        $chips[] = implode(' ', array_slice($words, 0, 3));
-    }
-} elseif (!empty($product['access_methods']) && is_array($product['access_methods'])) {
-    $chips = array_slice($product['access_methods'], 0, 3);
-}
-if (empty($chips)) {
-    $chips = ['Keyless Access', 'Emergency Key', 'Auto-Lock'];
-}
-
 // Stage tag
 $primaryBadge = 'Active Defense';
 $slug = strtolower((string)($product['slug'] ?? ''));
@@ -57,9 +42,25 @@ if (str_contains($slug, 'face') || str_contains($cat, 'face')) {
       </span>
     <?php endif; ?>
 
-    <button type="button" class="modern-wishlist-btn <?= $isWishlisted ? 'active' : '' ?>" data-product-id="<?= e($product['id'] ?? '') ?>" title="<?= $isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist' ?>">
-      <i class="bi bi-heart<?= $isWishlisted ? '-fill' : '' ?>"></i>
-    </button>
+    <!-- Floating Action Stack (Wishlist & Share) -->
+    <div class="card-action-stack">
+      <button type="button"
+              class="btn-card-action btn-action-wishlist <?= $isWishlisted ? 'active' : '' ?>"
+              data-product-id="<?= e($product['id'] ?? '') ?>"
+              title="<?= $isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist' ?>"
+              aria-label="Wishlist">
+        <i class="bi bi-heart<?= $isWishlisted ? '-fill text-danger' : '' ?>"></i>
+      </button>
+
+      <button type="button"
+              class="btn-card-action btn-action-share"
+              data-share-url="<?= url('product/' . $product['slug']) ?>"
+              data-share-title="<?= e($product['name'] ?? 'HOMEIQ Smart Lock') ?>"
+              title="Share product"
+              aria-label="Share product">
+        <i class="bi bi-send"></i>
+      </button>
+    </div>
 
     <img src="<?= upload_url($product['main_image'] ?? '') ?>" alt="<?= e($product['name'] ?? 'Smart Lock') ?>" loading="lazy" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
 
@@ -94,13 +95,6 @@ if (str_contains($slug, 'face') || str_contains($cat, 'face')) {
       <?php else: ?>
         <span class="review-label">(48+ verified)</span>
       <?php endif; ?>
-    </div>
-
-    <!-- Feature Chips -->
-    <div class="prod-chips-row">
-      <?php foreach (array_slice($chips, 0, 3) as $c): ?>
-        <span class="prod-chip"><?= e($c) ?></span>
-      <?php endforeach; ?>
     </div>
 
     <!-- Price Hierarchy -->

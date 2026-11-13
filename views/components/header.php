@@ -31,7 +31,7 @@ $customer = auth_customer();
       </a>
 
       <!-- Shopping Cart -->
-      <a href="<?= url('cart') ?>" class="nav-action-btn mobile-header-btn" title="Shopping Cart" aria-label="Cart">
+      <a href="<?= url('cart') ?>" class="nav-action-btn mobile-header-btn" title="Shopping Cart" aria-label="Cart" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" role="button">
         <i class="bi bi-bag"></i>
         <span class="badge-counter" id="mobileHeaderCartCount"><?= $cartCount ?></span>
       </a>
@@ -102,7 +102,7 @@ $customer = auth_customer();
         </a>
 
         <!-- Shopping Cart -->
-        <a href="<?= url('cart') ?>" class="nav-action-btn" title="Shopping Cart">
+        <a href="<?= url('cart') ?>" class="nav-action-btn" title="Shopping Cart" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" role="button">
           <i class="bi bi-bag"></i>
           <span class="badge-counter" id="headerCartCount"><?= $cartCount ?></span>
         </a>

@@ -51,6 +51,8 @@ $router->post('/product/review', [ProductController::class, 'submitReview'], [Cs
 
 // Cart
 $router->get('/cart', [CartController::class, 'index']);
+$router->get('/cart/data', [CartController::class, 'data']);
+$router->get('/api/cart', [CartController::class, 'data']);
 $router->post('/cart/add', [CartController::class, 'add'], [CsrfMiddleware::class]);
 $router->post('/cart/update', [CartController::class, 'update'], [CsrfMiddleware::class]);
 $router->post('/cart/remove', [CartController::class, 'remove'], [CsrfMiddleware::class]);

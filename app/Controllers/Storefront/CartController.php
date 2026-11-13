@@ -23,6 +23,8 @@ class CartController
         echo View::render('storefront/cart', [
             'title' => 'Shopping Cart | HOMEIQ',
             'cart' => $cart,
+            'isCartPage' => true,
+            'bodyClass' => 'page-cart',
         ]);
     }
 
@@ -108,6 +110,15 @@ class CartController
         $this->cartService->removeCoupon();
         flash('info', 'Coupon removed.');
         redirect('cart');
+    }
+
+    public function data(): void
+    {
+        $cart = $this->cartService->getCartDetails();
+        json_response([
+            'success' => true,
+            'cart' => $cart,
+        ]);
     }
 
     public function count(): void

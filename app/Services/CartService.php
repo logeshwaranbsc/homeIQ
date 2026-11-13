@@ -174,11 +174,16 @@ class CartService
                 'slug' => $product['slug'],
                 'sku' => $product['sku'] ?? '',
                 'image' => $product['main_image'] ?? '',
+                'image_url' => upload_url($product['main_image'] ?? ''),
+                'product_url' => url('product/' . $product['slug']),
                 'price' => $price,
+                'formatted_price' => format_price($price),
                 'mrp' => $mrp,
+                'formatted_mrp' => format_price($mrp),
                 'stock' => (int)($product['stock'] ?? 0),
                 'quantity' => $qty,
                 'line_total' => $lineTotal,
+                'formatted_line_total' => format_price($lineTotal),
             ];
         }
 
@@ -216,11 +221,17 @@ class CartService
             'items' => $items,
             'total_items' => $totalItems,
             'subtotal' => $subtotal,
+            'formatted_subtotal' => format_price($subtotal),
             'discount' => $discountAmount,
+            'formatted_discount' => format_price($discountAmount),
             'shipping' => $shipping,
+            'formatted_shipping' => ($shipping == 0 ? 'FREE' : format_price($shipping)),
             'grand_total' => $grandTotal,
+            'formatted_grand_total' => format_price($grandTotal),
             'free_shipping_threshold' => $freeShippingThreshold,
             'shipping_shortfall' => max(0.0, $freeShippingThreshold - $subtotal),
+            'formatted_shipping_shortfall' => format_price(max(0.0, $freeShippingThreshold - $subtotal)),
+            'qualifies_free_shipping' => ($subtotal >= $freeShippingThreshold),
             'applied_coupon' => $appliedCoupon,
         ];
     }

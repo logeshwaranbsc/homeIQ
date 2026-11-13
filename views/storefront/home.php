@@ -111,62 +111,8 @@ use App\Core\View;
   </div>
 </section>
 
-<!-- Trust Value Strip (Architectural Security Pillars) -->
-<section class="trust-strip-section mt-4 mt-lg-5 py-4">
-  <div class="container">
-    <div class="row g-3">
-      <div class="col-lg-3 col-sm-6">
-        <div class="trust-pillar-card">
-          <div class="trust-pillar-icon">
-            <i class="bi bi-tools"></i>
-          </div>
-          <div>
-            <div class="trust-pillar-title">White-Glove Installation</div>
-            <div class="trust-pillar-desc">Door check & chisel routing by certified technicians</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6">
-        <div class="trust-pillar-card">
-          <div class="trust-pillar-icon">
-            <i class="bi bi-shield-check"></i>
-          </div>
-          <div>
-            <div class="trust-pillar-title">2-Year Full Warranty</div>
-            <div class="trust-pillar-desc">Comprehensive mechanical & biometric electronics coverage</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6">
-        <div class="trust-pillar-card">
-          <div class="trust-pillar-icon">
-            <i class="bi bi-truck"></i>
-          </div>
-          <div>
-            <div class="trust-pillar-title">Insured 24h Dispatch</div>
-            <div class="trust-pillar-desc">Shockproof sealed packaging & doorstep delivery</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6">
-        <div class="trust-pillar-card">
-          <div class="trust-pillar-icon">
-            <i class="bi bi-headset"></i>
-          </div>
-          <div>
-            <div class="trust-pillar-title">VIP Concierge Support</div>
-            <div class="trust-pillar-desc">Direct phone & video smart lock onboarding</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Smart Lock Collection Showcase Section -->
+<?php if (!empty($categories)): ?>
+<!-- Smart Lock Collection Showcase Section (Categories) -->
 <section class="hiq-collection-showcase-section">
   <div class="container">
     <div class="hiq-collection-header text-center">
@@ -175,20 +121,42 @@ use App\Core\View;
       <p class="hiq-collection-subtitle">A handpicked range of smart locks for your home and office.</p>
     </div>
 
-    <div class="hiq-collection-grid">
-      <?php foreach (array_slice($featuredProducts, 0, 5) as $product): ?>
-        <a href="<?= url('product/' . $product['slug']) ?>" class="hiq-collection-tile" title="<?= e($product['name']) ?>">
-          <div class="hiq-collection-tile-media">
-            <img src="<?= upload_url($product['main_image'] ?? '') ?>"
-                 alt="<?= e($product['name']) ?>"
-                 loading="lazy"
-                 onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
+    <div class="hiq-collection-slider-container position-relative" id="collectionSliderContainer">
+      <button type="button"
+              class="product-slider-arrow arrow-prev hiq-collection-arrow"
+              id="collectionSidePrev"
+              aria-label="Previous Categories"
+              title="Previous Categories"
+              hidden>
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <div class="hiq-collection-track" id="collectionCategoryTrack">
+        <?php foreach ($categories as $cat): ?>
+          <div class="hiq-collection-slide">
+            <a href="<?= url('category/' . $cat['slug']) ?>" class="hiq-collection-tile" title="<?= e($cat['name']) ?>">
+              <div class="hiq-collection-tile-media">
+                <img src="<?= upload_url($cat['image'] ?? '') ?>"
+                     alt="<?= e($cat['name']) ?>"
+                     loading="lazy"
+                     onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
+              </div>
+              <div class="hiq-collection-tile-body">
+                <h3 class="hiq-collection-tile-title"><?= e($cat['name']) ?></h3>
+              </div>
+            </a>
           </div>
-          <div class="hiq-collection-tile-body">
-            <h3 class="hiq-collection-tile-title"><?= e($product['name']) ?></h3>
-          </div>
-        </a>
-      <?php endforeach; ?>
+        <?php endforeach; ?>
+      </div>
+
+      <button type="button"
+              class="product-slider-arrow arrow-next hiq-collection-arrow"
+              id="collectionSideNext"
+              aria-label="Next Categories"
+              title="Next Categories"
+              hidden>
+        <i class="bi bi-chevron-right"></i>
+      </button>
     </div>
 
     <div class="text-center hiq-collection-cta-wrap">
@@ -198,46 +166,13 @@ use App\Core\View;
     </div>
   </div>
 </section>
-
-
-<!-- Brand Hardware Showcase Video Section -->
-<?php if (!empty($settings['story_enabled'] ?? true)): ?>
-  <section class="brand-intro-section brand-video-section position-relative">
-    <div class="brand-video-wrapper">
-      <video id="brandShowcaseVideo"
-             class="brand-showcase-video"
-             autoplay
-             muted
-             loop
-             playsinline
-             preload="auto">
-        <source src="https://res.cloudinary.com/uep3k36v/video/upload/v1794397919/Untitled_video_gwr_video_mvp.mp4" type="video/mp4">
-      </video>
-    </div>
-  </section>
-
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const video = document.getElementById('brandShowcaseVideo');
-    const muteBtn = document.getElementById('brandVideoMuteBtn');
-    if (!video || !muteBtn) return;
-
-    const icon = muteBtn.querySelector('i');
-    muteBtn.addEventListener('click', function () {
-      video.muted = !video.muted;
-      if (icon) {
-        icon.className = video.muted ? 'bi bi-volume-mute-fill' : 'bi bi-volume-up-fill';
-      }
-    });
-  });
-  </script>
 <?php endif; ?>
 
 <!-- Featured Products Showcase (Creative Modern Slider Carousel with Arrow Controls) -->
-<section class="py-4 py-md-5 bg-white position-relative featured-products-section">
-  <div class="container py-2 py-md-4">
+<section class="pt-4 pt-md-5 pb-2 pb-md-3 bg-white position-relative featured-products-section">
+  <div class="container pt-2 pt-md-4 pb-1 pb-md-2">
     <!-- Section Header -->
-    <div class="row align-items-end justify-content-between mb-3 g-3">
+    <div class="row align-items-end justify-content-between mb-3 mb-md-4 g-3">
       <div class="col-lg-7">
         <span class="cat-sec-badge">
           <span class="cat-pulse-dot"></span> Curated Hardware Lineup
@@ -249,90 +184,37 @@ use App\Core\View;
           Engineered for biometric velocity, architectural elegance, and impenetrable multi-point deadbolt protection.
         </p>
       </div>
-
-      <div class="col-lg-5 text-lg-end d-flex align-items-center justify-content-between justify-content-lg-end gap-3 flex-wrap">
-        <a href="<?= url('shop') ?>" class="cat-view-all-pill">
-          <span>Explore Catalog (<?= count($featuredProducts) ?> Models)</span>
-          <i class="bi bi-arrow-right"></i>
-        </a>
-
-        <!-- Header Arrow Controls -->
-        <div class="slider-header-controls d-flex align-items-center gap-2">
-          <button type="button" class="btn-slider-arrow btn-slider-prev" id="featuredHeaderPrev" aria-label="Previous Locks" title="Previous Locks">
-            <i class="bi bi-chevron-left"></i>
-          </button>
-          <button type="button" class="btn-slider-arrow btn-slider-next" id="featuredHeaderNext" aria-label="Next Locks" title="Next Locks">
-            <i class="bi bi-chevron-right"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Interactive Featured Filter Tabs -->
-    <div class="cat-filter-wrapper mb-4">
-      <div class="cat-filter-nav" id="featuredFilterNav">
-        <button type="button" class="cat-filter-btn active" data-filter="all">
-          <span>All Featured</span>
-          <span class="cat-count-pill"><?= count($featuredProducts) ?></span>
-        </button>
-        <button type="button" class="cat-filter-btn" data-filter="face">
-          <i class="bi bi-person-bounding-box text-primary"></i>
-          <span>AI Face Locks</span>
-        </button>
-        <button type="button" class="cat-filter-btn" data-filter="fingerprint">
-          <i class="bi bi-fingerprint text-success"></i>
-          <span>Biometric Touch</span>
-        </button>
-        <button type="button" class="cat-filter-btn" data-filter="smart">
-          <i class="bi bi-camera-video text-danger"></i>
-          <span>Video &amp; Smart IoT</span>
-        </button>
-      </div>
     </div>
 
     <!-- Product Slider Carousel Viewport with Gutter Side Arrows (Never Overlapping Cards) -->
-    <div class="product-slider-container position-relative">
-      <!-- Side Floating Left Arrow (Positioned in gutter channel) -->
-      <button type="button" class="product-slider-arrow arrow-prev" id="featuredSidePrev" aria-label="Scroll Left" title="Scroll Left">
-        <i class="bi bi-chevron-left"></i>
-      </button>
+    <?php $hasMultipleFeatured = count($featuredProducts) > 1; ?>
+    <div class="product-slider-container position-relative<?= $hasMultipleFeatured ? '' : ' product-slider-container--single' ?>">
+      <?php if ($hasMultipleFeatured): ?>
+        <!-- Side Floating Left Arrow (Positioned in gutter channel) -->
+        <button type="button" class="product-slider-arrow arrow-prev" id="featuredSidePrev" aria-label="Scroll Left" title="Scroll Left">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+      <?php endif; ?>
 
       <!-- Scrollable Products Track -->
       <div class="product-slider-track" id="featuredProductsTrack">
         <?php foreach ($featuredProducts as $product): ?>
-          <?php
-            $slug = strtolower((string)($product['slug'] ?? ''));
-            $catSlug = strtolower((string)($product['category_slug'] ?? $product['category'] ?? ''));
-            $pGroup = 'all';
-            if (str_contains($slug, 'face') || str_contains($catSlug, 'face')) {
-                $pGroup = 'face';
-            } elseif (
-                str_contains($slug, 'fingerprint')
-                || str_contains($slug, 'touch')
-                || str_contains($slug, 'vein')
-                || str_contains($slug, 'palm')
-                || str_contains($slug, 'biometric')
-                || str_contains($catSlug, 'fingerprint')
-            ) {
-                $pGroup = 'fingerprint';
-            } elseif (str_contains($slug, 'video') || str_contains($slug, 'vision') || str_contains($slug, 'wifi') || str_contains($catSlug, 'video') || str_contains($catSlug, 'wifi')) {
-                $pGroup = 'smart';
-            }
-          ?>
-          <div class="product-slider-slide" data-product-group="<?= $pGroup ?>">
+          <div class="product-slider-slide">
             <?= View::component('product_card', ['product' => $product]) ?>
           </div>
         <?php endforeach; ?>
       </div>
 
-      <!-- Side Floating Right Arrow (Positioned in gutter channel) -->
-      <button type="button" class="product-slider-arrow arrow-next" id="featuredSideNext" aria-label="Scroll Right" title="Scroll Right">
-        <i class="bi bi-chevron-right"></i>
-      </button>
+      <?php if ($hasMultipleFeatured): ?>
+        <!-- Side Floating Right Arrow (Positioned in gutter channel) -->
+        <button type="button" class="product-slider-arrow arrow-next" id="featuredSideNext" aria-label="Scroll Right" title="Scroll Right">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      <?php endif; ?>
     </div>
 
     <!-- Custom Architecture Callout Banner -->
-    <div class="featured-custom-banner mt-4 mt-md-5">
+    <div class="featured-custom-banner mt-4 mt-md-5 mb-2 mb-md-3">
       <div class="row align-items-center g-3">
         <div class="col-lg-8">
           <div class="d-flex align-items-start align-items-sm-center gap-3">
@@ -355,43 +237,9 @@ use App\Core\View;
   </div>
 </section>
 
-<!-- Featured Slider Filter Navigation JavaScript -->
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const track = document.getElementById('featuredProductsTrack');
-  const fNav = document.getElementById('featuredFilterNav');
-  if (!fNav || !track) return;
-
-  const fBtns = fNav.querySelectorAll('.cat-filter-btn');
-  const fSlides = track.querySelectorAll('.product-slider-slide');
-
-  fBtns.forEach(btn => {
-    btn.addEventListener('click', function () {
-      const filter = this.getAttribute('data-filter');
-      fBtns.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-
-      fSlides.forEach(slide => {
-        const group = slide.getAttribute('data-product-group');
-        if (filter === 'all' || group === filter) {
-          slide.style.display = 'flex';
-          slide.style.opacity = '1';
-        } else {
-          slide.style.display = 'none';
-        }
-      });
-      track.scrollTo({ left: 0, behavior: 'smooth' });
-    });
-  });
-});
-</script>
-
-
-
-<!-- Customer Video Reels Section (Max 4 Videos - Inline Playback) -->
 <?php if (!empty($videoTestimonials)): ?>
-<section class="hiq-reels-section py-4 py-md-5 bg-white position-relative border-top">
-  <div class="container py-2 py-md-4">
+<section class="hiq-reels-section pt-3 pt-md-4 pb-4 pb-md-5 bg-white position-relative">
+  <div class="container pt-1 pt-md-2 pb-2 pb-md-4">
     <!-- Section Header (Matching Featured Products Header Alignment & Style) -->
     <div class="row align-items-end justify-content-between mb-3 mb-md-4 g-3">
       <div class="col-lg-7">
@@ -478,6 +326,94 @@ document.addEventListener('DOMContentLoaded', function () {
       <button type="button" class="product-slider-arrow arrow-next" id="hiqReelSideNext" aria-label="Scroll Right" title="Scroll Right">
         <i class="bi bi-chevron-right"></i>
       </button>
+    </div>
+  </div>
+</section>
+
+<!-- Brand Hardware Showcase Video Section -->
+<?php if (!empty($settings['story_enabled'] ?? true)): ?>
+  <section class="brand-intro-section brand-video-section position-relative">
+    <div class="brand-video-wrapper">
+      <video id="brandShowcaseVideo"
+             class="brand-showcase-video"
+             autoplay
+             muted
+             loop
+             playsinline
+             preload="auto">
+        <source src="https://res.cloudinary.com/uep3k36v/video/upload/v1794397919/Untitled_video_gwr_video_mvp.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const video = document.getElementById('brandShowcaseVideo');
+    const muteBtn = document.getElementById('brandVideoMuteBtn');
+    if (!video || !muteBtn) return;
+
+    const icon = muteBtn.querySelector('i');
+    muteBtn.addEventListener('click', function () {
+      video.muted = !video.muted;
+      if (icon) {
+        icon.className = video.muted ? 'bi bi-volume-mute-fill' : 'bi bi-volume-up-fill';
+      }
+    });
+  });
+  </script>
+<?php endif; ?>
+
+<!-- Trust Value Strip (Architectural Security Pillars) -->
+<section class="trust-strip-section mt-4 mt-lg-5 py-4">
+  <div class="container">
+    <div class="row g-3">
+      <div class="col-lg-3 col-sm-6">
+        <div class="trust-pillar-card">
+          <div class="trust-pillar-icon">
+            <i class="bi bi-tools"></i>
+          </div>
+          <div>
+            <div class="trust-pillar-title">White-Glove Installation</div>
+            <div class="trust-pillar-desc">Door check & chisel routing by certified technicians</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-sm-6">
+        <div class="trust-pillar-card">
+          <div class="trust-pillar-icon">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <div>
+            <div class="trust-pillar-title">2-Year Full Warranty</div>
+            <div class="trust-pillar-desc">Comprehensive mechanical & biometric electronics coverage</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-sm-6">
+        <div class="trust-pillar-card">
+          <div class="trust-pillar-icon">
+            <i class="bi bi-truck"></i>
+          </div>
+          <div>
+            <div class="trust-pillar-title">Insured 24h Dispatch</div>
+            <div class="trust-pillar-desc">Shockproof sealed packaging & doorstep delivery</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-sm-6">
+        <div class="trust-pillar-card">
+          <div class="trust-pillar-icon">
+            <i class="bi bi-headset"></i>
+          </div>
+          <div>
+            <div class="trust-pillar-title">VIP Concierge Support</div>
+            <div class="trust-pillar-desc">Direct phone & video smart lock onboarding</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

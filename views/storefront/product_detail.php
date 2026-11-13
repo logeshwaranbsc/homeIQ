@@ -32,7 +32,27 @@ $breadcrumbs = [
   <div class="row g-4 g-lg-5 mb-4 mb-lg-5">
     <!-- Gallery Column -->
     <div class="col-lg-6">
-      <div class="product-gallery-main">
+      <div class="product-gallery-main position-relative">
+        <!-- Floating Action Stack (Wishlist & Share) -->
+        <div class="gallery-action-stack">
+          <button type="button"
+                  class="btn-card-action btn-action-wishlist <?= $isWishlisted ? 'active' : '' ?>"
+                  data-product-id="<?= e($product['id'] ?? '') ?>"
+                  title="<?= $isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist' ?>"
+                  aria-label="Wishlist">
+            <i class="bi bi-heart<?= $isWishlisted ? '-fill text-danger' : '' ?>"></i>
+          </button>
+
+          <button type="button"
+                  class="btn-card-action btn-action-share"
+                  data-share-url="<?= url('product/' . $product['slug']) ?>"
+                  data-share-title="<?= e($product['name'] ?? 'HOMEIQ Smart Lock') ?>"
+                  title="Share product"
+                  aria-label="Share product">
+            <i class="bi bi-send"></i>
+          </button>
+        </div>
+
         <img id="productMainImage" src="<?= upload_url($product['main_image'] ?? '') ?>" alt="<?= e($product['name']) ?>" class="img-fluid" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
       </div>
 
@@ -88,9 +108,46 @@ $breadcrumbs = [
       </div>
 
       <!-- Short Description -->
-      <p class="text-muted mb-4 fs-6 leading-relaxed">
+      <p class="text-muted mb-3 fs-6 leading-relaxed">
         <?= e($product['short_description']) ?>
       </p>
+
+      <!-- Key Hardware Specifications & Highlights ("About This Lock") -->
+      <?php if (!empty($product['features']) || !empty($product['access_methods'])): ?>
+        <div class="product-highlights-box">
+          <div class="product-highlights-title">
+            <span class="d-inline-flex align-items-center gap-2">
+              <i class="bi bi-shield-check text-primary"></i> Key Specifications & Highlights
+            </span>
+            <a href="#descTab" class="product-highlights-link" onclick="bootstrap.Tab.getOrCreateInstance(document.getElementById('desc-tab')).show();">
+              Full Details <i class="bi bi-arrow-down-short"></i>
+            </a>
+          </div>
+
+          <?php if (!empty($product['features'])): ?>
+            <div class="product-highlights-list">
+              <?php foreach ($product['features'] as $feat): ?>
+                <span class="product-highlight-badge">
+                  <i class="bi bi-check-circle-fill"></i> <?= e($feat) ?>
+                </span>
+              <?php endforeach; ?>
+            </div>
+          <?php endif; ?>
+
+          <?php if (!empty($product['access_methods'])): ?>
+            <div class="product-access-strip">
+              <div class="product-access-label">Supported Unlock Methods:</div>
+              <div class="product-access-tags">
+                <?php foreach ($product['access_methods'] as $method): ?>
+                  <span class="product-access-tag">
+                    <i class="bi bi-key-fill"></i> <?= e($method) ?>
+                  </span>
+                <?php endforeach; ?>
+              </div>
+            </div>
+          <?php endif; ?>
+        </div>
+      <?php endif; ?>
 
       <!-- Stock Availability Indicator -->
       <div class="mb-4">
@@ -181,7 +238,7 @@ $breadcrumbs = [
     <div class="card-header bg-white border-bottom p-0">
       <ul class="nav nav-tabs card-header-tabs m-0 px-2 px-md-3 border-0 flex-nowrap overflow-x-auto text-nowrap" id="productTabs" role="tablist">
         <li class="nav-item">
-          <button class="nav-link active fw-bold py-3" id="desc-tab" data-bs-toggle="tab" data-bs-target="#descTab" type="button" role="tab">Full Description</button>
+          <button class="nav-link active fw-bold py-3" id="desc-tab" data-bs-toggle="tab" data-bs-target="#descTab" type="button" role="tab">About This Product</button>
         </li>
         <li class="nav-item">
           <button class="nav-link fw-bold py-3" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specsTab" type="button" role="tab">Specifications</button>
@@ -202,19 +259,44 @@ $breadcrumbs = [
       <div class="tab-content" id="productTabsContent">
         <!-- 1. Description Tab -->
         <div class="tab-pane fade show active" id="descTab" role="tabpanel">
-          <h4 class="fw-bold mb-4">Product Overview</h4>
+          <h4 class="fw-bold mb-4">About This Product</h4>
           <div class="text-secondary leading-relaxed mb-5" style="white-space: pre-line;">
             <?= e($product['full_description']) ?>
           </div>
 
           <?php if (!empty($product['features'])): ?>
             <h5 class="fw-bold mb-3">Key Features & Security Capabilities</h5>
-            <div class="row g-3">
+            <div class="row g-3 mb-4">
               <?php foreach ($product['features'] as $feature): ?>
                 <div class="col-md-6 d-flex align-items-center gap-2">
                   <i class="bi bi-check-circle-fill text-primary"></i>
                   <span class="text-dark fw-medium"><?= e($feature) ?></span>
                 </div>
+              <?php endforeach; ?>
+            </div>
+          <?php endif; ?>
+
+          <?php if (!empty($product['access_methods'])): ?>
+            <h5 class="fw-bold mb-3 mt-4">Supported Access & Unlock Methods</h5>
+            <div class="row g-2 mb-4">
+              <?php foreach ($product['access_methods'] as $acc): ?>
+                <div class="col-sm-6 col-md-4">
+                  <div class="p-2 px-3 bg-light rounded-2 border d-flex align-items-center gap-2">
+                    <i class="bi bi-shield-lock-fill text-primary"></i>
+                    <span class="text-dark small fw-semibold"><?= e($acc) ?></span>
+                  </div>
+                </div>
+              <?php endforeach; ?>
+            </div>
+          <?php endif; ?>
+
+          <?php if (!empty($product['connectivity'])): ?>
+            <h5 class="fw-bold mb-3 mt-4">Smart Connectivity & Protocol</h5>
+            <div class="d-flex flex-wrap gap-2 mb-2">
+              <?php foreach ($product['connectivity'] as $conn): ?>
+                <span class="badge bg-light text-dark border px-3 py-2 fs-6 fw-medium d-inline-flex align-items-center gap-2">
+                  <i class="bi bi-wifi text-primary"></i> <?= e($conn) ?>
+                </span>
               <?php endforeach; ?>
             </div>
           <?php endif; ?>

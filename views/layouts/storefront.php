@@ -9,6 +9,15 @@ $settingsRepo = new SettingsRepository();
 $siteSettings = $settingsRepo->all();
 $pageTitle = $title ?? ($siteSettings['meta_title'] ?? 'HOMEIQ | Digital Smart Locks');
 $metaDesc = $siteSettings['meta_description'] ?? 'Biometric digital smart door locks.';
+
+$rawUri = $_SERVER['REQUEST_URI'] ?? '';
+$parsedPath = trim((string)parse_url($rawUri, PHP_URL_PATH), '/');
+$scriptDir = trim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
+if (!empty($scriptDir) && str_starts_with($parsedPath, $scriptDir)) {
+    $parsedPath = trim(substr($parsedPath, strlen($scriptDir)), '/');
+}
+$isCartPage = ($isCartPage ?? false) || ($bodyClass ?? '') === 'page-cart' || $parsedPath === 'cart' || str_ends_with($parsedPath, '/cart');
+$bodyClasses = trim(($bodyClass ?? '') . ' ' . ($isCartPage ? 'page-cart' : ''));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +50,7 @@ $metaDesc = $siteSettings['meta_description'] ?? 'Biometric digital smart door l
     window.HOMEIQ_BASE_URL = '<?= rtrim(App::getBaseUrl(), '/') ?>';
   </script>
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 <?= e($bodyClasses) ?>" data-page="<?= $isCartPage ? 'cart' : '' ?>">
 
   <!-- Announcement Bar -->
   <?= View::component('announcement_bar') ?>
@@ -59,6 +68,9 @@ $metaDesc = $siteSettings['meta_description'] ?? 'Biometric digital smart door l
 
   <!-- Footer -->
   <?= View::component('footer') ?>
+
+  <!-- Slide-out Cart Drawer -->
+  <?= View::component('cart_drawer', ['isCartPage' => $isCartPage]) ?>
 
   <!-- Bootstrap 5 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
