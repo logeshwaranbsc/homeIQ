@@ -132,9 +132,9 @@
         "installation": "Free Professional Installation",
         "is_featured": true,
         "is_active": true,
-        "rating": 5,
-        "reviews_count": 64,
-        "main_image": "products/palm-vein-lock.svg",
+        "rating": 4.8,
+        "reviews_count": 0,
+        "main_image": "products/d6d7023a78a6c4276d4d_1794564265.png",
         "short_description": "Next-gen security with palm vein recognition for touchless, highly secure access.",
         "full_description": "Near-infrared light detects the unique deoxidized hemoglobin flow inside your palm veins. Completely hygienic, contactless, and unaffected by worn fingerprints or wet hands.",
         "features": [
@@ -151,18 +151,8 @@
             "2x Backup Keys",
             "Cutout Template"
         ],
-        "access_methods": [
-            "Palm Vein",
-            "Fingerprint",
-            "PIN Password",
-            "RFID Card",
-            "Tuya App",
-            "Mechanical Key"
-        ],
-        "connectivity": [
-            "Wi-Fi 2.4GHz",
-            "Tuya Smart App"
-        ],
+        "access_methods": [],
+        "connectivity": [],
         "specifications": {
             "Brand": "HOMEIQ",
             "Biometric Technology": "Subcutaneous Palm Vein Infrared Scan",
@@ -171,7 +161,9 @@
         },
         "id": "prod_bbca60db6ae32633",
         "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-11-11 12:35:00"
+        "updated_at": "2026-11-13 15:34:25",
+        "is_bestseller": false,
+        "gallery_images": []
     },
     {
         "name": "HOMEIQ Vision 2K Video Doorbell Smart Lock",
@@ -190,9 +182,9 @@
         "installation": "Free Professional Installation",
         "is_featured": true,
         "is_active": true,
-        "rating": 4.9,
-        "reviews_count": 97,
-        "main_image": "products/video-door-lock.svg",
+        "rating": 4.8,
+        "reviews_count": 0,
+        "main_image": "products/454e31bc5691ff018a9a_1794564334.png",
         "short_description": "Smart lock with 2K HD video doorbell, real-time alerts, and remote access anytime, anywhere.",
         "full_description": "Combines a premium automatic deadbolt lock with an ultra-clear 2K smart video doorbell. When visitors ring your bell, receive a live video call directly on your smartphone.",
         "features": [
@@ -209,18 +201,8 @@
             "2x RFID Cards",
             "2x Emergency Keys"
         ],
-        "access_methods": [
-            "Fingerprint",
-            "Face Scan",
-            "PIN Password",
-            "RFID Card",
-            "Tuya App Video Call",
-            "Mechanical Key"
-        ],
-        "connectivity": [
-            "Wi-Fi 2.4GHz",
-            "Tuya Smart / Smart Life"
-        ],
+        "access_methods": [],
+        "connectivity": [],
         "specifications": {
             "Camera": "2K QHD (2560x1440) Night Vision",
             "Screen": "4.0-inch Color IPS Display inside",
@@ -228,7 +210,9 @@
         },
         "id": "prod_ca1280556ae32633",
         "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-11-11 12:35:00"
+        "updated_at": "2026-11-13 15:35:34",
+        "is_bestseller": false,
+        "gallery_images": []
     },
     {
         "name": "HOMEIQ Fingerprint & PIN Digital Smart Door Lock",
