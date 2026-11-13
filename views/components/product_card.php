@@ -13,46 +13,25 @@ $inStock = $stock > 0;
 $wishlist = Session::get('wishlist', []);
 $isWishlisted = in_array($product['id'] ?? '', $wishlist, true);
 $isBestSeller = !empty($product['is_bestseller']) || !empty($product['best_seller']) || (($product['badge'] ?? '') === 'Best Seller');
-
-// Stage tag
-$primaryBadge = 'Active Defense';
-$slug = strtolower((string)($product['slug'] ?? ''));
-$cat = strtolower((string)($product['category'] ?? ''));
-if (str_contains($slug, 'face') || str_contains($cat, 'face')) {
-    $primaryBadge = '3D Face Scan';
-} elseif (str_contains($slug, 'touch') || str_contains($slug, 'fingerprint') || str_contains($cat, 'fingerprint')) {
-    $primaryBadge = '< 0.4s Touch';
-} elseif (str_contains($slug, 'vein') || str_contains($cat, 'vein')) {
-    $primaryBadge = 'Vascular IR';
-} elseif (str_contains($slug, 'video') || str_contains($slug, 'vision') || str_contains($cat, 'video')) {
-    $primaryBadge = '2K HD Video';
-} elseif (str_contains($slug, 'wifi') || str_contains($slug, 'app') || str_contains($cat, 'wifi')) {
-    $primaryBadge = 'Tuya IoT Sync';
-} elseif (!empty($product['lock_type'])) {
-    $primaryBadge = (string)$product['lock_type'];
-}
 ?>
 <div class="product-card">
   <!-- Hardware Showcase Stage -->
   <a href="<?= url('product/' . $product['slug']) ?>" class="card-thumb-link">
-    <div class="thumb-stage-radar"></div>
-
     <!-- Floating Badges Stack (Top Left) -->
     <div class="card-badges-stack">
+      <?php if ($discount > 0): ?>
+        <span class="modern-discount-badge">
+          <i class="bi bi-tag-fill"></i> <?= $discount ?>% OFF
+        </span>
+      <?php endif; ?>
       <?php if ($isBestSeller): ?>
         <span class="modern-bestseller-badge">
           <i class="bi bi-star-fill"></i> Best Seller
         </span>
       <?php endif; ?>
-
-      <?php if ($discount > 0): ?>
-        <span class="modern-discount-badge">
-          <i class="bi bi-tag-fill me-1"></i><?= $discount ?>% OFF
-        </span>
-      <?php endif; ?>
     </div>
 
-    <!-- Floating Action Stack (Wishlist & Share) -->
+    <!-- Floating Action Stack (Wishlist & Share Top Right) -->
     <div class="card-action-stack">
       <button type="button"
               class="btn-card-action btn-action-wishlist <?= $isWishlisted ? 'active' : '' ?>"
@@ -73,21 +52,17 @@ if (str_contains($slug, 'face') || str_contains($cat, 'face')) {
     </div>
 
     <img src="<?= upload_url($product['main_image'] ?? '') ?>" alt="<?= e($product['name'] ?? 'Smart Lock') ?>" loading="lazy" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
-
-    <span class="stage-feature-pill">
-      <i class="bi bi-shield-check"></i> <?= e($primaryBadge) ?>
-    </span>
   </a>
 
   <!-- Card Body -->
   <div class="product-card-body">
-    <!-- Meta Top -->
+    <!-- Meta Top: Category & Stock Status -->
     <div class="card-meta-top">
       <span class="modern-cat-pill">
-        <span class="cat-dot"></span> <?= e($product['category'] ?? 'Digital Lock') ?>
+        <span class="cat-dot"></span> <?= e($product['category'] ?? 'DIGITAL SMART LOCKS') ?>
       </span>
       <span class="modern-stock-pill <?= $inStock ? 'in-stock' : 'out-of-stock' ?>">
-        <span class="stock-dot"></span> <?= $inStock ? 'In Stock' : 'Sold Out' ?>
+        <span class="stock-dot"></span> <?= $inStock ? 'In Stock' : 'Out of Stock' ?>
       </span>
     </div>
 
@@ -109,9 +84,13 @@ if (str_contains($slug, 'face') || str_contains($cat, 'face')) {
 
     <!-- Price Hierarchy -->
     <div class="price-row">
-      <div class="sale-price"><?= format_price($salePrice) ?></div>
+      <div class="prices-left">
+        <div class="sale-price"><?= format_price($salePrice) ?></div>
+        <?php if ($mrp > $salePrice): ?>
+          <div class="regular-mrp"><?= format_price($mrp) ?></div>
+        <?php endif; ?>
+      </div>
       <?php if ($mrp > $salePrice): ?>
-        <div class="regular-mrp"><?= format_price($mrp) ?></div>
         <span class="modern-save-badge">Save <?= format_price($mrp - $salePrice) ?></span>
       <?php endif; ?>
     </div>
@@ -119,7 +98,7 @@ if (str_contains($slug, 'face') || str_contains($cat, 'face')) {
     <!-- Streamlined Modern Actions -->
     <div class="modern-card-actions">
       <?php if ($inStock): ?>
-        <form action="<?= url('cart/add') ?>" method="POST" class="flex-grow-1 m-0" style="min-width: 0;">
+        <form action="<?= url('cart/add') ?>" method="POST" class="card-cart-form">
           <?= csrf_field() ?>
           <input type="hidden" name="product_id" value="<?= e($product['id'] ?? '') ?>">
           <input type="hidden" name="quantity" value="1">

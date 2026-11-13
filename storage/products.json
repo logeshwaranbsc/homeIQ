@@ -19,8 +19,8 @@
         "is_active": true,
         "rating": 4.8,
         "reviews_count": 0,
-        "main_image": "products/b7995854812fed5cfa4d_1794555396.svg",
-        "short_description": "HOMEIQ Black AI Smart Door Lock — 9-in-1 keyless smart door lock with AI Face Recognition, Palm Vein, Fingerprint, PIN, RFID Card, Mechanical Key, Temporary Password and Tuya App Remote Access.",
+        "main_image": "products/4fc2175a6c66987fe6ea_1794564007.png",
+        "short_description": "Advanced AI face recognition with multi-mode access for secure and keyless entry.",
         "full_description": "Smart Security. Keyless Convenience. Complete Access Control.\r\n\r\nThe HOMEIQ Black Smart Door Lock is a premium biometric digital door lock designed for modern homes, apartments, villas, offices and rental properties.\r\n\r\nWith 9-in-1 keyless access, users can unlock their doors using AI Face Recognition, Palm Vein Recognition, Fingerprint, PIN Password, RFID Card, Mechanical Key, Temporary Password, Tuya App Remote Access or Combination Unlock.\r\n\r\nIts biometric access methods, smart app control, automatic locking, access history and security alerts provide a convenient and connected door security experience.",
         "features": [
             "AI Face Recognition with 3D Structured Light",
@@ -42,22 +42,8 @@
             "Installation Template & Heavy-Duty Screw Pack",
             "User Guide & Quick Setup Manual"
         ],
-        "access_methods": [
-            "AI Face Recognition",
-            "Palm Vein Recognition",
-            "Semiconductor Fingerprint",
-            "Anti-Peep PIN Code",
-            "RFID Smart Card",
-            "Mechanical Key",
-            "Mobile App Remote Access",
-            "One-Time Temporary Password",
-            "Dual-Authentication Combination Unlock"
-        ],
-        "connectivity": [
-            "Wi-Fi (2.4 GHz)",
-            "Bluetooth 5.0",
-            "Tuya Smart Ecosystem"
-        ],
+        "access_methods": [],
+        "connectivity": [],
         "specifications": {
             "Brand": "HOMEIQ",
             "Lock Type": "Mortise Lock",
@@ -75,7 +61,7 @@
         },
         "id": "prod_531f9c426ae32633",
         "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-11-13 14:53:31",
+        "updated_at": "2026-11-13 15:30:07",
         "gallery_images": []
     },
     {
@@ -97,8 +83,8 @@
         "is_active": true,
         "rating": 4.8,
         "reviews_count": 0,
-        "main_image": "products/5a35087644040b6a3558_1794555520.svg",
-        "short_description": "Fast touch fingerprint digital door lock with integrated semiconductor scanner on handle and 100-fingerprint storage.",
+        "main_image": "products/1f341d83b097b5fc24ca_1794564158.png",
+        "short_description": "Multi-biometric smart lock with fingerprint, face ID, and RFID access for your home.",
         "full_description": "Unlock in one natural fluid motion. The handle-integrated semiconductor fingerprint sensor scans your biometric profile in under 0.4 seconds as you grip the handle.",
         "features": [
             "Semiconductor Fingerprint on Handle",
@@ -114,22 +100,8 @@
             "2x Physical Keys",
             "Fitting Kit"
         ],
-        "access_methods": [
-            "AI Face Recognition",
-            "Palm Vein Recognition",
-            "Semiconductor Fingerprint",
-            "Anti-Peep PIN Code",
-            "RFID Smart Card",
-            "Mechanical Key",
-            "Mobile App Remote Access",
-            "One-Time Temporary Password",
-            "Dual-Authentication Combination Unlock"
-        ],
-        "connectivity": [
-            "Wi-Fi (2.4 GHz)",
-            "Bluetooth 5.0",
-            "Tuya Smart Ecosystem"
-        ],
+        "access_methods": [],
+        "connectivity": [],
         "specifications": {
             "Brand": "HOMEIQ",
             "Finish": "Matte Gunmetal / Space Grey",
@@ -139,8 +111,9 @@
         },
         "id": "prod_bb4515f86ae32633",
         "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-11-13 13:08:40",
-        "gallery_images": []
+        "updated_at": "2026-11-13 15:32:38",
+        "gallery_images": [],
+        "is_bestseller": false
     },
     {
         "name": "HOMEIQ VeinGuard Contactless Palm Vein Smart Lock",
@@ -162,7 +135,7 @@
         "rating": 5,
         "reviews_count": 64,
         "main_image": "products/palm-vein-lock.svg",
-        "short_description": "Ultra-secure near-infrared biometric palm vein sensor that cannot be spoofed, duplicated, or smudged.",
+        "short_description": "Next-gen security with palm vein recognition for touchless, highly secure access.",
         "full_description": "Near-infrared light detects the unique deoxidized hemoglobin flow inside your palm veins. Completely hygienic, contactless, and unaffected by worn fingerprints or wet hands.",
         "features": [
             "Contactless Palm Vein Vascular Recognition",
@@ -220,7 +193,7 @@
         "rating": 4.9,
         "reviews_count": 97,
         "main_image": "products/video-door-lock.svg",
-        "short_description": "Integrated 2K HD wide-angle camera with two-way audio talk and motion-activated security video doorbell.",
+        "short_description": "Smart lock with 2K HD video doorbell, real-time alerts, and remote access anytime, anywhere.",
         "full_description": "Combines a premium automatic deadbolt lock with an ultra-clear 2K smart video doorbell. When visitors ring your bell, receive a live video call directly on your smartphone.",
         "features": [
             "2K Ultra HD Camera with 160° Wide Angle",
@@ -266,7 +239,7 @@
         "price": 22500,
         "sale_price": 20500,
         "stock": 10,
-        "short_description": "Secure your home with the HOMEIQ digital door lock featuring fingerprint access, PIN keypad entry and a sleek black design. Built for convenient, keyless everyday access.",
+        "short_description": "Sleek keyless digital door lock with fingerprint access, numeric PIN keypad, and heavy-duty mortise.",
         "full_description": "The HOMEIQ Fingerprint & PIN Digital Smart Door Lock combines modern access control with a minimalist design. Its sleek black exterior features a fingerprint sensor and numeric keypad, providing convenient keyless entry for compatible doors. Designed for contemporary homes and selected residential spaces, this digital lock brings together a clean appearance and everyday usability. Confirm supported access methods, door compatibility and installation requirements for the exact model before purchase.",
         "features": [
             "Fingerprint-based door access",
@@ -282,22 +255,8 @@
             "User manual (confirm with supplier)",
             "Mounting hardware (confirm with supplier)"
         ],
-        "access_methods": [
-            "AI Face Recognition",
-            "Palm Vein Recognition",
-            "Semiconductor Fingerprint",
-            "Anti-Peep PIN Code",
-            "RFID Smart Card",
-            "Mechanical Key",
-            "Mobile App Remote Access",
-            "One-Time Temporary Password",
-            "Dual-Authentication Combination Unlock"
-        ],
-        "connectivity": [
-            "Wi-Fi (2.4 GHz)",
-            "Bluetooth 5.0",
-            "Tuya Smart Ecosystem"
-        ],
+        "access_methods": [],
+        "connectivity": [],
         "color": "Black",
         "lock_type": "Mortise Lock",
         "specifications": {
@@ -315,7 +274,7 @@
         "is_active": true,
         "rating": 4.8,
         "reviews_count": 0,
-        "main_image": "products/687d2d669b12e52c01a6_1793613934.png",
+        "main_image": "products/9d0d7b4f1c52a50a79fd_1794563897.png",
         "gallery_images": [
             "products/774e5dfecea72156f2d8_1793613934.png",
             "products/4d391b29223d7b21665f_1793614079.png",
@@ -323,6 +282,7 @@
         ],
         "id": "prod_de7637126ae8606e",
         "created_at": "2026-11-02 15:35:34",
-        "updated_at": "2026-11-11 12:35:00"
+        "updated_at": "2026-11-13 15:28:17",
+        "is_bestseller": false
     }
 ]
