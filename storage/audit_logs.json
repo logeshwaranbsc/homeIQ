@@ -1816,5 +1816,23 @@
         "id": "log_5a36eb2e6af6be80",
         "created_at": "2026-11-13 13:08:40",
         "updated_at": "2026-11-13 13:08:40"
+    },
+    {
+        "action": "category_updated",
+        "user": "admin",
+        "details": "Updated category Digital Smart Locks",
+        "ip": "",
+        "id": "log_06718a5a6af6bed2",
+        "created_at": "2026-11-13 13:10:02",
+        "updated_at": "2026-11-13 13:10:02"
+    },
+    {
+        "action": "settings_updated",
+        "user": "admin",
+        "details": "Updated system, store, and homepage promotional campaign settings",
+        "ip": "",
+        "id": "log_298509006af6bf03",
+        "created_at": "2026-11-13 13:10:51",
+        "updated_at": "2026-11-13 13:10:51"
     }
 ]
