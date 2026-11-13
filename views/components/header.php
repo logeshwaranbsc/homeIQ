@@ -12,16 +12,22 @@ $wishlist = Session::get('wishlist', []);
 $wishlistCount = count($wishlist);
 
 $customer = auth_customer();
+
+$currentPath = (new \App\Core\Request())->getPath();
+$isHome = ($currentPath === '/' || $currentPath === '');
+$isShop = str_starts_with($currentPath, '/shop') || str_starts_with($currentPath, '/product') || str_starts_with($currentPath, '/category');
+$isAbout = str_starts_with($currentPath, '/about');
+$isContact = str_starts_with($currentPath, '/contact');
 ?>
 <nav class="navbar navbar-expand-lg navbar-hiq">
   <div class="container-fluid px-2 px-sm-3 px-xl-5" style="max-width: 1540px;">
     <!-- Brand Logo -->
-    <a class="navbar-brand me-2 me-sm-3" href="<?= url('/') ?>">
+    <a class="navbar-brand me-2 me-sm-4" href="<?= url('/') ?>">
       <img src="<?= asset('assets/images/homeiq-logo.png') ?>" alt="HOMEIQ" class="brand-logo-img">
     </a>
 
     <!-- Mobile Header Quick Action Icons (Visible only on < 992px) -->
-    <div class="d-flex align-items-center gap-1 d-lg-none ms-auto me-2">
+    <div class="d-flex align-items-center gap-2 d-lg-none ms-auto me-2">
       <!-- Wishlist -->
       <a href="<?= url('wishlist') ?>" class="nav-action-btn mobile-header-btn" title="Wishlist" aria-label="Wishlist">
         <i class="bi bi-heart"></i>
@@ -39,7 +45,7 @@ $customer = auth_customer();
       <!-- Customer Account -->
       <?php if ($customer): ?>
         <a href="<?= url('account') ?>" class="nav-action-btn mobile-header-btn" title="My Account" aria-label="Account">
-          <i class="bi bi-person-check-fill text-warning"></i>
+          <i class="bi bi-person-check-fill" style="color: #FE6B25 !important;"></i>
         </a>
       <?php else: ?>
         <a href="<?= url('login') ?>" class="nav-action-btn mobile-header-btn" title="Sign In" aria-label="Sign In">
@@ -55,29 +61,32 @@ $customer = auth_customer();
 
     <!-- Nav Items Collapse -->
     <div class="collapse navbar-collapse" id="navbarMain">
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 py-2 py-lg-0">
-        <li class="nav-item">
-          <a class="nav-link nav-link-hiq" href="<?= url('/') ?>">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-link-hiq" href="<?= url('shop') ?>">Store</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-link-hiq" href="<?= url('about') ?>">About Us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-link-hiq" href="<?= url('contact') ?>">Contact</a>
-        </li>
-      </ul>
+      <!-- Center Segmented Capsule Dock -->
+      <div class="nav-capsule-dock mx-auto my-2 my-lg-0">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item">
+            <a class="nav-link nav-link-hiq <?= $isHome ? 'active' : '' ?>" href="<?= url('/') ?>">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-hiq <?= $isShop ? 'active' : '' ?>" href="<?= url('shop') ?>">Store</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-hiq <?= $isAbout ? 'active' : '' ?>" href="<?= url('about') ?>">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-hiq <?= $isContact ? 'active' : '' ?>" href="<?= url('contact') ?>">Contact</a>
+          </li>
+        </ul>
+      </div>
 
       <!-- Desktop User Action Icons (Visible only on >= 992px) -->
       <div class="d-none d-lg-flex align-items-center gap-2">
         <!-- Account -->
         <?php if ($customer): ?>
           <div class="dropdown">
-            <a class="nav-action-btn dropdown-toggle d-flex align-items-center gap-1" href="#" role="button" data-bs-toggle="dropdown">
+            <a class="nav-action-btn dropdown-toggle d-flex align-items-center gap-2 px-3" href="#" role="button" data-bs-toggle="dropdown" style="width: auto;">
               <i class="bi bi-person-check-fill" style="color: #FE6B25 !important;"></i>
-              <span class="d-none d-lg-inline text-light small nav-user-name"><?= e(explode(' ', $customer['name'])[0]) ?></span>
+              <span class="text-light small fw-semibold nav-user-name"><?= e(explode(' ', $customer['name'])[0]) ?></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow border-secondary">
               <li><a class="dropdown-item" href="<?= url('account') ?>"><i class="bi bi-speedometer2 me-2"></i>My Dashboard</a></li>
@@ -88,13 +97,13 @@ $customer = auth_customer();
             </ul>
           </div>
         <?php else: ?>
-          <a href="<?= url('login') ?>" class="nav-action-btn" title="Sign In">
+          <a href="<?= url('login') ?>" class="nav-action-btn" title="Sign In" aria-label="Sign In">
             <i class="bi bi-person"></i>
           </a>
         <?php endif; ?>
 
         <!-- Wishlist -->
-        <a href="<?= url('wishlist') ?>" class="nav-action-btn" title="Wishlist">
+        <a href="<?= url('wishlist') ?>" class="nav-action-btn" title="Wishlist" aria-label="Wishlist">
           <i class="bi bi-heart"></i>
           <?php if ($wishlistCount > 0): ?>
             <span class="badge-counter"><?= $wishlistCount ?></span>
@@ -102,7 +111,7 @@ $customer = auth_customer();
         </a>
 
         <!-- Shopping Cart -->
-        <a href="<?= url('cart') ?>" class="nav-action-btn" title="Shopping Cart" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" role="button">
+        <a href="<?= url('cart') ?>" class="nav-action-btn nav-action-cart" title="Shopping Cart" aria-label="Shopping Cart" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" role="button">
           <i class="bi bi-bag"></i>
           <span class="badge-counter" id="headerCartCount"><?= $cartCount ?></span>
         </a>

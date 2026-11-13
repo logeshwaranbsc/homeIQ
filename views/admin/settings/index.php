@@ -495,13 +495,17 @@ $announcementsText = is_array($settings['announcements'] ?? null) ? implode("\n"
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  if (window.location.hash) {
-    const targetTabBtn = document.querySelector(`button[data-bs-target="${window.location.hash}"]`);
-    if (targetTabBtn) {
-      const tab = new bootstrap.Tab(targetTabBtn);
-      tab.show();
+  function activateHashTab() {
+    if (window.location.hash) {
+      const targetTabBtn = document.querySelector(`button[data-bs-target="${window.location.hash}"]`);
+      if (targetTabBtn) {
+        const tab = new bootstrap.Tab(targetTabBtn);
+        tab.show();
+      }
     }
   }
+  activateHashTab();
+  window.addEventListener('hashchange', activateHashTab);
 
   // Live Hardware Card Preview Updates
   const badgeInput = document.getElementById('inputCardBadge');

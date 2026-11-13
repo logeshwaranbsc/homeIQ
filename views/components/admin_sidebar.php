@@ -57,8 +57,8 @@ if (!function_exists('isActiveAdmin')) {
       </a>
     </li>
     <li>
-      <a href="<?= url('admin/settings') ?>" class="sidebar-link <?= ($currentPath === '/admin/settings') ? 'active' : '' ?>">
-        <i class="bi bi-layout-text-window-reverse"></i> Homepage Story
+      <a href="<?= url('admin/settings#tab-about-hero') ?>" class="sidebar-link">
+        <i class="bi bi-info-circle"></i> About Page Hero
       </a>
     </li>
     <li>

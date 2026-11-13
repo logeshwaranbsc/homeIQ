@@ -250,14 +250,16 @@ a:hover {
    Navigation Header
    ========================================================================== */
 .navbar-hiq {
-  background: var(--hiq-dark-surface);
-  border-bottom: 1px solid var(--hiq-dark-border);
-  padding: 14px 0;
+  background: rgba(11, 12, 16, 0.92);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 0;
   position: sticky;
   top: 0;
   z-index: 1020;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 -1px 0 rgba(254, 107, 37, 0.12);
+  transition: all 0.25s ease;
 }
 
 .navbar-brand {
@@ -270,23 +272,23 @@ a:hover {
 
 .navbar-brand .brand-logo-img,
 .brand-logo-img {
-  height: 38px;
+  height: 27px;
   width: auto;
-  max-width: 190px;
+  max-width: 145px;
   object-fit: contain;
   display: block;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .navbar-brand:hover .brand-logo-img {
-  opacity: 0.92;
+  opacity: 0.95;
   transform: scale(1.02);
 }
 
 .navbar-brand .brand-logo {
   font-family: var(--hiq-font-heading);
   font-weight: 800;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   letter-spacing: 0.15em;
   color: #ffffff;
   display: inline-flex;
@@ -309,27 +311,78 @@ a:hover {
   text-transform: uppercase;
 }
 
-.navbar-hiq .navbar-nav {
+/* Central Floating Capsule Dock */
+.nav-capsule-dock {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  padding: 4px 6px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: all 0.25s ease;
+}
+
+.nav-capsule-dock:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.nav-capsule-dock .navbar-nav {
   display: flex;
   align-items: center;
+  flex-direction: row;
   flex-wrap: nowrap;
-  gap: 4px;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
 }
 
-.navbar-hiq .nav-item {
+.nav-capsule-dock .nav-item {
   white-space: nowrap;
   flex-shrink: 0;
+  margin: 0;
 }
 
-.nav-link-hiq {
-  color: #cbd5e1 !important;
-  font-size: 0.9rem;
+.nav-capsule-dock .nav-link-hiq {
+  color: #94a3b8 !important;
+  font-size: 0.85rem;
   font-weight: 500;
-  padding: 8px 12px !important;
-  border-radius: var(--hiq-radius-sm);
-  transition: var(--hiq-transition);
-  white-space: nowrap !important;
-  display: inline-block;
+  letter-spacing: 0.02em;
+  padding: 6px 18px !important;
+  border-radius: 50px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-decoration: none;
+}
+
+.nav-capsule-dock .nav-link-hiq:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.nav-capsule-dock .nav-link-hiq.active {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, rgba(254, 107, 37, 0.24) 0%, rgba(254, 74, 31, 0.12) 100%) !important;
+  border: 1px solid rgba(254, 107, 37, 0.38);
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgba(254, 107, 37, 0.25);
+}
+
+.nav-capsule-dock .nav-link-hiq.active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #FE6B25;
+  box-shadow: 0 0 6px #FE6B25;
 }
 
 .navbar-search-form {
@@ -348,47 +401,50 @@ a:hover {
   vertical-align: middle;
 }
 
-.nav-link-hiq:hover,
-.nav-link-hiq.active {
-  color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.05);
-}
-
+/* Glass Micro-Action Buttons */
 .nav-action-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: #cbd5e1;
-  font-size: 1.2rem;
-  padding: 8px 10px;
+  font-size: 1.05rem;
+  padding: 0;
   position: relative;
   text-decoration: none;
-  border-radius: var(--hiq-radius-sm);
-  transition: var(--hiq-transition);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .nav-action-btn:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.07);
+  color: #FF8528;
+  background: rgba(254, 107, 37, 0.12);
+  border-color: rgba(254, 107, 37, 0.4);
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 14px rgba(254, 107, 37, 0.2);
 }
 
 .nav-action-btn .badge-counter {
   position: absolute;
-  top: 2px;
-  right: 2px;
+  top: -3px;
+  right: -3px;
   background: linear-gradient(135deg, #FE6B25 0%, #FE4A1F 100%);
-  color: #FEFEFE;
-  box-shadow: 0 2px 6px rgba(254, 74, 31, 0.4);
+  color: #ffffff;
   font-size: 0.65rem;
-  font-weight: 700;
-  min-width: 18px;
-  height: 18px;
+  font-weight: 800;
+  min-width: 17px;
+  height: 17px;
   padding: 0 4px;
   border-radius: 9px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--hiq-dark-surface);
+  border: 2px solid #0b0c10;
+  box-shadow: 0 2px 6px rgba(254, 74, 31, 0.5);
 }
 
 /* ==========================================================================
@@ -3987,15 +4043,19 @@ video {
   }
 
   .brand-logo-img {
-    height: 32px !important;
-    max-width: 140px !important;
+    height: 23px !important;
+    max-width: 125px !important;
   }
 
   .mobile-header-btn {
-    padding: 6px 8px !important;
-    font-size: 1.15rem !important;
-    min-width: 36px;
-    min-height: 36px;
+    padding: 0 !important;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    border-radius: 10px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    font-size: 1.05rem !important;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
@@ -4003,8 +4063,8 @@ video {
   }
 
   .mobile-header-btn .badge-counter {
-    top: 1px;
-    right: 1px;
+    top: -2px;
+    right: -2px;
     font-size: 0.6rem;
     min-width: 16px;
     height: 16px;
@@ -4012,14 +4072,16 @@ video {
   }
 
   .navbar-hiq .navbar-toggler {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     padding: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    border-color: rgba(255, 255, 255, 0.15) !important;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #cbd5e1 !important;
   }
 
   .navbar-hiq .navbar-collapse {
@@ -4031,6 +4093,17 @@ video {
     box-shadow: 0 16px 30px rgba(0, 0, 0, 0.6);
   }
 
+  .nav-capsule-dock {
+    display: block !important;
+    width: 100% !important;
+    border-radius: 12px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .nav-capsule-dock .navbar-nav,
   .navbar-hiq .navbar-nav {
     flex-direction: column !important;
     align-items: stretch !important;
@@ -4039,10 +4112,12 @@ video {
     gap: 4px !important;
   }
 
+  .nav-capsule-dock .nav-item,
   .navbar-hiq .nav-item {
     width: 100% !important;
   }
 
+  .nav-capsule-dock .nav-link-hiq,
   .navbar-hiq .nav-link-hiq {
     display: block !important;
     width: 100% !important;
@@ -4050,6 +4125,11 @@ video {
     font-size: 0.95rem !important;
     border-radius: 10px;
     color: #e2e8f0 !important;
+    justify-content: flex-start !important;
+  }
+
+  .nav-capsule-dock .nav-link-hiq.active::after {
+    display: none !important;
   }
 
   .navbar-hiq .nav-link-hiq:hover,
@@ -4714,8 +4794,8 @@ video {
 /* 6. Ultra-Small Screens (< 375px like iPhone SE 1st gen & narrow Androids) */
 @media (max-width: 374.98px) {
   .brand-logo-img {
-    height: 28px !important;
-    max-width: 120px !important;
+    height: 20px !important;
+    max-width: 105px !important;
   }
 
   .mobile-header-btn {
