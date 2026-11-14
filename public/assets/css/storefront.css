@@ -4472,19 +4472,41 @@ video {
     line-height: 1.35 !important;
   }
 
-  /* Breadcrumbs */
+  /* Breadcrumbs (Mobile Horizontal Scroll, No Overlap) */
   .breadcrumb {
     font-size: 0.75rem !important;
+    display: flex !important;
     flex-wrap: nowrap !important;
+    align-items: center !important;
     overflow-x: auto !important;
     white-space: nowrap !important;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-bottom: 2px;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding: 4px 0 !important;
+    margin-bottom: 10px !important;
   }
 
   .breadcrumb::-webkit-scrollbar {
-    display: none;
+    display: none !important;
+  }
+
+  .breadcrumb-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  .breadcrumb-item + .breadcrumb-item {
+    padding-left: 0.4rem !important;
+  }
+
+  .breadcrumb-item + .breadcrumb-item::before {
+    float: none !important;
+    display: inline-block !important;
+    padding-right: 0.4rem !important;
+    color: #94a3b8 !important;
+    line-height: 1 !important;
   }
 
   /* Announcement Bar */
@@ -8917,6 +8939,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
   cursor: pointer;
   text-decoration: none;
 }
+
 .hiq-floating-filter-btn:hover,
 .hiq-floating-filter-btn:active {
   transform: translateY(-2px) scale(1.03);
@@ -8925,10 +8948,12 @@ body[data-page="cart"] .btn-drawer-view-cart {
   border-color: #FE6B25;
   box-shadow: 0 14px 32px rgba(15, 23, 42, 0.45), 0 0 18px rgba(254, 107, 37, 0.4);
 }
+
 .hiq-floating-filter-btn i {
   color: #FE6B25;
   font-size: 0.95rem;
 }
+
 .hiq-floating-filter-btn .badge {
   font-size: 0.68rem;
   padding: 3px 6px;
@@ -8952,11 +8977,13 @@ body[data-page="cart"] .btn-drawer-view-cart {
   user-select: none;
   margin: 0;
 }
+
 .shop-filter-chip:hover {
   border-color: #cbd5e1;
   background: #f1f5f9;
   color: #0f172a;
 }
+
 .shop-filter-chip.active {
   background: rgba(254, 107, 37, 0.1);
   border-color: #FE6B25;
@@ -8964,10 +8991,12 @@ body[data-page="cart"] .btn-drawer-view-cart {
   font-weight: 700;
   box-shadow: 0 0 0 1px rgba(254, 107, 37, 0.25);
 }
+
 .shop-filter-chip input[type="radio"],
 .shop-filter-chip input[type="checkbox"] {
   display: none;
 }
+
 .shop-filter-section-title {
   font-size: 0.72rem;
   font-weight: 800;
@@ -8979,12 +9008,13 @@ body[data-page="cart"] .btn-drawer-view-cart {
   align-items: center;
   gap: 6px;
 }
+
 .color-swatch-dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   display: inline-block;
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 /* Active Filter Badges Bar */
@@ -9002,10 +9032,12 @@ body[data-page="cart"] .btn-drawer-view-cart {
   text-decoration: none;
   transition: all 0.18s ease;
 }
+
 .active-filter-badge:hover {
   background: #e2e8f0;
   color: #0f172a;
 }
+
 .active-filter-badge i {
   font-size: 0.7rem;
   color: #64748b;
@@ -9019,11 +9051,13 @@ body[data-page="cart"] .btn-drawer-view-cart {
     background: #ffffff;
     z-index: 1060;
   }
+
   .shop-filter-offcanvas .offcanvas-body {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 30px !important;
   }
+
   .shop-filter-offcanvas .card {
     border: none !important;
     box-shadow: none !important;
