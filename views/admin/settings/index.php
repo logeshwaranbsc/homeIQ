@@ -240,13 +240,20 @@ $announcementsText = is_array($settings['announcements'] ?? null) ? implode("\n"
                 <div class="mb-3">
                   <label class="form-label small fw-bold">Upload New Lock Image</label>
                   <input type="file" id="inputCardImageFile" name="about_hero_image_file" class="form-control form-control-sm" accept="image/png,image/jpeg,image/webp,image/svg+xml">
-                  <small class="text-muted" style="font-size: 11px;">Accepts PNG, JPG, WEBP, or SVG (Max 5MB). Replaces image on preview immediately.</small>
+                  <small class="text-muted" style="font-size: 11px;">Accepts PNG, JPG, WEBP, or SVG (Max 500MB). Replaces image on preview immediately.</small>
                 </div>
 
                 <!-- Or Specify Relative Path -->
                 <div class="mb-3">
                   <label class="form-label small fw-bold">Or Relative Image Path / URL</label>
                   <input type="text" id="inputCardImagePath" name="about_hero_image" class="form-control form-control-sm" value="<?= e($settings['about_hero_image'] ?? ($settings['story_image'] ?? 'products/homeiq-ai-face-lock.svg')) ?>">
+                </div>
+
+                <!-- See HOMEIQ in Action Video Demo URL -->
+                <div class="mb-3">
+                  <label class="form-label small fw-bold">See HOMEIQ in Action — Video Demo URL / Path</label>
+                  <input type="text" name="brand_video_url" class="form-control form-control-sm" value="<?= e($settings['brand_video_url'] ?? 'https://res.cloudinary.com/uep3k36v/video/upload/v1794397919/Untitled_video_gwr_video_mvp.mp4') ?>" placeholder="https://... or video_testimonials/demo.mp4">
+                  <small class="text-muted" style="font-size: 11px;">Video displayed in the "See HOMEIQ in Action" spotlight section on the homepage.</small>
                 </div>
               </div>
 
@@ -366,7 +373,7 @@ $announcementsText = is_array($settings['announcements'] ?? null) ? implode("\n"
                 <div class="mb-3">
                   <label class="form-label small fw-bold">Upload New Lock Image</label>
                   <input type="file" name="promo_image_file" class="form-control" accept="image/png,image/jpeg,image/webp,image/svg+xml">
-                  <small class="text-muted">Accepts PNG, JPG, WEBP, or SVG (Max 5MB).</small>
+                  <small class="text-muted">Accepts PNG, JPG, WEBP, or SVG (Max 500MB).</small>
                 </div>
 
                 <!-- Or Specify Relative Path -->

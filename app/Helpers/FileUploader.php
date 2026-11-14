@@ -30,7 +30,7 @@ class FileUploader
         'mp4', 'webm', 'ogv', 'ogg', 'mov', 'mkv', '3gp', 'avi'
     ];
 
-    private static int $maxSizeBytes = 5 * 1024 * 1024; // 5MB
+    private static int $maxSizeBytes = 500 * 1024 * 1024; // 500MB
 
     /**
      * Upload an image file to designated folder
@@ -47,7 +47,7 @@ class FileUploader
         }
 
         if ($file['size'] > self::$maxSizeBytes) {
-            return ['success' => false, 'filename' => null, 'error' => 'File size exceeds 5MB limit.'];
+            return ['success' => false, 'filename' => null, 'error' => 'File size exceeds 500MB limit.'];
         }
 
         // Check MIME type
@@ -129,10 +129,10 @@ class FileUploader
     }
 
     /**
-     * Upload a video file to designated folder
+     * Upload a video file to designated folder without size restriction
      * @return array [success => bool, filename => string|null, error => string|null]
      */
-    public static function uploadVideo(array $file, string $subfolder = 'video_testimonials', int $maxSizeBytes = 100 * 1024 * 1024): array
+    public static function uploadVideo(array $file, string $subfolder = 'video_testimonials', int $maxSizeBytes = 0): array
     {
         if (empty($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])) {
             return ['success' => false, 'filename' => null, 'error' => 'No video file was uploaded or file is invalid.'];
@@ -149,7 +149,8 @@ class FileUploader
             return ['success' => false, 'filename' => null, 'error' => $msg];
         }
 
-        if ($file['size'] > $maxSizeBytes) {
+        // Only enforce a limit if explicitly specified greater than 0 (no artificial limit by default)
+        if ($maxSizeBytes > 0 && $file['size'] > $maxSizeBytes) {
             $mb = round($maxSizeBytes / (1024 * 1024));
             return ['success' => false, 'filename' => null, 'error' => "Video file size exceeds {$mb}MB limit."];
         }

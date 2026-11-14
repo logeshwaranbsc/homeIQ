@@ -8,31 +8,38 @@ use App\Core\View;
  * @var array $categories
  * @var array $featuredProducts
  * @var array $recentReviews
+ * @var array $videoTestimonials
  * @var array $settings
  */
 ?>
 
-<!-- Hero Banner Slider (Full-Bleed Background Image) -->
+<!-- ==========================================================================
+     SECTION 1: HERO BANNER SLIDER
+     ========================================================================== -->
 <section class="hero-slider-section">
   <div id="homeHeroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="6500">
-    <!-- Indicators -->
-    <div class="carousel-indicators mb-4">
-      <?php foreach ($banners as $idx => $banner): ?>
-        <button type="button" data-bs-target="#homeHeroCarousel" data-bs-slide-to="<?= $idx ?>" class="<?= $idx === 0 ? 'active' : '' ?>" aria-current="<?= $idx === 0 ? 'true' : 'false' ?>" aria-label="Slide <?= $idx + 1 ?>"></button>
-      <?php endforeach; ?>
-    </div>
+    <!-- Carousel Dots Indicators -->
+    <?php if (count($banners) > 1): ?>
+      <div class="carousel-indicators hiq-dots-indicators">
+        <?php foreach ($banners as $idx => $banner): ?>
+          <button type="button" 
+                  data-bs-target="#homeHeroCarousel" 
+                  data-bs-slide-to="<?= $idx ?>" 
+                  class="<?= $idx === 0 ? 'active' : '' ?>" 
+                  aria-current="<?= $idx === 0 ? 'true' : 'false' ?>" 
+                  aria-label="Slide <?= $idx + 1 ?>"></button>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
 
-    <!-- Slides -->
+    <!-- Slides (Content is inside the image graphic) -->
     <div class="carousel-inner">
       <?php foreach ($banners as $idx => $banner): ?>
         <?php
           $ctaUrl = $banner['cta_url'] ?? 'shop';
-          $ctaLabel = trim((string)($banner['cta_label'] ?? ''));
-          $ctaPos = $banner['cta_position'] ?? 'bottom-left';
           $bannerTitle = !empty($banner['title']) ? $banner['title'] : ($banner['headline'] ?? 'HOMEIQ Smart Locks');
         ?>
         <div class="carousel-item carousel-item-hero <?= $idx === 0 ? 'active' : '' ?>">
-          <!-- Full Background Image covering whole hero section (Content is inside the image graphic) -->
           <div class="hero-bg-wrapper">
             <?php if (!empty($banner['image']) || !empty($banner['mobile_image'])): ?>
               <picture class="hero-bg-picture">
@@ -50,7 +57,6 @@ use App\Core\View;
           </div>
 
           <?php if (!empty($ctaUrl)): ?>
-            <!-- Entire Banner Clickable Link (No CTA button overlay) -->
             <a href="<?= url($ctaUrl) ?>" class="hero-banner-hitbox" aria-label="<?= e(strip_tags((string)$bannerTitle)) ?>"></a>
           <?php endif; ?>
         </div>
@@ -58,678 +64,141 @@ use App\Core\View;
     </div>
 
     <!-- Controls -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#homeHeroCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#homeHeroCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+    <?php if (count($banners) > 1): ?>
+      <button class="carousel-control-prev" type="button" data-bs-target="#homeHeroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#homeHeroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    <?php endif; ?>
   </div>
 </section>
 
-<?php if (!empty($categories)): ?>
-<!-- Smart Lock Collection Showcase Section (Categories) -->
-<section class="hiq-collection-showcase-section">
+<!-- ==========================================================================
+     SECTION 2: FEATURE HIGHLIGHTS STRIP
+     ========================================================================== -->
+<section class="hiq-features-strip-section d-none d-md-block">
   <div class="container">
-    <div class="hiq-collection-header text-start">
-      <div class="hiq-collection-eyebrow">FEATURED LOCKS</div>
-      <h2 class="hiq-collection-title">Our Smart Lock Collection</h2>
-      <p class="hiq-collection-subtitle">A handpicked range of smart locks for your home and office.</p>
-    </div>
-
-    <div class="hiq-collection-slider-container position-relative" id="collectionSliderContainer">
-      <button type="button"
-              class="product-slider-arrow arrow-prev hiq-collection-arrow"
-              id="collectionSidePrev"
-              aria-label="Previous Categories"
-              title="Previous Categories"
-              hidden>
-        <i class="bi bi-chevron-left"></i>
-      </button>
-
-      <div class="hiq-collection-track" id="collectionCategoryTrack">
-        <?php foreach ($categories as $cat): ?>
-          <div class="hiq-collection-slide">
-            <a href="<?= url('category/' . $cat['slug']) ?>" class="hiq-collection-tile" title="<?= e($cat['name']) ?>">
-              <div class="hiq-collection-tile-media">
-                <img src="<?= upload_url($cat['image'] ?? '') ?>"
-                     alt="<?= e($cat['name']) ?>"
-                     loading="lazy"
-                     onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
-              </div>
-              <div class="hiq-collection-tile-body">
-                <h3 class="hiq-collection-tile-title"><?= e($cat['name']) ?></h3>
-              </div>
-            </a>
-          </div>
-        <?php endforeach; ?>
+    <div class="hiq-features-strip">
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-fingerprint"></i></div>
+        <span class="hiq-feat-text">Fingerprint</span>
       </div>
-
-      <button type="button"
-              class="product-slider-arrow arrow-next hiq-collection-arrow"
-              id="collectionSideNext"
-              aria-label="Next Categories"
-              title="Next Categories"
-              hidden>
-        <i class="bi bi-chevron-right"></i>
-      </button>
+      <div class="hiq-feat-divider"></div>
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-phone"></i></div>
+        <span class="hiq-feat-text">App Control</span>
+      </div>
+      <div class="hiq-feat-divider"></div>
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-shield-check"></i></div>
+        <span class="hiq-feat-text">High Security</span>
+      </div>
+      <div class="hiq-feat-divider"></div>
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-tools"></i></div>
+        <span class="hiq-feat-text">Easy Installation</span>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="text-start hiq-collection-cta-wrap">
-      <a href="<?= url('shop') ?>" class="hiq-collection-cta">
-        Explore All Products <i class="bi bi-arrow-right ms-2"></i>
+<!-- ==========================================================================
+     SECTION 3: SHOP BY CATEGORY
+     ========================================================================== -->
+<?php if (!empty($categories)): ?>
+<section class="hiq-shop-category-section py-4 py-md-5">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-3 mb-md-4">
+      <h2 class="hiq-section-heading m-0">Shop by Category</h2>
+      <a href="<?= url('shop') ?>" class="hiq-view-all-link">
+        View All <i class="bi bi-arrow-right ms-1"></i>
       </a>
     </div>
-  </div>
-</section>
-<?php endif; ?>
 
-<!-- Featured Products Showcase (Creative Modern Slider Carousel with Arrow Controls) -->
-<section class="pt-4 pt-md-5 pb-2 pb-md-3 bg-white position-relative featured-products-section">
-  <div class="container pt-2 pt-md-4 pb-1 pb-md-2">
-    <!-- Section Header -->
-    <div class="row align-items-end justify-content-between mb-3 mb-md-4 g-3">
-      <div class="col-lg-7">
-        <span class="cat-sec-badge">
-          <span class="cat-pulse-dot"></span> Curated Hardware Lineup
-        </span>
-        <h2 class="cat-sec-title">
-          Featured Digital <span class="hiq-accent-gradient">Smart Locks</span>
-        </h2>
-        <p class="cat-sec-subtitle">
-          Engineered for biometric velocity, architectural elegance, and impenetrable multi-point deadbolt protection.
-        </p>
-      </div>
-    </div>
-
-    <!-- Product Slider Carousel Viewport with Gutter Side Arrows (Never Overlapping Cards) -->
-    <?php $hasMultipleFeatured = count($featuredProducts) > 1; ?>
-    <div class="product-slider-container position-relative<?= $hasMultipleFeatured ? '' : ' product-slider-container--single' ?>">
-      <?php if ($hasMultipleFeatured): ?>
-        <!-- Side Floating Left Arrow (Positioned in gutter channel) -->
-        <button type="button" class="product-slider-arrow arrow-prev" id="featuredSidePrev" aria-label="Scroll Left" title="Scroll Left">
-          <i class="bi bi-chevron-left"></i>
-        </button>
-      <?php endif; ?>
-
-      <!-- Scrollable Products Track -->
-      <div class="product-slider-track" id="featuredProductsTrack">
-        <?php foreach ($featuredProducts as $product): ?>
-          <div class="product-slider-slide">
-            <?= View::component('product_card', ['product' => $product]) ?>
-          </div>
-        <?php endforeach; ?>
-      </div>
-
-      <?php if ($hasMultipleFeatured): ?>
-        <!-- Side Floating Right Arrow (Positioned in gutter channel) -->
-        <button type="button" class="product-slider-arrow arrow-next" id="featuredSideNext" aria-label="Scroll Right" title="Scroll Right">
-          <i class="bi bi-chevron-right"></i>
-        </button>
-      <?php endif; ?>
-    </div>
-
-    <!-- Custom Architecture Callout Banner -->
-    <div class="featured-custom-banner mt-4 mt-md-5 mb-2 mb-md-3">
-      <div class="row align-items-center g-3">
-        <div class="col-lg-8">
-          <div class="d-flex align-items-start align-items-sm-center gap-3">
-            <div class="banner-icon-badge">
-              <i class="bi bi-shield-check"></i>
+    <!-- Category Grid (4 Pastel Cards) -->
+    <div class="hiq-category-grid">
+      <?php 
+        $pastelClasses = ['pastel-peach', 'pastel-lavender', 'pastel-mint', 'pastel-sky'];
+        $cornerIcons = ['bi-fingerprint', 'bi-grid-3x3-gap-fill', 'bi-fingerprint', 'bi-wifi'];
+        foreach ($categories as $cIdx => $cat): 
+          $pastelClass = $pastelClasses[$cIdx % 4];
+          $cornerIcon = $cornerIcons[$cIdx % 4];
+      ?>
+        <div class="hiq-category-col">
+          <a href="<?= url('category/' . $cat['slug']) ?>" class="hiq-category-card <?= $pastelClass ?>" title="<?= e($cat['name']) ?>">
+            <span class="hiq-cat-corner-icon"><i class="bi <?= $cornerIcon ?>"></i></span>
+            <div class="hiq-category-img-box">
+              <img src="<?= upload_url($cat['image'] ?? '') ?>" alt="<?= e($cat['name']) ?>" loading="lazy" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
             </div>
-            <div>
-              <h6 class="fw-bold mb-1 text-dark">Need Custom Mortise Sizing or Villa Multi-Door Provisioning?</h6>
-              <p class="text-muted small mb-0">Our certified security technicians offer architectural door measurements and bespoke master-keying support.</p>
+            <div class="hiq-category-pill">
+              <span class="hiq-cat-pill-name"><?= e($cat['name']) ?></span>
+              <span class="hiq-cat-pill-arrow"><i class="bi bi-arrow-right"></i></span>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-4 text-lg-end">
-          <a href="<?= url('contact') ?>" class="btn btn-hiq-primary py-2 px-4 fs-7 fw-bold">
-            Request Architectural Consultation <i class="bi bi-arrow-right ms-1"></i>
           </a>
         </div>
-      </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
+<?php endif; ?>
 
-<?php if (!empty($videoTestimonials)): ?>
-<section class="hiq-reels-section pt-3 pt-md-4 pb-4 pb-md-5 bg-white position-relative">
-  <div class="container pt-1 pt-md-2 pb-2 pb-md-4">
-    <!-- Section Header (Matching Featured Products Header Alignment & Style) -->
-    <div class="row align-items-end justify-content-between mb-3 mb-md-4 g-3">
-      <div class="col-lg-7">
-        <span class="cat-sec-badge">
-          <span class="cat-pulse-dot"></span> Real Customer Experiences
-        </span>
-        <h2 class="cat-sec-title">
-          Customer Video <span class="hiq-accent-gradient">Reels &amp; Reviews</span>
-        </h2>
-        <p class="cat-sec-subtitle">
-          Watch real homeowners share their daily experience with HOMEIQ digital smart locks.
-        </p>
-      </div>
-
-      <?php if (count($videoTestimonials) > 1): ?>
-        <div class="col-lg-5 text-lg-end d-flex align-items-center justify-content-end gap-3 flex-wrap">
-          <!-- Header Arrow Controls -->
-          <div class="slider-header-controls d-flex align-items-center gap-2">
-            <button type="button" class="btn-slider-arrow btn-slider-prev" id="hiqReelHeaderPrev" aria-label="Previous Reels" title="Previous Reels">
-              <i class="bi bi-chevron-left"></i>
-            </button>
-            <button type="button" class="btn-slider-arrow btn-slider-next" id="hiqReelHeaderNext" aria-label="Next Reels" title="Next Reels">
-              <i class="bi bi-chevron-right"></i>
-            </button>
-          </div>
-        </div>
-      <?php endif; ?>
-    </div>
-
-    <!-- Reels Slider Carousel with Gutter Side Arrows (Matching Product Slider Alignment & Margins) -->
-    <div class="hiq-reels-container position-relative">
-      <?php if (count($videoTestimonials) > 1): ?>
-        <!-- Side Floating Left Arrow (Positioned in gutter channel) -->
-        <button type="button" class="product-slider-arrow arrow-prev" id="hiqReelSidePrev" aria-label="Scroll Left" title="Scroll Left">
-          <i class="bi bi-chevron-left"></i>
-        </button>
-      <?php endif; ?>
-
-      <!-- Reels Track -->
-      <div class="hiq-reels-track" id="hiqReelsTrack">
-        <?php foreach ($videoTestimonials as $vid): 
-          $vidSource = !empty($vid['video_path']) ? upload_url($vid['video_path']) : ($vid['video_url'] ?? '');
-          $thumbSource = !empty($vid['thumbnail_path']) ? upload_url($vid['thumbnail_path']) : '';
-          $name = $vid['customer_name'] ?? 'Homeowner';
-          $desc = $vid['description'] ?? ($vid['review_text'] ?? ($vid['title'] ?? ''));
-        ?>
-          <div class="hiq-reel-slide">
-            <div class="hiq-reel-card" role="button" tabindex="0" title="Click to play inline">
-              <!-- Direct Inline Video Player -->
-              <video class="hiq-reel-video" 
-                     playsinline 
-                     loop 
-                     preload="metadata"
-                     <?= !empty($thumbSource) ? 'poster="' . e($thumbSource) . '"' : '' ?>>
-                <source src="<?= e($vidSource) ?>" type="video/mp4">
-              </video>
-
-              <!-- Gradient Scrim Overlay -->
-              <div class="hiq-reel-scrim"></div>
-
-              <!-- Center Play / Pause Indicator Button -->
-              <button class="hiq-reel-play-btn" type="button" aria-label="Play or pause video">
-                <i class="bi bi-play-fill"></i>
-              </button>
-
-              <!-- Bottom Caption (Name & Single Line Description) -->
-              <div class="hiq-reel-caption">
-                <div class="hiq-reel-name"><?= e($name) ?></div>
-                <?php if (!empty($desc)): ?>
-                  <div class="hiq-reel-desc" title="<?= e($desc) ?>"><?= e($desc) ?></div>
-                <?php endif; ?>
-                <div class="hiq-reel-audio-bar">
-                  <div class="hiq-reel-audio-label">
-                    <i class="bi bi-music-note-beamed"></i>
-                    <span>Original Audio</span>
-                  </div>
-                  <button class="hiq-reel-mute-btn" type="button" aria-label="Toggle sound" title="Sound on/off">
-                    <i class="bi bi-volume-mute-fill"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+<!-- ==========================================================================
+     SECTION 4: FEATURED PRODUCTS
+     ========================================================================== -->
+<?php if (!empty($featuredProducts)): ?>
+<section class="hiq-featured-section py-4 py-md-5">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-3 mb-md-4 flex-wrap gap-2">
+      <h2 class="hiq-section-heading m-0">Featured Products</h2>
+      <a href="<?= url('shop') ?>" class="hiq-view-all-link d-md-none">
+        View All <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+      <div class="hiq-filter-pills d-none d-md-flex align-items-center gap-2">
+        <a href="<?= url('shop') ?>" class="hiq-filter-pill active">All</a>
+        <?php foreach (array_slice($categories ?? [], 0, 3) as $fCat): ?>
+          <a href="<?= url('category/' . $fCat['slug']) ?>" class="hiq-filter-pill"><?= e($fCat['name']) ?></a>
         <?php endforeach; ?>
       </div>
-
-      <?php if (count($videoTestimonials) > 1): ?>
-        <!-- Side Floating Right Arrow (Positioned in gutter channel) -->
-        <button type="button" class="product-slider-arrow arrow-next" id="hiqReelSideNext" aria-label="Scroll Right" title="Scroll Right">
-          <i class="bi bi-chevron-right"></i>
-        </button>
-      <?php endif; ?>
     </div>
-  </div>
-</section>
 
-<!-- Brand Hardware Showcase Video Section -->
-<?php if (!empty($settings['video_showcase_enabled'] ?? true)): ?>
-  <section class="brand-intro-section brand-video-section position-relative">
-    <div class="brand-video-wrapper">
-      <video id="brandShowcaseVideo"
-             class="brand-showcase-video"
-             autoplay
-             muted
-             loop
-             playsinline
-             preload="auto">
-        <source src="https://res.cloudinary.com/uep3k36v/video/upload/v1794397919/Untitled_video_gwr_video_mvp.mp4" type="video/mp4">
-      </video>
-    </div>
-  </section>
-
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const video = document.getElementById('brandShowcaseVideo');
-    const muteBtn = document.getElementById('brandVideoMuteBtn');
-    if (!video || !muteBtn) return;
-
-    const icon = muteBtn.querySelector('i');
-    muteBtn.addEventListener('click', function () {
-      video.muted = !video.muted;
-      if (icon) {
-        icon.className = video.muted ? 'bi bi-volume-mute-fill' : 'bi bi-volume-up-fill';
-      }
-    });
-  });
-  </script>
-<?php endif; ?>
-
-<!-- Trust Value Strip (Architectural Security Pillars) -->
-<section class="trust-strip-section mt-4 mt-lg-5 py-4">
-  <div class="container">
-    <div class="row g-3">
-      <div class="col-lg-3 col-sm-6">
-        <div class="trust-pillar-card">
-          <div class="trust-pillar-icon">
-            <i class="bi bi-tools"></i>
-          </div>
-          <div>
-            <div class="trust-pillar-title">White-Glove Installation</div>
-            <div class="trust-pillar-desc">Door check & chisel routing by certified technicians</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6">
-        <div class="trust-pillar-card">
-          <div class="trust-pillar-icon">
-            <i class="bi bi-shield-check"></i>
-          </div>
-          <div>
-            <div class="trust-pillar-title">2-Year Full Warranty</div>
-            <div class="trust-pillar-desc">Comprehensive mechanical & biometric electronics coverage</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6">
-        <div class="trust-pillar-card">
-          <div class="trust-pillar-icon">
-            <i class="bi bi-truck"></i>
-          </div>
-          <div>
-            <div class="trust-pillar-title">Insured 24h Dispatch</div>
-            <div class="trust-pillar-desc">Shockproof sealed packaging & doorstep delivery</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6">
-        <div class="trust-pillar-card">
-          <div class="trust-pillar-icon">
-            <i class="bi bi-headset"></i>
-          </div>
-          <div>
-            <div class="trust-pillar-title">VIP Concierge Support</div>
-            <div class="trust-pillar-desc">Direct phone & video smart lock onboarding</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  var track = document.getElementById('hiqReelsTrack');
-  var prevBtns = [
-    document.getElementById('hiqReelSidePrev'),
-    document.getElementById('hiqReelHeaderPrev')
-  ].filter(Boolean);
-  var nextBtns = [
-    document.getElementById('hiqReelSideNext'),
-    document.getElementById('hiqReelHeaderNext')
-  ].filter(Boolean);
-
-  if (track && (prevBtns.length > 0 || nextBtns.length > 0)) {
-    var getScrollStep = function () {
-      var slide = track.querySelector('.hiq-reel-slide');
-      if (slide) {
-        var gap = parseFloat(window.getComputedStyle(track).gap) || 20;
-        return Math.round(slide.getBoundingClientRect().width + gap);
-      }
-      return 300;
-    };
-
-    nextBtns.forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        var step = getScrollStep();
-        var maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
-        if (maxScroll <= 0) return;
-        if (track.scrollLeft >= maxScroll - 10) {
-          track.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          track.scrollTo({ left: Math.min(track.scrollLeft + step, maxScroll), behavior: 'smooth' });
-        }
-      });
-    });
-
-    prevBtns.forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        var step = getScrollStep();
-        var maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
-        if (maxScroll <= 0) return;
-        if (track.scrollLeft <= 10) {
-          track.scrollTo({ left: maxScroll, behavior: 'smooth' });
-        } else {
-          track.scrollTo({ left: Math.max(track.scrollLeft - step, 0), behavior: 'smooth' });
-        }
-      });
-    });
-  }
-
-  var cards = document.querySelectorAll('.hiq-reel-card');
-  cards.forEach(function (card) {
-    var video = card.querySelector('video');
-    var muteBtn = card.querySelector('.hiq-reel-mute-btn');
-    var muteIcon = muteBtn ? muteBtn.querySelector('i') : null;
-
-    if (!video) return;
-
-    // Start video muted so browser allows smooth playback
-    video.muted = true;
-
-    var togglePlay = function (e) {
-      if (e && e.target && muteBtn && (muteBtn === e.target || muteBtn.contains(e.target))) {
-        return;
-      }
-
-      if (video.paused) {
-        cards.forEach(function (otherCard) {
-          if (otherCard !== card) {
-            var otherVideo = otherCard.querySelector('video');
-            if (otherVideo && !otherVideo.paused) {
-              otherVideo.pause();
-              otherCard.classList.remove('is-playing');
-            }
-          }
-        });
-
-        var p = video.play();
-        if (p !== undefined) {
-          p.then(function () {
-            card.classList.add('is-playing');
-          }).catch(function () {
-            video.muted = true;
-            if (muteIcon) muteIcon.className = 'bi bi-volume-mute-fill';
-            video.play().then(function () {
-              card.classList.add('is-playing');
-            }).catch(function () {});
-          });
-        }
-      } else {
-        video.pause();
-        card.classList.remove('is-playing');
-      }
-    };
-
-    card.addEventListener('click', togglePlay);
-    card.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        togglePlay(e);
-      }
-    });
-
-    if (muteBtn) {
-      muteBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        video.muted = !video.muted;
-        if (muteIcon) {
-          muteIcon.className = video.muted ? 'bi bi-volume-mute-fill' : 'bi bi-volume-up-fill';
-        }
-      });
-    }
-
-    video.addEventListener('ended', function () {
-      card.classList.remove('is-playing');
-    });
-  });
-});
-</script>
-<?php elseif (auth_admin()): ?>
-  <!-- Admin Guidance Banner -->
-  <section class="py-4 bg-light border-top">
-    <div class="container">
-      <div class="d-flex align-items-center justify-content-between p-3 rounded-3 border bg-white flex-wrap gap-3">
-        <div class="d-flex align-items-center gap-3">
-          <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(254, 107, 37, 0.12); color: #FE6B25; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
-            <i class="bi bi-camera-video"></i>
-          </div>
-          <div>
-            <div class="fw-bold text-dark">Video Reels Section Ready</div>
-            <small class="text-muted">Upload up to 4 customer reels (video, name, and single line description) in the admin panel.</small>
-          </div>
-        </div>
-        <a href="<?= url('admin/video-testimonials') ?>" class="btn btn-sm btn-dark">
-          <i class="bi bi-cloud-arrow-up-fill me-1"></i> Upload Videos in Admin (<?= count($videoTestimonials ?? []) ?> / 4)
-        </a>
-      </div>
-    </div>
-  </section>
-<?php endif; ?>
-
-<!-- Exclusive Promotional Campaign Banner (Fully Customizable from Admin Panel) -->
-<?php if (!empty($settings['promo_enabled'] ?? true)): ?>
-  <?php
-    $promoTheme = $settings['promo_theme'] ?? 'dark';
-    $promoBadge = $settings['promo_badge'] ?? 'VIP PRIVILEGE CAMPAIGN';
-    $promoBadgeIcon = $settings['promo_badge_icon'] ?? 'bi-tag-fill';
-    $promoTitle = $settings['promo_title'] ?? 'Upgrade to Keyless Living with Coupon WELCOME10';
-    $promoCoupon = $settings['promo_coupon_code'] ?? 'WELCOME10';
-    $promoDesc = $settings['promo_description'] ?? 'Enjoy an extra 10% privilege discount on smart locks above ₹10,000. Complete with complimentary doorstep installation by certified security technicians.';
-    $promoBtnText = $settings['promo_btn_text'] ?? 'Claim Offer & Shop Now';
-    $promoBtnUrl = $settings['promo_btn_url'] ?? 'shop';
-    $promoNote = $settings['promo_note'] ?? 'Valid across all AI face, palm vein & fingerprint series.';
-    $promoImage = $settings['promo_image'] ?? 'products/video-door-lock.svg';
-    $promoPill = $settings['promo_pill_text'] ?? '10% Instant Privilege Discount';
-  ?>
-  <section class="promo-campaign-section position-relative <?= ($promoTheme === 'light') ? 'theme-light' : '' ?>">
-    <div class="container position-relative" style="z-index: 2;">
-      <div class="row align-items-center g-4 g-lg-5">
-        <div class="col-lg-7">
-          <div class="mb-3">
-            <span class="promo-badge-pill">
-              <i class="bi <?= e($promoBadgeIcon) ?>"></i> <?= e($promoBadge) ?>
-            </span>
-          </div>
-
-          <h2 class="mb-3">
-            <?php if (!empty($promoCoupon) && str_contains($promoTitle, $promoCoupon)): ?>
-              <?= e(str_replace($promoCoupon, '', $promoTitle)) ?>
-              <span class="promo-code-highlight" onclick="navigator.clipboard.writeText('<?= e($promoCoupon) ?>'); alert('Coupon code <?= e($promoCoupon) ?> copied to clipboard!');" title="Click to copy coupon code">
-                <?= e($promoCoupon) ?> <i class="bi bi-copy fs-6 ms-1"></i>
-              </span>
-            <?php else: ?>
-              <?= e($promoTitle) ?>
-            <?php endif; ?>
-          </h2>
-
-          <?php if (!empty($promoDesc)): ?>
-            <p class="promo-desc">
-              <?= nl2br(e($promoDesc)) ?>
-            </p>
-          <?php endif; ?>
-
-          <div class="d-flex align-items-center gap-3 flex-wrap">
-            <?php if (!empty($promoBtnText)): ?>
-              <a href="<?= url($promoBtnUrl) ?>" class="btn btn-hiq-primary btn-lg px-4 py-3 fw-bold shadow-sm d-inline-flex align-items-center gap-2">
-                <span><?= e($promoBtnText) ?></span>
-                <i class="bi bi-arrow-right"></i>
+    <!-- Products Grid (5 Column Layout) -->
+    <div class="hiq-products-grid">
+      <?php foreach ($featuredProducts as $product): 
+        $mrp = (float)($product['price'] ?? 0);
+        $salePrice = (float)($product['sale_price'] ?? $mrp);
+        $cleanTitle = preg_replace('/^HOMEIQ\s+/i', '', (string)$product['name']);
+        $rating = number_format((float)($product['rating'] ?? 4.8), 1);
+        $reviewsCount = !empty($product['reviews_count']) ? (int)$product['reviews_count'] : 48;
+      ?>
+        <div class="hiq-product-col">
+          <div class="hiq-product-card">
+            <a href="<?= url('product/' . $product['slug']) ?>" class="hiq-prod-img-wrap" title="<?= e($product['name']) ?>">
+              <img src="<?= upload_url($product['main_image'] ?? '') ?>" alt="<?= e($product['name']) ?>" loading="lazy" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
+            </a>
+            <div class="hiq-prod-info">
+              <a href="<?= url('product/' . $product['slug']) ?>" class="hiq-prod-title" title="<?= e($product['name']) ?>">
+                <?= e($cleanTitle) ?>
               </a>
-            <?php endif; ?>
-
-            <?php if (!empty($promoNote)): ?>
-              <span class="promo-note-pill">
-                <i class="bi bi-shield-check text-success fs-5"></i>
-                <span><?= e($promoNote) ?></span>
-              </span>
-            <?php endif; ?>
-          </div>
-        </div>
-
-        <div class="col-lg-5">
-          <div class="promo-showcase-card">
-            <div class="story-card-top-bar">
-              <span class="story-chip-badge" title="<?= e($promoPill) ?>">
-                <i class="bi bi-gift-fill text-warning"></i>
-                <?= e($promoPill) ?>
-              </span>
-              <span class="story-chip-status">
-                <span class="story-pulse-dot"></span> Live Privilege
-              </span>
-            </div>
-
-            <div class="story-card-body">
-              <div class="story-halo-glow"></div>
-              <img src="<?= upload_url($promoImage) ?>" alt="<?= e($promoTitle) ?>" class="promo-lock-img" loading="lazy" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
-            </div>
-
-            <div class="story-card-footer">
-              <div class="d-flex align-items-center justify-content-between w-100 flex-wrap gap-2">
-                <span class="small text-light opacity-90 d-flex align-items-center gap-1">
-                  <i class="bi bi-tools text-primary"></i> Free Certified Installation
-                </span>
-                <span class="badge bg-dark border border-secondary text-light small px-2 py-1">
-                  Official Warranty
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-<?php endif; ?>
-
-<!-- Hardware Engineering Highlights (Why Modern Homes Trust HOMEIQ) -->
-<section class="py-4 py-md-5" style="background-color: #f8fafc;">
-  <div class="container py-2 py-md-4">
-    <div class="text-center mx-auto mb-4 mb-md-5" style="max-width: 680px;">
-      <span class="text-primary fw-bold small text-uppercase letter-spacing-1">Engineering Excellence</span>
-      <h2 class="fw-bold mt-1">Why Modern Homes Trust HOMEIQ</h2>
-      <p class="text-muted">Precision security engineering built specifically for executive residences, luxury apartments, and modern villas.</p>
-    </div>
-
-    <div class="row g-4">
-      <div class="col-lg-4 col-md-6">
-        <div class="feature-box">
-          <div class="feature-icon-wrapper">
-            <i class="bi bi-fingerprint"></i>
-          </div>
-          <h5 class="fw-bold">Multi-Modal Access</h5>
-          <p class="text-muted small m-0">Unlock via 3D AI face scan, contactless palm vein, rapid 0.3s fingerprint, anti-peep PIN passcode, encrypted RFID, mobile app, or backup mechanical key.</p>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-6">
-        <div class="feature-box">
-          <div class="feature-icon-wrapper">
-            <i class="bi bi-phone"></i>
-          </div>
-          <h5 class="fw-bold">Tuya IoT Smartphone App</h5>
-          <p class="text-muted small m-0">Generate temporary one-time visitor passwords, review real-time entry logs, receive door tamper alarms, and grant remote access from anywhere.</p>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-6">
-        <div class="feature-box">
-          <div class="feature-icon-wrapper">
-            <i class="bi bi-shield-check"></i>
-          </div>
-          <h5 class="fw-bold">Automated Deadbolt Lock</h5>
-          <p class="text-muted small m-0">Sensor-guided stainless steel deadbolts automatically engage within seconds of door closure, eliminating accidental unlock vulnerabilities.</p>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-6">
-        <div class="feature-box">
-          <div class="feature-icon-wrapper">
-            <i class="bi bi-battery-charging"></i>
-          </div>
-          <h5 class="fw-bold">Emergency USB-C Override</h5>
-          <p class="text-muted small m-0">High-capacity rechargeable lithium packs last up to 8 months. External USB-C ports allow instant power bank jumpstart, accompanied by physical key overrides.</p>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-6">
-        <div class="feature-box">
-          <div class="feature-icon-wrapper">
-            <i class="bi bi-shield-slash"></i>
-          </div>
-          <h5 class="fw-bold">Anti-Tamper & Anti-Pry Alarm</h5>
-          <p class="text-muted small m-0">Heavy-gauge stainless steel mortises trigger high-decibel audible sirens and push instant mobile alerts if forceful prying or incorrect attempts are detected.</p>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-6">
-        <div class="feature-box">
-          <div class="feature-icon-wrapper">
-            <i class="bi bi-award"></i>
-          </div>
-          <h5 class="fw-bold">2-Year Official Warranty</h5>
-          <p class="text-muted small m-0">Backed by comprehensive official manufacturer warranty and trained technician support nationwide with door pre-check assurance.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Verified Customer Reviews Section -->
-<?php if (!empty($recentReviews)): ?>
-<section class="py-4 py-md-5 bg-white border-top">
-  <div class="container py-2 py-md-4">
-    <div class="d-flex align-items-start align-items-md-end justify-content-between mb-4 flex-wrap gap-2">
-      <div>
-        <span class="text-primary fw-bold small text-uppercase letter-spacing-1">Verified Homeowners</span>
-        <h2 class="mb-0 fw-bold">Client Experiences & Endorsements</h2>
-      </div>
-      <div class="text-muted small d-flex align-items-center gap-1">
-        <i class="bi bi-patch-check-fill text-success fs-5"></i>
-        <span>100% Verified Purchaser Reviews</span>
-      </div>
-    </div>
-
-    <div class="row g-3 g-md-4">
-      <?php foreach ($recentReviews as $rev): ?>
-        <div class="col-lg-4 col-md-6">
-          <div class="card h-100 border p-3 p-sm-4 shadow-sm" style="border-radius: 14px; background: #ffffff;">
-            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
-              <div class="rating-pill">
+              <div class="hiq-prod-rating">
                 <i class="bi bi-star-fill text-warning"></i>
-                <span><?= (int)($rev['rating'] ?? 5) ?>.0 / 5.0</span>
+                <span class="hiq-rating-val"><?= $rating ?></span>
+                <span class="hiq-review-count">(<?= $reviewsCount ?>)</span>
               </div>
-              <?php if (!empty($rev['verified_purchase'])): ?>
-                <span class="badge bg-success-subtle text-success border border-success-subtle small fw-medium">
-                  <i class="bi bi-patch-check-fill me-1"></i>Verified Homeowner
-                </span>
-              <?php endif; ?>
-            </div>
-            <h6 class="fw-bold text-dark mb-2 fs-6">"<?= e($rev['title'] ?? 'Exceptional Security') ?>"</h6>
-            <p class="text-muted small mb-4 flex-grow-1" style="line-height: 1.6;">"<?= e($rev['comment'] ?? '') ?>"</p>
-            <div class="border-top pt-3 text-secondary small d-flex justify-content-between align-items-center">
-              <div class="d-flex align-items-center gap-2">
-                <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(254, 107, 37, 0.12); color: #FE6B25; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75rem;">
-                  <?= strtoupper(substr($rev['reviewer_name'] ?? 'H', 0, 1)) ?>
-                </div>
-                <strong><?= e($rev['reviewer_name'] ?? 'Homeowner') ?></strong>
+              <div class="hiq-prod-bottom">
+                <div class="hiq-prod-price"><?= str_replace(' ', '&nbsp;', format_price($salePrice)) ?></div>
+                <form action="<?= url('cart/add') ?>" method="POST" class="hiq-prod-cart-form">
+                  <?= csrf_field() ?>
+                  <input type="hidden" name="product_id" value="<?= e($product['id'] ?? '') ?>">
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit" class="hiq-prod-cart-btn btn-action-cart" data-product-id="<?= e($product['id'] ?? '') ?>" title="Add to Cart" aria-label="Add to Cart">
+                    <i class="bi bi-cart3"></i>
+                  </button>
+                </form>
               </div>
-              <span class="text-muted"><?= e(explode(' ', $rev['created_at'] ?? '')[0]) ?></span>
             </div>
           </div>
         </div>
@@ -739,4 +208,310 @@ document.addEventListener('DOMContentLoaded', function () {
 </section>
 <?php endif; ?>
 
+<!-- ==========================================================================
+     SECTION 5: SEE HOMEIQ IN ACTION (SPOTLIGHT VIDEO CARD)
+     ========================================================================== -->
+<?php
+  $showcaseVideoUrl = !empty($settings['brand_video_url']) 
+    ? $settings['brand_video_url'] 
+    : (!empty($settings['showcase_video_url']) 
+        ? $settings['showcase_video_url'] 
+        : 'https://res.cloudinary.com/uep3k36v/video/upload/v1794397919/Untitled_video_gwr_video_mvp.mp4');
+  $spotlightPoster = !empty($settings['story_image']) 
+    ? upload_url($settings['story_image']) 
+    : (!empty($settings['about_hero_image']) ? upload_url($settings['about_hero_image']) : asset('assets/images/placeholder-lock.svg'));
+?>
+<section class="hiq-spotlight-section py-4 py-md-5">
+  <div class="container">
+    <div class="hiq-spotlight-card position-relative overflow-hidden">
+      <!-- Full Div Background Video -->
+      <video id="spotlightShowcaseVideo"
+             class="hiq-spotlight-full-video"
+             autoplay
+             muted
+             loop
+             playsinline
+             preload="auto"
+             poster="<?= e($spotlightPoster) ?>">
+        <source src="<?= e($showcaseVideoUrl) ?>" type="video/mp4">
+      </video>
 
+      <!-- Soft Scrim for Contrast & Perfect Readability -->
+      <div class="hiq-spotlight-scrim"></div>
+
+      <!-- Floating Spotlight Content -->
+      <div class="hiq-spotlight-content">
+        <h2 class="hiq-spotlight-title">See HOMEIQ<br>in Action</h2>
+        <div class="mt-3 mt-md-4">
+          <button type="button" class="hiq-demo-btn" id="btnPlayProductDemo" data-bs-toggle="modal" data-bs-target="#productDemoModal">
+            <span class="hiq-demo-play-circle"><i class="bi bi-play-fill"></i></span>
+            <span class="hiq-demo-text">Product Demo - 10 sec</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Centered Play Circle for Mobile Spotlight Card -->
+      <button type="button" class="hiq-spotlight-center-play d-md-none" data-bs-toggle="modal" data-bs-target="#productDemoModal" aria-label="Play Demo">
+        <i class="bi bi-play-fill"></i>
+      </button>
+
+      <!-- Floating Sound Toggle Button -->
+      <button type="button" class="hiq-spotlight-mute-btn" id="spotlightMuteBtn" aria-label="Toggle Sound" title="Toggle Sound">
+        <i class="bi bi-volume-mute-fill"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Product Demo Lightbox Modal -->
+<div class="modal fade" id="productDemoModal" tabindex="-1" aria-labelledby="productDemoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark border-0 rounded-4 overflow-hidden shadow-lg">
+      <div class="modal-header border-0 pb-0 pt-3 px-3 px-md-4 d-flex justify-content-between align-items-center">
+        <h5 class="modal-title text-light fw-bold fs-6 m-0" id="productDemoModalLabel">
+          <i class="bi bi-shield-check text-warning me-2"></i>HOMEIQ Smart Lock — In Action Demo
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-2 p-md-3">
+        <div class="ratio ratio-16x9 rounded-3 overflow-hidden bg-black">
+          <video id="modalProductDemoVideo" controls playsinline preload="metadata">
+            <source src="<?= e($showcaseVideoUrl) ?>" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const spotlightVideo = document.getElementById('spotlightShowcaseVideo');
+  const muteBtn = document.getElementById('spotlightMuteBtn');
+  if (spotlightVideo && muteBtn) {
+    const icon = muteBtn.querySelector('i');
+    muteBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      spotlightVideo.muted = !spotlightVideo.muted;
+      if (icon) {
+        icon.className = spotlightVideo.muted ? 'bi bi-volume-mute-fill' : 'bi bi-volume-up-fill';
+      }
+    });
+  }
+
+  const demoModal = document.getElementById('productDemoModal');
+  const modalVideo = document.getElementById('modalProductDemoVideo');
+  if (demoModal && modalVideo) {
+    demoModal.addEventListener('shown.bs.modal', function () {
+      if (spotlightVideo) spotlightVideo.pause();
+      modalVideo.currentTime = 0;
+      modalVideo.play().catch(function () {});
+    });
+    demoModal.addEventListener('hidden.bs.modal', function () {
+      modalVideo.pause();
+      if (spotlightVideo) spotlightVideo.play().catch(function () {});
+    });
+  }
+});
+</script>
+
+<!-- ==========================================================================
+     SECTION 6: CUSTOMER REELS
+     ========================================================================== -->
+<?php if (!empty($videoTestimonials)): ?>
+<section class="hiq-reels-section py-4 py-md-5">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-3 mb-md-4">
+      <h2 class="hiq-section-heading m-0">Customer Reels</h2>
+      <a href="<?= url('video-testimonials') ?>" class="hiq-view-all-link">
+        View All <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+    </div>
+
+    <!-- Reels Track (5 Vertical 9:15 Cards) -->
+    <div class="hiq-reels-track-wrap position-relative">
+      <div class="hiq-reels-scroll-track" id="homeReelsTrack">
+        <?php foreach ($videoTestimonials as $vid): 
+          $vidSource = !empty($vid['video_path']) ? upload_url($vid['video_path']) : ($vid['video_url'] ?? '');
+          $thumbSource = !empty($vid['thumbnail_path']) ? upload_url($vid['thumbnail_path']) : '';
+          $name = $vid['customer_name'] ?? 'Homeowner';
+        ?>
+          <div class="hiq-reel-item">
+            <div class="hiq-mockup-reel-card" role="button" tabindex="0" title="Click to play">
+              <video class="hiq-reel-video" playsinline loop preload="metadata" <?= !empty($thumbSource) ? 'poster="' . e($thumbSource) . '"' : '' ?>>
+                <source src="<?= e($vidSource) ?>" type="video/mp4">
+              </video>
+              <div class="hiq-reel-scrim"></div>
+              <button class="hiq-reel-play-circle" type="button" aria-label="Play Reel">
+                <i class="bi bi-play-fill"></i>
+              </button>
+              <div class="hiq-reel-footer-caption">
+                <span class="hiq-reel-author"><?= e($name) ?></span>
+              </div>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var reelCards = document.querySelectorAll('.hiq-mockup-reel-card');
+  reelCards.forEach(function (card) {
+    var video = card.querySelector('video');
+    if (!video) return;
+    card.addEventListener('click', function () {
+      if (video.paused) {
+        document.querySelectorAll('.hiq-mockup-reel-card video').forEach(function (v) {
+          if (v !== video) v.pause();
+        });
+        video.play().catch(function () {});
+        card.classList.add('is-playing');
+      } else {
+        video.pause();
+        card.classList.remove('is-playing');
+      }
+    });
+  });
+});
+</script>
+<?php endif; ?>
+
+<!-- ==========================================================================
+     SECTION 7: WHAT OUR CUSTOMERS SAY (TESTIMONIALS)
+     ========================================================================== -->
+<section class="hiq-testimonials-section py-4 py-md-5">
+  <div class="container">
+    <h2 class="hiq-section-heading mb-4 text-start">What Our Customers Say</h2>
+
+    <div class="row g-4">
+      <?php 
+        $displayReviews = !empty($recentReviews) ? array_slice($recentReviews, 0, 2) : [];
+        if (empty($displayReviews)) {
+          $displayReviews = [
+            [
+              'reviewer_name' => 'Aditya Sharma',
+              'comment' => 'Excellent quality and easy installation. A great addition to our home.',
+              'rating' => 5,
+            ],
+            [
+              'reviewer_name' => 'Pooja Hegde',
+              'comment' => 'Secure, stylish and very easy to use. Highly recommended!',
+              'rating' => 5,
+            ]
+          ];
+        }
+        foreach ($displayReviews as $rIdx => $rev):
+      ?>
+        <div class="col-md-6 <?= $rIdx > 0 ? 'd-none d-md-block' : '' ?>">
+          <div class="hiq-testi-card position-relative">
+            <span class="hiq-testi-quote-mark" aria-hidden="true">&rdquo;</span>
+            <div class="d-flex align-items-start gap-3">
+              <div class="hiq-testi-avatar">
+                <?php if (!empty($rev['avatar'])): ?>
+                  <img src="<?= upload_url($rev['avatar']) ?>" alt="<?= e($rev['reviewer_name']) ?>">
+                <?php else: ?>
+                  <div class="hiq-testi-initials"><?= strtoupper(substr($rev['reviewer_name'] ?? 'U', 0, 1)) ?></div>
+                <?php endif; ?>
+              </div>
+              <div class="hiq-testi-content">
+                <div class="hiq-testi-stars">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <p class="hiq-testi-quote">"<?= e($rev['comment'] ?? 'Excellent quality and easy installation. A great addition to our home.') ?>"</p>
+                <div class="hiq-testi-verified">
+                  <i class="bi bi-check-circle-fill"></i> Verified Buyer
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+
+    <!-- Carousel Dots -->
+    <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+      <span class="hiq-testi-dot active"></span>
+      <span class="hiq-testi-dot"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 8: WHY CHOOSE HOMEIQ?
+     ========================================================================== -->
+<section class="hiq-why-choose-section py-5">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-3">
+        <h2 class="hiq-why-title mb-2">Why Choose<br>HOMEIQ?</h2>
+        <div class="hiq-why-accent-line"></div>
+        <p class="hiq-why-sub mb-0">Reliable security for a smarter lifestyle.</p>
+      </div>
+
+      <div class="col-lg-9">
+        <div class="row g-3 row-cols-2 row-cols-sm-3 row-cols-lg-5">
+          <div class="col">
+            <div class="hiq-why-card">
+              <div class="hiq-why-icon"><i class="bi bi-shield-check"></i></div>
+              <div class="hiq-why-card-title">High Security</div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="hiq-why-card">
+              <div class="hiq-why-icon"><i class="bi bi-tools"></i></div>
+              <div class="hiq-why-card-title">Easy Installation</div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="hiq-why-card">
+              <div class="hiq-why-icon"><i class="bi bi-phone"></i></div>
+              <div class="hiq-why-card-title">App Control</div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="hiq-why-card">
+              <div class="hiq-why-icon"><i class="bi bi-truck"></i></div>
+              <div class="hiq-why-card-title">Fast Delivery</div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="hiq-why-card">
+              <div class="hiq-why-icon"><i class="bi bi-star"></i></div>
+              <div class="hiq-why-card-title">Trusted by Customers</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 9: BOTTOM BANNER (CTA SECTION) - FULL DIV BACKGROUND
+     ========================================================================== -->
+<section class="hiq-bottom-banner-section py-4 py-md-5">
+  <div class="container">
+    <div class="hiq-bottom-banner-card position-relative overflow-hidden">
+      <?php 
+        $promoBottomImg = !empty($settings['promo_image']) ? $settings['promo_image'] : 'products/video-door-lock.svg';
+      ?>
+      <!-- Full Div Background Image -->
+      <img src="<?= upload_url($promoBottomImg) ?>" alt="Upgrade to a Smarter & Safer Home" class="hiq-bottom-banner-bg-img" loading="lazy">
+
+      <!-- Floating Banner Content -->
+      <div class="hiq-bottom-banner-content position-relative">
+        <h2 class="hiq-bottom-banner-title mb-4">Upgrade to a<br>Smarter &amp; Safer Home</h2>
+        <a href="<?= url('shop') ?>" class="hiq-btn-capsule-orange">
+          Shop Now <i class="bi bi-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -62,7 +62,7 @@ $action = $isEdit ? url('admin/banners/update/' . $banner['id']) : url('admin/ba
 
                 <div>
                   <input type="file" name="image" class="form-control" accept="image/png,image/jpeg,image/webp,image/svg+xml">
-                  <small class="text-muted mt-1 d-block">PNG, JPG, WebP, SVG (Max 5MB).</small>
+                  <small class="text-muted mt-1 d-block">PNG, JPG, WebP, SVG (Max 500MB).</small>
                 </div>
               </div>
             </div>

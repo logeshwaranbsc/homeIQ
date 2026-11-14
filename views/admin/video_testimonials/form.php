@@ -61,7 +61,7 @@ $currentDesc = $testimonial['description'] ?? ($testimonial['review_text'] ?? ($
           <input type="file" name="video_file" class="form-control" accept="video/mp4,video/webm,video/ogg,video/quicktime,video/x-matroska" <?= (!$isEdit && empty($testimonial['video_url'])) ? 'required' : '' ?>>
           <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap gap-1">
             <small class="text-muted">Vertical (9:16) or standard MP4 / WebM video.</small>
-            <small class="text-secondary font-monospace" style="font-size: 0.72rem;">Server limit: <?= e($maxUpload) ?></small>
+            <small class="text-secondary font-monospace" style="font-size: 0.72rem;"><i class="bi bi-infinity me-1"></i>No video size limit (Server: <?= e($maxUpload) ?>)</small>
           </div>
 
           <!-- Alternative Video URL -->

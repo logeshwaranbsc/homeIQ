@@ -104,6 +104,11 @@ class AdminSettingsController
         $storyPillText = $aboutHeroCardFooter;
         $storyImage = $aboutHeroImage;
 
+        $brandVideoUrl = trim((string)$request->post('brand_video_url', ''));
+        if (empty($brandVideoUrl)) {
+            $brandVideoUrl = 'https://res.cloudinary.com/uep3k36v/video/upload/v1794397919/Untitled_video_gwr_video_mvp.mp4';
+        }
+
         // Homepage Promotional Campaign Banner Section
         $promoEnabled = (bool)$request->post('promo_enabled', false);
         $promoTheme = trim((string)$request->post('promo_theme', 'dark'));
@@ -182,6 +187,7 @@ class AdminSettingsController
             'story_btn2_url' => $storyBtn2Url,
             'story_pill_text' => $storyPillText,
             'story_image' => $storyImage,
+            'brand_video_url' => $brandVideoUrl,
             'promo_enabled' => $promoEnabled,
             'promo_theme' => $promoTheme,
             'promo_badge' => $promoBadge,

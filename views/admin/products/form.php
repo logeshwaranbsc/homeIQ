@@ -159,13 +159,13 @@ $includedText = $isEdit && is_array($product['whats_included'] ?? null) ? implod
             </div>
           <?php endif; ?>
           <input type="file" name="main_image" class="form-control form-control-sm" accept="image/png,image/jpeg,image/webp,image/svg+xml">
-          <small class="text-muted">Allowed: JPG, PNG, WEBP, SVG (Max 5MB).</small>
+          <small class="text-muted">Allowed: JPG, PNG, WEBP, SVG (Max 500MB).</small>
         </div>
 
         <div class="mb-3">
           <label class="form-label fw-bold">Additional Gallery Images</label>
           <input type="file" name="gallery_images[]" id="galleryImagesInput" class="form-control form-control-sm" multiple accept="image/png,image/jpeg,image/webp,image/svg+xml">
-          <small class="text-muted d-block mt-1">Select one or multiple images to display below the main product view. Allowed: JPG, PNG, WEBP, SVG (Max 5MB each).</small>
+          <small class="text-muted d-block mt-1">Select one or multiple images to display below the main product view. Allowed: JPG, PNG, WEBP, SVG (Max 500MB each).</small>
 
           <!-- Dynamic live preview of newly selected files -->
           <div id="newGalleryPreviewRow" class="d-flex flex-wrap gap-2 mt-2" style="display: none !important;"></div>

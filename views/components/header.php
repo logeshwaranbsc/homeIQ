@@ -20,44 +20,30 @@ $isAbout = str_starts_with($currentPath, '/about');
 $isContact = str_starts_with($currentPath, '/contact');
 ?>
 <nav class="navbar navbar-expand-lg navbar-hiq">
-  <div class="container-fluid px-2 px-sm-3 px-xl-5" style="max-width: 1540px;">
-    <!-- Brand Logo -->
-    <a class="navbar-brand me-2 me-sm-4" href="<?= url('/') ?>">
+  <div class="container-fluid px-2 px-sm-3 px-xl-5 position-relative" style="max-width: 1540px;">
+    <!-- Mobile Hamburger Toggler (Left on Mobile) -->
+    <button class="navbar-toggler d-lg-none border-0 p-0 text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list fs-2"></i>
+    </button>
+
+    <!-- Brand Logo (Centered on mobile, left on desktop) -->
+    <a class="navbar-brand me-lg-4" href="<?= url('/') ?>">
       <img src="<?= asset('assets/images/homeiq-logo.png') ?>" alt="HOMEIQ" class="brand-logo-img">
     </a>
 
-    <!-- Mobile Header Quick Action Icons (Visible only on < 992px) -->
-    <div class="d-flex align-items-center gap-2 d-lg-none ms-auto me-2">
-      <!-- Wishlist -->
-      <a href="<?= url('wishlist') ?>" class="nav-action-btn mobile-header-btn" title="Wishlist" aria-label="Wishlist">
-        <i class="bi bi-heart"></i>
-        <?php if ($wishlistCount > 0): ?>
-          <span class="badge-counter"><?= $wishlistCount ?></span>
-        <?php endif; ?>
+    <!-- Mobile Header Quick Action Icons (Search + Cart, Right on Mobile) -->
+    <div class="d-flex align-items-center gap-2 d-lg-none ms-auto">
+      <!-- Search -->
+      <a href="<?= url('shop') ?>" class="nav-action-btn mobile-header-btn" title="Search" aria-label="Search">
+        <i class="bi bi-search"></i>
       </a>
 
       <!-- Shopping Cart -->
-      <a href="<?= url('cart') ?>" class="nav-action-btn mobile-header-btn" title="Shopping Cart" aria-label="Cart" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" role="button">
-        <i class="bi bi-bag"></i>
-        <span class="badge-counter" id="mobileHeaderCartCount"><?= $cartCount ?></span>
+      <a href="<?= url('cart') ?>" class="nav-action-btn mobile-header-btn nav-action-cart" title="Shopping Cart" aria-label="Cart" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" role="button">
+        <i class="bi bi-cart3"></i>
+        <span class="badge-counter badge-counter-orange" id="mobileHeaderCartCount" style="<?= $cartCount > 0 ? '' : 'display:none;' ?>"><?= $cartCount ?></span>
       </a>
-
-      <!-- Customer Account -->
-      <?php if ($customer): ?>
-        <a href="<?= url('account') ?>" class="nav-action-btn mobile-header-btn" title="My Account" aria-label="Account">
-          <i class="bi bi-person-check-fill" style="color: #FE6B25 !important;"></i>
-        </a>
-      <?php else: ?>
-        <a href="<?= url('login') ?>" class="nav-action-btn mobile-header-btn" title="Sign In" aria-label="Sign In">
-          <i class="bi bi-person"></i>
-        </a>
-      <?php endif; ?>
     </div>
-
-    <!-- Mobile Toggler -->
-    <button class="navbar-toggler border-secondary text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="bi bi-list fs-4"></i>
-    </button>
 
     <!-- Nav Items Collapse -->
     <div class="collapse navbar-collapse" id="navbarMain">

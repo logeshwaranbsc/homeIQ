@@ -6809,15 +6809,1366 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
 }
 
-height: 32px;
-font-size: 0.95rem;
+/* ==========================================================================
+   MOCKUP LAYOUT SPECIFIC ENHANCEMENTS (HOME & STOREFRONT)
+   ========================================================================== */
+
+/* 1. HERO SLIDER INDICATORS */
+.hiq-dots-indicators {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  right: 0;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  padding: 0;
+  list-style: none;
+}
+.hiq-dots-indicators button {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255, 255, 255, 0.45);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.8;
+  padding: 0;
+}
+.hiq-dots-indicators button.active {
+  background: #FE6B25 !important;
+  width: 28px;
+  opacity: 1;
 }
 
-.floating-cart-title {
+/* 2. FEATURE HIGHLIGHTS STRIP */
+.hiq-features-strip-section {
+  background: #FFFFFF;
+  border-top: 1px solid #F1ECE6;
+  border-bottom: 1px solid #F1ECE6;
+}
+.hiq-features-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px 0;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.hiq-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #1F2937;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+}
+.hiq-feat-icon {
+  font-size: 1.35rem;
+  color: #FE6B25;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hiq-feat-divider {
+  width: 1px;
+  height: 28px;
+  background: #E5E7EB;
+}
+@media (max-width: 767.98px) {
+  .hiq-features-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 16px 8px;
+  }
+  .hiq-feat-divider {
+    display: none;
+  }
+}
+
+/* SECTION HEADINGS & VIEW ALL */
+.hiq-section-heading {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  color: #111827;
+  letter-spacing: -0.02em;
+}
+.hiq-view-all-link {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #FE6B25;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.hiq-view-all-link:hover {
+  color: #e55a18;
+  transform: translateX(3px);
+}
+
+/* 3. SHOP BY CATEGORY (PASTEL CARDS) */
+.hiq-category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.hiq-category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 16px 16px;
+  border-radius: 22px;
+  text-decoration: none;
+  height: 240px;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+.hiq-category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+}
+.pastel-peach {
+  background-color: #FEEFE6 !important;
+}
+.pastel-lavender {
+  background-color: #F1EDFD !important;
+}
+.pastel-mint {
+  background-color: #E6F5F0 !important;
+}
+.pastel-sky {
+  background-color: #E7F3FB !important;
+}
+
+.hiq-category-img-box {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-height: 150px;
+}
+.hiq-category-img-box img {
+  max-height: 140px;
+  max-width: 85%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.08));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hiq-category-card:hover .hiq-category-img-box img {
+  transform: scale(1.06);
+}
+
+.hiq-category-pill {
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 6px 8px 6px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 220px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  margin-top: 10px;
+  transition: box-shadow 0.2s ease;
+}
+.hiq-category-card:hover .hiq-category-pill {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+.hiq-cat-pill-name {
+  color: #111827;
+  font-weight: 700;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hiq-cat-pill-arrow {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #FE6B25;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.hiq-category-card:hover .hiq-cat-pill-arrow {
+  transform: translateX(3px);
+  background: #e55a18;
+}
+
+@media (max-width: 991.98px) {
+  .hiq-category-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .hiq-category-card {
+    height: 210px;
+    padding: 18px 12px 14px;
+  }
+  .hiq-category-img-box img {
+    max-height: 120px;
+  }
+}
+
+/* 4. FEATURED PRODUCTS (5 COLUMNS) */
+.hiq-filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.hiq-filter-pill {
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.825rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #64748B;
+  background: #F1F5F9;
+  transition: all 0.2s ease;
+}
+.hiq-filter-pill.active,
+.hiq-filter-pill:hover {
+  background: #FE6B25;
+  color: #ffffff;
+}
+.hiq-products-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+@media (max-width: 1199.98px) {
+  .hiq-products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 767.98px) {
+  .hiq-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+.hiq-product-card {
+  background: #ffffff;
+  border: 1px solid #EEF2F6;
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+.hiq-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+  border-color: #E2E8F0;
+}
+.hiq-prod-img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FAFBFD;
+  border-radius: 14px;
+  height: 175px;
+  margin-bottom: 14px;
+  padding: 12px;
+  text-decoration: none;
+}
+.hiq-prod-img-wrap img {
+  max-height: 145px;
+  max-width: 100%;
+  object-fit: contain;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hiq-product-card:hover .hiq-prod-img-wrap img {
+  transform: scale(1.06);
+}
+.hiq-prod-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+}
+.hiq-prod-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0F172A;
+  text-decoration: none;
+  line-height: 1.35;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.hiq-prod-title:hover {
+  color: #FE6B25;
+}
+.hiq-prod-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+.hiq-prod-rating .bi-star-fill {
+  color: #F59E0B;
   font-size: 0.78rem;
 }
-
-.floating-cart-total {
-  font-size: 0.7rem;
+.hiq-rating-val {
+  font-weight: 700;
+  color: #1E293B;
+  font-size: 0.825rem;
 }
+.hiq-review-count {
+  color: #64748B;
+  font-size: 0.775rem;
+}
+.hiq-prod-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+.hiq-prod-price {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  white-space: nowrap;
+}
+.hiq-prod-cart-form {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+.hiq-prod-cart-btn {
+  width: 36px;
+  height: 36px;
+  background: #FE6B25;
+  color: #ffffff;
+  border: none;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  flex-shrink: 0;
+}
+.hiq-prod-cart-btn:hover {
+  background: #e55a18;
+  transform: scale(1.08);
+}
+
+/* 5. SEE HOMEIQ IN ACTION (FULL DIV VIDEO SPOTLIGHT CARD) */
+.hiq-spotlight-card {
+  position: relative;
+  background: #0B0E14;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+}
+.hiq-spotlight-full-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  z-index: 1;
+  display: block;
+}
+.hiq-spotlight-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(11, 14, 20, 0.88) 0%, rgba(11, 14, 20, 0.58) 45%, rgba(11, 14, 20, 0.1) 80%, rgba(11, 14, 20, 0) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+.hiq-spotlight-content {
+  position: relative;
+  z-index: 3;
+  padding: 44px 44px;
+  max-width: 540px;
+}
+.hiq-spotlight-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: #FFFFFF !important;
+  line-height: 1.15;
+  margin-bottom: 0;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+.hiq-demo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 6px 20px 6px 6px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  border: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.hiq-demo-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(254, 107, 37, 0.35);
+  background: #ffffff;
+}
+.hiq-demo-play-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #FE6B25;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.hiq-demo-btn:hover .hiq-demo-play-circle {
+  transform: scale(1.08);
+}
+.hiq-demo-text {
+  color: #1F2937;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.hiq-spotlight-mute-btn {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  cursor: pointer;
+  z-index: 4;
+  transition: all 0.2s ease;
+}
+.hiq-spotlight-mute-btn:hover {
+  background: #FE6B25;
+  border-color: #FE6B25;
+  transform: scale(1.1);
+}
+@media (max-width: 767.98px) {
+  .hiq-spotlight-card {
+    min-height: 250px;
+    border-radius: 18px;
+  }
+  .hiq-spotlight-content {
+    padding: 28px 22px;
+  }
+  .hiq-spotlight-title {
+    font-size: 1.65rem;
+  }
+  .hiq-spotlight-mute-btn {
+    bottom: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+}
+
+/* 6. CUSTOMER REELS */
+.hiq-reels-scroll-track {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+@media (max-width: 1199.98px) {
+  .hiq-reels-scroll-track {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 767.98px) {
+  .hiq-reels-scroll-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 14px;
+    padding-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .hiq-reel-item {
+    min-width: 180px;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+}
+.hiq-mockup-reel-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 9 / 15;
+  background: #0B0E14;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.hiq-mockup-reel-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+}
+.hiq-reel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hiq-reel-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.hiq-mockup-reel-card.is-playing .hiq-reel-scrim {
+  opacity: 0;
+}
+.hiq-reel-play-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  padding-left: 3px;
+  pointer-events: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.hiq-mockup-reel-card:hover .hiq-reel-play-circle {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: #FE6B25;
+  border-color: #FE6B25;
+}
+.hiq-mockup-reel-card.is-playing .hiq-reel-play-circle {
+  display: none;
+}
+.hiq-reel-footer-caption {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  z-index: 2;
+  pointer-events: none;
+}
+.hiq-reel-author {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+/* 7. WHAT OUR CUSTOMERS SAY (TESTIMONIALS) */
+.hiq-testi-card {
+  background: #F4F9F8;
+  border-radius: 20px;
+  padding: 28px 24px;
+  border: 1px solid #E5EFEF;
+  height: 100%;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+}
+.hiq-testi-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  background: #E2E8F0;
+}
+.hiq-testi-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hiq-testi-initials {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FE6B25;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+.hiq-testi-content {
+  flex-grow: 1;
+}
+.hiq-testi-stars {
+  color: #FE6B25;
+  font-size: 0.95rem;
+  display: flex;
+  gap: 3px;
+  margin-bottom: 8px;
+}
+.hiq-testi-quote {
+  color: #1E293B;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.hiq-testi-verified {
+  color: #FE6B25;
+  font-weight: 700;
+  font-size: 0.825rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hiq-testi-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #CBD5E1;
+  display: inline-block;
+}
+.hiq-testi-dot.active {
+  background: #FE6B25;
+  width: 22px;
+  border-radius: 999px;
+}
+
+/* 8. WHY CHOOSE HOMEIQ? */
+.hiq-why-choose-section {
+  background-color: #FAF6F0;
+  border-top: 1px solid #F1ECE4;
+  border-bottom: 1px solid #F1ECE4;
+}
+.hiq-why-title {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.8rem, 3vw, 2.3rem);
+  color: #111827;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.hiq-why-accent-line {
+  width: 44px;
+  height: 3px;
+  background-color: #FE6B25;
+  border-radius: 999px;
+  margin: 10px 0 14px;
+}
+.hiq-why-sub {
+  color: #64748B;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.hiq-why-card {
+  background: #ffffff;
+  border: 1px solid #F0ECE6;
+  border-radius: 18px;
+  padding: 24px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 130px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hiq-why-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  border-color: #E2E8F0;
+}
+.hiq-why-icon {
+  font-size: 1.7rem;
+  color: #FE6B25;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hiq-why-card-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1E293B;
+  line-height: 1.3;
+}
+
+/* 9. BOTTOM BANNER (CTA) - FULL DIV BACKGROUND */
+.hiq-bottom-banner-card {
+  position: relative;
+  background: #F8F2EC;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #EFE4D8;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+}
+.hiq-bottom-banner-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  z-index: 1;
+  display: block;
+}
+.hiq-bottom-banner-content {
+  position: relative;
+  z-index: 3;
+  padding: 44px 44px;
+  max-width: 540px;
+}
+.hiq-bottom-banner-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.hiq-btn-capsule-orange {
+  display: inline-flex;
+  align-items: center;
+  background: #FE6B25;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 12px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(254, 107, 37, 0.3);
+  transition: all 0.2s ease;
+}
+.hiq-btn-capsule-orange:hover {
+  background: #e55a18;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(254, 107, 37, 0.4);
+}
+@media (max-width: 767.98px) {
+  .hiq-bottom-banner-card {
+    min-height: 240px;
+    border-radius: 18px;
+  }
+  .hiq-bottom-banner-content {
+    padding: 28px 22px;
+  }
+  .hiq-bottom-banner-title {
+    font-size: 1.55rem;
+  }
+}
+
+/* 10. LIGHT MINT MODERN FOOTER WITH WHITE LOGO BADGE */
+.footer-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #0B0E14;
+  padding: 8px 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.footer-hiq-light {
+  background-color: #EDF6F4;
+  color: #475569;
+  border-top: 1px solid #DCEBE8;
+  padding: 56px 0 28px;
+}
+.footer-hiq-light h6 {
+  color: #0F172A;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: normal;
+  text-transform: none;
+  margin-bottom: 18px;
+}
+.footer-hiq-light a {
+  color: #64748B;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.footer-hiq-light a:hover {
+  color: #FE6B25;
+}
+.footer-subscribe-box {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #DCEBE8;
+  border-radius: 10px;
+  padding: 4px 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  margin-top: 12px;
+}
+.footer-subscribe-input {
+  border: none;
+  background: transparent;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  width: 100%;
+  outline: none;
+  color: #1E293B;
+}
+.footer-subscribe-btn {
+  background: #FE6B25;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+.footer-subscribe-btn:hover {
+  background: #e55a18;
+  color: #ffffff;
+}
+.footer-hiq-light .footer-bottom {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  font-size: 0.85rem;
+  color: #64748B;
+}
+
+
+/* ==========================================================================
+   11. MOBILE VIEW SPECIALIZED STYLING (< 768px)
+   Matches Exact Mobile Mockup Specification
+   ========================================================================== */
+
+/* Bottom Nav Component Base (Hidden on Desktop) */
+.hiq-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 767.98px) {
+  /* Prevent content hiding behind fixed bottom nav */
+  body {
+    padding-bottom: 68px !important;
+  }
+
+  /* 1. Mobile Navbar — White background, centered logo, left hamburger, right icons */
+  .navbar-hiq {
+    background: #ffffff !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important;
+    padding: 8px 0 !important;
+  }
+  .navbar-hiq .navbar-toggler {
+    background: transparent !important;
+    border: none !important;
+    color: #111827 !important;
+    box-shadow: none !important;
+    font-size: 1.6rem !important;
+    padding: 0 !important;
+    width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .navbar-hiq .navbar-brand {
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 2;
+  }
+  .navbar-hiq .brand-logo-img {
+    height: 24px !important;
+    max-width: 125px !important;
+    filter: brightness(0) !important; /* Turns white logo text into crisp black on white navbar */
+  }
+  .navbar-hiq .mobile-header-btn {
+    background: transparent !important;
+    border: none !important;
+    color: #111827 !important;
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 1.25rem !important;
+    position: relative !important;
+  }
+  .navbar-hiq .badge-counter-orange {
+    background: #FE6B25 !important;
+    color: #ffffff !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    min-width: 17px !important;
+    height: 17px !important;
+    border-radius: 50% !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 3px !important;
+    border: 2px solid #ffffff !important;
+  }
+  .navbar-hiq .navbar-collapse {
+    background: #ffffff !important;
+    border-top: 1px solid #f1f5f9 !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08) !important;
+    border-radius: 0 0 16px 16px !important;
+    padding: 12px 14px 18px !important;
+  }
+  .navbar-hiq .nav-link-hiq {
+    color: #1e293b !important;
+    font-weight: 600 !important;
+  }
+  .navbar-hiq .nav-link-hiq:hover,
+  .navbar-hiq .nav-link-hiq.active {
+    color: #FE6B25 !important;
+    background: #FFF1EB !important;
+  }
+
+  /* 2. Section Headings with Vertical Orange Accent Bar */
+  .hiq-section-heading {
+    display: inline-flex !important;
+    align-items: center !important;
+    font-size: 1.15rem !important;
+    font-weight: 800 !important;
+    color: #111827 !important;
+    letter-spacing: -0.02em !important;
+  }
+  .hiq-section-heading::before {
+    content: '' !important;
+    display: inline-block !important;
+    width: 3px !important;
+    height: 18px !important;
+    background: #FE6B25 !important;
+    border-radius: 2px !important;
+    margin-right: 8px !important;
+    flex-shrink: 0 !important;
+  }
+  .hiq-view-all-link {
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    color: #FE6B25 !important;
+  }
+
+  /* 3. Shop by Category (Horizontal Scroll Row) */
+  .hiq-category-grid {
+    display: flex !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+    scroll-snap-type: x mandatory !important;
+    padding-bottom: 8px !important;
+    scrollbar-width: none !important;
+  }
+  .hiq-category-grid::-webkit-scrollbar {
+    display: none !important;
+  }
+  .hiq-category-col {
+    flex: 0 0 148px !important;
+    min-width: 148px !important;
+    scroll-snap-align: start !important;
+  }
+  .hiq-category-card {
+    height: 180px !important;
+    padding: 14px 10px 10px !important;
+    border-radius: 18px !important;
+    position: relative !important;
+  }
+  .hiq-cat-corner-icon {
+    position: absolute !important;
+    top: 10px !important;
+    right: 12px !important;
+    font-size: 1.15rem !important;
+    color: rgba(17, 24, 39, 0.45) !important;
+  }
+  .hiq-category-img-box {
+    max-height: 105px !important;
+  }
+  .hiq-category-img-box img {
+    max-height: 95px !important;
+  }
+  .hiq-category-pill {
+    width: auto !important;
+    max-width: 95% !important;
+    padding: 4px 6px 4px 12px !important;
+    margin-top: 6px !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+  }
+  .hiq-cat-pill-name {
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+  }
+  .hiq-cat-pill-arrow {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 0.65rem !important;
+    margin-left: 6px !important;
+  }
+
+  /* 4. Featured Products (Horizontal Scroll Row) */
+  .hiq-products-grid {
+    display: flex !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+    scroll-snap-type: x mandatory !important;
+    padding-bottom: 8px !important;
+    scrollbar-width: none !important;
+  }
+  .hiq-products-grid::-webkit-scrollbar {
+    display: none !important;
+  }
+  .hiq-product-col {
+    flex: 0 0 148px !important;
+    min-width: 148px !important;
+    scroll-snap-align: start !important;
+  }
+  .hiq-product-card {
+    padding: 10px !important;
+    border-radius: 16px !important;
+    border: 1px solid #f1f5f9 !important;
+    background: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+  /* Orange corner accent stroke */
+  .hiq-product-card::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-top: 3px solid #FE6B25 !important;
+    border-left: 3px solid #FE6B25 !important;
+    border-top-left-radius: 16px !important;
+    pointer-events: none !important;
+  }
+  .hiq-prod-img-wrap {
+    height: 110px !important;
+    margin-bottom: 8px !important;
+    padding: 8px !important;
+    background: #FAFBFD !important;
+    border-radius: 10px !important;
+  }
+  .hiq-prod-img-wrap img {
+    max-height: 95px !important;
+  }
+  .hiq-prod-title {
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+    height: 32px !important;
+    margin-bottom: 6px !important;
+    color: #111827 !important;
+  }
+  .hiq-prod-rating {
+    display: none !important; /* Clean layout matching reference mockup */
+  }
+  .hiq-prod-bottom {
+    padding-top: 0 !important;
+    margin-top: auto !important;
+  }
+  .hiq-prod-price {
+    font-size: 0.88rem !important;
+    font-weight: 800 !important;
+    color: #111827 !important;
+  }
+  .hiq-prod-cart-btn {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 8px !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* 5. See HOMEIQ in Action (Compact Full-Width Card) */
+  .hiq-spotlight-card {
+    min-height: 175px !important;
+    height: 175px !important;
+    border-radius: 16px !important;
+  }
+  .hiq-spotlight-content {
+    padding: 18px 18px !important;
+    max-width: 60% !important;
+  }
+  .hiq-spotlight-title {
+    font-size: 1.2rem !important;
+    line-height: 1.2 !important;
+  }
+  .hiq-demo-btn {
+    padding: 4px 10px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+  }
+  .hiq-demo-play-circle {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 0.8rem !important;
+  }
+  .hiq-demo-text {
+    font-size: 0.72rem !important;
+  }
+  .hiq-spotlight-center-play {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #FE6B25 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.3rem !important;
+    border: none !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+    z-index: 5 !important;
+    cursor: pointer !important;
+  }
+
+  /* 6. Customer Reels (Horizontal Scroll Row ~3 visible) */
+  .hiq-reels-scroll-track {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    gap: 10px !important;
+    padding-bottom: 6px !important;
+    scrollbar-width: none !important;
+  }
+  .hiq-reels-scroll-track::-webkit-scrollbar {
+    display: none !important;
+  }
+  .hiq-reel-item {
+    flex: 0 0 115px !important;
+    min-width: 115px !important;
+    scroll-snap-align: start !important;
+  }
+  .hiq-mockup-reel-card {
+    border-radius: 14px !important;
+    aspect-ratio: 9 / 15 !important;
+  }
+  .hiq-reel-play-circle {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 1.05rem !important;
+  }
+  .hiq-reel-footer-caption {
+    bottom: 8px !important;
+    left: 8px !important;
+    right: 8px !important;
+  }
+  .hiq-reel-author {
+    font-size: 0.75rem !important;
+  }
+
+  /* 7. What Our Customers Say (Single Testimonial Card with Quote Watermark) */
+  .hiq-testi-card {
+    background: #FFFFFF !important;
+    border: 1px solid #F1F5F9 !important;
+    border-radius: 16px !important;
+    padding: 18px 16px !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+    position: relative !important;
+  }
+  .hiq-testi-quote-mark {
+    position: absolute !important;
+    top: 10px !important;
+    right: 16px !important;
+    font-size: 2.8rem !important;
+    line-height: 1 !important;
+    font-family: Georgia, serif !important;
+    color: #FED7AA !important;
+    opacity: 0.7 !important;
+    pointer-events: none !important;
+  }
+  .hiq-testi-avatar {
+    width: 50px !important;
+    height: 50px !important;
+  }
+  .hiq-testi-stars {
+    color: #FE6B25 !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 4px !important;
+  }
+  .hiq-testi-stars .bi-star-fill {
+    color: #FE6B25 !important;
+  }
+  .hiq-testi-quote {
+    font-size: 0.825rem !important;
+    color: #374151 !important;
+    line-height: 1.4 !important;
+    margin: 4px 0 8px !important;
+  }
+  .hiq-testi-verified {
+    font-size: 0.75rem !important;
+    color: #111827 !important;
+    font-weight: 600 !important;
+  }
+  .hiq-testi-verified .bi-check-circle-fill {
+    color: #FE6B25 !important;
+  }
+
+  /* 8. Fixed Bottom Navigation Bar */
+  .hiq-bottom-nav {
+    display: flex !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 60px !important;
+    background: #ffffff !important;
+    border-top: 1px solid #f1f5f9 !important;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.05) !important;
+    z-index: 1040 !important;
+    align-items: center !important;
+  }
+  .hiq-bottom-nav-inner {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    padding: 0 4px !important;
+  }
+  .hiq-bottom-nav-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    color: #64748B !important;
+    font-size: 0.7rem !important;
+    font-weight: 600 !important;
+    flex: 1 !important;
+    padding: 4px 0 !important;
+    transition: all 0.2s ease !important;
+  }
+  .hiq-bottom-nav-icon-wrap {
+    width: 44px !important;
+    height: 28px !important;
+    border-radius: 14px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.15rem !important;
+    transition: all 0.2s ease !important;
+    margin-bottom: 2px !important;
+  }
+  .hiq-bottom-nav-item.active .hiq-bottom-nav-icon-wrap {
+    background: #FFF1EB !important;
+    color: #FE6B25 !important;
+  }
+  .hiq-bottom-nav-item.active .hiq-bottom-nav-label {
+    color: #FE6B25 !important;
+    font-weight: 700 !important;
+  }
+  .hiq-bottom-nav-label {
+    color: #64748B;
+    font-size: 0.68rem;
+    font-weight: 500;
+  }
+
+  /* 9. Why Choose Section Mobile Adjustments */
+  .hiq-why-choose-section {
+    padding: 30px 0 !important;
+  }
+  .hiq-why-title {
+    font-size: 1.45rem !important;
+  }
+  .hiq-why-card {
+    padding: 16px 8px !important;
+    min-height: 105px !important;
+    border-radius: 14px !important;
+  }
+  .hiq-why-icon {
+    font-size: 1.35rem !important;
+    margin-bottom: 8px !important;
+  }
+  .hiq-why-card-title {
+    font-size: 0.75rem !important;
+  }
+
+  /* 10. Bottom Banner Mobile Adjustments */
+  .hiq-bottom-banner-card {
+    min-height: 160px !important;
+    height: 160px !important;
+    border-radius: 16px !important;
+  }
+  .hiq-bottom-banner-content {
+    padding: 20px 18px !important;
+    max-width: 65% !important;
+  }
+  .hiq-bottom-banner-title {
+    font-size: 1.15rem !important;
+    margin-bottom: 12px !important;
+  }
+  .hiq-btn-capsule-orange {
+    font-size: 0.8rem !important;
+    padding: 8px 16px !important;
+  }
 }

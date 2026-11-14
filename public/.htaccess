@@ -13,3 +13,26 @@
     Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
+# PHP File Upload Limits (Unrestricted Video & Media Uploads)
+<IfModule mod_php.c>
+    php_value upload_max_filesize 2048M
+    php_value post_max_size 2048M
+    php_value memory_limit 2048M
+    php_value max_execution_time 3600
+    php_value max_input_time 3600
+</IfModule>
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 2048M
+    php_value post_max_size 2048M
+    php_value memory_limit 2048M
+    php_value max_execution_time 3600
+    php_value max_input_time 3600
+</IfModule>
+<IfModule mod_php8.c>
+    php_value upload_max_filesize 2048M
+    php_value post_max_size 2048M
+    php_value memory_limit 2048M
+    php_value max_execution_time 3600
+    php_value max_input_time 3600
+</IfModule>
+
