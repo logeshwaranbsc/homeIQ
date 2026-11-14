@@ -65,23 +65,27 @@ $breadcrumbs = [
         <img id="productMainImage" src="<?= upload_url($product['main_image'] ?? '') ?>" alt="<?= e($product['name']) ?>" class="img-fluid" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
       </div>
 
-      <div class="thumbnail-row">
-        <?php if (!empty($product['main_image'])): ?>
-          <div class="thumbnail-item active" data-img-src="<?= upload_url($product['main_image']) ?>">
-            <img src="<?= upload_url($product['main_image']) ?>" alt="Primary view">
-          </div>
-        <?php endif; ?>
+      <?php
+        $galleryImages = (!empty($product['gallery_images']) && is_array($product['gallery_images']))
+            ? array_values(array_filter($product['gallery_images']))
+            : [];
+        $hasMultipleImages = (!empty($product['main_image']) && count($galleryImages) > 0) || (count($galleryImages) > 1);
+      ?>
+      <?php if ($hasMultipleImages): ?>
+        <div class="thumbnail-row mb-3 mb-md-4">
+          <?php if (!empty($product['main_image'])): ?>
+            <div class="thumbnail-item active" data-img-src="<?= upload_url($product['main_image']) ?>">
+              <img src="<?= upload_url($product['main_image']) ?>" alt="Primary view">
+            </div>
+          <?php endif; ?>
 
-        <?php if (!empty($product['gallery_images']) && is_array($product['gallery_images'])): ?>
-          <?php foreach ($product['gallery_images'] as $idx => $gImg): ?>
-            <?php if (!empty($gImg)): ?>
-              <div class="thumbnail-item <?= (empty($product['main_image']) && $idx === 0) ? 'active' : '' ?>" data-img-src="<?= upload_url($gImg) ?>">
-                <img src="<?= upload_url($gImg) ?>" alt="<?= e($product['name']) ?> view <?= $idx + 2 ?>">
-              </div>
-            <?php endif; ?>
+          <?php foreach ($galleryImages as $idx => $gImg): ?>
+            <div class="thumbnail-item <?= (empty($product['main_image']) && $idx === 0) ? 'active' : '' ?>" data-img-src="<?= upload_url($gImg) ?>">
+              <img src="<?= upload_url($gImg) ?>" alt="<?= e($product['name']) ?> view <?= $idx + 2 ?>">
+            </div>
           <?php endforeach; ?>
-        <?php endif; ?>
-      </div>
+        </div>
+      <?php endif; ?>
     </div>
 
     <!-- Product Purchase Column -->

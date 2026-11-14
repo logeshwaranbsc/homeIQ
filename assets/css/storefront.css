@@ -3205,13 +3205,14 @@ a:hover {
   gap: 12px;
   flex-wrap: wrap;
   align-items: center;
+  padding: 6px 2px;
   margin-bottom: 20px;
 }
 
 .thumbnail-item {
   width: 82px;
   height: 82px;
-  border-radius: var(--hiq-radius-sm);
+  border-radius: 12px;
   border: 2px solid var(--hiq-light-border);
   padding: 6px;
   cursor: pointer;
@@ -3221,13 +3222,15 @@ a:hover {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .thumbnail-item:hover,
 .thumbnail-item.active {
-  border-color: #FE6B25;
+  border-color: #FE6B25 !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(254, 107, 37, 0.28);
+  box-shadow: 0 0 0 1px #FE6B25, 0 4px 14px rgba(254, 107, 37, 0.28) !important;
 }
 
 .thumbnail-item img {
@@ -3237,6 +3240,8 @@ a:hover {
   max-height: 100%;
   object-fit: contain;
   object-position: center;
+  border-radius: 8px;
+  pointer-events: none;
 }
 
 /* Specifications Table */
@@ -4867,12 +4872,14 @@ video {
   }
 
   .product-gallery-main img {
-    width: 100% !important;
-    height: 100% !important;
-    max-height: 100% !important;
     max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
     object-fit: contain !important;
     object-position: center !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
   }
 
   .thumbnail-row {
@@ -4880,7 +4887,7 @@ video {
     overflow-x: auto !important;
     flex-wrap: nowrap !important;
     -webkit-overflow-scrolling: touch !important;
-    padding-bottom: 6px !important;
+    padding: 6px 4px !important;
     margin-bottom: 16px !important;
   }
 
@@ -4893,6 +4900,14 @@ video {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    border: 2px solid var(--hiq-light-border) !important;
+  }
+
+  .thumbnail-item.active {
+    border-color: #FE6B25 !important;
+    box-shadow: 0 0 0 1px #FE6B25, 0 4px 12px rgba(254, 107, 37, 0.28) !important;
   }
 
   .thumbnail-item img {
@@ -4902,6 +4917,8 @@ video {
     max-height: 100% !important;
     object-fit: contain !important;
     object-position: center !important;
+    border-radius: 8px !important;
+    pointer-events: none !important;
   }
 
   .product-purchase-actions .btn-hiq-primary,
