@@ -78,36 +78,6 @@ use App\Core\View;
 </section>
 
 <!-- ==========================================================================
-     SECTION 2: FEATURE HIGHLIGHTS STRIP
-     ========================================================================== -->
-<section class="hiq-features-strip-section">
-  <div class="container">
-    <div class="hiq-features-strip">
-      <div class="hiq-feature-item">
-        <div class="hiq-feat-icon"><i class="bi bi-fingerprint"></i></div>
-        <span class="hiq-feat-text">Fingerprint</span>
-      </div>
-      <div class="hiq-feat-divider"></div>
-      <div class="hiq-feature-item">
-        <div class="hiq-feat-icon"><i class="bi bi-phone"></i></div>
-        <span class="hiq-feat-text">App Control</span>
-      </div>
-      <div class="hiq-feat-divider"></div>
-      <div class="hiq-feature-item">
-        <div class="hiq-feat-icon"><i class="bi bi-shield-check"></i></div>
-        <span class="hiq-feat-text">High Security</span>
-      </div>
-      <div class="hiq-feat-divider"></div>
-      <div class="hiq-feature-item">
-        <div class="hiq-feat-icon"><i class="bi bi-tools"></i></div>
-        <span class="hiq-feat-text">Easy Installation</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ==========================================================================
      SECTION 3: SHOP BY CATEGORY
      ========================================================================== -->
 <?php if (!empty($categories)): ?>
@@ -705,6 +675,34 @@ document.addEventListener('DOMContentLoaded', function () {
         <a href="<?= url('shop') ?>" class="hiq-btn-capsule-orange">
           Shop Now <i class="bi bi-arrow-right ms-2"></i>
         </a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==========================================================================
+     SECTION 2: FEATURE HIGHLIGHTS STRIP
+     ========================================================================== -->
+<section class="hiq-features-strip-section">
+  <div class="container">
+    <div class="hiq-features-strip">
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-fingerprint"></i></div>
+        <span class="hiq-feat-text">Fingerprint</span>
+      </div>
+      <div class="hiq-feat-divider"></div>
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-phone"></i></div>
+        <span class="hiq-feat-text">App Control</span>
+      </div>
+      <div class="hiq-feat-divider"></div>
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-shield-check"></i></div>
+        <span class="hiq-feat-text">High Security</span>
+      </div>
+      <div class="hiq-feat-divider"></div>
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-tools"></i></div>
+        <span class="hiq-feat-text">Easy Installation</span>
       </div>
     </div>
   </div>
