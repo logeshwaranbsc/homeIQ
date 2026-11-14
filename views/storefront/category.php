@@ -35,10 +35,6 @@ $bannerMobile = !empty($category['banner_mobile_image']) ? $category['banner_mob
   <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
     <div>
       <h3 class="fw-bold mb-0">Products in this Collection</h3>
-      <small class="text-muted"><?= count($products) ?> available model(s)</small>
-    </div>
-    <div>
-      <a href="<?= url('shop') ?>" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left me-1"></i>All Products</a>
     </div>
   </div>
 
