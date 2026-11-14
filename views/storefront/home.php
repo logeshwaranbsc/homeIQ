@@ -303,9 +303,9 @@ document.addEventListener('DOMContentLoaded', function () {
 <?php if (!empty($videoTestimonials)): ?>
 <section class="hiq-reels-section py-4 py-md-5">
   <div class="container">
-    <div class="d-flex align-items-center justify-content-between mb-3 mb-md-4">
-      <h2 class="hiq-section-heading m-0">Customer Reels</h2>
-      <a href="<?= url('video-testimonials') ?>" class="hiq-view-all-link">
+    <div class="position-relative text-center mb-3 mb-md-4">
+      <h2 class="hiq-section-heading m-0 justify-content-center">Customer Reels</h2>
+      <a href="<?= url('video-testimonials') ?>" class="hiq-view-all-link position-absolute end-0 top-50 translate-middle-y">
         View All <i class="bi bi-arrow-right ms-1"></i>
       </a>
     </div>
@@ -444,13 +444,13 @@ document.addEventListener('DOMContentLoaded', function () {
      ========================================================================== -->
 <section class="hiq-testimonials-section py-4 py-md-5">
   <div class="container">
-    <div class="d-flex align-items-center justify-content-between mb-4">
-      <h2 class="hiq-section-heading m-0 text-start">What Our Customers Say</h2>
+    <div class="text-center mb-4">
+      <h2 class="hiq-section-heading m-0 justify-content-center">What Our Customers Say</h2>
     </div>
 
     <?php 
       $allReviews = !empty($recentReviews) ? $recentReviews : [];
-      if (count($allReviews) < 4) {
+      if (count($allReviews) < 6) {
         $existingNames = array_map(fn($r) => strtolower($r['reviewer_name'] ?? ''), $allReviews);
         $defaultMockReviews = [
           [
@@ -476,10 +476,22 @@ document.addEventListener('DOMContentLoaded', function () {
             'comment' => 'Excellent biometric precision. Both fingerprint and PIN responses are instantaneous. Highly recommended for modern apartments.',
             'rating' => 5,
             'verified_purchase' => true,
+          ],
+          [
+            'reviewer_name' => 'Rajesh K.',
+            'comment' => 'Seamless keyless entry and the mobile app setup took less than 2 minutes. Outstanding build quality and long battery life.',
+            'rating' => 5,
+            'verified_purchase' => true,
+          ],
+          [
+            'reviewer_name' => 'Pooja Mehta',
+            'comment' => 'The smart lock looks ultra-sleek on our modern front door. The numeric keypad and auto-lock feature give us complete peace of mind.',
+            'rating' => 5,
+            'verified_purchase' => true,
           ]
         ];
         foreach ($defaultMockReviews as $dmRev) {
-          if (count($allReviews) >= 4) break;
+          if (count($allReviews) >= 6) break;
           if (!in_array(strtolower($dmRev['reviewer_name']), $existingNames, true)) {
             $allReviews[] = $dmRev;
           }
@@ -540,10 +552,15 @@ document.addEventListener('DOMContentLoaded', function () {
   var slides = track.querySelectorAll('.hiq-testi-slide');
   if (slides.length === 0) return;
 
+  function getItemsPerSlide() {
+    if (window.innerWidth < 768) return 1;
+    if (window.innerWidth < 992) return 2;
+    return 3;
+  }
+
   function updateDots() {
     dotsContainer.innerHTML = '';
-    var isMobile = window.innerWidth < 768;
-    var itemsPerSlide = isMobile ? 1 : 2;
+    var itemsPerSlide = getItemsPerSlide();
     var pageCount = Math.ceil(slides.length / itemsPerSlide);
 
     if (pageCount <= 1) return;
@@ -569,8 +586,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function onScroll() {
-    var isMobile = window.innerWidth < 768;
-    var itemsPerSlide = isMobile ? 1 : 2;
+    var itemsPerSlide = getItemsPerSlide();
     var scrollLeft = track.scrollLeft;
     var slideWidth = (slides[0] ? slides[0].offsetWidth : 300) + 20;
     var activePage = Math.round(scrollLeft / (slideWidth * itemsPerSlide));
