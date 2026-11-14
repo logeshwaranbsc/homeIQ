@@ -21,7 +21,7 @@ $bannerMobile = !empty($category['banner_mobile_image']) ? $category['banner_mob
   <?= View::component('breadcrumbs', ['items' => $breadcrumbs]) ?>
 
   <!-- Full-Image Hero Section (Responsive Art Direction) -->
-  <div class="category-hero-banner mb-4">
+  <div class="category-hero-banner mb-4 <?= !empty($bannerMobile) ? 'has-mobile-banner' : 'no-mobile-banner' ?>">
     <div class="category-hero-media">
       <picture class="category-hero-picture">
         <?php if (!empty($bannerMobile)): ?>

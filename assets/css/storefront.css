@@ -455,12 +455,14 @@ a:hover {
   overflow: hidden;
   position: relative;
   border-bottom: 1px solid var(--hiq-dark-border);
+  width: 100%;
 }
 
 .carousel-item-hero {
-  min-height: 480px;
-  height: clamp(480px, 36vw, 620px);
   width: 100%;
+  aspect-ratio: 1920 / 600;
+  min-height: unset;
+  height: auto;
   position: relative;
   overflow: hidden;
   background-color: #07080a;
@@ -469,8 +471,7 @@ a:hover {
 /* Full-bleed background wrapper & image */
 .hero-bg-wrapper {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
@@ -479,8 +480,7 @@ a:hover {
 
 .hero-bg-picture {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   display: block;
@@ -491,7 +491,7 @@ a:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: left center;
+  object-position: center center;
   display: block;
 }
 
@@ -1862,8 +1862,9 @@ a:hover {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
   background-color: #07080a;
   aspect-ratio: 16 / 5;
-  min-height: 240px;
-  max-height: 420px;
+  min-height: unset;
+  max-height: none;
+  height: auto;
   padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.08);
   width: 100%;
@@ -1885,14 +1886,8 @@ a:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center center;
   display: block;
-}
-
-@media (min-width: 768px) {
-  .category-hero-banner {
-    padding: 3rem 3.25rem;
-  }
 }
 
 .category-hero-banner::after {
@@ -3389,7 +3384,6 @@ a:hover {
 
 @media (max-width: 575.98px) {
 
-  .carousel-item-hero,
   .hero-content-container {
     min-height: 380px;
     height: auto;
@@ -4534,8 +4528,8 @@ video {
   /* Category Detail Hero Banner — Mobile Full-Image Hero (Matches Homepage Hero Banner) */
   .category-hero-banner {
     padding: 0 !important;
-    border-radius: 20px !important;
-    aspect-ratio: 2.5 / 1 !important;
+    border-radius: 16px !important;
+    aspect-ratio: 16 / 5 !important;
     min-height: 0 !important;
     height: auto !important;
     max-height: none !important;
@@ -4545,6 +4539,10 @@ video {
     width: 100% !important;
     margin-bottom: 20px !important;
     border: none !important;
+  }
+
+  .category-hero-banner.has-mobile-banner {
+    aspect-ratio: 2.5 / 1 !important;
   }
 
   .category-hero-media,
@@ -8082,13 +8080,18 @@ body[data-page="cart"] .btn-drawer-view-cart {
 
   .carousel-item-hero {
     min-height: 0 !important;
-    height: calc((100vw - 16px) / 2.5 + 40px) !important;
-    max-height: 280px !important;
+    height: auto !important;
+    aspect-ratio: 16 / 5 !important;
+    max-height: none !important;
     background-color: #07080a !important;
     position: relative !important;
-    border-radius: 20px !important;
+    border-radius: 16px !important;
     overflow: hidden !important;
     width: 100% !important;
+  }
+
+  .carousel-item-hero.has-mobile-banner {
+    aspect-ratio: 2.5 / 1 !important;
   }
 
   .hero-bg-wrapper,
@@ -8110,7 +8113,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
-    object-position: center !important;
+    object-position: center center !important;
     display: block !important;
     transform: none !important;
   }

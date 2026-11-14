@@ -14,6 +14,44 @@ declare(strict_types=1);
   </a>
 </div>
 
+<!-- Banner Dimension & Aspect Ratio Reference Guide -->
+<div class="card border mb-4 p-3 rounded-3 shadow-none bg-white">
+  <div class="d-flex align-items-start gap-3">
+    <div class="p-2 bg-primary bg-opacity-10 text-primary rounded-2 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px;">
+      <i class="bi bi-aspect-ratio fs-4"></i>
+    </div>
+    <div class="flex-grow-1">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+        <div>
+          <h6 class="fw-bold m-0 text-dark">Hero Banner Image Dimensions &amp; Aspect Ratio Specifications</h6>
+          <small class="text-muted">The storefront displays hero slide images in locked proportional aspect ratios so that no content or products are cut off.</small>
+        </div>
+        <span class="badge bg-light text-secondary border">Storefront Responsive UI Standard</span>
+      </div>
+      <div class="row g-2">
+        <div class="col-md-6">
+          <div class="p-2 bg-light rounded border d-flex align-items-center justify-content-between">
+            <div>
+              <div class="fw-bold text-dark small"><i class="bi bi-display text-primary me-1"></i> Desktop Screen Banner</div>
+              <div class="text-muted" style="font-size: 0.78rem;">Size: <strong class="text-dark">1920 × 600 px</strong> &bull; Ratio: <strong class="text-primary font-monospace">16:5 (3.2:1 Landscape)</strong></div>
+            </div>
+            <span class="badge bg-primary text-white">Full Bleed</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="p-2 bg-light rounded border d-flex align-items-center justify-content-between">
+            <div>
+              <div class="fw-bold text-dark small"><i class="bi bi-phone text-warning me-1"></i> Mobile Screen Banner (Optional)</div>
+              <div class="text-muted" style="font-size: 0.78rem;">Size: <strong class="text-dark">1024 × 409 px</strong> &bull; Ratio: <strong class="text-warning-emphasis font-monospace">2.5:1 (Card)</strong></div>
+            </div>
+            <span class="badge bg-warning-subtle text-warning-emphasis border">Optional Fallback</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="alert alert-light border d-flex align-items-center justify-content-between mb-4 py-2 px-3 flex-wrap gap-2">
   <div class="d-flex align-items-center gap-2">
     <i class="bi bi-info-circle text-primary fs-5"></i>

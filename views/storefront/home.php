@@ -38,8 +38,9 @@ use App\Core\View;
         <?php
           $ctaUrl = $banner['cta_url'] ?? 'shop';
           $bannerTitle = !empty($banner['title']) ? $banner['title'] : ($banner['headline'] ?? 'HOMEIQ Smart Locks');
+          $hasMobileBanner = !empty($banner['mobile_image']);
         ?>
-        <div class="carousel-item carousel-item-hero <?= $idx === 0 ? 'active' : '' ?>">
+        <div class="carousel-item carousel-item-hero <?= $idx === 0 ? 'active' : '' ?> <?= $hasMobileBanner ? 'has-mobile-banner' : 'no-mobile-banner' ?>">
           <div class="hero-bg-wrapper">
             <?php if (!empty($banner['image']) || !empty($banner['mobile_image'])): ?>
               <picture class="hero-bg-picture">
