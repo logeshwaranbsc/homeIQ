@@ -100,25 +100,35 @@ class ProductRepository extends JsonRepository
 
         // Access method filter
         if (!empty($criteria['access_method'])) {
-            $method = mb_strtolower($criteria['access_method']);
+            $method = mb_strtolower(trim((string)$criteria['access_method']));
             $products = array_filter($products, function ($p) use ($method) {
                 $methods = array_map('mb_strtolower', $p['access_methods'] ?? []);
-                return in_array($method, $methods, true);
+                foreach ($methods as $m) {
+                    if ($m === $method || str_contains($m, $method) || str_contains($method, $m)) {
+                        return true;
+                    }
+                }
+                return false;
             });
         }
 
         // Connectivity filter
         if (!empty($criteria['connectivity'])) {
-            $conn = mb_strtolower($criteria['connectivity']);
+            $conn = mb_strtolower(trim((string)$criteria['connectivity']));
             $products = array_filter($products, function ($p) use ($conn) {
                 $conns = array_map('mb_strtolower', $p['connectivity'] ?? []);
-                return in_array($conn, $conns, true);
+                foreach ($conns as $c) {
+                    if ($c === $conn || str_contains($c, $conn) || str_contains($conn, $c)) {
+                        return true;
+                    }
+                }
+                return false;
             });
         }
 
         // Color filter
         if (!empty($criteria['color'])) {
-            $color = mb_strtolower($criteria['color']);
+            $color = mb_strtolower(trim((string)$criteria['color']));
             $products = array_filter($products, function ($p) use ($color) {
                 return mb_strtolower($p['color'] ?? '') === $color;
             });
@@ -127,6 +137,12 @@ class ProductRepository extends JsonRepository
         // Stock status
         if (!empty($criteria['in_stock'])) {
             $products = array_filter($products, fn($p) => ($p['stock'] ?? 0) > 0);
+        }
+
+        // Min Customer Rating
+        if (isset($criteria['min_rating']) && is_numeric($criteria['min_rating'])) {
+            $minRating = (float)$criteria['min_rating'];
+            $products = array_filter($products, fn($p) => (float)($p['rating'] ?? 0) >= $minRating);
         }
 
         // Sorting

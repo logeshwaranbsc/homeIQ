@@ -7045,6 +7045,16 @@ body[data-page="cart"] .btn-drawer-view-cart {
   letter-spacing: -0.02em;
 }
 
+.hiq-section-heading::before {
+  content: none !important;
+  display: none !important;
+}
+
+.hiq-section-heading::before {
+  content: none !important;
+  display: none !important;
+}
+
 .hiq-view-all-link {
   font-size: 0.9rem;
   font-weight: 700;
@@ -8246,7 +8256,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
     background: #FFF1EB !important;
   }
 
-  /* 2. Section Headings with Vertical Orange Accent Bar */
+  /* 2. Section Headings */
   .hiq-section-heading {
     display: inline-flex !important;
     align-items: center !important;
@@ -8257,14 +8267,8 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
 
   .hiq-section-heading::before {
-    content: '' !important;
-    display: inline-block !important;
-    width: 3px !important;
-    height: 18px !important;
-    background: #FE6B25 !important;
-    border-radius: 2px !important;
-    margin-right: 8px !important;
-    flex-shrink: 0 !important;
+    content: none !important;
+    display: none !important;
   }
 
   .hiq-view-all-link {
@@ -8811,5 +8815,146 @@ body[data-page="cart"] .btn-drawer-view-cart {
 
   .hiq-spotlight-content {
     padding: 60px 54px !important;
+  }
+}
+
+/* ==========================================================================
+   Shop Page Modern Filter System & Floating Trigger
+   ========================================================================== */
+.hiq-floating-filter-btn {
+  position: fixed;
+  bottom: 82px;
+  left: 16px;
+  z-index: 1040;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  background: #0f172a;
+  color: #ffffff;
+  border: 1.5px solid rgba(254, 107, 37, 0.4);
+  border-radius: 50px;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.35), 0 0 14px rgba(254, 107, 37, 0.25);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  text-decoration: none;
+}
+.hiq-floating-filter-btn:hover,
+.hiq-floating-filter-btn:active {
+  transform: translateY(-2px) scale(1.03);
+  background: #1e293b;
+  color: #ffffff;
+  border-color: #FE6B25;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.45), 0 0 18px rgba(254, 107, 37, 0.4);
+}
+.hiq-floating-filter-btn i {
+  color: #FE6B25;
+  font-size: 0.95rem;
+}
+.hiq-floating-filter-btn .badge {
+  font-size: 0.68rem;
+  padding: 3px 6px;
+  font-weight: 800;
+}
+
+/* Filter Chips (Selectable Pills) */
+.shop-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #334155;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  user-select: none;
+  margin: 0;
+}
+.shop-filter-chip:hover {
+  border-color: #cbd5e1;
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.shop-filter-chip.active {
+  background: rgba(254, 107, 37, 0.1);
+  border-color: #FE6B25;
+  color: #FE6B25;
+  font-weight: 700;
+  box-shadow: 0 0 0 1px rgba(254, 107, 37, 0.25);
+}
+.shop-filter-chip input[type="radio"],
+.shop-filter-chip input[type="checkbox"] {
+  display: none;
+}
+.shop-filter-section-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.color-swatch-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+/* Active Filter Badges Bar */
+.active-filter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 50px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #1e293b;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+.active-filter-badge:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+.active-filter-badge i {
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+/* Offcanvas Styling for Mobile Drawer */
+@media (max-width: 991.98px) {
+  .shop-filter-offcanvas.offcanvas-start {
+    width: 320px;
+    max-width: 86vw;
+    background: #ffffff;
+    z-index: 1060;
+  }
+  .shop-filter-offcanvas .offcanvas-body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 30px !important;
+  }
+  .shop-filter-offcanvas .card {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 16px !important;
+    position: static !important;
   }
 }

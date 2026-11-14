@@ -36,6 +36,7 @@ class ProductController
             'connectivity' => $request->query('connectivity'),
             'color' => $request->query('color'),
             'in_stock' => $request->query('in_stock'),
+            'min_rating' => $request->query('min_rating'),
             'sort' => $request->query('sort', 'newest'),
         ];
 
