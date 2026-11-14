@@ -4318,5 +4318,14 @@
         "id": "log_8d54cfbd6af83c10",
         "created_at": "2026-11-14 16:16:40",
         "updated_at": "2026-11-14 16:16:40"
+    },
+    {
+        "action": "banner_updated",
+        "user": "admin",
+        "details": "Updated banner: Built for Security. Designed for Peace.",
+        "ip": "",
+        "id": "log_88c8898c6af85505",
+        "created_at": "2026-11-14 18:03:09",
+        "updated_at": "2026-11-14 18:03:09"
     }
 ]

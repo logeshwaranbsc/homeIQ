@@ -27,12 +27,14 @@
         "cta_url": "shop",
         "display_order": 2,
         "is_active": true,
-        "image": "banners/9e8ef1beefa8cee5fb18_1793607096.png",
+        "image": "banners/8981abd710534d332f07_1794659589.webp",
         "id": "bnr_0deabe3f6ae32633",
         "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-11-02 13:41:36",
+        "updated_at": "2026-11-14 18:03:09",
         "text_position": "left",
-        "overlay_style": "gradient"
+        "overlay_style": "gradient",
+        "title": "Built for Security. Designed for Peace.",
+        "mobile_image": null
     },
     {
         "headline": "Your Smart Home Upgrade Starts Here.",
