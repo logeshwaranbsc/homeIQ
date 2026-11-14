@@ -4,6 +4,8 @@
         "slug": "smart-locks",
         "description": "Next-generation biometric digital door locks featuring 3D AI face recognition, palm vein scanning, semiconductor fingerprint, 2K video intercom, and smart keypad access.",
         "image": "categories/09e13d2172cc640ea5f7_1794564120.png",
+        "banner_image": "banners/f488cc9b748609d48f11_1794577055.png",
+        "banner_mobile_image": "banners/ea4618d92e96212423f0_1794646027.webp",
         "display_order": 1,
         "is_active": true,
         "id": "cat_e09d26ca6ae32633",

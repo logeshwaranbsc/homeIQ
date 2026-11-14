@@ -14,6 +14,14 @@ declare(strict_types=1);
   </a>
 </div>
 
+<div class="alert alert-light border d-flex align-items-center justify-content-between mb-4 py-2 px-3 flex-wrap gap-2">
+  <div class="d-flex align-items-center gap-2">
+    <i class="bi bi-info-circle text-primary fs-5"></i>
+    <span class="small text-muted">Looking for Category Page hero banners? You can configure dedicated desktop and mobile hero banners directly under <strong>Lock Categories</strong>.</span>
+  </div>
+  <a href="<?= url('admin/categories') ?>" class="btn btn-outline-dark btn-sm"><i class="bi bi-grid me-1"></i>Category Banners</a>
+</div>
+
 <div class="admin-table-card shadow-sm">
   <div class="table-responsive">
     <table class="admin-table">
@@ -84,4 +92,3 @@ declare(strict_types=1);
     </table>
   </div>
 </div>
-

@@ -13,37 +13,22 @@ $breadcrumbs = [
     ['label' => 'Categories', 'url' => 'categories'],
     ['label' => $category['name'], 'url' => null]
 ];
+
+$bannerDesktop = !empty($category['banner_image']) ? $category['banner_image'] : 'banners/f488cc9b748609d48f11_1794577055.png';
+$bannerMobile = !empty($category['banner_mobile_image']) ? $category['banner_mobile_image'] : 'banners/ea4618d92e96212423f0_1794646027.webp';
 ?>
 <div class="container py-4">
   <?= View::component('breadcrumbs', ['items' => $breadcrumbs]) ?>
 
-  <div class="category-hero-banner mb-5">
-    <div class="row align-items-center g-4">
-      <div class="col-lg-8 category-hero-content">
-        <div class="category-hero-badge">
-          <span class="badge-dot"></span>
-          <span>Category Collection</span>
-        </div>
-        <h1 class="category-hero-title"><?= e($category['name']) ?></h1>
-        <p class="category-hero-desc"><?= e($category['description']) ?></p>
-        <div class="category-hero-chips">
-          <span class="category-chip">
-            <i class="bi bi-shield-check"></i> <?= count($products) ?> Available Model<?= count($products) !== 1 ? 's' : '' ?>
-          </span>
-          <span class="category-chip">
-            <i class="bi bi-patch-check"></i> Certified Security Grade
-          </span>
-          <span class="category-chip">
-            <i class="bi bi-truck"></i> Free Express Delivery
-          </span>
-        </div>
-      </div>
-      <div class="col-lg-4 text-center">
-        <div class="category-hero-showcase">
-          <div class="showcase-glow"></div>
-          <img src="<?= upload_url($category['image'] ?? '') ?>" alt="<?= e($category['name']) ?>" class="category-hero-img" loading="lazy">
-        </div>
-      </div>
+  <!-- Full-Image Hero Section (Responsive Art Direction) -->
+  <div class="category-hero-banner mb-4">
+    <div class="category-hero-media">
+      <picture class="category-hero-picture">
+        <?php if (!empty($bannerMobile)): ?>
+          <source media="(max-width: 767.98px)" srcset="<?= upload_url($bannerMobile) ?>">
+        <?php endif; ?>
+        <img src="<?= upload_url($bannerDesktop ?: $bannerMobile) ?>" alt="<?= e($category['name']) ?>" class="category-hero-img-full" loading="eager">
+      </picture>
     </div>
   </div>
 
@@ -62,13 +47,12 @@ $breadcrumbs = [
       <p class="text-muted m-0">No active products currently found in this category.</p>
     </div>
   <?php else: ?>
-    <div class="row g-3 g-md-4">
+    <div class="row g-2 g-md-4">
       <?php foreach ($products as $p): ?>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <div class="col-6 col-md-4 col-lg-3">
           <?= View::component('product_card', ['product' => $p]) ?>
         </div>
       <?php endforeach; ?>
     </div>
   <?php endif; ?>
 </div>
-

@@ -172,9 +172,9 @@ $hasActiveFilters = !empty($criteria['q']) || !empty($criteria['category']) || !
           </div>
         </div>
       <?php else: ?>
-        <div class="row g-3 g-md-4">
+        <div class="row g-2 g-md-4">
           <?php foreach ($products as $p): ?>
-            <div class="col-lg-4 col-sm-6 col-12">
+            <div class="col-6 col-md-6 col-lg-4">
               <?= View::component('product_card', ['product' => $p]) ?>
             </div>
           <?php endforeach; ?>

@@ -227,9 +227,6 @@ $breadcrumbs = [
             <button type="submit" name="buy_now" value="1" class="btn btn-pdp-buy flex-grow-1 py-2 py-md-3">
               <i class="bi bi-lightning-charge"></i> Buy Now
             </button>
-            <button type="button" class="btn btn-pdp-wishlist btn-wishlist-toggle <?= $isWishlisted ? 'active' : '' ?>" data-product-id="<?= e($product['id']) ?>" title="Add to Wishlist" aria-label="Add to Wishlist">
-              <i class="bi bi-heart<?= $isWishlisted ? '-fill text-danger' : '' ?> fs-5"></i>
-            </button>
           </div>
         </form>
       <?php else: ?>

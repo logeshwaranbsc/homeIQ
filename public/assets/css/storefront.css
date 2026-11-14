@@ -1860,13 +1860,35 @@ a:hover {
 .category-hero-banner {
   position: relative;
   border-radius: 20px;
-  background: radial-gradient(circle at 85% 35%, rgba(254, 107, 37, 0.15) 0%, transparent 45%),
-    linear-gradient(135deg, #0b0d13 0%, #131722 55%, #181d2a 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.45);
-  padding: 2.25rem 2rem;
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  background-color: #07080a;
+  aspect-ratio: 16 / 5;
+  min-height: 240px;
+  max-height: 420px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: 100%;
+}
+
+.category-hero-media,
+.category-hero-picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.category-hero-img-full {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 @media (min-width: 768px) {
@@ -4504,10 +4526,41 @@ video {
     justify-content: center;
   }
 
-  /* Category Detail Hero Banner */
+  /* Category Detail Hero Banner — Mobile Full-Image Hero (Matches Homepage Hero Banner) */
   .category-hero-banner {
-    padding: 1.4rem 1.15rem !important;
-    border-radius: 16px !important;
+    padding: 0 !important;
+    border-radius: 20px !important;
+    aspect-ratio: 2.5 / 1 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08) !important;
+    background-color: #07080a !important;
+    width: 100% !important;
+    margin-bottom: 20px !important;
+    border: none !important;
+  }
+
+  .category-hero-media,
+  .category-hero-picture {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .category-hero-img-full {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    display: block !important;
   }
 
   .category-hero-showcase {
@@ -4652,44 +4705,119 @@ video {
     width: 100% !important;
   }
 
-  /* Product Cards on Small Screens */
+  /* Product Cards on Small Screens (2-Column Grid Layout) */
   .product-card {
-    border-radius: 18px !important;
+    border-radius: 16px !important;
+    margin-bottom: 2px !important;
   }
 
   .product-card .card-thumb-link {
-    height: 235px !important;
-    border-radius: 18px 18px 14px 14px !important;
+    height: 165px !important;
+    border-radius: 16px 16px 12px 12px !important;
+  }
+
+  .product-card .card-badges-stack {
+    top: 6px !important;
+    left: 6px !important;
+    gap: 3px !important;
+  }
+
+  .product-card .modern-discount-badge,
+  .product-card .modern-bestseller-badge {
+    font-size: 0.58rem !important;
+    padding: 2px 5px !important;
+    border-radius: 5px !important;
+  }
+
+  .product-card .card-action-stack {
+    top: 6px !important;
+    right: 6px !important;
+    gap: 4px !important;
+  }
+
+  .product-card .btn-card-action {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 0.72rem !important;
+  }
+
+  .product-card .card-meta-top {
+    gap: 4px !important;
+    margin-bottom: 4px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .product-card .modern-cat-pill,
+  .product-card .modern-stock-pill {
+    font-size: 0.58rem !important;
+    padding: 2px 5px !important;
   }
 
   .product-card .prod-title {
-    font-size: 0.84rem !important;
-    line-height: 1.34 !important;
-    min-height: auto;
+    font-size: 0.76rem !important;
+    line-height: 1.25 !important;
+    height: 30px !important;
+    margin-bottom: 4px !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .product-card .modern-rating-strip {
+    font-size: 0.68rem !important;
+    margin-bottom: 4px !important;
+    gap: 3px !important;
+  }
+
+  .product-card .modern-rating-strip .review-label {
+    font-size: 0.62rem !important;
   }
 
   .product-card .price-row {
-    flex-wrap: nowrap !important;
-    white-space: nowrap !important;
+    flex-wrap: wrap !important;
+    gap: 2px !important;
+    margin-bottom: 6px !important;
   }
 
   .product-card .sale-price {
-    font-size: 1.05rem !important;
+    font-size: 0.94rem !important;
     white-space: nowrap !important;
   }
 
   .product-card .regular-mrp {
-    font-size: 0.72rem !important;
+    font-size: 0.68rem !important;
     white-space: nowrap !important;
   }
 
   .product-card .modern-save-badge {
-    font-size: 0.58rem !important;
+    font-size: 0.55rem !important;
+    padding: 1px 4px !important;
     white-space: nowrap !important;
   }
 
   .product-card .product-card-body {
-    padding: 12px 14px 16px !important;
+    padding: 8px 10px 10px !important;
+  }
+
+  .product-card .modern-card-actions {
+    gap: 4px !important;
+  }
+
+  .product-card .btn-card-primary-cart {
+    height: 32px !important;
+    padding: 0 4px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .product-card .btn-card-primary-cart span {
+    font-size: 0.68rem !important;
+  }
+
+  .product-card .btn-card-view-specs {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 0.75rem !important;
   }
 
   /* Product Detail Page */
@@ -7805,9 +7933,9 @@ body[data-page="cart"] .btn-drawer-view-cart {
     width: 100% !important;
   }
   .carousel-item-hero {
-    min-height: 180px !important; /* Height matching shop by category cards */
+    min-height: 0 !important;
     height: auto !important;
-    aspect-ratio: 16 / 9 !important; /* Increased from 2.6:1 to 16:9 (~1.78:1) for generous, prominent mobile hero height */
+    aspect-ratio: 2.5 / 1 !important; /* 2.5:1 ratio ensures entire graphic, text & lock are fully visible without cropping */
     background-color: #07080a !important;
     position: relative !important;
     border-radius: 20px !important;
@@ -7831,7 +7959,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
     inset: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover !important;
+    object-fit: contain !important;
     object-position: center !important;
     display: block !important;
     transform: none !important;
@@ -7853,7 +7981,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
   .hero-slider-section .hiq-dots-indicators {
     display: flex !important;
     position: absolute !important;
-    bottom: 12px !important;
+    bottom: 6px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     margin: 0 !important;
@@ -8223,39 +8351,43 @@ body[data-page="cart"] .btn-drawer-view-cart {
     cursor: pointer !important;
   }
 
-  /* 6. Customer Reels (Horizontal Scroll Row ~3 visible) */
+  /* 6. Customer Reels (Horizontal Scroll Row — 2 visible on mobile view, scrolling 2 at a time) */
   .hiq-reels-scroll-track {
     display: flex !important;
     overflow-x: auto !important;
     scroll-snap-type: x mandatory !important;
-    gap: 10px !important;
-    padding-bottom: 6px !important;
+    gap: 12px !important;
+    padding-bottom: 8px !important;
     scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
   }
   .hiq-reels-scroll-track::-webkit-scrollbar {
     display: none !important;
   }
   .hiq-reel-item {
-    flex: 0 0 115px !important;
-    min-width: 115px !important;
+    flex: 0 0 calc((100% - 12px) / 2) !important;
+    min-width: calc((100% - 12px) / 2) !important;
+    max-width: calc((100% - 12px) / 2) !important;
     scroll-snap-align: start !important;
   }
   .hiq-mockup-reel-card {
-    border-radius: 14px !important;
-    aspect-ratio: 9 / 15 !important;
+    border-radius: 16px !important;
+    aspect-ratio: 9 / 14 !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12) !important;
   }
   .hiq-reel-play-circle {
-    width: 36px !important;
-    height: 36px !important;
-    font-size: 1.05rem !important;
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 1.15rem !important;
   }
   .hiq-reel-footer-caption {
-    bottom: 8px !important;
-    left: 8px !important;
-    right: 8px !important;
+    bottom: 10px !important;
+    left: 10px !important;
+    right: 10px !important;
   }
   .hiq-reel-author {
-    font-size: 0.75rem !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
   }
 
   /* 7. What Our Customers Say (Single Testimonial Card with Quote Watermark) */

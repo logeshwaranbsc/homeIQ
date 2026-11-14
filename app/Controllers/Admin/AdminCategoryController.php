@@ -77,11 +77,33 @@ class AdminCategoryController
             }
         }
 
+        // Desktop hero banner upload
+        $bannerPath = null;
+        $bannerFile = $request->file('banner_image');
+        if ($bannerFile) {
+            $uploadBanner = FileUploader::upload($bannerFile, 'banners');
+            if ($uploadBanner['success']) {
+                $bannerPath = $uploadBanner['filename'];
+            }
+        }
+
+        // Mobile screen hero banner upload
+        $bannerMobilePath = null;
+        $bannerMobileFile = $request->file('banner_mobile_image');
+        if ($bannerMobileFile) {
+            $uploadBannerMobile = FileUploader::upload($bannerMobileFile, 'banners');
+            if ($uploadBannerMobile['success']) {
+                $bannerMobilePath = $uploadBannerMobile['filename'];
+            }
+        }
+
         $created = $this->categoryRepo->create([
             'name' => $name,
             'slug' => $slug,
             'description' => $description,
             'image' => $imagePath,
+            'banner_image' => $bannerPath,
+            'banner_mobile_image' => $bannerMobilePath,
             'display_order' => $displayOrder,
             'is_active' => $isActive,
         ]);
@@ -125,7 +147,12 @@ class AdminCategoryController
         $displayOrder = (int)$request->post('display_order', 0);
         $isActive = (bool)$request->post('is_active', true);
 
+        // Category thumbnail / icon
         $imagePath = $category['image'] ?? null;
+        if ($request->post('delete_image')) {
+            FileUploader::delete($category['image'] ?? null);
+            $imagePath = null;
+        }
         $imageFile = $request->file('image');
         if ($imageFile) {
             $upload = FileUploader::upload($imageFile, 'categories');
@@ -135,11 +162,43 @@ class AdminCategoryController
             }
         }
 
+        // Desktop category hero banner
+        $bannerPath = $category['banner_image'] ?? null;
+        if ($request->post('delete_banner_image')) {
+            FileUploader::delete($category['banner_image'] ?? null);
+            $bannerPath = null;
+        }
+        $bannerFile = $request->file('banner_image');
+        if ($bannerFile) {
+            $uploadBanner = FileUploader::upload($bannerFile, 'banners');
+            if ($uploadBanner['success']) {
+                FileUploader::delete($category['banner_image'] ?? null);
+                $bannerPath = $uploadBanner['filename'];
+            }
+        }
+
+        // Mobile screen category hero banner
+        $bannerMobilePath = $category['banner_mobile_image'] ?? null;
+        if ($request->post('delete_banner_mobile_image')) {
+            FileUploader::delete($category['banner_mobile_image'] ?? null);
+            $bannerMobilePath = null;
+        }
+        $bannerMobileFile = $request->file('banner_mobile_image');
+        if ($bannerMobileFile) {
+            $uploadBannerMobile = FileUploader::upload($bannerMobileFile, 'banners');
+            if ($uploadBannerMobile['success']) {
+                FileUploader::delete($category['banner_mobile_image'] ?? null);
+                $bannerMobilePath = $uploadBannerMobile['filename'];
+            }
+        }
+
         $this->categoryRepo->update($id, [
             'name' => $name,
             'slug' => $slug,
             'description' => $description,
             'image' => $imagePath,
+            'banner_image' => $bannerPath,
+            'banner_mobile_image' => $bannerMobilePath,
             'display_order' => $displayOrder,
             'is_active' => $isActive,
         ]);
@@ -170,6 +229,8 @@ class AdminCategoryController
         }
 
         FileUploader::delete($category['image'] ?? null);
+        FileUploader::delete($category['banner_image'] ?? null);
+        FileUploader::delete($category['banner_mobile_image'] ?? null);
         $this->categoryRepo->delete($id);
 
         $admin = auth_admin();
@@ -179,4 +240,3 @@ class AdminCategoryController
         redirect('admin/categories');
     }
 }
-

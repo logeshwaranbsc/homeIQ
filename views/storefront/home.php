@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function () {
         $displayReels = !empty($videoTestimonials) ? $videoTestimonials : [];
       ?>
 
-      <?php if (count($displayReels) > 5): ?>
+      <?php if (count($displayReels) > 2): ?>
         <button type="button" class="hiq-reel-nav-btn prev" id="reelsPrevBtn" aria-label="Previous reels">
           <i class="bi bi-chevron-left"></i>
         </button>
@@ -362,10 +362,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function getScrollStep() {
       var firstCard = track.querySelector('.hiq-reel-item');
       if (!firstCard) return 300;
-      var gap = 14;
-      var isMobile = window.innerWidth < 768;
-      var cardsToScroll = isMobile ? 1 : 2;
-      return (firstCard.offsetWidth + gap) * cardsToScroll;
+      var gap = 12;
+      return (firstCard.offsetWidth + gap) * 2; // Scroll 2 reels at a time
     }
 
     prevBtn.addEventListener('click', function () {

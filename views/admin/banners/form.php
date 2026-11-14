@@ -75,13 +75,13 @@ $action = $isEdit ? url('admin/banners/update/' . $banner['id']) : url('admin/ba
                     <label class="form-label fw-bold text-dark m-0 d-flex align-items-center gap-1">
                       <i class="bi bi-phone text-warning"></i> Mobile Screen Banner
                     </label>
-                    <span class="badge bg-warning-subtle text-warning-emphasis small">Mobile Card (16:9 / ~1.8:1)</span>
+                    <span class="badge bg-warning-subtle text-warning-emphasis small">1024×409 or 1920×768 px (2.5:1)</span>
                   </div>
-                  <p class="text-muted small mb-2">Compact horizontal card banner loaded on mobile viewports (&le; 768px).</p>
+                  <p class="text-muted small mb-2">Compact horizontal card banner loaded on mobile viewports (&le; 768px). Recommended: 1024×409 px or 1920×768 px (2.5:1 ratio).</p>
 
                   <?php if (!empty($banner['mobile_image'])): ?>
-                    <div class="mb-2 position-relative rounded-3 overflow-hidden border shadow-xs mx-auto" style="width: 220px; aspect-ratio: 16 / 9; background: #07080a;">
-                      <img src="<?= upload_url($banner['mobile_image']) ?>" alt="Current mobile banner preview" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="mb-2 position-relative rounded-3 overflow-hidden border shadow-xs mx-auto" style="width: 220px; aspect-ratio: 2.5 / 1; background: #07080a;">
+                      <img src="<?= upload_url($banner['mobile_image']) ?>" alt="Current mobile banner preview" style="width: 100%; height: 100%; object-fit: contain;">
                       <span class="badge bg-dark bg-opacity-75 text-white position-absolute bottom-0 start-50 translate-middle-x mb-1" style="font-size: 0.65rem;">Active Mobile Card</span>
                     </div>
                     <div class="form-check mb-2 text-center">
