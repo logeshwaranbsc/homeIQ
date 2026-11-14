@@ -124,7 +124,22 @@ use App\Core\View;
       <?php 
         $pastelClasses = ['pastel-peach', 'pastel-lavender', 'pastel-mint', 'pastel-sky'];
         $cornerIcons = ['bi-fingerprint', 'bi-grid-3x3-gap-fill', 'bi-fingerprint', 'bi-wifi'];
-        foreach ($categories as $cIdx => $cat): 
+        $categoryMockups = [
+          ['name' => 'Smart Locks', 'slug' => 'digital-smart-locks'],
+          ['name' => 'Digital Locks', 'slug' => 'digital-smart-locks'],
+          ['name' => 'Biometric Locks', 'slug' => 'digital-smart-locks'],
+          ['name' => 'Wi-Fi Locks', 'slug' => 'digital-smart-locks'],
+        ];
+        $displayCats = count($categories) >= 4 ? $categories : array_map(function($idx, $m) use ($categories) {
+          $baseCat = $categories[$idx % count($categories)];
+          return [
+            'name' => $m['name'],
+            'slug' => $baseCat['slug'] ?? 'digital-smart-locks',
+            'image' => $baseCat['image'] ?? '',
+          ];
+        }, array_keys($categoryMockups), $categoryMockups);
+
+        foreach ($displayCats as $cIdx => $cat): 
           $pastelClass = $pastelClasses[$cIdx % 4];
           $cornerIcon = $cornerIcons[$cIdx % 4];
       ?>
@@ -242,23 +257,7 @@ use App\Core\View;
       <!-- Floating Spotlight Content -->
       <div class="hiq-spotlight-content">
         <h2 class="hiq-spotlight-title">See HOMEIQ<br>in Action</h2>
-        <div class="mt-3 mt-md-4">
-          <button type="button" class="hiq-demo-btn" id="btnPlayProductDemo" data-bs-toggle="modal" data-bs-target="#productDemoModal">
-            <span class="hiq-demo-play-circle"><i class="bi bi-play-fill"></i></span>
-            <span class="hiq-demo-text">Product Demo - 10 sec</span>
-          </button>
-        </div>
       </div>
-
-      <!-- Centered Play Circle for Mobile Spotlight Card -->
-      <button type="button" class="hiq-spotlight-center-play d-md-none" data-bs-toggle="modal" data-bs-target="#productDemoModal" aria-label="Play Demo">
-        <i class="bi bi-play-fill"></i>
-      </button>
-
-      <!-- Floating Sound Toggle Button -->
-      <button type="button" class="hiq-spotlight-mute-btn" id="spotlightMuteBtn" aria-label="Toggle Sound" title="Toggle Sound">
-        <i class="bi bi-volume-mute-fill"></i>
-      </button>
     </div>
   </div>
 </section>
@@ -331,10 +330,21 @@ document.addEventListener('DOMContentLoaded', function () {
     <!-- Reels Track (5 Vertical 9:15 Cards) -->
     <div class="hiq-reels-track-wrap position-relative">
       <div class="hiq-reels-scroll-track" id="homeReelsTrack">
-        <?php foreach ($videoTestimonials as $vid): 
-          $vidSource = !empty($vid['video_path']) ? upload_url($vid['video_path']) : ($vid['video_url'] ?? '');
-          $thumbSource = !empty($vid['thumbnail_path']) ? upload_url($vid['thumbnail_path']) : '';
-          $name = $vid['customer_name'] ?? 'Homeowner';
+        <?php 
+          $displayReels = $videoTestimonials;
+          if (!empty($displayReels) && count($displayReels) < 5) {
+            $baseReels = $displayReels;
+            while (count($displayReels) < 5) {
+              foreach ($baseReels as $bReel) {
+                if (count($displayReels) >= 5) break;
+                $displayReels[] = $bReel;
+              }
+            }
+          }
+          foreach ($displayReels as $vid): 
+            $vidSource = !empty($vid['video_path']) ? upload_url($vid['video_path']) : ($vid['video_url'] ?? '');
+            $thumbSource = !empty($vid['thumbnail_path']) ? upload_url($vid['thumbnail_path']) : '';
+            $name = $vid['customer_name'] ?? 'Homeowner';
         ?>
           <div class="hiq-reel-item">
             <div class="hiq-mockup-reel-card" role="button" tabindex="0" title="Click to play">
@@ -380,68 +390,186 @@ document.addEventListener('DOMContentLoaded', function () {
 <?php endif; ?>
 
 <!-- ==========================================================================
-     SECTION 7: WHAT OUR CUSTOMERS SAY (TESTIMONIALS)
+     SECTION 7: WHAT OUR CUSTOMERS SAY (TESTIMONIALS SLIDER)
      ========================================================================== -->
 <section class="hiq-testimonials-section py-4 py-md-5">
   <div class="container">
-    <h2 class="hiq-section-heading mb-4 text-start">What Our Customers Say</h2>
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <h2 class="hiq-section-heading m-0 text-start">What Our Customers Say</h2>
+    </div>
 
-    <div class="row g-4">
-      <?php 
-        $displayReviews = !empty($recentReviews) ? array_slice($recentReviews, 0, 2) : [];
-        if (empty($displayReviews)) {
-          $displayReviews = [
-            [
-              'reviewer_name' => 'Aditya Sharma',
-              'comment' => 'Excellent quality and easy installation. A great addition to our home.',
-              'rating' => 5,
-            ],
-            [
-              'reviewer_name' => 'Pooja Hegde',
-              'comment' => 'Secure, stylish and very easy to use. Highly recommended!',
-              'rating' => 5,
-            ]
-          ];
+    <?php 
+      $allReviews = !empty($recentReviews) ? $recentReviews : [];
+      if (count($allReviews) < 4) {
+        $existingNames = array_map(fn($r) => strtolower($r['reviewer_name'] ?? ''), $allReviews);
+        $defaultMockReviews = [
+          [
+            'reviewer_name' => 'Vikramaditya S.',
+            'comment' => 'The face recognition works even in low hallway lighting. Hands-free entry when carrying groceries is a game changer. The technician arrived on time for installation.',
+            'rating' => 5,
+            'verified_purchase' => true,
+          ],
+          [
+            'reviewer_name' => 'Dr. Meera Nambiar',
+            'comment' => 'Installed on our main teak wood villa door. The mortise is heavy duty stainless steel. The app sends instant alerts if someone rings the doorbell.',
+            'rating' => 5,
+            'verified_purchase' => true,
+          ],
+          [
+            'reviewer_name' => 'Arun Kumar',
+            'comment' => 'Immediate unlock as you grip the handle. Battery life has been excellent after 4 months of daily use.',
+            'rating' => 5,
+            'verified_purchase' => true,
+          ],
+          [
+            'reviewer_name' => 'Ananya Sharma',
+            'comment' => 'Excellent biometric precision. Both fingerprint and PIN responses are instantaneous. Highly recommended for modern apartments.',
+            'rating' => 5,
+            'verified_purchase' => true,
+          ]
+        ];
+        foreach ($defaultMockReviews as $dmRev) {
+          if (count($allReviews) >= 4) break;
+          if (!in_array(strtolower($dmRev['reviewer_name']), $existingNames, true)) {
+            $allReviews[] = $dmRev;
+          }
         }
-        foreach ($displayReviews as $rIdx => $rev):
-      ?>
-        <div class="col-md-6 <?= $rIdx > 0 ? 'd-none d-md-block' : '' ?>">
-          <div class="hiq-testi-card position-relative">
-            <span class="hiq-testi-quote-mark" aria-hidden="true">&rdquo;</span>
-            <div class="d-flex align-items-start gap-3">
-              <div class="hiq-testi-avatar">
-                <?php if (!empty($rev['avatar'])): ?>
-                  <img src="<?= upload_url($rev['avatar']) ?>" alt="<?= e($rev['reviewer_name']) ?>">
-                <?php else: ?>
-                  <div class="hiq-testi-initials"><?= strtoupper(substr($rev['reviewer_name'] ?? 'U', 0, 1)) ?></div>
-                <?php endif; ?>
-              </div>
-              <div class="hiq-testi-content">
-                <div class="hiq-testi-stars">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
+      }
+    ?>
+
+    <!-- Movable Horizontal Track (Right to Left Slider) -->
+    <div class="hiq-testi-slider-wrap position-relative">
+      <div class="hiq-testi-track" id="homeTestimonialsTrack">
+        <?php foreach ($allReviews as $rIdx => $rev): ?>
+          <div class="hiq-testi-slide" data-index="<?= $rIdx ?>">
+            <div class="hiq-testi-card position-relative h-100">
+              <span class="hiq-testi-quote-mark" aria-hidden="true">&rdquo;</span>
+              <div class="d-flex align-items-start gap-3">
+                <div class="hiq-testi-avatar">
+                  <?php if (!empty($rev['avatar'])): ?>
+                    <img src="<?= upload_url($rev['avatar']) ?>" alt="<?= e($rev['reviewer_name']) ?>">
+                  <?php else: ?>
+                    <div class="hiq-testi-initials"><?= strtoupper(substr($rev['reviewer_name'] ?? 'U', 0, 1)) ?></div>
+                  <?php endif; ?>
                 </div>
-                <p class="hiq-testi-quote">"<?= e($rev['comment'] ?? 'Excellent quality and easy installation. A great addition to our home.') ?>"</p>
-                <div class="hiq-testi-verified">
-                  <i class="bi bi-check-circle-fill"></i> Verified Buyer
+                <div class="hiq-testi-content">
+                  <div class="hiq-testi-stars">
+                    <?php 
+                      $rRating = (int)($rev['rating'] ?? 5);
+                      for ($s = 1; $s <= 5; $s++): 
+                    ?>
+                      <i class="bi <?= $s <= $rRating ? 'bi-star-fill' : 'bi-star' ?>"></i>
+                    <?php endfor; ?>
+                  </div>
+                  <p class="hiq-testi-quote">"<?= e($rev['comment'] ?? 'Excellent quality and easy installation. A great addition to our home.') ?>"</p>
+                  <div class="hiq-testi-verified">
+                    <i class="bi bi-check-circle-fill"></i> Verified Buyer
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      <?php endforeach; ?>
+        <?php endforeach; ?>
+      </div>
     </div>
 
-    <!-- Carousel Dots -->
-    <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
-      <span class="hiq-testi-dot active"></span>
-      <span class="hiq-testi-dot"></span>
+    <!-- Carousel Dots (Movable Slide Indicators) -->
+    <div class="d-flex justify-content-center align-items-center gap-2 mt-4" id="testimonialsDots">
+      <span class="hiq-testi-dot active" role="button" aria-label="Slide 1"></span>
+      <span class="hiq-testi-dot" role="button" aria-label="Slide 2"></span>
     </div>
   </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var track = document.getElementById('homeTestimonialsTrack');
+  var dotsContainer = document.getElementById('testimonialsDots');
+  if (!track || !dotsContainer) return;
+
+  var slides = track.querySelectorAll('.hiq-testi-slide');
+  if (slides.length === 0) return;
+
+  function updateDots() {
+    dotsContainer.innerHTML = '';
+    var isMobile = window.innerWidth < 768;
+    var itemsPerSlide = isMobile ? 1 : 2;
+    var pageCount = Math.ceil(slides.length / itemsPerSlide);
+
+    if (pageCount <= 1) return;
+
+    for (var i = 0; i < pageCount; i++) {
+      (function(pageIdx) {
+        var dot = document.createElement('span');
+        dot.className = 'hiq-testi-dot' + (pageIdx === 0 ? ' active' : '');
+        dot.setAttribute('role', 'button');
+        dot.setAttribute('aria-label', 'Go to review slide ' + (pageIdx + 1));
+        dot.addEventListener('click', function () {
+          var targetIndex = pageIdx * itemsPerSlide;
+          if (slides[targetIndex]) {
+            track.scrollTo({
+              left: slides[targetIndex].offsetLeft - track.offsetLeft,
+              behavior: 'smooth'
+            });
+          }
+        });
+        dotsContainer.appendChild(dot);
+      })(i);
+    }
+  }
+
+  function onScroll() {
+    var isMobile = window.innerWidth < 768;
+    var itemsPerSlide = isMobile ? 1 : 2;
+    var scrollLeft = track.scrollLeft;
+    var slideWidth = (slides[0] ? slides[0].offsetWidth : 300) + 20;
+    var activePage = Math.round(scrollLeft / (slideWidth * itemsPerSlide));
+    
+    var dots = dotsContainer.querySelectorAll('.hiq-testi-dot');
+    dots.forEach(function (dot, idx) {
+      if (idx === activePage) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+
+  track.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', updateDots);
+  updateDots();
+
+  // Desktop Mouse Drag to move right-to-left
+  var isDown = false;
+  var startX;
+  var startScrollLeft;
+
+  track.addEventListener('mousedown', function (e) {
+    isDown = true;
+    track.classList.add('is-dragging');
+    startX = e.pageX - track.offsetLeft;
+    startScrollLeft = track.scrollLeft;
+  });
+
+  window.addEventListener('mouseup', function () {
+    isDown = false;
+    track.classList.remove('is-dragging');
+  });
+
+  track.addEventListener('mouseleave', function () {
+    isDown = false;
+    track.classList.remove('is-dragging');
+  });
+
+  track.addEventListener('mousemove', function (e) {
+    if (!isDown) return;
+    e.preventDefault();
+    var x = e.pageX - track.offsetLeft;
+    var walk = (x - startX) * 1.5;
+    track.scrollLeft = startScrollLeft - walk;
+  });
+});
+</script>
 
 <!-- ==========================================================================
      SECTION 8: WHY CHOOSE HOMEIQ?

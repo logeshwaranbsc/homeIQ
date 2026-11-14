@@ -6,9 +6,12 @@ declare(strict_types=1);
 
 <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
   <div>
-    <h4 class="fw-bold m-0">Customer Reviews Moderation (<?= count($reviews) ?>)</h4>
-    <small class="text-muted">Review, approve, or categorize ratings into Site Testimonials (Homepage) vs Product Reviews (Under Product Only).</small>
+    <h4 class="fw-bold m-0">Customer Reviews & Testimonials (<?= count($reviews) ?>)</h4>
+    <small class="text-muted">Create, edit, approve, or categorize ratings into Site Testimonials (Homepage Slider) vs Product Reviews (Under Product Only).</small>
   </div>
+  <a href="<?= url('admin/reviews/create') ?>" class="btn btn-primary btn-sm fw-bold shadow-sm">
+    <i class="bi bi-plus-lg me-1"></i> Add Review / Testimonial
+  </a>
 </div>
 
 <div class="admin-table-card shadow-sm">
@@ -17,18 +20,18 @@ declare(strict_types=1);
       <thead>
         <tr>
           <th>Review Placement</th>
-          <th>Product Name</th>
+          <th>Product / Context</th>
           <th>Reviewer</th>
           <th>Rating</th>
-          <th>Headline & Comment</th>
+          <th>Headline & Quote</th>
           <th>Verified</th>
           <th>Status</th>
-          <th style="width: 150px; text-align: right;">Actions</th>
+          <th style="width: 170px; text-align: right;">Actions</th>
         </tr>
       </thead>
       <tbody>
         <?php if (empty($reviews)): ?>
-          <tr><td colspan="8" class="text-center py-4 text-muted">No submitted reviews at this time.</td></tr>
+          <tr><td colspan="8" class="text-center py-4 text-muted">No submitted reviews at this time. Click "Add Review / Testimonial" above to add one.</td></tr>
         <?php else: ?>
           <?php foreach ($reviews as $rev): ?>
             <?php 
@@ -46,25 +49,38 @@ declare(strict_types=1);
                   </span>
                 <?php endif; ?>
               </td>
-              <td><strong><?= e($rev['product_name'] ?? 'Smart Lock') ?></strong></td>
+              <td><strong><?= e($rev['product_name'] ?? 'HOMEIQ Smart Locks') ?></strong></td>
               <td>
-                <strong><?= e($rev['reviewer_name']) ?></strong>
-                <div class="text-muted small"><?= date('d M Y', strtotime($rev['created_at'])) ?></div>
+                <div class="d-flex align-items-center gap-2">
+                  <?php if (!empty($rev['avatar'])): ?>
+                    <img src="<?= upload_url($rev['avatar']) ?>" alt="Avatar" class="rounded-circle border flex-shrink-0" style="width: 34px; height: 34px; object-fit: cover;">
+                  <?php else: ?>
+                    <div class="rounded-circle bg-warning-subtle text-warning-emphasis d-flex align-items-center justify-content-center fw-bold small flex-shrink-0 border" style="width: 34px; height: 34px;">
+                      <?= strtoupper(substr($rev['reviewer_name'] ?? 'U', 0, 1)) ?>
+                    </div>
+                  <?php endif; ?>
+                  <div>
+                    <strong class="d-block text-dark"><?= e($rev['reviewer_name']) ?></strong>
+                    <div class="text-muted small"><?= !empty($rev['created_at']) ? date('d M Y', strtotime($rev['created_at'])) : '' ?></div>
+                  </div>
+                </div>
               </td>
               <td>
                 <span class="text-warning">
                   <?= str_repeat('★', (int)($rev['rating'] ?? 5)) ?>
                 </span>
-                <span class="small fw-bold ms-1">(<?= $rev['rating'] ?>/5)</span>
+                <span class="small fw-bold ms-1">(<?= $rev['rating'] ?? 5 ?>/5)</span>
               </td>
-              <td style="max-width: 260px;">
-                <strong class="d-block text-dark"><?= e($rev['title'] ?? '') ?></strong>
+              <td style="max-width: 280px;">
+                <?php if (!empty($rev['title'])): ?>
+                  <strong class="d-block text-dark mb-1"><?= e($rev['title']) ?></strong>
+                <?php endif; ?>
                 <small class="text-muted">"<?= e($rev['comment'] ?? '') ?>"</small>
               </td>
               <td>
                 <?php if (!empty($rev['verified_purchase'])): ?>
                   <span class="badge bg-success-subtle text-success border border-success-subtle">
-                    <i class="bi bi-patch-check-fill me-1"></i>Verified
+                    <i class="bi bi-patch-check-fill me-1"></i>Verified Buyer
                   </span>
                 <?php else: ?>
                   <span class="text-muted small">Standard</span>
@@ -76,18 +92,26 @@ declare(strict_types=1);
                 </span>
               </td>
               <td class="text-end">
+                <!-- Edit Review -->
+                <a href="<?= url('admin/reviews/edit/' . $rev['id']) ?>" class="btn btn-sm btn-outline-primary py-0 px-2 me-1" title="Edit Review / Testimonial">
+                  <i class="bi bi-pencil"></i>
+                </a>
+
                 <!-- Toggle Site / Product Review Placement -->
-                <a href="<?= url('admin/reviews/toggle-site/' . $rev['id']) ?>" class="btn btn-sm btn-outline-primary py-0 px-2 me-1" title="<?= $isSite ? 'Change to Product-Only Review' : 'Promote to Site Testimonial (Homepage)' ?>">
+                <a href="<?= url('admin/reviews/toggle-site/' . $rev['id']) ?>" class="btn btn-sm btn-outline-secondary py-0 px-2 me-1" title="<?= $isSite ? 'Change to Product-Only Review' : 'Promote to Site Testimonial (Homepage)' ?>">
                   <i class="bi bi-arrow-left-right"></i>
                 </a>
 
+                <!-- Approve if pending -->
                 <?php if (empty($rev['is_approved'])): ?>
                   <a href="<?= url('admin/reviews/approve/' . $rev['id']) ?>" class="btn btn-sm btn-success py-0 px-2 me-1" title="Approve Review">
                     <i class="bi bi-check-lg"></i>
                   </a>
                 <?php endif; ?>
-                <a href="<?= url('admin/reviews/reject/' . $rev['id']) ?>" class="btn btn-sm btn-outline-danger py-0 px-2" title="Reject / Delete" data-confirm="Are you sure you want to reject this review?">
-                  <i class="bi bi-x-lg"></i>
+
+                <!-- Delete Review -->
+                <a href="<?= url('admin/reviews/delete/' . $rev['id']) ?>" class="btn btn-sm btn-outline-danger py-0 px-2" title="Delete Review" data-confirm="Are you sure you want to delete this review?">
+                  <i class="bi bi-trash"></i>
                 </a>
               </td>
             </tr>

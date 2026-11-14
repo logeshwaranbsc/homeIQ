@@ -5,7 +5,7 @@ namespace App\Repositories;
 
 class VideoTestimonialRepository extends JsonRepository
 {
-    public const MAX_ITEMS = 4;
+    public const MAX_ITEMS = 10;
 
     public function __construct()
     {
@@ -14,7 +14,7 @@ class VideoTestimonialRepository extends JsonRepository
 
     /**
      * Get all active video testimonials sorted by display_order
-     * Maximum 4 items
+     * Maximum 10 items
      * @return array
      */
     public function getActive(): array

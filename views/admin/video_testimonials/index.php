@@ -16,7 +16,7 @@ declare(strict_types=1);
         <?= $count ?> / <?= $maxVideos ?> Slots Used
       </span>
     </div>
-    <small class="text-muted">Upload up to 4 vertical video reels with thumbnail poster, name, and a single line description.</small>
+    <small class="text-muted">Upload up to <?= $maxVideos ?> vertical video reels with thumbnail poster, name, and a single line description.</small>
   </div>
 
   <div class="d-flex align-items-center gap-2">
@@ -25,8 +25,8 @@ declare(strict_types=1);
         <i class="bi bi-cloud-arrow-up-fill me-1"></i> Upload Video (<?= $remainingSlots ?> <?= $remainingSlots === 1 ? 'Slot' : 'Slots' ?> Left)
       </a>
     <?php else: ?>
-      <button class="btn btn-sm btn-secondary px-3 py-2 fw-semibold" disabled title="4 of 4 video limit reached">
-        <i class="bi bi-lock-fill me-1"></i> Limit Reached (4 / 4)
+      <button class="btn btn-sm btn-secondary px-3 py-2 fw-semibold" disabled title="<?= $maxVideos ?> of <?= $maxVideos ?> video limit reached">
+        <i class="bi bi-lock-fill me-1"></i> Limit Reached (<?= $maxVideos ?> / <?= $maxVideos ?>)
       </button>
     <?php endif; ?>
   </div>
@@ -37,15 +37,15 @@ declare(strict_types=1);
   <i class="bi <?= $count >= $maxVideos ? 'bi-exclamation-triangle-fill text-warning' : 'bi-info-circle-fill text-primary' ?> fs-4 mt-1"></i>
   <div class="small flex-grow-1">
     <strong class="d-block text-dark mb-1">
-      <?= $count >= $maxVideos ? 'Maximum 4 Videos Uploaded' : 'Storefront Video Reels Section' ?>
+      <?= $count >= $maxVideos ? 'Maximum ' . $maxVideos . ' Videos Uploaded' : 'Storefront Video Reels Section' ?>
     </strong>
     <?php if ($count >= $maxVideos): ?>
-      You have uploaded the maximum allowed <strong>4 video reels</strong>. To upload a different video, please edit or delete one of the existing records below.
+      You have uploaded the maximum allowed <strong><?= $maxVideos ?> video reels</strong>. To upload a different video, please edit or delete one of the existing records below.
     <?php else: ?>
       You can upload <strong><?= $remainingSlots ?> more <?= $remainingSlots === 1 ? 'video' : 'videos' ?></strong>. Active videos will be displayed in a vertical reel carousel on the homepage with navigation arrows.
     <?php endif; ?>
   </div>
-  <span class="badge bg-white text-dark border px-2 py-1 align-self-center">Limit: Max 4 Videos</span>
+  <span class="badge bg-white text-dark border px-2 py-1 align-self-center">Limit: Max <?= $maxVideos ?> Videos</span>
 </div>
 
 <div class="admin-table-card shadow-sm bg-white rounded-3 border">
@@ -61,7 +61,7 @@ declare(strict_types=1);
         Upload vertical customer videos with name and single line description like Instagram reels / shorts.
       </p>
       <a href="<?= url('admin/video-testimonials/create') ?>" class="btn btn-dark px-4 py-2 fw-bold">
-        <i class="bi bi-cloud-arrow-up-fill me-1"></i> Upload Your First Video (1 of 4)
+        <i class="bi bi-cloud-arrow-up-fill me-1"></i> Upload Your First Video (1 of <?= $maxVideos ?>)
       </a>
     </div>
   <?php else: ?>

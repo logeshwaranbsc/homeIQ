@@ -20,7 +20,7 @@ $isAbout = str_starts_with($currentPath, '/about');
 $isContact = str_starts_with($currentPath, '/contact');
 ?>
 <nav class="navbar navbar-expand-lg navbar-hiq">
-  <div class="container-fluid px-2 px-sm-3 px-xl-5 position-relative" style="max-width: 1540px;">
+  <div class="container position-relative">
     <!-- Mobile Hamburger Toggler (Left on Mobile) -->
     <button class="navbar-toggler d-lg-none border-0 p-0 text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
       <i class="bi bi-list fs-2"></i>

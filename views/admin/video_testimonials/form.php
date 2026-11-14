@@ -16,7 +16,7 @@ $currentDesc = $testimonial['description'] ?? ($testimonial['review_text'] ?? ($
   <div>
     <h4 class="fw-bold m-0"><?= $isEdit ? 'Edit Video Reel' : 'Upload Video Reel' ?></h4>
     <small class="text-muted">
-      <?= $isEdit ? 'Update video media, thumbnail poster, name, and single line description.' : 'Upload video and thumbnail. Maximum 4 videos allowed.' ?>
+      <?= $isEdit ? 'Update video media, thumbnail poster, name, and single line description.' : 'Upload video and thumbnail. Maximum ' . $maxVideos . ' videos allowed.' ?>
     </small>
   </div>
   <a href="<?= url('admin/video-testimonials') ?>" class="btn btn-sm btn-outline-secondary">
@@ -118,12 +118,13 @@ $currentDesc = $testimonial['description'] ?? ($testimonial['review_text'] ?? ($
 
           <div class="row g-3">
             <div class="col-md-6">
-              <label class="form-label fw-bold">Display Order (1 to 4)</label>
+              <label class="form-label fw-bold">Display Order (1 to <?= $maxVideos ?>)</label>
               <select name="display_order" class="form-select">
-                <option value="1" <?= ((int)($testimonial['display_order'] ?? 1) === 1) ? 'selected' : '' ?>>1 (First Reel)</option>
-                <option value="2" <?= ((int)($testimonial['display_order'] ?? 1) === 2) ? 'selected' : '' ?>>2 (Second Reel)</option>
-                <option value="3" <?= ((int)($testimonial['display_order'] ?? 1) === 3) ? 'selected' : '' ?>>3 (Third Reel)</option>
-                <option value="4" <?= ((int)($testimonial['display_order'] ?? 1) === 4) ? 'selected' : '' ?>>4 (Fourth Reel)</option>
+                <?php for ($i = 1; $i <= $maxVideos; $i++): ?>
+                  <option value="<?= $i ?>" <?= ((int)($testimonial['display_order'] ?? 1) === $i) ? 'selected' : '' ?>>
+                    <?= $i ?><?= $i === 1 ? ' (First Reel)' : '' ?>
+                  </option>
+                <?php endfor; ?>
               </select>
             </div>
 

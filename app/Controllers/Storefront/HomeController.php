@@ -40,7 +40,7 @@ class HomeController
         $settings = $this->settingsRepo->all();
 
         // Get only verified site/platform reviews for homepage display (product reviews show exclusively under products)
-        $recentReviews = array_slice($this->reviewRepo->getSiteReviews(true), 0, 6);
+        $recentReviews = array_slice($this->reviewRepo->getSiteReviews(true), 0, 12);
 
         // Get active customer video testimonials (up to 4)
         $videoTestimonials = $this->videoTestimonialRepo->getActive();

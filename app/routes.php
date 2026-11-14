@@ -186,11 +186,16 @@ $router->get('/admin/coupons/delete/{id}', [AdminCouponController::class, 'delet
 
 // Admin Reviews
 $router->get('/admin/reviews', [AdminReviewController::class, 'index'], [AdminAuthMiddleware::class]);
+$router->get('/admin/reviews/create', [AdminReviewController::class, 'create'], [AdminAuthMiddleware::class]);
+$router->post('/admin/reviews/store', [AdminReviewController::class, 'store'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+$router->get('/admin/reviews/edit/{id}', [AdminReviewController::class, 'edit'], [AdminAuthMiddleware::class]);
+$router->post('/admin/reviews/update/{id}', [AdminReviewController::class, 'update'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+$router->get('/admin/reviews/delete/{id}', [AdminReviewController::class, 'delete'], [AdminAuthMiddleware::class]);
 $router->get('/admin/reviews/approve/{id}', [AdminReviewController::class, 'approve'], [AdminAuthMiddleware::class]);
 $router->get('/admin/reviews/reject/{id}', [AdminReviewController::class, 'reject'], [AdminAuthMiddleware::class]);
 $router->get('/admin/reviews/toggle-site/{id}', [AdminReviewController::class, 'toggleSiteReview'], [AdminAuthMiddleware::class]);
 
-// Admin Video Testimonials (Max 4 Videos)
+// Admin Video Testimonials (Max 10 Videos)
 $router->get('/admin/video-testimonials', [AdminVideoTestimonialController::class, 'index'], [AdminAuthMiddleware::class]);
 $router->get('/admin/video-testimonials/create', [AdminVideoTestimonialController::class, 'create'], [AdminAuthMiddleware::class]);
 $router->post('/admin/video-testimonials/store', [AdminVideoTestimonialController::class, 'store'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
