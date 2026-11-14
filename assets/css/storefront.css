@@ -7916,7 +7916,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
   .hero-slider-section {
     background-color: transparent !important;
     border-bottom: none !important;
-    padding: 10px 14px 12px !important;
+    padding: 10px 8px 12px !important;
   }
   .hero-slider-section #homeHeroCarousel {
     position: relative !important;
@@ -7934,7 +7934,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
   .carousel-item-hero {
     min-height: 0 !important;
-    height: calc((100vw - 28px) / 2.5 + 40px) !important;
+    height: calc((100vw - 16px) / 2.5 + 40px) !important;
     max-height: 280px !important;
     background-color: #07080a !important;
     position: relative !important;
