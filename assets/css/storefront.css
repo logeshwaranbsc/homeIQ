@@ -8171,10 +8171,10 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
 
   .carousel-item-hero {
-    min-height: 0 !important;
+    min-height: 185px !important;
     height: auto !important;
-    aspect-ratio: 16 / 5 !important;
-    max-height: none !important;
+    aspect-ratio: 2 / 1 !important;
+    max-height: 260px !important;
     background-color: #07080a !important;
     position: relative !important;
     border-radius: 16px !important;
@@ -8183,7 +8183,9 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
 
   .carousel-item-hero.has-mobile-banner {
-    aspect-ratio: 2.5 / 1 !important;
+    aspect-ratio: 1.6 / 1 !important;
+    min-height: 210px !important;
+    max-height: 300px !important;
   }
 
   .hero-bg-wrapper,
