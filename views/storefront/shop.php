@@ -10,9 +10,6 @@ use App\Core\View;
  * @var int $totalPages
  * @var array $categories
  * @var array $criteria
- * @var array $availableMethods
- * @var array $availableConnectivity
- * @var array $availableColors
  */
 
 $breadcrumbs = [
@@ -21,40 +18,11 @@ $breadcrumbs = [
 
 // Active filter count calculation
 $activeFilterCount = 0;
-if (!empty($criteria['category'])) $activeFilterCount++;
 if (!empty($criteria['access_method'])) $activeFilterCount++;
-if (!empty($criteria['connectivity'])) $activeFilterCount++;
-if (!empty($criteria['color'])) $activeFilterCount++;
 if (!empty($criteria['in_stock'])) $activeFilterCount++;
 if (!empty($criteria['min_price']) || !empty($criteria['max_price'])) $activeFilterCount++;
-if (!empty($criteria['min_rating'])) $activeFilterCount++;
 if (!empty($criteria['sort']) && $criteria['sort'] !== 'newest') $activeFilterCount++;
 $hasActiveFilters = $activeFilterCount > 0 || !empty($criteria['q']);
-
-// Helper to get access method icon
-$getMethodIcon = function (string $method): string {
-    $lower = strtolower($method);
-    if (str_contains($lower, 'fingerprint')) return 'bi-fingerprint';
-    if (str_contains($lower, 'face')) return 'bi-person-bounding-box';
-    if (str_contains($lower, 'palm') || str_contains($lower, 'vein')) return 'bi-hand-index-thumb';
-    if (str_contains($lower, 'pin') || str_contains($lower, 'keypad') || str_contains($lower, 'passcode')) return 'bi-grid-3x3-gap-fill';
-    if (str_contains($lower, 'app') || str_contains($lower, 'remote') || str_contains($lower, 'mobile')) return 'bi-phone';
-    if (str_contains($lower, 'card') || str_contains($lower, 'rfid') || str_contains($lower, 'nfc')) return 'bi-credit-card-2-front';
-    if (str_contains($lower, 'key') || str_contains($lower, 'mechanical')) return 'bi-key';
-    return 'bi-shield-check';
-};
-
-// Helper to get color swatch hex
-$getColorHex = function (string $color): string {
-    $lower = strtolower($color);
-    if (str_contains($lower, 'space grey') || str_contains($lower, 'space gray')) return '#4a4d52';
-    if (str_contains($lower, 'titanium')) return '#6e7075';
-    if (str_contains($lower, 'black') || str_contains($lower, 'matte black')) return '#1a1a1a';
-    if (str_contains($lower, 'silver') || str_contains($lower, 'chrome')) return '#d1d5db';
-    if (str_contains($lower, 'gold') || str_contains($lower, 'champagne')) return '#d4af37';
-    if (str_contains($lower, 'bronze') || str_contains($lower, 'copper')) return '#8c6239';
-    return '#333333';
-};
 ?>
 
 <div class="container py-3 py-md-4">
@@ -72,7 +40,6 @@ $getColorHex = function (string $color): string {
         <option value="<?= url('shop?' . http_build_query(array_merge($criteria, ['sort' => 'newest', 'page' => 1]))) ?>" <?= ($criteria['sort'] ?? '') === 'newest' ? 'selected' : '' ?>>Newest Arrivals</option>
         <option value="<?= url('shop?' . http_build_query(array_merge($criteria, ['sort' => 'price_asc', 'page' => 1]))) ?>" <?= ($criteria['sort'] ?? '') === 'price_asc' ? 'selected' : '' ?>>Price: Low to High</option>
         <option value="<?= url('shop?' . http_build_query(array_merge($criteria, ['sort' => 'price_desc', 'page' => 1]))) ?>" <?= ($criteria['sort'] ?? '') === 'price_desc' ? 'selected' : '' ?>>Price: High to Low</option>
-        <option value="<?= url('shop?' . http_build_query(array_merge($criteria, ['sort' => 'rating', 'page' => 1]))) ?>" <?= ($criteria['sort'] ?? '') === 'rating' ? 'selected' : '' ?>>Customer Rating</option>
       </select>
     </div>
   </div>
@@ -100,7 +67,7 @@ $getColorHex = function (string $color): string {
         <div class="offcanvas-header border-bottom d-lg-none px-3 py-3">
           <div class="d-flex align-items-center gap-2">
             <i class="bi bi-sliders2-vertical text-primary fs-5"></i>
-            <h5 class="offcanvas-title fw-bold m-0" id="shopFilterOffcanvasLabel">Filter Products</h5>
+            <h5 class="offcanvas-title fw-bold m-0" id="shopFilterOffcanvasLabel">Filter & Sort</h5>
             <?php if ($activeFilterCount > 0): ?>
               <span class="badge bg-primary rounded-pill small"><?= $activeFilterCount ?> active</span>
             <?php endif; ?>
@@ -124,15 +91,14 @@ $getColorHex = function (string $color): string {
             </div>
 
             <form id="shopFilterForm" action="<?= url('shop') ?>" method="GET">
-              <!-- Search query & sort persistence -->
+              <!-- Search query persistence -->
               <?php if (!empty($criteria['q'])): ?>
                 <input type="hidden" name="q" value="<?= e($criteria['q']) ?>">
               <?php endif; ?>
-              <!-- Sort / New Arrivals Filter -->
-              <div class="mb-4">
-                <label class="form-label fw-bold small text-uppercase letter-spacing-1 d-flex justify-content-between align-items-center">
-                  <span>Sort By</span>
-                </label>
+
+              <!-- 1. Sort By -->
+              <div class="mb-3 pb-3 border-bottom">
+                <label class="form-label fw-bold small text-uppercase letter-spacing-1 mb-2">Sort By</label>
                 <div class="d-flex flex-wrap gap-2">
                   <label class="shop-filter-chip <?= ($criteria['sort'] ?? 'newest') === 'newest' ? 'active' : '' ?>">
                     <input type="radio" name="sort" value="newest" <?= ($criteria['sort'] ?? 'newest') === 'newest' ? 'checked' : '' ?> onclick="selectSortChip(this)">
@@ -149,167 +115,78 @@ $getColorHex = function (string $color): string {
                     <i class="bi bi-sort-numeric-up-alt me-1"></i>
                     <span>Price: High to Low</span>
                   </label>
-                  <label class="shop-filter-chip <?= ($criteria['sort'] ?? '') === 'rating' ? 'active' : '' ?>">
-                    <input type="radio" name="sort" value="rating" <?= ($criteria['sort'] ?? '') === 'rating' ? 'checked' : '' ?> onclick="selectSortChip(this)">
-                    <i class="bi bi-star-fill text-warning me-1"></i>
-                    <span>Customer Rating</span>
-                  </label>
                 </div>
               </div>
 
-              <!-- Category Filter Chips -->
-              <div class="mb-4">
-                <label class="form-label fw-bold small text-uppercase letter-spacing-1 d-flex justify-content-between align-items-center">
-                  <span>Category</span>
-                  <?php if (!empty($criteria['category'])): ?>
-                    <span class="text-muted font-monospace small" style="font-size: 0.72rem;">1 selected</span>
-                  <?php endif; ?>
-                </label>
-                <div class="d-flex flex-wrap gap-2">
-                  <label class="shop-filter-chip">
-                    <input type="radio" name="category" value="" <?= empty($criteria['category']) ? 'checked' : '' ?> onchange="this.form.submit()">
-                    <span>All</span>
-                  </label>
-                  <?php foreach ($categories as $cat): ?>
-                    <label class="shop-filter-chip">
-                      <input type="radio" name="category" value="<?= e($cat['slug']) ?>" <?= ($criteria['category'] ?? '') === $cat['slug'] ? 'checked' : '' ?> onchange="this.form.submit()">
-                      <span><?= e($cat['name']) ?></span>
-                    </label>
-                  <?php endforeach; ?>
-                </div>
-              </div>
-
-              <!-- Access Method Filter Chips -->
-              <?php if (!empty($availableMethods)): ?>
-              <div class="mb-4">
-                <label class="form-label fw-bold small text-uppercase letter-spacing-1 d-flex justify-content-between align-items-center">
-                  <span>Access Method</span>
+              <!-- 2. Unlock Method -->
+              <div class="mb-3 pb-3 border-bottom">
+                <label class="form-label fw-bold small text-uppercase letter-spacing-1 d-flex justify-content-between align-items-center mb-2">
+                  <span>Unlock Method</span>
                   <?php if (!empty($criteria['access_method'])): ?>
                     <a href="javascript:void(0)" class="text-muted small text-decoration-none" onclick="clearRadio('access_method')">Clear</a>
                   <?php endif; ?>
                 </label>
                 <div class="d-flex flex-wrap gap-2">
-                  <?php foreach ($availableMethods as $method): 
-                    $isSelected = ($criteria['access_method'] ?? '') === $method;
-                    $icon = $getMethodIcon($method);
+                  <?php 
+                    $unlockMethods = [
+                      ['val' => 'Fingerprint', 'label' => 'Fingerprint', 'icon' => 'bi-fingerprint'],
+                      ['val' => 'Face Recognition', 'label' => 'Face Unlock', 'icon' => 'bi-person-bounding-box'],
+                      ['val' => 'Palm Vein', 'label' => 'Palm Vein', 'icon' => 'bi-hand-index-thumb'],
+                      ['val' => 'Mobile App', 'label' => 'Mobile App', 'icon' => 'bi-phone'],
+                    ];
+                    foreach ($unlockMethods as $um): 
+                      $isSelected = ($criteria['access_method'] ?? '') === $um['val'];
                   ?>
                     <label class="shop-filter-chip <?= $isSelected ? 'active' : '' ?>">
-                      <input type="radio" name="access_method" value="<?= e($method) ?>" <?= $isSelected ? 'checked' : '' ?> onclick="toggleRadioChip(this)">
-                      <i class="bi <?= $icon ?> me-1"></i>
-                      <span><?= e($method) ?></span>
+                      <input type="radio" name="access_method" value="<?= e($um['val']) ?>" <?= $isSelected ? 'checked' : '' ?> onclick="toggleRadioChip(this)">
+                      <i class="bi <?= $um['icon'] ?> me-1"></i>
+                      <span><?= e($um['label']) ?></span>
                     </label>
                   <?php endforeach; ?>
                 </div>
               </div>
-              <?php endif; ?>
 
-              <!-- Budget & Price Range Filter -->
-              <div class="mb-4">
-                <label class="form-label fw-bold small text-uppercase letter-spacing-1 d-flex justify-content-between align-items-center">
-                  <span>Price Range (₹)</span>
+              <!-- 3. Budget (1-Tap Price Brackets) -->
+              <div class="mb-3 pb-3 border-bottom">
+                <label class="form-label fw-bold small text-uppercase letter-spacing-1 d-flex justify-content-between align-items-center mb-2">
+                  <span>Budget</span>
                   <?php if (!empty($criteria['min_price']) || !empty($criteria['max_price'])): ?>
-                    <a href="javascript:void(0)" class="text-muted small text-decoration-none" onclick="clearPrice()">Clear</a>
+                    <a href="javascript:void(0)" class="text-muted small text-decoration-none" onclick="clearBudget()">Clear</a>
                   <?php endif; ?>
                 </label>
-
-                <!-- Quick Budget Chips -->
-                <div class="d-flex flex-wrap gap-2 mb-3">
-                  <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill py-1 px-2.5 small budget-quick-btn" onclick="setBudget('', 15000, this)">Under ₹15K</button>
-                  <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill py-1 px-2.5 small budget-quick-btn" onclick="setBudget(15000, 20000, this)">₹15K - ₹20K</button>
-                  <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill py-1 px-2.5 small budget-quick-btn" onclick="setBudget(20000, 25000, this)">₹20K - ₹25K</button>
-                  <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill py-1 px-2.5 small budget-quick-btn" onclick="setBudget(25000, '', this)">₹25K+</button>
-                </div>
-
-                <!-- Custom Min & Max Inputs -->
-                <div class="row g-2 align-items-center">
-                  <div class="col-5">
-                    <div class="input-group input-group-sm">
-                      <span class="input-group-text bg-light text-muted">₹</span>
-                      <input type="number" id="minPriceInput" name="min_price" class="form-control" placeholder="Min" value="<?= e($criteria['min_price'] ?? '') ?>">
-                    </div>
-                  </div>
-                  <div class="col-2 text-center text-muted small">to</div>
-                  <div class="col-5">
-                    <div class="input-group input-group-sm">
-                      <span class="input-group-text bg-light text-muted">₹</span>
-                      <input type="number" id="maxPriceInput" name="max_price" class="form-control" placeholder="Max" value="<?= e($criteria['max_price'] ?? '') ?>">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Connectivity Filter Chips -->
-              <?php if (!empty($availableConnectivity)): ?>
-              <div class="mb-4">
-                <label class="form-label fw-bold small text-uppercase letter-spacing-1 d-flex justify-content-between align-items-center">
-                  <span>Connectivity</span>
-                  <?php if (!empty($criteria['connectivity'])): ?>
-                    <a href="javascript:void(0)" class="text-muted small text-decoration-none" onclick="clearRadio('connectivity')">Clear</a>
-                  <?php endif; ?>
-                </label>
+                <input type="hidden" name="min_price" id="filterMinPrice" value="<?= e($criteria['min_price'] ?? '') ?>">
+                <input type="hidden" name="max_price" id="filterMaxPrice" value="<?= e($criteria['max_price'] ?? '') ?>">
+                
                 <div class="d-flex flex-wrap gap-2">
-                  <?php foreach ($availableConnectivity as $conn): 
-                    $isSelected = ($criteria['connectivity'] ?? '') === $conn;
-                    $cIcon = 'bi-broadcast';
-                    if (stripos($conn, 'wi-fi') !== false || stripos($conn, 'wifi') !== false) $cIcon = 'bi-wifi';
-                    elseif (stripos($conn, 'bluetooth') !== false) $cIcon = 'bi-bluetooth';
-                    elseif (stripos($conn, 'tuya') !== false) $cIcon = 'bi-house-gear';
+                  <?php 
+                    $isUnder15k = empty($criteria['min_price']) && ($criteria['max_price'] ?? '') === '15000';
+                    $is15kTo20k = ($criteria['min_price'] ?? '') === '15000' && ($criteria['max_price'] ?? '') === '20000';
+                    $isAbove20k = ($criteria['min_price'] ?? '') === '20000' && empty($criteria['max_price']);
                   ?>
-                    <label class="shop-filter-chip <?= $isSelected ? 'active' : '' ?>">
-                      <input type="radio" name="connectivity" value="<?= e($conn) ?>" <?= $isSelected ? 'checked' : '' ?> onclick="toggleRadioChip(this)">
-                      <i class="bi <?= $cIcon ?> me-1"></i>
-                      <span><?= e($conn) ?></span>
-                    </label>
-                  <?php endforeach; ?>
-                </div>
-              </div>
-              <?php endif; ?>
-
-              <!-- Color / Hardware Finish Swatch Chips -->
-              <?php if (!empty($availableColors)): ?>
-              <div class="mb-4">
-                <label class="form-label fw-bold small text-uppercase letter-spacing-1 d-flex justify-content-between align-items-center">
-                  <span>Hardware Finish</span>
-                  <?php if (!empty($criteria['color'])): ?>
-                    <a href="javascript:void(0)" class="text-muted small text-decoration-none" onclick="clearRadio('color')">Clear</a>
-                  <?php endif; ?>
-                </label>
-                <div class="d-flex flex-wrap gap-2">
-                  <?php foreach ($availableColors as $col): 
-                    $isSelected = ($criteria['color'] ?? '') === $col;
-                    $hex = $getColorHex($col);
-                  ?>
-                    <label class="shop-filter-chip <?= $isSelected ? 'active' : '' ?>">
-                      <input type="radio" name="color" value="<?= e($col) ?>" <?= $isSelected ? 'checked' : '' ?> onclick="toggleRadioChip(this)">
-                      <span class="color-swatch-dot" style="background-color: <?= $hex ?>;"></span>
-                      <span><?= e($col) ?></span>
-                    </label>
-                  <?php endforeach; ?>
-                </div>
-              </div>
-              <?php endif; ?>
-
-              <!-- Customer Rating Filter -->
-              <div class="mb-4">
-                <label class="form-label fw-bold small text-uppercase letter-spacing-1">Customer Rating</label>
-                <div class="d-flex flex-wrap gap-2">
-                  <label class="shop-filter-chip <?= ($criteria['min_rating'] ?? '') === '4' ? 'active' : '' ?>">
-                    <input type="radio" name="min_rating" value="4" <?= ($criteria['min_rating'] ?? '') === '4' ? 'checked' : '' ?> onclick="toggleRadioChip(this)">
-                    <i class="bi bi-star-fill text-warning me-1"></i>
-                    <span>4.0★ & above</span>
+                  <label class="shop-filter-chip <?= $isUnder15k ? 'active' : '' ?>">
+                    <input type="radio" name="budget_range" value="under_15k" <?= $isUnder15k ? 'checked' : '' ?> onclick="toggleBudgetChip(this, '', '15000')">
+                    <span>Under ₹15,000</span>
+                  </label>
+                  <label class="shop-filter-chip <?= $is15kTo20k ? 'active' : '' ?>">
+                    <input type="radio" name="budget_range" value="15k_20k" <?= $is15kTo20k ? 'checked' : '' ?> onclick="toggleBudgetChip(this, '15000', '20000')">
+                    <span>₹15,000 - ₹20,000</span>
+                  </label>
+                  <label class="shop-filter-chip <?= $isAbove20k ? 'active' : '' ?>">
+                    <input type="radio" name="budget_range" value="above_20k" <?= $isAbove20k ? 'checked' : '' ?> onclick="toggleBudgetChip(this, '20000', '')">
+                    <span>Above ₹20,000</span>
                   </label>
                 </div>
               </div>
 
-              <!-- Availability / In-Stock Only -->
-              <div class="form-check form-switch mb-4 p-2 bg-light rounded-3 d-flex align-items-center justify-content-between">
+              <!-- 4. Availability / In-Stock Only -->
+              <div class="form-check form-switch mb-3 p-2 bg-light rounded-3 d-flex align-items-center justify-content-between">
                 <label class="form-check-label small fw-semibold cursor-pointer m-0 ps-1" for="inStockOnly">
                   <i class="bi bi-check-circle-fill text-success me-1"></i> In-Stock Only
                 </label>
                 <input class="form-check-input m-0 cursor-pointer" type="checkbox" name="in_stock" value="1" id="inStockOnly" <?= !empty($criteria['in_stock']) ? 'checked' : '' ?>>
               </div>
 
-              <!-- Actions -->
+              <!-- Action Buttons -->
               <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-dark btn-sm py-2 fw-semibold d-flex align-items-center justify-content-center gap-2">
                   <i class="bi bi-check2-circle"></i> Apply Filters
@@ -333,58 +210,42 @@ $getColorHex = function (string $color): string {
         <div class="d-flex flex-wrap align-items-center gap-2 mb-3 p-2 bg-light rounded-3">
           <span class="small text-muted fw-semibold me-1"><i class="bi bi-funnel me-1"></i>Active:</span>
 
-          <?php if (!empty($criteria['category'])): ?>
-            <a href="<?= url('shop?' . http_build_query(array_merge($criteria, ['category' => null, 'page' => 1]))) ?>" class="active-filter-badge">
-              Category: <?= e($criteria['category']) ?> <i class="bi bi-x-circle-fill"></i>
+          <?php if (!empty($criteria['sort']) && $criteria['sort'] !== 'newest'): 
+            $sortLabel = match ($criteria['sort']) {
+                'price_asc' => 'Price: Low to High',
+                'price_desc' => 'Price: High to Low',
+                default => 'Newest',
+            };
+          ?>
+            <a href="<?= url('shop?' . http_build_query(array_merge($criteria, ['sort' => 'newest', 'page' => 1]))) ?>" class="active-filter-badge">
+              Sort: <?= e($sortLabel) ?> <i class="bi bi-x-circle-fill"></i>
             </a>
           <?php endif; ?>
 
           <?php if (!empty($criteria['access_method'])): ?>
             <a href="<?= url('shop?' . http_build_query(array_merge($criteria, ['access_method' => null, 'page' => 1]))) ?>" class="active-filter-badge">
-              Method: <?= e($criteria['access_method']) ?> <i class="bi bi-x-circle-fill"></i>
+              Unlock: <?= e($criteria['access_method']) ?> <i class="bi bi-x-circle-fill"></i>
             </a>
           <?php endif; ?>
 
-          <?php if (!empty($criteria['connectivity'])): ?>
-            <a href="<?= url('shop?' . http_build_query(array_merge($criteria, ['connectivity' => null, 'page' => 1]))) ?>" class="active-filter-badge">
-              Connectivity: <?= e($criteria['connectivity']) ?> <i class="bi bi-x-circle-fill"></i>
-            </a>
-          <?php endif; ?>
-
-          <?php if (!empty($criteria['color'])): ?>
-            <a href="<?= url('shop?' . http_build_query(array_merge($criteria, ['color' => null, 'page' => 1]))) ?>" class="active-filter-badge">
-              Color: <?= e($criteria['color']) ?> <i class="bi bi-x-circle-fill"></i>
-            </a>
-          <?php endif; ?>
-
-          <?php if (!empty($criteria['min_price']) || !empty($criteria['max_price'])): ?>
+          <?php if (!empty($criteria['min_price']) || !empty($criteria['max_price'])): 
+            $priceLabel = '';
+            if (!empty($criteria['min_price']) && !empty($criteria['max_price'])) {
+                $priceLabel = '₹' . number_format((float)$criteria['min_price']) . ' - ₹' . number_format((float)$criteria['max_price']);
+            } elseif (!empty($criteria['max_price'])) {
+                $priceLabel = 'Under ₹' . number_format((float)$criteria['max_price']);
+            } else {
+                $priceLabel = 'Above ₹' . number_format((float)$criteria['min_price']);
+            }
+          ?>
             <a href="<?= url('shop?' . http_build_query(array_merge($criteria, ['min_price' => null, 'max_price' => null, 'page' => 1]))) ?>" class="active-filter-badge">
-              Price: ₹<?= e($criteria['min_price'] ?? '0') ?> - <?= !empty($criteria['max_price']) ? '₹' . e($criteria['max_price']) : 'Above' ?> <i class="bi bi-x-circle-fill"></i>
-            </a>
-          <?php endif; ?>
-
-          <?php if (!empty($criteria['min_rating'])): ?>
-            <a href="<?= url('shop?' . http_build_query(array_merge($criteria, ['min_rating' => null, 'page' => 1]))) ?>" class="active-filter-badge">
-              Rating: 4★+ <i class="bi bi-x-circle-fill"></i>
+              Budget: <?= e($priceLabel) ?> <i class="bi bi-x-circle-fill"></i>
             </a>
           <?php endif; ?>
 
           <?php if (!empty($criteria['in_stock'])): ?>
             <a href="<?= url('shop?' . http_build_query(array_merge($criteria, ['in_stock' => null, 'page' => 1]))) ?>" class="active-filter-badge">
               In-Stock Only <i class="bi bi-x-circle-fill"></i>
-            </a>
-          <?php endif; ?>
-
-          <?php if (!empty($criteria['sort']) && $criteria['sort'] !== 'newest'): 
-            $sortLabel = match ($criteria['sort']) {
-                'price_asc' => 'Price: Low to High',
-                'price_desc' => 'Price: High to Low',
-                'rating' => 'Rating',
-                default => 'Newest Arrivals',
-            };
-          ?>
-            <a href="<?= url('shop?' . http_build_query(array_merge($criteria, ['sort' => 'newest', 'page' => 1]))) ?>" class="active-filter-badge">
-              Sort: <?= e($sortLabel) ?> <i class="bi bi-x-circle-fill"></i>
             </a>
           <?php endif; ?>
 
@@ -396,7 +257,7 @@ $getColorHex = function (string $color): string {
         <div class="card border p-4 p-md-5 text-center my-4">
           <i class="bi bi-search fs-1 text-muted mb-3"></i>
           <h4 class="fw-bold">No Matching Smart Locks Found</h4>
-          <p class="text-muted">Try adjusting your filters, clearing price criteria, or searching for other access methods.</p>
+          <p class="text-muted">Try adjusting your filters, clearing budget criteria, or searching for other unlock methods.</p>
           <div class="mt-2">
             <a href="<?= url('shop') ?>" class="btn btn-hiq-primary">Clear All Filters</a>
           </div>
@@ -452,7 +313,7 @@ function selectSortChip(radio) {
   if (label) label.classList.add('active');
 }
 
-// Allow radio chips to be toggled off if clicked when already active
+// Allow unlock method chips to toggle off on second click
 function toggleRadioChip(radio) {
   if (radio.dataset.wasChecked === 'true') {
     radio.checked = false;
@@ -460,7 +321,6 @@ function toggleRadioChip(radio) {
     const label = radio.closest('.shop-filter-chip');
     if (label) label.classList.remove('active');
   } else {
-    // Unmark siblings
     const form = radio.form;
     const sameNameRadios = form.querySelectorAll('input[name="' + radio.name + '"]');
     sameNameRadios.forEach(r => {
@@ -474,7 +334,7 @@ function toggleRadioChip(radio) {
   }
 }
 
-// Clear specific radio filter group
+// Clear radio group
 function clearRadio(name) {
   const form = document.getElementById('shopFilterForm');
   if (!form) return;
@@ -487,37 +347,47 @@ function clearRadio(name) {
   });
 }
 
-// Quick budget setter
-function setBudget(min, max, btn) {
-  const minInput = document.getElementById('minPriceInput');
-  const maxInput = document.getElementById('maxPriceInput');
-  if (minInput) minInput.value = min;
-  if (maxInput) maxInput.value = max;
+// Budget chips toggle logic (1-tap price bracket)
+function toggleBudgetChip(radio, min, max) {
+  const minInput = document.getElementById('filterMinPrice');
+  const maxInput = document.getElementById('filterMaxPrice');
   
-  // Highlight active budget button
-  document.querySelectorAll('.budget-quick-btn').forEach(b => {
-    b.classList.remove('btn-dark', 'text-white');
-    b.classList.add('btn-outline-secondary');
-  });
-  if (btn) {
-    btn.classList.remove('btn-outline-secondary');
-    btn.classList.add('btn-dark', 'text-white');
+  if (radio.dataset.wasChecked === 'true') {
+    radio.checked = false;
+    radio.dataset.wasChecked = 'false';
+    if (minInput) minInput.value = '';
+    if (maxInput) maxInput.value = '';
+    const label = radio.closest('.shop-filter-chip');
+    if (label) label.classList.remove('active');
+  } else {
+    document.querySelectorAll('input[name="budget_range"]').forEach(r => {
+      r.dataset.wasChecked = 'false';
+      const lbl = r.closest('.shop-filter-chip');
+      if (lbl) lbl.classList.remove('active');
+    });
+    radio.dataset.wasChecked = 'true';
+    if (minInput) minInput.value = min;
+    if (maxInput) maxInput.value = max;
+    const label = radio.closest('.shop-filter-chip');
+    if (label) label.classList.add('active');
   }
 }
 
-// Clear price inputs
-function clearPrice() {
-  const minInput = document.getElementById('minPriceInput');
-  const maxInput = document.getElementById('maxPriceInput');
+// Clear budget
+function clearBudget() {
+  const minInput = document.getElementById('filterMinPrice');
+  const maxInput = document.getElementById('filterMaxPrice');
   if (minInput) minInput.value = '';
   if (maxInput) maxInput.value = '';
-  document.querySelectorAll('.budget-quick-btn').forEach(b => {
-    b.classList.remove('btn-dark', 'text-white');
-    b.classList.add('btn-outline-secondary');
+  document.querySelectorAll('input[name="budget_range"]').forEach(r => {
+    r.checked = false;
+    r.dataset.wasChecked = 'false';
+    const lbl = r.closest('.shop-filter-chip');
+    if (lbl) lbl.classList.remove('active');
   });
 }
 
-// Initialize checked state on load
+// Initialize checked states on load
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('shopFilterForm');
   if (form) {
