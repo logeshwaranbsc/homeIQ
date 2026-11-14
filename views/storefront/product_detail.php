@@ -235,18 +235,6 @@ $breadcrumbs = [
         </div>
       <?php endif; ?>
 
-      <!-- PIN Code Delivery Checker -->
-      <div class="card border bg-white p-3 mb-4 rounded-3 shadow-sm">
-        <label for="pincodeCheckInput" class="form-label fw-bold small text-dark d-flex align-items-center gap-2 mb-2">
-          <i class="bi bi-geo-alt-fill text-primary"></i> Check Delivery & Free Installation Availability
-        </label>
-        <div class="pincode-input-group">
-          <input type="text" id="pincodeCheckInput" class="form-control pincode-input" placeholder="Enter 6-digit PIN code" maxlength="6">
-          <button type="button" id="btnCheckPincode" class="btn btn-pincode-check">Check</button>
-        </div>
-        <div id="pincodeResult"></div>
-      </div>
-
       <!-- Trust Badges -->
       <div class="row g-2 g-sm-3 text-secondary small">
         <div class="col-6 d-flex align-items-center gap-2">
@@ -509,9 +497,9 @@ $breadcrumbs = [
   <?php if (!empty($related)): ?>
     <div class="mb-4 mb-md-5">
       <h3 class="fw-bold mb-4">Related Smart Door Locks</h3>
-      <div class="row g-3 g-md-4">
+      <div class="row g-2 g-sm-3 g-md-4">
         <?php foreach ($related as $rel): ?>
-          <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+          <div class="col-6 col-md-4 col-lg-3">
             <?= View::component('product_card', ['product' => $rel]) ?>
           </div>
         <?php endforeach; ?>
