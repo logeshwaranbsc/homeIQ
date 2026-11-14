@@ -4414,6 +4414,19 @@ video {
   .product-slider-arrow {
     display: none !important;
   }
+
+  .product-card .prod-title {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    height: auto;
+    min-height: 3.1rem;
+    max-height: 3.15rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+  }
 }
 
 /* 5. Mobile Phones (< 576px) Comprehensive Polish */
@@ -4754,14 +4767,17 @@ video {
   }
 
   .product-card .prod-title {
-    font-size: 0.76rem !important;
-    line-height: 1.25 !important;
-    height: 30px !important;
+    font-size: 0.78rem !important;
+    line-height: 1.3 !important;
+    height: auto !important;
+    min-height: 3.05rem !important;
+    max-height: 3.1rem !important;
     margin-bottom: 4px !important;
     display: -webkit-box !important;
-    -webkit-line-clamp: 2 !important;
+    -webkit-line-clamp: 3 !important;
     -webkit-box-orient: vertical !important;
     overflow: hidden !important;
+    word-break: break-word !important;
   }
 
   .product-card .modern-rating-strip {
@@ -7281,7 +7297,9 @@ body[data-page="cart"] .btn-drawer-view-cart {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  height: 34px;
+  height: auto;
+  min-height: 2.15rem;
+  word-break: break-word;
 }
 .hiq-prod-title:hover {
   color: #FE6B25;
@@ -8250,14 +8268,17 @@ body[data-page="cart"] .btn-drawer-view-cart {
   .hiq-prod-title {
     font-size: 0.8rem !important;
     font-weight: 700 !important;
-    line-height: 1.25 !important;
-    height: 32px !important;
+    line-height: 1.3 !important;
+    height: auto !important;
+    min-height: 3.1rem !important;
+    max-height: 3.15rem !important;
     margin-bottom: 4px !important;
     color: #111827 !important;
     display: -webkit-box !important;
-    -webkit-line-clamp: 2 !important;
+    -webkit-line-clamp: 3 !important;
     -webkit-box-orient: vertical !important;
     overflow: hidden !important;
+    word-break: break-word !important;
   }
   .hiq-prod-rating {
     display: flex !important;
