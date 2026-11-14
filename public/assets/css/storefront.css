@@ -458,8 +458,8 @@ a:hover {
 }
 
 .carousel-item-hero {
-  min-height: 480px;
-  height: clamp(480px, 38vw, 570px);
+  min-height: 460px;
+  height: clamp(460px, 38vw, 550px);
   position: relative;
   overflow: hidden;
   background-color: #07080a;
@@ -7934,8 +7934,8 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
   .carousel-item-hero {
     min-height: 0 !important;
-    height: auto !important;
-    aspect-ratio: 2.5 / 1 !important; /* 2.5:1 ratio ensures entire graphic, text & lock are fully visible without cropping */
+    height: calc((100vw - 28px) / 2.5 + 40px) !important;
+    max-height: 280px !important;
     background-color: #07080a !important;
     position: relative !important;
     border-radius: 20px !important;
@@ -7959,7 +7959,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
     inset: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    object-fit: contain !important;
+    object-fit: cover !important;
     object-position: center !important;
     display: block !important;
     transform: none !important;
@@ -8036,8 +8036,9 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
   .navbar-hiq .navbar-brand {
     position: absolute !important;
+    top: 18px !important;
     left: 50% !important;
-    transform: translateX(-50%) !important;
+    transform: translate(-50%, -50%) !important;
     margin: 0 !important;
     padding: 0 !important;
     z-index: 2;
