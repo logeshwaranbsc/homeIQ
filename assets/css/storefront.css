@@ -7000,10 +7000,11 @@ body[data-page="cart"] .btn-drawer-view-cart {
 .hiq-category-pill {
   background: #ffffff;
   border-radius: 999px;
-  padding: 6px 8px 6px 14px;
+  padding: 6px 16px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
   width: 100%;
   max-width: 100%;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
@@ -7020,6 +7021,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
 }
 .hiq-cat-pill-arrow {
   width: 26px;
@@ -7046,10 +7048,13 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
   .hiq-category-card {
     height: 210px;
-    padding: 18px 12px 14px;
+    padding: 12px 12px 12px;
+  }
+  .hiq-category-img-box {
+    max-height: 145px;
   }
   .hiq-category-img-box img {
-    max-height: 120px;
+    max-height: 145px;
   }
 }
 
@@ -7779,6 +7784,108 @@ body[data-page="cart"] .btn-drawer-view-cart {
     padding-bottom: 68px !important;
   }
 
+  /* 1. Mobile Hero Banner — Compact Rounded Horizontal Card (Matching Image 2 Reference) */
+  .hero-slider-section {
+    background-color: transparent !important;
+    border-bottom: none !important;
+    padding: 10px 14px 12px !important;
+  }
+  .hero-slider-section #homeHeroCarousel {
+    position: relative !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08) !important;
+    background-color: #07080a !important;
+    width: 100% !important;
+  }
+  .hero-slider-section .carousel-inner {
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    width: 100% !important;
+  }
+  .carousel-item-hero {
+    min-height: 180px !important; /* Height matching shop by category cards */
+    height: auto !important;
+    aspect-ratio: 16 / 9 !important; /* Increased from 2.6:1 to 16:9 (~1.78:1) for generous, prominent mobile hero height */
+    background-color: #07080a !important;
+    position: relative !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+  }
+  .hero-bg-wrapper,
+  .hero-bg-picture {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+  .hero-bg-image,
+  .hero-bg-picture img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    transform: none !important;
+  }
+  .carousel-item.active .hero-bg-image,
+  .carousel-item.active .hero-bg-picture img {
+    transform: none !important;
+  }
+  .hero-banner-hitbox {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 5 !important;
+  }
+  .hero-slider-section .carousel-control-prev,
+  .hero-slider-section .carousel-control-next {
+    display: none !important;
+  }
+  /* Carousel Indicators: 3 dots at bottom center (Image 2 style) */
+  .hero-slider-section .hiq-dots-indicators {
+    display: flex !important;
+    position: absolute !important;
+    bottom: 12px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 6px !important;
+    z-index: 6 !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .hero-slider-section .hiq-dots-indicators button {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background-color: rgba(255, 255, 255, 0.65) !important;
+    border: none !important;
+    opacity: 1 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    transition: all 0.25s ease !important;
+  }
+  .hero-slider-section .hiq-dots-indicators button.active {
+    width: 20px !important;
+    height: 6px !important;
+    border-radius: 10px !important;
+    background-color: #ffffff !important;
+  }
+
+  /* Hide Feature Strip on Mobile to match Image 2 layout directly into Categories */
+  .hiq-features-strip-section {
+    display: none !important;
+  }
+
   /* 1. Mobile Navbar — White background, centered logo, left hamburger, right icons */
   .navbar-hiq {
     background: #ffffff !important;
@@ -7899,45 +8006,60 @@ body[data-page="cart"] .btn-drawer-view-cart {
     scroll-snap-align: start !important;
   }
   .hiq-category-card {
-    height: 180px !important;
-    padding: 14px 10px 10px !important;
+    height: 180px !important; /* Preserved card height */
+    padding: 10px 10px 10px !important;
     border-radius: 18px !important;
     position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
   }
   .hiq-cat-corner-icon {
-    position: absolute !important;
-    top: 10px !important;
-    right: 12px !important;
-    font-size: 1.15rem !important;
-    color: rgba(17, 24, 39, 0.45) !important;
+    display: none !important;
   }
   .hiq-category-img-box {
-    max-height: 105px !important;
+    width: 100% !important;
+    height: 122px !important;
+    max-height: 122px !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
   .hiq-category-img-box img {
-    max-height: 95px !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 122px !important;
+    object-fit: cover !important;
+    border-radius: 14px !important;
   }
   .hiq-category-pill {
-    width: auto !important;
-    max-width: 95% !important;
-    padding: 4px 6px 4px 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 6px 12px !important;
     margin-top: 6px !important;
     border-radius: 999px !important;
     background: #ffffff !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
   }
   .hiq-cat-pill-name {
-    font-size: 0.78rem !important;
+    font-size: 0.82rem !important;
     font-weight: 700 !important;
+    text-align: center !important;
+    width: 100% !important;
   }
-  .hiq-cat-pill-arrow {
-    width: 22px !important;
-    height: 22px !important;
-    font-size: 0.65rem !important;
-    margin-left: 6px !important;
+  .hiq-cat-pill-arrow,
+  .hiq-cat-corner-icon {
+    display: none !important;
   }
 
-  /* 4. Featured Products (Horizontal Scroll Row) */
+  /* 4. Featured Products (Horizontal Scroll Row — Full Width Images & Visible Reviews) */
   .hiq-products-grid {
     display: flex !important;
     overflow-x: auto !important;
@@ -7951,67 +8073,106 @@ body[data-page="cart"] .btn-drawer-view-cart {
     display: none !important;
   }
   .hiq-product-col {
-    flex: 0 0 148px !important;
-    min-width: 148px !important;
+    flex: 0 0 156px !important;
+    min-width: 156px !important;
     scroll-snap-align: start !important;
   }
   .hiq-product-card {
-    padding: 12px 10px 10px !important;
-    border-radius: 22px !important;
-    border: 1px solid rgba(0, 0, 0, 0.04) !important;
+    padding: 0 !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
     background: #ffffff !important;
-    box-shadow: 0 8px 24px rgba(254, 107, 37, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05) !important;
     position: relative !important;
     overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
-  /* Orange corner accent curve matching mockup */
   .hiq-product-card::before {
-    content: '' !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 36px !important;
-    height: 36px !important;
-    border-top: 5px solid #FE6B25 !important;
-    border-left: 5px solid #FE6B25 !important;
-    border-top-left-radius: 22px !important;
-    pointer-events: none !important;
+    display: none !important;
   }
   .hiq-prod-img-wrap {
-    height: 110px !important;
-    margin-bottom: 8px !important;
-    padding: 8px !important;
+    width: 100% !important;
+    height: 140px !important;
+    margin: 0 !important;
+    padding: 0 !important;
     background: #FAFBFD !important;
-    border-radius: 10px !important;
+    border-radius: 0 !important;
+    display: block !important;
+    overflow: hidden !important;
+    position: relative !important;
   }
   .hiq-prod-img-wrap img {
-    max-height: 95px !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 140px !important;
+    max-width: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    border-radius: 0 !important;
+  }
+  .hiq-prod-info {
+    padding: 10px 10px 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex-grow: 1 !important;
   }
   .hiq-prod-title {
-    font-size: 0.78rem !important;
+    font-size: 0.8rem !important;
     font-weight: 700 !important;
     line-height: 1.25 !important;
     height: 32px !important;
-    margin-bottom: 6px !important;
+    margin-bottom: 4px !important;
     color: #111827 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
   }
   .hiq-prod-rating {
-    display: none !important; /* Clean layout matching reference mockup */
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    margin-bottom: 6px !important;
+    line-height: 1 !important;
+  }
+  .hiq-prod-rating .bi-star-fill {
+    color: #F59E0B !important;
+    font-size: 0.72rem !important;
+  }
+  .hiq-rating-val {
+    font-weight: 700 !important;
+    color: #1E293B !important;
+    font-size: 0.76rem !important;
+  }
+  .hiq-review-count {
+    color: #64748B !important;
+    font-size: 0.72rem !important;
   }
   .hiq-prod-bottom {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
     padding-top: 0 !important;
     margin-top: auto !important;
   }
   .hiq-prod-price {
-    font-size: 0.88rem !important;
+    font-size: 0.92rem !important;
     font-weight: 800 !important;
     color: #111827 !important;
   }
   .hiq-prod-cart-btn {
-    width: 34px !important;
-    height: 34px !important;
-    border-radius: 11px !important;
-    font-size: 0.85rem !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 10px !important;
+    background: #FE6B25 !important;
+    color: #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: none !important;
+    font-size: 0.82rem !important;
   }
 
   /* 5. See HOMEIQ in Action (Compact Full-Width Card) */

@@ -75,14 +75,14 @@ $action = $isEdit ? url('admin/banners/update/' . $banner['id']) : url('admin/ba
                     <label class="form-label fw-bold text-dark m-0 d-flex align-items-center gap-1">
                       <i class="bi bi-phone text-warning"></i> Mobile Screen Banner
                     </label>
-                    <span class="badge bg-warning-subtle text-warning-emphasis small">Vertical / Portrait</span>
+                    <span class="badge bg-warning-subtle text-warning-emphasis small">Mobile Card (16:9 / ~1.8:1)</span>
                   </div>
-                  <p class="text-muted small mb-2">Dedicated vertical banner loaded on mobile viewports (&le; 768px).</p>
+                  <p class="text-muted small mb-2">Compact horizontal card banner loaded on mobile viewports (&le; 768px).</p>
 
                   <?php if (!empty($banner['mobile_image'])): ?>
-                    <div class="mb-2 position-relative rounded-2 overflow-hidden border shadow-xs mx-auto" style="width: 130px; height: 180px; background: #07080a;">
+                    <div class="mb-2 position-relative rounded-3 overflow-hidden border shadow-xs mx-auto" style="width: 220px; aspect-ratio: 16 / 9; background: #07080a;">
                       <img src="<?= upload_url($banner['mobile_image']) ?>" alt="Current mobile banner preview" style="width: 100%; height: 100%; object-fit: cover;">
-                      <span class="badge bg-warning text-dark position-absolute bottom-0 start-50 translate-middle-x mb-1" style="font-size: 0.65rem;">Active Mobile</span>
+                      <span class="badge bg-dark bg-opacity-75 text-white position-absolute bottom-0 start-50 translate-middle-x mb-1" style="font-size: 0.65rem;">Active Mobile Card</span>
                     </div>
                     <div class="form-check mb-2 text-center">
                       <input class="form-check-input float-none me-1" type="checkbox" name="delete_mobile_image" value="1" id="deleteMobileImg">
@@ -91,7 +91,7 @@ $action = $isEdit ? url('admin/banners/update/' . $banner['id']) : url('admin/ba
                       </label>
                     </div>
                   <?php else: ?>
-                    <div class="mb-3 p-3 text-center rounded-2 border border-dashed bg-light text-muted small" style="min-height: 140px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                    <div class="mb-3 p-3 text-center rounded-2 border border-dashed bg-light text-muted small" style="min-height: 100px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
                       <i class="bi bi-phone fs-2 text-muted mb-1 opacity-50"></i>
                       <span class="fw-semibold">No separate mobile banner</span>
                       <small class="opacity-75">Desktop banner is used as fallback</small>
@@ -101,7 +101,7 @@ $action = $isEdit ? url('admin/banners/update/' . $banner['id']) : url('admin/ba
 
                 <div>
                   <input type="file" name="mobile_image" class="form-control" accept="image/png,image/jpeg,image/webp,image/svg+xml">
-                  <small class="text-muted mt-1 d-block">Recommended: 750×1000 px or 1080×1350 px (4:5 / 9:16).</small>
+                  <small class="text-muted mt-1 d-block">Recommended: 750×280 px to 988×372 px (Horizontal ratio ~2.5:1 to 2.65:1, NO 9:16). PNG, JPG, WebP.</small>
                 </div>
               </div>
             </div>

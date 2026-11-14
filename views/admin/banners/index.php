@@ -42,11 +42,11 @@ declare(strict_types=1);
 
                 <?php if (!empty($b['mobile_image'])): ?>
                   <div class="position-relative" title="Mobile Screen Banner: <?= e($b['mobile_image']) ?>">
-                    <img src="<?= upload_url($b['mobile_image']) ?>" alt="Mobile Banner" style="width: 25px; height: 38px; object-fit: cover;" class="rounded border border-warning">
+                    <img src="<?= upload_url($b['mobile_image']) ?>" alt="Mobile Banner" style="width: 58px; height: 24px; object-fit: cover;" class="rounded border border-warning">
                     <span class="badge bg-warning text-dark position-absolute bottom-0 end-0 p-1 lh-1" style="font-size: 0.58rem;" title="Mobile Screen Banner"><i class="bi bi-phone"></i></span>
                   </div>
                 <?php else: ?>
-                  <span class="badge bg-light text-muted border py-1 px-1 text-center" style="font-size: 0.65rem; width: 26px; height: 38px; display: inline-flex; align-items: center; justify-content: center;" title="No dedicated mobile banner (uses desktop banner on mobile)">
+                  <span class="badge bg-light text-muted border py-1 px-1 text-center" style="font-size: 0.65rem; width: 42px; height: 24px; display: inline-flex; align-items: center; justify-content: center;" title="No dedicated mobile banner (uses desktop banner on mobile)">
                     <i class="bi bi-phone opacity-50"></i>
                   </span>
                 <?php endif; ?>

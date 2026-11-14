@@ -77,6 +77,35 @@ use App\Core\View;
   </div>
 </section>
 
+<!-- ==========================================================================
+     SECTION 2: FEATURE HIGHLIGHTS STRIP
+     ========================================================================== -->
+<section class="hiq-features-strip-section">
+  <div class="container">
+    <div class="hiq-features-strip">
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-fingerprint"></i></div>
+        <span class="hiq-feat-text">Fingerprint</span>
+      </div>
+      <div class="hiq-feat-divider"></div>
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-phone"></i></div>
+        <span class="hiq-feat-text">App Control</span>
+      </div>
+      <div class="hiq-feat-divider"></div>
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-shield-check"></i></div>
+        <span class="hiq-feat-text">High Security</span>
+      </div>
+      <div class="hiq-feat-divider"></div>
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-tools"></i></div>
+        <span class="hiq-feat-text">Easy Installation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- ==========================================================================
      SECTION 3: SHOP BY CATEGORY
@@ -95,21 +124,17 @@ use App\Core\View;
     <div class="hiq-category-grid">
       <?php 
         $pastelClasses = ['pastel-peach', 'pastel-lavender', 'pastel-mint', 'pastel-sky'];
-        $cornerIcons = ['bi-fingerprint', 'bi-grid-3x3-gap-fill', 'bi-shield-lock-fill', 'bi-wifi'];
 
         foreach ($categories as $cIdx => $cat): 
           $pastelClass = $pastelClasses[$cIdx % 4];
-          $cornerIcon = $cornerIcons[$cIdx % 4];
       ?>
         <div class="hiq-category-col">
           <a href="<?= url('category/' . $cat['slug']) ?>" class="hiq-category-card <?= $pastelClass ?>" title="<?= e($cat['name']) ?>">
-            <span class="hiq-cat-corner-icon"><i class="bi <?= $cornerIcon ?>"></i></span>
             <div class="hiq-category-img-box">
               <img src="<?= upload_url($cat['image'] ?? '') ?>" alt="<?= e($cat['name']) ?>" loading="lazy" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
             </div>
             <div class="hiq-category-pill">
               <span class="hiq-cat-pill-name"><?= e($cat['name']) ?></span>
-              <span class="hiq-cat-pill-arrow"><i class="bi bi-arrow-right"></i></span>
             </div>
           </a>
         </div>
@@ -219,34 +244,6 @@ use App\Core\View;
     </div>
   </div>
 </section>
-<!-- ==========================================================================
-     SECTION 2: FEATURE HIGHLIGHTS STRIP
-     ========================================================================== -->
-<section class="hiq-features-strip-section d-none d-md-block">
-  <div class="container">
-    <div class="hiq-features-strip">
-      <div class="hiq-feature-item">
-        <div class="hiq-feat-icon"><i class="bi bi-fingerprint"></i></div>
-        <span class="hiq-feat-text">Fingerprint</span>
-      </div>
-      <div class="hiq-feat-divider"></div>
-      <div class="hiq-feature-item">
-        <div class="hiq-feat-icon"><i class="bi bi-phone"></i></div>
-        <span class="hiq-feat-text">App Control</span>
-      </div>
-      <div class="hiq-feat-divider"></div>
-      <div class="hiq-feature-item">
-        <div class="hiq-feat-icon"><i class="bi bi-shield-check"></i></div>
-        <span class="hiq-feat-text">High Security</span>
-      </div>
-      <div class="hiq-feat-divider"></div>
-      <div class="hiq-feature-item">
-        <div class="hiq-feat-icon"><i class="bi bi-tools"></i></div>
-        <span class="hiq-feat-text">Easy Installation</span>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- Product Demo Lightbox Modal -->
 <div class="modal fade" id="productDemoModal" tabindex="-1" aria-labelledby="productDemoModalLabel" aria-hidden="true">
@@ -313,26 +310,28 @@ document.addEventListener('DOMContentLoaded', function () {
       </a>
     </div>
 
-    <!-- Reels Track (5 Vertical 9:15 Cards) -->
+    <!-- Reels Track (Vertical Cards with Left-to-Right Movable Navigation) -->
     <div class="hiq-reels-track-wrap position-relative">
+      <?php 
+        $displayReels = !empty($videoTestimonials) ? $videoTestimonials : [];
+      ?>
+
+      <?php if (count($displayReels) > 5): ?>
+        <button type="button" class="hiq-reel-nav-btn prev" id="reelsPrevBtn" aria-label="Previous reels">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+        <button type="button" class="hiq-reel-nav-btn next" id="reelsNextBtn" aria-label="Next reels">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      <?php endif; ?>
+
       <div class="hiq-reels-scroll-track" id="homeReelsTrack">
-        <?php 
-          $displayReels = $videoTestimonials;
-          if (!empty($displayReels) && count($displayReels) < 5) {
-            $baseReels = $displayReels;
-            while (count($displayReels) < 5) {
-              foreach ($baseReels as $bReel) {
-                if (count($displayReels) >= 5) break;
-                $displayReels[] = $bReel;
-              }
-            }
-          }
-          foreach ($displayReels as $vid): 
-            $vidSource = !empty($vid['video_path']) ? upload_url($vid['video_path']) : ($vid['video_url'] ?? '');
-            $thumbSource = !empty($vid['thumbnail_path']) ? upload_url($vid['thumbnail_path']) : '';
-            $name = $vid['customer_name'] ?? 'Homeowner';
+        <?php foreach ($displayReels as $rIdx => $vid): 
+          $vidSource = !empty($vid['video_path']) ? upload_url($vid['video_path']) : ($vid['video_url'] ?? '');
+          $thumbSource = !empty($vid['thumbnail_path']) ? upload_url($vid['thumbnail_path']) : '';
+          $name = $vid['customer_name'] ?? 'Homeowner';
         ?>
-          <div class="hiq-reel-item">
+          <div class="hiq-reel-item" data-index="<?= $rIdx ?>">
             <div class="hiq-mockup-reel-card" role="button" tabindex="0" title="Click to play">
               <video class="hiq-reel-video" playsinline loop preload="metadata" <?= !empty($thumbSource) ? 'poster="' . e($thumbSource) . '"' : '' ?>>
                 <source src="<?= e($vidSource) ?>" type="video/mp4">
@@ -354,11 +353,78 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  var track = document.getElementById('homeReelsTrack');
+  var prevBtn = document.getElementById('reelsPrevBtn');
+  var nextBtn = document.getElementById('reelsNextBtn');
+
+  // Arrow navigation buttons (movable left to right)
+  if (track && prevBtn && nextBtn) {
+    function getScrollStep() {
+      var firstCard = track.querySelector('.hiq-reel-item');
+      if (!firstCard) return 300;
+      var gap = 14;
+      var isMobile = window.innerWidth < 768;
+      var cardsToScroll = isMobile ? 1 : 2;
+      return (firstCard.offsetWidth + gap) * cardsToScroll;
+    }
+
+    prevBtn.addEventListener('click', function () {
+      track.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
+    });
+
+    nextBtn.addEventListener('click', function () {
+      track.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
+    });
+  }
+
+  // Mouse Drag Left-to-Right / Right-to-Left scrolling on desktop
+  var isDragging = false;
+  var startX = 0;
+  var startScrollLeft = 0;
+  var hasDragged = false;
+
+  if (track) {
+    track.addEventListener('mousedown', function (e) {
+      isDragging = true;
+      hasDragged = false;
+      track.classList.add('is-dragging');
+      startX = e.pageX - track.offsetLeft;
+      startScrollLeft = track.scrollLeft;
+    });
+
+    window.addEventListener('mouseup', function () {
+      if (isDragging) {
+        isDragging = false;
+        track.classList.remove('is-dragging');
+      }
+    });
+
+    track.addEventListener('mouseleave', function () {
+      if (isDragging) {
+        isDragging = false;
+        track.classList.remove('is-dragging');
+      }
+    });
+
+    track.addEventListener('mousemove', function (e) {
+      if (!isDragging) return;
+      e.preventDefault();
+      var currentX = e.pageX - track.offsetLeft;
+      var distance = (currentX - startX) * 1.5;
+      if (Math.abs(currentX - startX) > 6) {
+        hasDragged = true;
+      }
+      track.scrollLeft = startScrollLeft - distance;
+    });
+  }
+
+  // Play / Pause video click handler (only triggers if user clicked without dragging)
   var reelCards = document.querySelectorAll('.hiq-mockup-reel-card');
   reelCards.forEach(function (card) {
     var video = card.querySelector('video');
     if (!video) return;
     card.addEventListener('click', function () {
+      if (hasDragged) return;
       if (video.paused) {
         document.querySelectorAll('.hiq-mockup-reel-card video').forEach(function (v) {
           if (v !== video) v.pause();
