@@ -72,10 +72,10 @@ assertTest("Flagship includes 9-in-1 access methods", in_array('AI Face Recognit
 
 $categoryRepo = new CategoryRepository();
 $allCategories = $categoryRepo->all();
-assertTest("Catalog contains exactly 1 unified category ('digital-smart-locks')", count($allCategories) === 1 && ($allCategories[0]['slug'] ?? '') === 'digital-smart-locks');
+assertTest("Catalog contains exactly 1 unified category ('smart-locks')", count($allCategories) === 1 && in_array($allCategories[0]['slug'] ?? '', ['smart-locks', 'digital-smart-locks'], true));
 
 $allProducts = $productRepo->all();
-$allMappedToSingleCategory = count($allProducts) === 5 && count(array_filter($allProducts, fn($p) => ($p['category_slug'] ?? '') === 'digital-smart-locks')) === 5;
+$allMappedToSingleCategory = count($allProducts) === 5 && count(array_filter($allProducts, fn($p) => in_array($p['category_slug'] ?? '', ['smart-locks', 'digital-smart-locks'], true))) === 5;
 assertTest("Catalog maintains exactly 5 products mapped to the 1 category", $allMappedToSingleCategory);
 
 // TEST GROUP 3: Cart Calculation & Server-Side Price Verification

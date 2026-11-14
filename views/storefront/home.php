@@ -77,34 +77,6 @@ use App\Core\View;
   </div>
 </section>
 
-<!-- ==========================================================================
-     SECTION 2: FEATURE HIGHLIGHTS STRIP
-     ========================================================================== -->
-<section class="hiq-features-strip-section d-none d-md-block">
-  <div class="container">
-    <div class="hiq-features-strip">
-      <div class="hiq-feature-item">
-        <div class="hiq-feat-icon"><i class="bi bi-fingerprint"></i></div>
-        <span class="hiq-feat-text">Fingerprint</span>
-      </div>
-      <div class="hiq-feat-divider"></div>
-      <div class="hiq-feature-item">
-        <div class="hiq-feat-icon"><i class="bi bi-phone"></i></div>
-        <span class="hiq-feat-text">App Control</span>
-      </div>
-      <div class="hiq-feat-divider"></div>
-      <div class="hiq-feature-item">
-        <div class="hiq-feat-icon"><i class="bi bi-shield-check"></i></div>
-        <span class="hiq-feat-text">High Security</span>
-      </div>
-      <div class="hiq-feat-divider"></div>
-      <div class="hiq-feature-item">
-        <div class="hiq-feat-icon"><i class="bi bi-tools"></i></div>
-        <span class="hiq-feat-text">Easy Installation</span>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ==========================================================================
      SECTION 3: SHOP BY CATEGORY
@@ -119,27 +91,13 @@ use App\Core\View;
       </a>
     </div>
 
-    <!-- Category Grid (4 Pastel Cards) -->
+    <!-- Category Grid -->
     <div class="hiq-category-grid">
       <?php 
         $pastelClasses = ['pastel-peach', 'pastel-lavender', 'pastel-mint', 'pastel-sky'];
-        $cornerIcons = ['bi-fingerprint', 'bi-grid-3x3-gap-fill', 'bi-fingerprint', 'bi-wifi'];
-        $categoryMockups = [
-          ['name' => 'Smart Locks', 'slug' => 'digital-smart-locks'],
-          ['name' => 'Digital Locks', 'slug' => 'digital-smart-locks'],
-          ['name' => 'Biometric Locks', 'slug' => 'digital-smart-locks'],
-          ['name' => 'Wi-Fi Locks', 'slug' => 'digital-smart-locks'],
-        ];
-        $displayCats = count($categories) >= 4 ? $categories : array_map(function($idx, $m) use ($categories) {
-          $baseCat = $categories[$idx % count($categories)];
-          return [
-            'name' => $m['name'],
-            'slug' => $baseCat['slug'] ?? 'digital-smart-locks',
-            'image' => $baseCat['image'] ?? '',
-          ];
-        }, array_keys($categoryMockups), $categoryMockups);
+        $cornerIcons = ['bi-fingerprint', 'bi-grid-3x3-gap-fill', 'bi-shield-lock-fill', 'bi-wifi'];
 
-        foreach ($displayCats as $cIdx => $cat): 
+        foreach ($categories as $cIdx => $cat): 
           $pastelClass = $pastelClasses[$cIdx % 4];
           $cornerIcon = $cornerIcons[$cIdx % 4];
       ?>
@@ -172,9 +130,9 @@ use App\Core\View;
       <a href="<?= url('shop') ?>" class="hiq-view-all-link d-md-none">
         View All <i class="bi bi-arrow-right ms-1"></i>
       </a>
-      <div class="hiq-filter-pills d-none d-md-flex align-items-center gap-2">
+      <div class="hiq-filter-pills d-flex align-items-center gap-2">
         <a href="<?= url('shop') ?>" class="hiq-filter-pill active">All</a>
-        <?php foreach (array_slice($categories ?? [], 0, 3) as $fCat): ?>
+        <?php foreach ($categories as $fCat): ?>
           <a href="<?= url('category/' . $fCat['slug']) ?>" class="hiq-filter-pill"><?= e($fCat['name']) ?></a>
         <?php endforeach; ?>
       </div>
@@ -257,6 +215,34 @@ use App\Core\View;
       <!-- Floating Spotlight Content -->
       <div class="hiq-spotlight-content">
         <h2 class="hiq-spotlight-title">See HOMEIQ<br>in Action</h2>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==========================================================================
+     SECTION 2: FEATURE HIGHLIGHTS STRIP
+     ========================================================================== -->
+<section class="hiq-features-strip-section d-none d-md-block">
+  <div class="container">
+    <div class="hiq-features-strip">
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-fingerprint"></i></div>
+        <span class="hiq-feat-text">Fingerprint</span>
+      </div>
+      <div class="hiq-feat-divider"></div>
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-phone"></i></div>
+        <span class="hiq-feat-text">App Control</span>
+      </div>
+      <div class="hiq-feat-divider"></div>
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-shield-check"></i></div>
+        <span class="hiq-feat-text">High Security</span>
+      </div>
+      <div class="hiq-feat-divider"></div>
+      <div class="hiq-feature-item">
+        <div class="hiq-feat-icon"><i class="bi bi-tools"></i></div>
+        <span class="hiq-feat-text">Easy Installation</span>
       </div>
     </div>
   </div>

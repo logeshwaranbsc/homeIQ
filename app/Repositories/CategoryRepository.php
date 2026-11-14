@@ -12,7 +12,12 @@ class CategoryRepository extends JsonRepository
 
     public function findBySlug(string $slug): ?array
     {
-        return $this->findBy('slug', $slug);
+        $cat = $this->findBy('slug', $slug);
+        if (!$cat && ($slug === 'digital-smart-locks' || $slug === 'smart-locks')) {
+            $all = $this->getActive();
+            return $all[0] ?? null;
+        }
+        return $cat;
     }
 
     public function getActive(): array

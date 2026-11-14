@@ -76,7 +76,14 @@ class ProductRepository extends JsonRepository
         if (!empty($criteria['category'])) {
             $category = $criteria['category'];
             $products = array_filter($products, function ($p) use ($category) {
-                return ($p['category_slug'] ?? '') === $category || ($p['category'] ?? '') === $category;
+                if (($p['category_slug'] ?? '') === $category || ($p['category'] ?? '') === $category) {
+                    return true;
+                }
+                if (($category === 'digital-smart-locks' || $category === 'smart-locks') &&
+                    in_array($p['category_slug'] ?? '', ['smart-locks', 'digital-smart-locks'], true)) {
+                    return true;
+                }
+                return false;
             });
         }
 

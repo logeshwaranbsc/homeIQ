@@ -59,7 +59,7 @@ $isBestSeller = !empty($product['is_bestseller']) || !empty($product['best_selle
     <!-- Meta Top: Category & Stock Status -->
     <div class="card-meta-top">
       <span class="modern-cat-pill">
-        <span class="cat-dot"></span> <?= e($product['category'] ?? 'DIGITAL SMART LOCKS') ?>
+        <span class="cat-dot"></span> <?= e($product['category'] ?? 'SMART LOCKS') ?>
       </span>
       <span class="modern-stock-pill <?= $inStock ? 'in-stock' : 'out-of-stock' ?>">
         <span class="stock-dot"></span> <?= $inStock ? 'In Stock' : 'Out of Stock' ?>
