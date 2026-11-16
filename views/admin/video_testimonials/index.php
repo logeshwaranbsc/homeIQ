@@ -101,11 +101,11 @@ declare(strict_types=1);
                 </div>
               </td>
               <td>
-                <strong class="d-block text-dark"><?= e($t['customer_name'] ?? 'Homeowner') ?></strong>
+                <strong class="d-block text-dark"><?= !empty($t['customer_name']) ? e($t['customer_name']) : '<span class="text-muted fw-normal fst-italic">Untitled</span>' ?></strong>
               </td>
               <td>
                 <div class="text-secondary small fw-medium text-truncate" style="max-width: 380px;">
-                  <?= e($desc) ?>
+                  <?= !empty($desc) ? e($desc) : '<span class="text-muted fst-italic">—</span>' ?>
                 </div>
               </td>
               <td>

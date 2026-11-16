@@ -106,13 +106,13 @@ $currentDesc = $testimonial['description'] ?? ($testimonial['review_text'] ?? ($
           </h6>
 
           <div class="mb-3">
-            <label class="form-label fw-bold">Customer / Creator Name *</label>
-            <input type="text" name="customer_name" class="form-control" placeholder="e.g. Arun & Sneha" value="<?= e($testimonial['customer_name'] ?? '') ?>" required>
+            <label class="form-label fw-bold">Customer / Creator Name <span class="text-muted fw-normal">(Optional)</span></label>
+            <input type="text" name="customer_name" class="form-control" placeholder="e.g. Arun & Sneha" value="<?= e($testimonial['customer_name'] ?? '') ?>">
           </div>
 
           <div class="mb-3">
-            <label class="form-label fw-bold">Single Line Description *</label>
-            <input type="text" name="description" class="form-control" placeholder="e.g. Hands down the smartest investment for our villa security" value="<?= e($currentDesc) ?>" maxlength="120" required>
+            <label class="form-label fw-bold">Single Line Description <span class="text-muted fw-normal">(Optional)</span></label>
+            <input type="text" name="description" class="form-control" placeholder="e.g. Hands down the smartest investment for our villa security" value="<?= e($currentDesc) ?>" maxlength="120">
             <small class="text-muted">A concise one-line description displayed on the video card.</small>
           </div>
 

@@ -62,11 +62,6 @@ class AdminVideoTestimonialController
 
         $data = $this->extractInput($request);
 
-        if (empty($data['customer_name'])) {
-            flash('error', 'Customer / Homeowner name is required.');
-            redirect('admin/video-testimonials/create');
-        }
-
         // Upload Video File
         $videoFile = $request->file('video_file');
         if ($videoFile) {
@@ -101,7 +96,8 @@ class AdminVideoTestimonialController
 
         $created = $this->repo->create($data);
         $admin = auth_admin();
-        $this->auditRepo->record('video_testimonial_created', $admin['username'] ?? 'Admin', "Uploaded video testimonial for {$created['customer_name']} (ID: {$created['id']})");
+        $reelLabel = !empty($created['customer_name']) ? $created['customer_name'] : 'Reel #' . $created['id'];
+        $this->auditRepo->record('video_testimonial_created', $admin['username'] ?? 'Admin', "Uploaded video testimonial for {$reelLabel} (ID: {$created['id']})");
 
         flash('success', 'Video testimonial uploaded and published successfully (' . $this->repo->count() . '/' . VideoTestimonialRepository::MAX_ITEMS . ' slots used).');
         redirect('admin/video-testimonials');
@@ -136,11 +132,6 @@ class AdminVideoTestimonialController
         }
 
         $data = $this->extractInput($request);
-
-        if (empty($data['customer_name'])) {
-            flash('error', 'Customer / Homeowner name is required.');
-            redirect('admin/video-testimonials/edit/' . $id);
-        }
 
         // Process new video file upload if provided
         $videoFile = $request->file('video_file');
@@ -181,7 +172,8 @@ class AdminVideoTestimonialController
 
         $this->repo->update($id, $data);
         $admin = auth_admin();
-        $this->auditRepo->record('video_testimonial_updated', $admin['username'] ?? 'Admin', "Updated video testimonial for {$data['customer_name']} (ID: {$id})");
+        $reelLabel = !empty($data['customer_name']) ? $data['customer_name'] : 'Reel #' . $id;
+        $this->auditRepo->record('video_testimonial_updated', $admin['username'] ?? 'Admin', "Updated video testimonial for {$reelLabel} (ID: {$id})");
 
         flash('success', 'Video testimonial updated successfully.');
         redirect('admin/video-testimonials');
@@ -202,7 +194,8 @@ class AdminVideoTestimonialController
 
             $this->repo->delete($id);
             $admin = auth_admin();
-            $this->auditRepo->record('video_testimonial_deleted', $admin['username'] ?? 'Admin', "Deleted video testimonial: {$testimonial['customer_name']}");
+            $reelLabel = !empty($testimonial['customer_name']) ? $testimonial['customer_name'] : 'Reel #' . $id;
+            $this->auditRepo->record('video_testimonial_deleted', $admin['username'] ?? 'Admin', "Deleted video testimonial: {$reelLabel}");
             flash('success', 'Video testimonial deleted. An upload slot has been freed up (' . $this->repo->count() . '/' . VideoTestimonialRepository::MAX_ITEMS . ' used).');
         } else {
             flash('error', 'Video testimonial not found.');
@@ -220,7 +213,8 @@ class AdminVideoTestimonialController
             $newState = empty($testimonial['is_active']);
             $this->repo->update($id, ['is_active' => $newState]);
             $admin = auth_admin();
-            $this->auditRepo->record('video_testimonial_status', $admin['username'] ?? 'Admin', "Changed video testimonial status for {$testimonial['customer_name']} to " . ($newState ? 'Active' : 'Disabled'));
+            $reelLabel = !empty($testimonial['customer_name']) ? $testimonial['customer_name'] : 'Reel #' . $id;
+            $this->auditRepo->record('video_testimonial_status', $admin['username'] ?? 'Admin', "Changed video testimonial status for {$reelLabel} to " . ($newState ? 'Active' : 'Disabled'));
             flash('success', 'Video status updated.');
         }
 

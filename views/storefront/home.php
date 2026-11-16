@@ -278,26 +278,17 @@ document.addEventListener('DOMContentLoaded', function () {
       <h2 class="hiq-section-heading m-0 justify-content-center">Customer Reels</h2>
     </div>
 
-    <!-- Reels Track (Vertical Cards with Left-to-Right Movable Navigation) -->
+    <!-- Reels Track (Vertical Cards with Native Swipe and Drag Scrolling) -->
     <div class="hiq-reels-track-wrap position-relative">
       <?php 
         $displayReels = !empty($videoTestimonials) ? $videoTestimonials : [];
       ?>
 
-      <?php if (count($displayReels) > 2): ?>
-        <button type="button" class="hiq-reel-nav-btn prev" id="reelsPrevBtn" aria-label="Previous reels">
-          <i class="bi bi-chevron-left"></i>
-        </button>
-        <button type="button" class="hiq-reel-nav-btn next" id="reelsNextBtn" aria-label="Next reels">
-          <i class="bi bi-chevron-right"></i>
-        </button>
-      <?php endif; ?>
-
       <div class="hiq-reels-scroll-track" id="homeReelsTrack">
         <?php foreach ($displayReels as $rIdx => $vid): 
           $vidSource = !empty($vid['video_path']) ? upload_url($vid['video_path']) : ($vid['video_url'] ?? '');
           $thumbSource = !empty($vid['thumbnail_path']) ? upload_url($vid['thumbnail_path']) : '';
-          $name = $vid['customer_name'] ?? 'Homeowner';
+          $name = !empty($vid['customer_name']) ? $vid['customer_name'] : '';
         ?>
           <div class="hiq-reel-item" data-index="<?= $rIdx ?>">
             <div class="hiq-mockup-reel-card" role="button" tabindex="0" title="Click to play">
@@ -311,9 +302,11 @@ document.addEventListener('DOMContentLoaded', function () {
               <button class="hiq-reel-play-circle" type="button" aria-label="Play Reel">
                 <i class="bi bi-play-fill"></i>
               </button>
-              <div class="hiq-reel-footer-caption">
-                <span class="hiq-reel-author"><?= e($name) ?></span>
-              </div>
+              <?php if (!empty($name)): ?>
+                <div class="hiq-reel-footer-caption">
+                  <span class="hiq-reel-author"><?= e($name) ?></span>
+                </div>
+              <?php endif; ?>
             </div>
           </div>
         <?php endforeach; ?>
@@ -325,26 +318,6 @@ document.addEventListener('DOMContentLoaded', function () {
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   var track = document.getElementById('homeReelsTrack');
-  var prevBtn = document.getElementById('reelsPrevBtn');
-  var nextBtn = document.getElementById('reelsNextBtn');
-
-  // Arrow navigation buttons (movable left to right)
-  if (track && prevBtn && nextBtn) {
-    function getScrollStep() {
-      var firstCard = track.querySelector('.hiq-reel-item');
-      if (!firstCard) return 300;
-      var gap = 12;
-      return (firstCard.offsetWidth + gap) * 2; // Scroll 2 reels at a time
-    }
-
-    prevBtn.addEventListener('click', function () {
-      track.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
-    });
-
-    nextBtn.addEventListener('click', function () {
-      track.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
-    });
-  }
 
   // Mouse Drag Left-to-Right / Right-to-Left scrolling on desktop
   var isDragging = false;
