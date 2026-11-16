@@ -460,7 +460,7 @@ a:hover {
 
 .carousel-item-hero {
   width: 100%;
-  aspect-ratio: 1920 / 600;
+  aspect-ratio: 1920 / 700;
   min-height: unset;
   height: auto;
   position: relative;
@@ -4497,11 +4497,11 @@ video {
     white-space: nowrap !important;
   }
 
-  .breadcrumb-item + .breadcrumb-item {
+  .breadcrumb-item+.breadcrumb-item {
     padding-left: 0.4rem !important;
   }
 
-  .breadcrumb-item + .breadcrumb-item::before {
+  .breadcrumb-item+.breadcrumb-item::before {
     float: none !important;
     display: inline-block !important;
     padding-right: 0.4rem !important;
@@ -8171,10 +8171,10 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
 
   .carousel-item-hero {
-    min-height: 185px !important;
+    min-height: 175px !important;
     height: auto !important;
-    aspect-ratio: 2 / 1 !important;
-    max-height: 260px !important;
+    aspect-ratio: 2.1 / 1 !important;
+    max-height: 250px !important;
     background-color: #07080a !important;
     position: relative !important;
     border-radius: 16px !important;
@@ -8183,9 +8183,9 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
 
   .carousel-item-hero.has-mobile-banner {
-    aspect-ratio: 1.6 / 1 !important;
-    min-height: 210px !important;
-    max-height: 300px !important;
+    aspect-ratio: 1.7 / 1 !important;
+    min-height: 200px !important;
+    max-height: 290px !important;
   }
 
   .hero-bg-wrapper,
