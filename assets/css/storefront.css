@@ -3272,14 +3272,59 @@ a:hover {
   background-color: #fafafa;
 }
 
-/* Product Tabs */
+/* Product Tabs Responsive & Draggable */
+.card-header-tabs#productTabs,
+.nav-tabs.card-header-tabs {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  white-space: nowrap !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  -webkit-overflow-scrolling: touch !important;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  border-bottom: none !important;
+  margin: 0 !important;
+  padding: 0 10px !important;
+}
+
+.card-header-tabs#productTabs::-webkit-scrollbar,
+.nav-tabs.card-header-tabs::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.card-header-tabs#productTabs.is-dragging {
+  cursor: grabbing !important;
+  scroll-behavior: auto !important;
+}
+
+.card-header-tabs#productTabs.is-dragging .nav-link {
+  pointer-events: none !important;
+}
+
+.nav-tabs.card-header-tabs .nav-item {
+  flex-shrink: 0 !important;
+}
+
 .nav-tabs .nav-link {
   color: var(--hiq-text-muted);
   border: none;
-  border-bottom: 3px solid transparent;
+  border-bottom: 3px solid transparent !important;
   padding: 14px 20px;
   font-weight: 600;
   transition: var(--hiq-transition);
+}
+
+.nav-tabs.card-header-tabs .nav-link {
+  padding: 14px 18px !important;
+  font-weight: 700;
+  font-size: 0.95rem;
+  white-space: nowrap !important;
 }
 
 .nav-tabs .nav-link:hover {
@@ -3287,10 +3332,28 @@ a:hover {
   border-bottom-color: var(--hiq-light-border-hover);
 }
 
+.nav-tabs.card-header-tabs .nav-link:hover {
+  color: var(--hiq-text-primary);
+  border-bottom-color: rgba(254, 107, 37, 0.4) !important;
+}
+
 .nav-tabs .nav-link.active {
   color: var(--hiq-text-primary);
   border-bottom-color: var(--hiq-accent);
   background: transparent;
+}
+
+.nav-tabs.card-header-tabs .nav-link.active {
+  color: var(--hiq-text-primary) !important;
+  border-bottom-color: #FE6B25 !important;
+  background: transparent !important;
+}
+
+@media (max-width: 767.98px) {
+  .nav-tabs.card-header-tabs .nav-link {
+    padding: 12px 14px !important;
+    font-size: 0.85rem !important;
+  }
 }
 
 /* ==========================================================================

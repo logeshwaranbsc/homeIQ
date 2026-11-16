@@ -262,9 +262,9 @@ $breadcrumbs = [
   </div>
 
   <!-- Detailed Tabs Section -->
-  <div class="card border rounded-3 mb-5 shadow-sm">
-    <div class="card-header bg-white border-bottom p-0">
-      <ul class="nav nav-tabs card-header-tabs m-0 px-2 px-md-3 border-0 flex-nowrap overflow-x-auto text-nowrap" id="productTabs" role="tablist">
+  <div class="card border rounded-3 mb-5 shadow-sm overflow-hidden">
+    <div class="card-header bg-white border-bottom p-0 overflow-hidden position-relative">
+      <ul class="nav nav-tabs card-header-tabs m-0 px-2 px-md-3 border-0 flex-nowrap text-nowrap" id="productTabs" role="tablist">
         <li class="nav-item">
           <button class="nav-link active fw-bold py-3" id="desc-tab" data-bs-toggle="tab" data-bs-target="#descTab" type="button" role="tab">About This Product</button>
         </li>
@@ -511,4 +511,93 @@ $breadcrumbs = [
     </div>
   <?php endif; ?>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var tabsContainer = document.getElementById('productTabs');
+  if (!tabsContainer) return;
+
+  var isDown = false;
+  var startX = 0;
+  var scrollLeft = 0;
+  var hasDragged = false;
+
+  // Mouse Drag to scroll (Desktop & Mobile Simulation)
+  tabsContainer.addEventListener('mousedown', function (e) {
+    isDown = true;
+    hasDragged = false;
+    tabsContainer.classList.add('is-dragging');
+    startX = e.pageX - tabsContainer.offsetLeft;
+    scrollLeft = tabsContainer.scrollLeft;
+  });
+
+  window.addEventListener('mouseup', function () {
+    if (isDown) {
+      isDown = false;
+      tabsContainer.classList.remove('is-dragging');
+    }
+  });
+
+  tabsContainer.addEventListener('mouseleave', function () {
+    if (isDown) {
+      isDown = false;
+      tabsContainer.classList.remove('is-dragging');
+    }
+  });
+
+  tabsContainer.addEventListener('mousemove', function (e) {
+    if (!isDown) return;
+    e.preventDefault();
+    var x = e.pageX - tabsContainer.offsetLeft;
+    var walk = (x - startX) * 1.5;
+    if (Math.abs(x - startX) > 6) {
+      hasDragged = true;
+    }
+    tabsContainer.scrollLeft = scrollLeft - walk;
+  });
+
+  // Touch Swipe tracking to distinguish drags from taps
+  var touchStartX = 0;
+  var touchMoved = false;
+
+  tabsContainer.addEventListener('touchstart', function (e) {
+    if (e.touches.length === 1) {
+      touchStartX = e.touches[0].pageX;
+      touchMoved = false;
+    }
+  }, { passive: true });
+
+  tabsContainer.addEventListener('touchmove', function (e) {
+    if (e.touches.length === 1) {
+      var currentX = e.touches[0].pageX;
+      if (Math.abs(currentX - touchStartX) > 8) {
+        touchMoved = true;
+      }
+    }
+  }, { passive: true });
+
+  // Handle Tab clicks: prevent click switch if dragged, otherwise center tab into view
+  var tabButtons = tabsContainer.querySelectorAll('.nav-link');
+  tabButtons.forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      if (hasDragged || touchMoved) {
+        e.preventDefault();
+        e.stopPropagation();
+        hasDragged = false;
+        touchMoved = false;
+        return false;
+      }
+      setTimeout(function () {
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }, 60);
+    });
+  });
+
+  // Center active tab initially
+  var activeTab = tabsContainer.querySelector('.nav-link.active');
+  if (activeTab) {
+    activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+});
+</script>
 
