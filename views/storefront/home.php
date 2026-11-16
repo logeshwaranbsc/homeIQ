@@ -305,6 +305,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <source src="<?= e($vidSource) ?>" type="video/mp4">
               </video>
               <div class="hiq-reel-scrim"></div>
+              <button class="hiq-reel-mute-btn" type="button" aria-label="Sound off. Click to unmute." title="Sound off (Click to unmute)">
+                <i class="bi bi-volume-mute-fill"></i>
+              </button>
               <button class="hiq-reel-play-circle" type="button" aria-label="Play Reel">
                 <i class="bi bi-play-fill"></i>
               </button>
@@ -390,6 +393,21 @@ document.addEventListener('DOMContentLoaded', function () {
     var video = card.querySelector('video');
     if (!video) return;
 
+    var muteBtn = card.querySelector('.hiq-reel-mute-btn');
+    var muteIcon = muteBtn ? muteBtn.querySelector('i') : null;
+
+    function setMuteState(isMuted) {
+      video.muted = isMuted;
+      if (muteIcon) {
+        muteIcon.className = isMuted ? 'bi bi-volume-mute-fill' : 'bi bi-volume-up-fill';
+      }
+      if (muteBtn) {
+        muteBtn.setAttribute('aria-label', isMuted ? 'Sound off. Click to unmute.' : 'Sound on. Click to mute.');
+        muteBtn.setAttribute('title', isMuted ? 'Sound off (Click to unmute)' : 'Sound on (Click to mute)');
+      }
+    }
+    card._setMuteState = setMuteState;
+
     // Track play state for styling
     video.addEventListener('play', function () {
       card.classList.add('is-playing');
@@ -398,8 +416,8 @@ document.addEventListener('DOMContentLoaded', function () {
       card.classList.remove('is-playing');
     });
 
-    // Start muted autoplay initially
-    video.muted = true;
+    // Start muted autoplay initially (default off)
+    setMuteState(true);
     var playPromise = video.play();
     if (playPromise !== undefined) {
       playPromise.then(function () {
@@ -407,8 +425,41 @@ document.addEventListener('DOMContentLoaded', function () {
       }).catch(function () {});
     }
 
-    card.addEventListener('click', function () {
+    // Toggle sound on speaker icon click
+    if (muteBtn) {
+      muteBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        var willBeMuted = !video.muted;
+        if (!willBeMuted) {
+          // Turning sound ON: mute all other reels so only one audio stream plays
+          reelCards.forEach(function (otherCard) {
+            if (otherCard !== card && typeof otherCard._setMuteState === 'function') {
+              otherCard._setMuteState(true);
+            }
+          });
+          setMuteState(false);
+          // If paused, start/resume playback
+          if (video.paused) {
+            document.querySelectorAll('.hiq-mockup-reel-card video').forEach(function (v) {
+              if (v !== video) v.pause();
+            });
+            video.play().catch(function () {});
+            card.classList.add('is-playing');
+          }
+        } else {
+          // Turning sound OFF (default off)
+          setMuteState(true);
+        }
+      });
+    }
+
+    // Card click toggles play/pause (ignoring speaker button)
+    card.addEventListener('click', function (e) {
       if (hasDragged) return;
+      if (e.target.closest('.hiq-reel-mute-btn')) return;
+
       if (video.paused) {
         document.querySelectorAll('.hiq-mockup-reel-card video').forEach(function (v) {
           if (v !== video) v.pause();
@@ -420,6 +471,14 @@ document.addEventListener('DOMContentLoaded', function () {
         card.classList.remove('is-playing');
       }
     });
+
+    card.addEventListener('keydown', function (e) {
+      if (e.target.closest('.hiq-reel-mute-btn')) return;
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
   });
 
   // Autoplay / Pause with IntersectionObserver when scrolled in/out of view
@@ -429,10 +488,15 @@ document.addEventListener('DOMContentLoaded', function () {
         var video = entry.target.querySelector('video');
         if (!video) return;
         if (entry.isIntersecting) {
-          video.muted = true;
-          video.play().catch(function () {});
+          if (video.paused) {
+            video.play().catch(function () {});
+          }
         } else {
           video.pause();
+          // Reset sound to default off when scrolled out of view
+          if (typeof entry.target._setMuteState === 'function') {
+            entry.target._setMuteState(true);
+          }
         }
       });
     }, { threshold: 0.25 });
