@@ -8921,15 +8921,19 @@ body[data-page="cart"] .btn-drawer-view-cart {
     padding: 5px 14px !important;
     gap: 8px !important;
   }
+
   .hiq-google-stars {
     font-size: 0.85rem !important;
   }
+
   .hiq-google-score {
     font-size: 0.85rem !important;
   }
+
   .hiq-google-label {
     font-size: 0.78rem !important;
   }
+
   .hiq-testi-card {
     background: #FFFFFF !important;
     border: 1px solid #F1F5F9 !important;
