@@ -98,6 +98,15 @@ use App\Core\View;
 
         foreach ($categories as $cIdx => $cat): 
           $pastelClass = $pastelClasses[$cIdx % 4];
+          $catSlug = strtolower((string)($cat['slug'] ?? ''));
+          $iconClass = 'bi-lock-fill';
+          if (str_contains($catSlug, 'bell') || str_contains($catSlug, 'camera') || str_contains($catSlug, 'video')) {
+              $iconClass = 'bi-camera-video-fill';
+          } elseif (str_contains($catSlug, 'hub') || str_contains($catSlug, 'gateway')) {
+              $iconClass = 'bi-router-fill';
+          } elseif (str_contains($catSlug, 'access') || str_contains($catSlug, 'card')) {
+              $iconClass = 'bi-key-fill';
+          }
       ?>
         <div class="hiq-category-col">
           <a href="<?= url('category/' . $cat['slug']) ?>" class="hiq-category-card <?= $pastelClass ?>" title="<?= e($cat['name']) ?>">
@@ -105,6 +114,7 @@ use App\Core\View;
               <img src="<?= upload_url($cat['image'] ?? '') ?>" alt="<?= e($cat['name']) ?>" loading="lazy" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
             </div>
             <div class="hiq-category-pill">
+              <span class="hiq-cat-pill-icon"><i class="bi <?= $iconClass ?>"></i></span>
               <span class="hiq-cat-pill-name"><?= e($cat['name']) ?></span>
             </div>
           </a>

@@ -17,39 +17,5 @@
         "mobile_image": "banners/ea4618d92e96212423f0_1794646027.webp",
         "title": "Advanced Security. Elegant Design.",
         "cta_position": "bottom-left"
-    },
-    {
-        "headline": "Built for Security. Designed for Peace.",
-        "subheading": "Discover premium smart locks at special prices.",
-        "supporting_text": "Biometric precision meets architectural elegance.",
-        "offer_badge": "UP TO 40% OFF",
-        "cta_label": "SHOP NOW",
-        "cta_url": "shop",
-        "display_order": 2,
-        "is_active": true,
-        "image": "banners/096f014a9c5744291c15_1794664320.jpg",
-        "id": "bnr_0deabe3f6ae32633",
-        "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-11-14 19:22:00",
-        "text_position": "left",
-        "overlay_style": "gradient",
-        "title": "Built for Security. Designed for Peace.",
-        "mobile_image": null
-    },
-    {
-        "headline": "Your Smart Home Upgrade Starts Here.",
-        "subheading": "Exclusive deals on HOMEIQ smart locks.",
-        "supporting_text": "Free express shipping and nationwide door installation support.",
-        "offer_badge": "FREE SHIPPING",
-        "cta_label": "SHOP NOW",
-        "cta_url": "shop",
-        "display_order": 4,
-        "is_active": true,
-        "image": "banners/e4ec0969f7f1d8245867_1793628048.png",
-        "id": "bnr_ddb4874f6ae32633",
-        "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-11-02 19:30:48",
-        "text_position": "left",
-        "overlay_style": "gradient"
     }
 ]

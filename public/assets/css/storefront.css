@@ -7173,23 +7173,22 @@ body[data-page="cart"] .btn-drawer-view-cart {
 }
 
 .hiq-category-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 8px 10px;
-  border-radius: 16px;
-  text-decoration: none;
-  height: auto;
+  display: block;
   position: relative;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  width: 100%;
+  height: 270px;
+  border-radius: 20px;
+  text-decoration: none;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  border: 1.5px solid rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .hiq-category-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+  border-color: #FE6B25;
+  box-shadow: 0 12px 28px rgba(254, 107, 37, 0.15);
 }
 
 .pastel-peach {
@@ -7209,10 +7208,12 @@ body[data-page="cart"] .btn-drawer-view-cart {
 }
 
 .hiq-category-img-box {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 100%;
   display: block;
-  border-radius: 12px;
+  border-radius: 20px;
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -7225,10 +7226,11 @@ body[data-page="cart"] .btn-drawer-view-cart {
   max-height: none;
   max-width: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
-  border-radius: 12px;
+  border-radius: 20px;
   filter: none;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hiq-category-card:hover .hiq-category-img-box img {
@@ -7255,32 +7257,59 @@ body[data-page="cart"] .btn-drawer-view-cart {
 }
 
 .hiq-category-pill {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 2;
   background: #ffffff;
   border-radius: 999px;
-  padding: 6px 16px;
+  padding: 7px 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 100%;
-  max-width: 100%;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-  margin-top: 8px;
-  transition: box-shadow 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .hiq-category-card:hover .hiq-category-pill {
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.hiq-cat-pill-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  border: 1.5px solid #FE6B25;
+  background: rgba(254, 107, 37, 0.08);
+  color: #FE6B25;
+  font-size: 0.82rem;
+  margin-right: 8px;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.hiq-category-card:hover .hiq-cat-pill-icon {
+  background: #FE6B25;
+  color: #ffffff;
+  transform: scale(1.05);
 }
 
 .hiq-cat-pill-name {
   color: #111827;
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
+  letter-spacing: -0.01em;
 }
 
 .hiq-cat-pill-arrow {
@@ -7309,16 +7338,18 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
 
   .hiq-category-card {
-    height: 210px;
-    padding: 12px 12px 12px;
+    height: 230px;
+    padding: 0;
   }
 
   .hiq-category-img-box {
-    max-height: 145px;
+    max-height: none;
+    height: 100%;
   }
 
   .hiq-category-img-box img {
-    max-height: 145px;
+    max-height: none;
+    height: 100%;
   }
 }
 
@@ -8171,10 +8202,10 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
 
   .carousel-item-hero {
-    min-height: 175px !important;
+    min-height: 155px !important;
     height: auto !important;
-    aspect-ratio: 2.1 / 1 !important;
-    max-height: 250px !important;
+    aspect-ratio: 2.2 / 1 !important;
+    max-height: 230px !important;
     background-color: #07080a !important;
     position: relative !important;
     border-radius: 16px !important;
@@ -8183,9 +8214,9 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
 
   .carousel-item-hero.has-mobile-banner {
-    aspect-ratio: 1.7 / 1 !important;
-    min-height: 200px !important;
-    max-height: 290px !important;
+    aspect-ratio: 1.9 / 1 !important;
+    min-height: 160px !important;
+    max-height: 260px !important;
   }
 
   .hero-bg-wrapper,
@@ -8398,13 +8429,17 @@ body[data-page="cart"] .btn-drawer-view-cart {
   .hiq-category-card {
     height: 180px !important;
     /* Preserved card height */
-    padding: 10px 10px 10px !important;
+    padding: 0 !important;
     border-radius: 18px !important;
     position: relative !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    align-items: center !important;
+    display: block !important;
+    overflow: hidden !important;
+    border: 1.5px solid rgba(0, 0, 0, 0.05) !important;
+    transition: transform 0.25s ease, border-color 0.25s ease !important;
+  }
+
+  .hiq-category-card:hover {
+    border-color: #FE6B25 !important;
   }
 
   .hiq-cat-corner-icon {
@@ -8413,46 +8448,70 @@ body[data-page="cart"] .btn-drawer-view-cart {
 
   .hiq-category-img-box {
     width: 100% !important;
-    height: 122px !important;
-    max-height: 122px !important;
-    border-radius: 14px !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    border-radius: 18px !important;
     overflow: hidden !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
   }
 
   .hiq-category-img-box img {
     width: 100% !important;
     height: 100% !important;
-    max-height: 122px !important;
+    max-height: 100% !important;
     object-fit: cover !important;
-    border-radius: 14px !important;
+    border-radius: 18px !important;
   }
 
   .hiq-category-pill {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 6px 12px !important;
-    margin-top: 6px !important;
+    position: absolute !important;
+    bottom: 8px !important;
+    left: 8px !important;
+    right: 8px !important;
+    width: auto !important;
+    max-width: none !important;
+    padding: 5px 10px !important;
+    margin-top: 0 !important;
     border-radius: 999px !important;
     background: #ffffff !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12) !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     text-align: center !important;
+    z-index: 2 !important;
+  }
+
+  .hiq-cat-pill-icon {
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 6px !important;
+    font-size: 0.7rem !important;
+    margin-right: 5px !important;
+    border: 1px solid #FE6B25 !important;
+    background: rgba(254, 107, 37, 0.08) !important;
+    color: #FE6B25 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
   }
 
   .hiq-cat-pill-name {
-    font-size: 0.82rem !important;
+    font-size: 0.78rem !important;
     font-weight: 700 !important;
+    color: #111827 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
     text-align: center !important;
-    width: 100% !important;
+    width: auto !important;
   }
 
-  .hiq-cat-pill-arrow,
-  .hiq-cat-corner-icon {
+  .hiq-cat-pill-arrow {
     display: none !important;
   }
 
