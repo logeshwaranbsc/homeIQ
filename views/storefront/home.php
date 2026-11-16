@@ -82,7 +82,7 @@ use App\Core\View;
      SECTION 3: SHOP BY CATEGORY
      ========================================================================== -->
 <?php if (!empty($categories)): ?>
-<section class="hiq-shop-category-section py-4 py-md-5">
+<section class="hiq-shop-category-section bg-white py-4 py-md-5">
   <div class="container">
     <div class="d-flex align-items-center justify-content-between mb-3 mb-md-4">
       <h2 class="hiq-section-heading m-0">Shop by Category</h2>
@@ -98,15 +98,6 @@ use App\Core\View;
 
         foreach ($categories as $cIdx => $cat): 
           $pastelClass = $pastelClasses[$cIdx % 4];
-          $catSlug = strtolower((string)($cat['slug'] ?? ''));
-          $iconClass = 'bi-lock-fill';
-          if (str_contains($catSlug, 'bell') || str_contains($catSlug, 'camera') || str_contains($catSlug, 'video')) {
-              $iconClass = 'bi-camera-video-fill';
-          } elseif (str_contains($catSlug, 'hub') || str_contains($catSlug, 'gateway')) {
-              $iconClass = 'bi-router-fill';
-          } elseif (str_contains($catSlug, 'access') || str_contains($catSlug, 'card')) {
-              $iconClass = 'bi-key-fill';
-          }
       ?>
         <div class="hiq-category-col">
           <a href="<?= url('category/' . $cat['slug']) ?>" class="hiq-category-card <?= $pastelClass ?>" title="<?= e($cat['name']) ?>">
@@ -114,7 +105,6 @@ use App\Core\View;
               <img src="<?= upload_url($cat['image'] ?? '') ?>" alt="<?= e($cat['name']) ?>" loading="lazy" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
             </div>
             <div class="hiq-category-pill">
-              <span class="hiq-cat-pill-icon"><i class="bi <?= $iconClass ?>"></i></span>
               <span class="hiq-cat-pill-name"><?= e($cat['name']) ?></span>
             </div>
           </a>
@@ -284,11 +274,8 @@ document.addEventListener('DOMContentLoaded', function () {
 <?php if (!empty($videoTestimonials)): ?>
 <section class="hiq-reels-section py-4 py-md-5">
   <div class="container">
-    <div class="position-relative text-center mb-3 mb-md-4">
+    <div class="text-center mb-3 mb-md-4">
       <h2 class="hiq-section-heading m-0 justify-content-center">Customer Reels</h2>
-      <a href="<?= url('video-testimonials') ?>" class="hiq-view-all-link position-absolute end-0 top-50 translate-middle-y">
-        View All <i class="bi bi-arrow-right ms-1"></i>
-      </a>
     </div>
 
     <!-- Reels Track (Vertical Cards with Left-to-Right Movable Navigation) -->
@@ -314,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ?>
           <div class="hiq-reel-item" data-index="<?= $rIdx ?>">
             <div class="hiq-mockup-reel-card" role="button" tabindex="0" title="Click to play">
-              <video class="hiq-reel-video" playsinline loop preload="metadata" <?= !empty($thumbSource) ? 'poster="' . e($thumbSource) . '"' : '' ?>>
+              <video class="hiq-reel-video" autoplay muted playsinline loop preload="metadata" <?= !empty($thumbSource) ? 'poster="' . e($thumbSource) . '"' : '' ?>>
                 <source src="<?= e($vidSource) ?>" type="video/mp4">
               </video>
               <div class="hiq-reel-scrim"></div>
@@ -397,11 +384,29 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Play / Pause video click handler (only triggers if user clicked without dragging)
+  // Autoplay reels when visible & handle play/pause/mute toggle
   var reelCards = document.querySelectorAll('.hiq-mockup-reel-card');
   reelCards.forEach(function (card) {
     var video = card.querySelector('video');
     if (!video) return;
+
+    // Track play state for styling
+    video.addEventListener('play', function () {
+      card.classList.add('is-playing');
+    });
+    video.addEventListener('pause', function () {
+      card.classList.remove('is-playing');
+    });
+
+    // Start muted autoplay initially
+    video.muted = true;
+    var playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.then(function () {
+        card.classList.add('is-playing');
+      }).catch(function () {});
+    }
+
     card.addEventListener('click', function () {
       if (hasDragged) return;
       if (video.paused) {
@@ -416,6 +421,26 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   });
+
+  // Autoplay / Pause with IntersectionObserver when scrolled in/out of view
+  if ('IntersectionObserver' in window) {
+    var reelObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var video = entry.target.querySelector('video');
+        if (!video) return;
+        if (entry.isIntersecting) {
+          video.muted = true;
+          video.play().catch(function () {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+
+    reelCards.forEach(function (card) {
+      reelObserver.observe(card);
+    });
+  }
 });
 </script>
 <?php endif; ?>
@@ -423,10 +448,23 @@ document.addEventListener('DOMContentLoaded', function () {
 <!-- ==========================================================================
      SECTION 7: WHAT OUR CUSTOMERS SAY (TESTIMONIALS SLIDER)
      ========================================================================== -->
-<section class="hiq-testimonials-section py-4 py-md-5">
+<section class="hiq-testimonials-section py-3 py-md-4">
   <div class="container">
-    <div class="text-center mb-4">
-      <h2 class="hiq-section-heading m-0 justify-content-center">What Our Customers Say</h2>
+    <div class="text-center mb-3 mb-md-4">
+      <h2 class="hiq-section-heading m-0 justify-content-center">
+        What Our <span class="hiq-title-highlight">Customers</span> Say
+      </h2>
+      <div class="hiq-google-review-badge mt-2">
+        <div class="hiq-google-stars">
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star-fill"></i>
+        </div>
+        <span class="hiq-google-score">4.9 / 5</span>
+        <span class="hiq-google-label">on Google Reviews</span>
+      </div>
     </div>
 
     <?php 
@@ -517,7 +555,7 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>
 
     <!-- Carousel Dots (Movable Slide Indicators) -->
-    <div class="d-flex justify-content-center align-items-center gap-2 mt-4" id="testimonialsDots">
+    <div class="d-flex justify-content-center align-items-center gap-2 mt-2 mt-md-3" id="testimonialsDots">
       <span class="hiq-testi-dot active" role="button" aria-label="Slide 1"></span>
       <span class="hiq-testi-dot" role="button" aria-label="Slide 2"></span>
     </div>
@@ -533,10 +571,45 @@ document.addEventListener('DOMContentLoaded', function () {
   var slides = track.querySelectorAll('.hiq-testi-slide');
   if (slides.length === 0) return;
 
+  var autoSlideInterval = null;
+  var currentPage = 0;
+
   function getItemsPerSlide() {
     if (window.innerWidth < 768) return 1;
     if (window.innerWidth < 992) return 2;
     return 3;
+  }
+
+  function goToPage(pageIdx) {
+    var itemsPerSlide = getItemsPerSlide();
+    var pageCount = Math.ceil(slides.length / itemsPerSlide);
+    if (pageCount <= 1) return;
+    currentPage = (pageIdx + pageCount) % pageCount;
+    var targetIndex = currentPage * itemsPerSlide;
+    if (slides[targetIndex]) {
+      track.scrollTo({
+        left: slides[targetIndex].offsetLeft - track.offsetLeft,
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  function startAutoSlide() {
+    stopAutoSlide();
+    autoSlideInterval = setInterval(function () {
+      var itemsPerSlide = getItemsPerSlide();
+      var pageCount = Math.ceil(slides.length / itemsPerSlide);
+      if (pageCount <= 1) return;
+      var nextPage = (currentPage + 1) % pageCount;
+      goToPage(nextPage);
+    }, 4500);
+  }
+
+  function stopAutoSlide() {
+    if (autoSlideInterval) {
+      clearInterval(autoSlideInterval);
+      autoSlideInterval = null;
+    }
   }
 
   function updateDots() {
@@ -549,17 +622,12 @@ document.addEventListener('DOMContentLoaded', function () {
     for (var i = 0; i < pageCount; i++) {
       (function(pageIdx) {
         var dot = document.createElement('span');
-        dot.className = 'hiq-testi-dot' + (pageIdx === 0 ? ' active' : '');
+        dot.className = 'hiq-testi-dot' + (pageIdx === currentPage ? ' active' : '');
         dot.setAttribute('role', 'button');
         dot.setAttribute('aria-label', 'Go to review slide ' + (pageIdx + 1));
         dot.addEventListener('click', function () {
-          var targetIndex = pageIdx * itemsPerSlide;
-          if (slides[targetIndex]) {
-            track.scrollTo({
-              left: slides[targetIndex].offsetLeft - track.offsetLeft,
-              behavior: 'smooth'
-            });
-          }
+          goToPage(pageIdx);
+          startAutoSlide();
         });
         dotsContainer.appendChild(dot);
       })(i);
@@ -569,8 +637,9 @@ document.addEventListener('DOMContentLoaded', function () {
   function onScroll() {
     var itemsPerSlide = getItemsPerSlide();
     var scrollLeft = track.scrollLeft;
-    var slideWidth = (slides[0] ? slides[0].offsetWidth : 300) + 20;
+    var slideWidth = (slides[0] ? slides[0].offsetWidth : 300) + 16;
     var activePage = Math.round(scrollLeft / (slideWidth * itemsPerSlide));
+    currentPage = activePage;
     
     var dots = dotsContainer.querySelectorAll('.hiq-testi-dot');
     dots.forEach(function (dot, idx) {
@@ -583,8 +652,22 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   track.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', updateDots);
+  window.addEventListener('resize', function () {
+    updateDots();
+    onScroll();
+  });
   updateDots();
+  startAutoSlide();
+
+  // Pause auto-switch on user hover / touch
+  track.addEventListener('mouseenter', stopAutoSlide);
+  track.addEventListener('mouseleave', function () {
+    if (!isDown) startAutoSlide();
+  });
+  track.addEventListener('touchstart', stopAutoSlide, { passive: true });
+  track.addEventListener('touchend', function () {
+    setTimeout(startAutoSlide, 2000);
+  }, { passive: true });
 
   // Desktop Mouse Drag to move right-to-left
   var isDown = false;
@@ -592,6 +675,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var startScrollLeft;
 
   track.addEventListener('mousedown', function (e) {
+    stopAutoSlide();
     isDown = true;
     track.classList.add('is-dragging');
     startX = e.pageX - track.offsetLeft;
@@ -599,13 +683,19 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   window.addEventListener('mouseup', function () {
-    isDown = false;
-    track.classList.remove('is-dragging');
+    if (isDown) {
+      isDown = false;
+      track.classList.remove('is-dragging');
+      startAutoSlide();
+    }
   });
 
   track.addEventListener('mouseleave', function () {
-    isDown = false;
-    track.classList.remove('is-dragging');
+    if (isDown) {
+      isDown = false;
+      track.classList.remove('is-dragging');
+      startAutoSlide();
+    }
   });
 
   track.addEventListener('mousemove', function (e) {

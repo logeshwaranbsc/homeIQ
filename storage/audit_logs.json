@@ -4390,5 +4390,14 @@
         "id": "log_256ab5756afa9562",
         "created_at": "2026-11-16 11:02:18",
         "updated_at": "2026-11-16 11:02:18"
+    },
+    {
+        "action": "video_testimonial_updated",
+        "user": "admin",
+        "details": "Updated video testimonial for Testing (ID: vid_55e3c1f56aeb3127)",
+        "ip": "",
+        "id": "log_42ab504c6afaa63c",
+        "created_at": "2026-11-16 12:14:12",
+        "updated_at": "2026-11-16 12:14:12"
     }
 ]

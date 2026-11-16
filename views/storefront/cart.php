@@ -8,18 +8,18 @@ $breadcrumbs = [
     ['label' => 'Shopping Cart', 'url' => null]
 ];
 ?>
-<div class="container py-4">
+<div class="container py-3 py-md-4">
   <?= View::component('breadcrumbs', ['items' => $breadcrumbs]) ?>
 
-  <h1 class="h2 fw-bold mb-4">Your Shopping Cart</h1>
+  <h1 class="hiq-cart-page-title mb-3">Your Shopping Cart</h1>
 
   <?php if (empty($cart['items'])): ?>
-    <div class="card border p-4 p-md-5 text-center my-4 shadow-sm">
-      <i class="bi bi-bag-x fs-1 text-muted mb-3"></i>
-      <h3 class="fw-bold">Your Cart is Currently Empty</h3>
-      <p class="text-muted">Discover our state-of-the-art AI face recognition and biometric digital locks to secure your home.</p>
-      <div class="mt-3">
-        <a href="<?= url('shop') ?>" class="btn btn-hiq-primary px-4 py-2">
+    <div class="card border p-4 p-md-5 text-center my-3 shadow-sm hiq-empty-cart-card">
+      <i class="bi bi-bag-x hiq-empty-cart-icon text-muted mb-2"></i>
+      <h2 class="hiq-empty-cart-title mb-2">Your Cart is Currently Empty</h2>
+      <p class="hiq-empty-cart-desc">Discover our state-of-the-art AI face recognition and biometric digital locks to secure your home.</p>
+      <div>
+        <a href="<?= url('shop') ?>" class="btn btn-hiq-primary hiq-empty-cart-btn">
           Explore Digital Locks
         </a>
       </div>
@@ -116,7 +116,7 @@ $breadcrumbs = [
 
         <!-- Summary Totals -->
         <div class="card border rounded-3 p-4 shadow-sm">
-          <h5 class="fw-bold mb-3 border-bottom pb-2">Order Summary</h5>
+          <h6 class="fw-bold mb-3 border-bottom pb-2">Order Summary</h6>
 
           <div class="d-flex justify-content-between mb-2">
             <span class="text-muted">Subtotal (<?= $cart['total_items'] ?> items):</span>
@@ -148,9 +148,9 @@ $breadcrumbs = [
 
           <hr class="my-3">
 
-          <div class="d-flex justify-content-between align-items-baseline mb-4">
-            <span class="fs-5 fw-bold">Total Amount:</span>
-            <span class="fs-4 fw-extrabold text-dark"><?= format_price($cart['grand_total']) ?></span>
+          <div class="d-flex justify-content-between align-items-baseline mb-3">
+            <span class="fw-bold">Total Amount:</span>
+            <span class="fs-5 fw-extrabold text-dark"><?= format_price($cart['grand_total']) ?></span>
           </div>
 
           <?php if (!auth_customer()): ?>
@@ -160,7 +160,7 @@ $breadcrumbs = [
             </div>
           <?php endif; ?>
 
-          <a href="<?= url('checkout') ?>" class="btn btn-hiq-accent w-100 py-3 fw-bold fs-6">
+          <a href="<?= url('checkout') ?>" class="btn btn-hiq-accent w-100 py-2 fw-bold" style="font-size: 0.95rem;">
             Proceed to Checkout <i class="bi bi-arrow-right ms-1"></i>
           </a>
 
