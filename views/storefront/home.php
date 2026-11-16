@@ -82,7 +82,7 @@ use App\Core\View;
      SECTION 3: SHOP BY CATEGORY
      ========================================================================== -->
 <?php if (!empty($categories)): ?>
-<section class="hiq-shop-category-section bg-white py-4 py-md-5">
+<section class="hiq-shop-category-section py-3 py-md-4">
   <div class="container">
     <div class="d-flex align-items-center justify-content-between mb-3 mb-md-4">
       <h2 class="hiq-section-heading m-0">Shop by Category</h2>

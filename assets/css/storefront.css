@@ -7172,7 +7172,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
 }
 
 .hiq-category-col {
-  width: 240px;
+  width: 185px;
   max-width: 100%;
 }
 
@@ -7180,12 +7180,12 @@ body[data-page="cart"] .btn-drawer-view-cart {
   display: block;
   position: relative;
   width: 100%;
-  height: 280px;
-  border-radius: 24px;
+  height: 220px;
+  border-radius: 18px;
   text-decoration: none;
   overflow: hidden;
-  border: 2px solid #FE6B25;
-  box-shadow: 0 0 16px rgba(254, 107, 37, 0.35), 0 8px 24px rgba(0, 0, 0, 0.2);
+  border: 1.5px solid #FE6B25;
+  box-shadow: 0 0 12px rgba(254, 107, 37, 0.3), 0 6px 18px rgba(0, 0, 0, 0.18);
   background: transparent !important;
   padding: 0 !important;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -7194,7 +7194,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
 .hiq-category-card:hover {
   transform: translateY(-4px);
   border-color: #ff7f40;
-  box-shadow: 0 0 22px rgba(254, 107, 37, 0.5), 0 12px 28px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 18px rgba(254, 107, 37, 0.45), 0 8px 22px rgba(0, 0, 0, 0.25);
 }
 
 .pastel-peach,
@@ -7210,7 +7210,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
   width: 100%;
   height: 100%;
   display: block;
-  border-radius: 22px;
+  border-radius: 16px;
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -7226,7 +7226,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
   object-fit: cover;
   object-position: center 20%;
   display: block;
-  border-radius: 22px;
+  border-radius: 16px;
   filter: none;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -7241,30 +7241,31 @@ body[data-page="cart"] .btn-drawer-view-cart {
 
 .hiq-category-pill {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 2;
-  background: rgba(20, 16, 14, 0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  width: auto;
+  max-width: calc(100% - 16px);
+  background: rgba(20, 16, 14, 0.62);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 999px;
-  padding: 7px 14px;
-  display: flex;
+  padding: 4px 12px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   text-align: center;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.18);
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
 }
 
 .hiq-category-card:hover .hiq-category-pill {
-  transform: translateY(-2px);
-  background: rgba(20, 16, 14, 0.75);
+  transform: translate(-50%, -2px);
+  background: rgba(20, 16, 14, 0.82);
   border-color: rgba(254, 107, 37, 0.6);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.4);
 }
 
 .hiq-cat-pill-icon {
@@ -7272,7 +7273,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
   align-items: center;
   justify-content: center;
   color: #FE6B25;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   line-height: 1;
   flex-shrink: 0;
 }
@@ -7280,14 +7281,17 @@ body[data-page="cart"] .btn-drawer-view-cart {
 .hiq-cat-pill-name {
   color: #ffffff;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
   letter-spacing: -0.01em;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-  width: 100%;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  width: auto;
 }
 
 .hiq-cat-pill-arrow {
@@ -7316,7 +7320,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
 
   .hiq-category-card {
-    height: 240px;
+    height: 190px;
     padding: 0 !important;
   }
 
@@ -8457,21 +8461,21 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
 
   .hiq-category-col {
-    flex: 0 0 148px !important;
-    min-width: 148px !important;
+    flex: 0 0 130px !important;
+    min-width: 130px !important;
     scroll-snap-align: start !important;
   }
 
   .hiq-category-card {
-    height: 195px !important;
-    min-height: 195px !important;
+    height: 160px !important;
+    min-height: 160px !important;
     padding: 0 !important;
-    border-radius: 20px !important;
+    border-radius: 16px !important;
     position: relative !important;
     display: block !important;
     overflow: hidden !important;
-    border: 2px solid #FE6B25 !important;
-    box-shadow: 0 0 14px rgba(254, 107, 37, 0.35) !important;
+    border: 1.5px solid #FE6B25 !important;
+    box-shadow: 0 0 10px rgba(254, 107, 37, 0.3) !important;
     background: transparent !important;
     transition: transform 0.25s ease, border-color 0.25s ease !important;
   }
@@ -8488,7 +8492,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
     width: 100% !important;
     height: 100% !important;
     max-height: 100% !important;
-    border-radius: 18px !important;
+    border-radius: 14px !important;
     overflow: hidden !important;
     position: absolute !important;
     inset: 0 !important;
@@ -8502,28 +8506,29 @@ body[data-page="cart"] .btn-drawer-view-cart {
     max-height: 100% !important;
     object-fit: cover !important;
     object-position: center 20% !important;
-    border-radius: 18px !important;
+    border-radius: 14px !important;
   }
 
   .hiq-category-pill {
     position: absolute !important;
-    bottom: 8px !important;
-    left: 8px !important;
-    right: 8px !important;
+    bottom: 6px !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
     width: auto !important;
-    max-width: none !important;
-    padding: 6px 12px !important;
+    max-width: calc(100% - 12px) !important;
+    padding: 3px 10px !important;
     margin-top: 0 !important;
     border-radius: 999px !important;
-    background: rgba(20, 16, 14, 0.55) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+    background: rgba(20, 16, 14, 0.62) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3) !important;
     border: 1px solid rgba(255, 255, 255, 0.16) !important;
-    display: flex !important;
+    display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 6px !important;
+    gap: 4px !important;
     text-align: center !important;
     z-index: 2 !important;
   }
@@ -8533,14 +8538,18 @@ body[data-page="cart"] .btn-drawer-view-cart {
     align-items: center !important;
     justify-content: center !important;
     color: #FE6B25 !important;
-    font-size: 0.95rem !important;
+    font-size: 0.85rem !important;
     line-height: 1 !important;
   }
 
   .hiq-cat-pill-name {
     color: #ffffff !important;
-    font-size: 0.825rem !important;
+    font-size: 0.74rem !important;
+    line-height: 1.2 !important;
     font-weight: 700 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
@@ -8986,7 +8995,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
 
   .hiq-category-col {
-    width: 240px !important;
+    width: 185px !important;
     max-width: 100% !important;
   }
 
