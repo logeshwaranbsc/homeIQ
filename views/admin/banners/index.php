@@ -42,7 +42,7 @@ declare(strict_types=1);
           <div class="p-2 bg-light rounded border d-flex align-items-center justify-content-between">
             <div>
               <div class="fw-bold text-dark small"><i class="bi bi-phone text-warning me-1"></i> Mobile Screen Banner (Optional)</div>
-              <div class="text-muted" style="font-size: 0.78rem;">Size: <strong class="text-dark">377 × 198 px</strong> &bull; Ratio: <strong class="text-warning-emphasis font-monospace">1.9:1 (Card)</strong></div>
+              <div class="text-muted" style="font-size: 0.78rem;">Size: <strong class="text-dark">1131 × 594 px</strong> &bull; Ratio: <strong class="text-warning-emphasis font-monospace">1.9:1 (Card)</strong></div>
             </div>
             <span class="badge bg-warning-subtle text-warning-emphasis border">Optional Fallback</span>
           </div>

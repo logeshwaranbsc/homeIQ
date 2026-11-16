@@ -99,12 +99,12 @@ $action = $isEdit ? url('admin/banners/update/' . $banner['id']) : url('admin/ba
                     <label class="form-label fw-bold text-dark m-0 d-flex align-items-center gap-1">
                       <i class="bi bi-phone text-warning"></i> Mobile Screen Banner
                     </label>
-                    <span class="badge bg-warning-subtle text-warning-emphasis fw-semibold small">377 × 198 px (1.9:1)</span>
+                    <span class="badge bg-warning-subtle text-warning-emphasis fw-semibold small">1131 × 594 px (1.9:1)</span>
                   </div>
                   <div class="p-2 mb-2 bg-light rounded border small">
                     <div class="d-flex justify-content-between mb-1">
                       <span class="text-muted">Recommended Size:</span>
-                      <strong class="text-dark">377 × 198 px or 754 × 396 px</strong>
+                      <strong class="text-dark">1131 × 594 px or 754 × 396 px</strong>
                     </div>
                     <div class="d-flex justify-content-between mb-1">
                       <span class="text-muted">Aspect Ratio:</span>
