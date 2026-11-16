@@ -4426,5 +4426,68 @@
         "id": "log_33cd609d6afac995",
         "created_at": "2026-11-16 14:45:01",
         "updated_at": "2026-11-16 14:45:01"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261116-56D6 for ₹ 17,999",
+        "ip": "",
+        "id": "log_4c07cf296afacca9",
+        "created_at": "2026-11-16 14:58:09",
+        "updated_at": "2026-11-16 14:58:09"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261116-56D6 status changed to Cancelled",
+        "ip": "",
+        "id": "log_24339cea6afacca9",
+        "created_at": "2026-11-16 14:58:09",
+        "updated_at": "2026-11-16 14:58:09"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_15480ea46afaccaa",
+        "created_at": "2026-11-16 14:58:10",
+        "updated_at": "2026-11-16 14:58:10"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261116-1447 for ₹ 17,999",
+        "ip": "",
+        "id": "log_bdf224f86aface34",
+        "created_at": "2026-11-16 15:04:44",
+        "updated_at": "2026-11-16 15:04:44"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261116-1447 status changed to Cancelled",
+        "ip": "",
+        "id": "log_eed9bf276aface34",
+        "created_at": "2026-11-16 15:04:44",
+        "updated_at": "2026-11-16 15:04:44"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_a91831f66aface35",
+        "created_at": "2026-11-16 15:04:45",
+        "updated_at": "2026-11-16 15:04:45"
+    },
+    {
+        "action": "banner_created",
+        "user": "admin",
+        "details": "Created banner: tst",
+        "ip": "",
+        "id": "log_a2d323b46afacf2e",
+        "created_at": "2026-11-16 15:08:54",
+        "updated_at": "2026-11-16 15:08:54"
     }
 ]

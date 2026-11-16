@@ -17,5 +17,17 @@
         "mobile_image": "banners/ea4618d92e96212423f0_1794646027.webp",
         "title": "Advanced Security. Elegant Design.",
         "cta_position": "bottom-left"
+    },
+    {
+        "title": "tst",
+        "headline": "tst",
+        "cta_url": "shop",
+        "display_order": 1,
+        "is_active": true,
+        "image": "banners/0846721174f80a264c04_1794821934.jpg",
+        "mobile_image": "banners/89833c3d15f8c327efca_1794821934.jpg",
+        "id": "bnr_313f4bab6afacf2e",
+        "created_at": "2026-11-16 15:08:54",
+        "updated_at": "2026-11-16 15:08:54"
     }
 ]
