@@ -128,13 +128,62 @@ $breadcrumbs = [
       </div>
 
       <!-- Short Description -->
-      <p class="text-muted mb-3 fs-6 leading-relaxed">
-        <?= e($product['short_description']) ?>
-      </p>
+      <?php if (!empty($product['short_description'])): ?>
+        <p class="text-muted mb-3 fs-6 leading-relaxed">
+          <?= e($product['short_description']) ?>
+        </p>
+      <?php endif; ?>
+
+      <!-- Stock Availability Indicator -->
+      <div class="mb-3">
+        <?php if ($inStock): ?>
+          <div class="text-success fw-semibold small d-flex align-items-center gap-2">
+            <i class="bi bi-check-circle-fill"></i> In Stock & Ready for Dispatch (<?= $stock ?> units available)
+          </div>
+        <?php else: ?>
+          <div class="text-danger fw-semibold small d-flex align-items-center gap-2">
+            <i class="bi bi-x-circle-fill"></i> Currently Out of Stock
+          </div>
+        <?php endif; ?>
+      </div>
+
+      <!-- Add to Cart Form -->
+      <?php if ($inStock): ?>
+        <form action="<?= url('cart/add') ?>" method="POST" class="mb-4">
+          <?= csrf_field() ?>
+          <input type="hidden" name="product_id" value="<?= e($product['id']) ?>">
+
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <label class="form-label small fw-bold text-muted mb-0">Quantity:</label>
+            <div class="pdp-qty-stepper input-group">
+              <button type="button" class="pdp-qty-btn btn-qty-minus" aria-label="Decrease quantity">
+                <i class="bi bi-dash"></i>
+              </button>
+              <input type="number" name="quantity" class="pdp-qty-input input-qty" value="1" min="1" max="<?= $stock ?>" readonly>
+              <button type="button" class="pdp-qty-btn btn-qty-plus" aria-label="Increase quantity">
+                <i class="bi bi-plus"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 gap-sm-3 product-purchase-actions">
+            <button type="submit" class="btn btn-pdp-cart flex-grow-1 py-2 py-md-3">
+              <i class="bi bi-bag-plus"></i> Add to Cart
+            </button>
+            <button type="submit" name="buy_now" value="1" class="btn btn-pdp-buy flex-grow-1 py-2 py-md-3">
+              <i class="bi bi-lightning-charge"></i> Buy Now
+            </button>
+          </div>
+        </form>
+      <?php else: ?>
+        <div class="alert alert-warning py-3 mb-4">
+          This digital smart lock model is currently out of stock. Contact our support team for priority backorder reservation.
+        </div>
+      <?php endif; ?>
 
       <!-- Key Hardware Specifications & Highlights ("About This Lock") -->
       <?php if (!empty($product['features']) || !empty($product['access_methods'])): ?>
-        <div class="product-highlights-box">
+        <div class="product-highlights-box mb-4">
           <div class="product-highlights-title">
             <span class="d-inline-flex align-items-center gap-2">
               <i class="bi bi-shield-check text-primary"></i> Key Specifications & Highlights
@@ -189,53 +238,6 @@ $breadcrumbs = [
               </div>
             </div>
           <?php endif; ?>
-        </div>
-      <?php endif; ?>
-
-      <!-- Stock Availability Indicator -->
-      <div class="mb-4">
-        <?php if ($inStock): ?>
-          <div class="text-success fw-semibold small d-flex align-items-center gap-2">
-            <i class="bi bi-check-circle-fill"></i> In Stock & Ready for Dispatch (<?= $stock ?> units available)
-          </div>
-        <?php else: ?>
-          <div class="text-danger fw-semibold small d-flex align-items-center gap-2">
-            <i class="bi bi-x-circle-fill"></i> Currently Out of Stock
-          </div>
-        <?php endif; ?>
-      </div>
-
-      <!-- Add to Cart Form -->
-      <?php if ($inStock): ?>
-        <form action="<?= url('cart/add') ?>" method="POST" class="mb-4">
-          <?= csrf_field() ?>
-          <input type="hidden" name="product_id" value="<?= e($product['id']) ?>">
-
-          <div class="d-flex align-items-center gap-3 mb-3">
-            <label class="form-label small fw-bold text-muted mb-0">Quantity:</label>
-            <div class="pdp-qty-stepper input-group">
-              <button type="button" class="pdp-qty-btn btn-qty-minus" aria-label="Decrease quantity">
-                <i class="bi bi-dash"></i>
-              </button>
-              <input type="number" name="quantity" class="pdp-qty-input input-qty" value="1" min="1" max="<?= $stock ?>" readonly>
-              <button type="button" class="pdp-qty-btn btn-qty-plus" aria-label="Increase quantity">
-                <i class="bi bi-plus"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="d-flex flex-wrap gap-2 gap-sm-3 product-purchase-actions">
-            <button type="submit" class="btn btn-pdp-cart flex-grow-1 py-2 py-md-3">
-              <i class="bi bi-bag-plus"></i> Add to Cart
-            </button>
-            <button type="submit" name="buy_now" value="1" class="btn btn-pdp-buy flex-grow-1 py-2 py-md-3">
-              <i class="bi bi-lightning-charge"></i> Buy Now
-            </button>
-          </div>
-        </form>
-      <?php else: ?>
-        <div class="alert alert-warning py-3">
-          This digital smart lock model is currently out of stock. Contact our support team for priority backorder reservation.
         </div>
       <?php endif; ?>
 
@@ -520,13 +522,13 @@ document.addEventListener('DOMContentLoaded', function () {
   var isDown = false;
   var startX = 0;
   var scrollLeft = 0;
-  var hasDragged = false;
+  var isDragging = false;
 
-  // Mouse Drag to scroll (Desktop & Mobile Simulation)
+  // Mouse Drag to scroll (Desktop)
   tabsContainer.addEventListener('mousedown', function (e) {
+    if (e.button !== 0) return;
     isDown = true;
-    hasDragged = false;
-    tabsContainer.classList.add('is-dragging');
+    isDragging = false;
     startX = e.pageX - tabsContainer.offsetLeft;
     scrollLeft = tabsContainer.scrollLeft;
   });
@@ -535,6 +537,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (isDown) {
       isDown = false;
       tabsContainer.classList.remove('is-dragging');
+      setTimeout(function () {
+        isDragging = false;
+      }, 50);
     }
   });
 
@@ -542,58 +547,44 @@ document.addEventListener('DOMContentLoaded', function () {
     if (isDown) {
       isDown = false;
       tabsContainer.classList.remove('is-dragging');
+      setTimeout(function () {
+        isDragging = false;
+      }, 50);
     }
   });
 
   tabsContainer.addEventListener('mousemove', function (e) {
     if (!isDown) return;
-    e.preventDefault();
     var x = e.pageX - tabsContainer.offsetLeft;
     var walk = (x - startX) * 1.5;
-    if (Math.abs(x - startX) > 6) {
-      hasDragged = true;
+    if (Math.abs(x - startX) > 12) {
+      isDragging = true;
+      tabsContainer.classList.add('is-dragging');
+      tabsContainer.scrollLeft = scrollLeft - walk;
     }
-    tabsContainer.scrollLeft = scrollLeft - walk;
   });
 
-  // Touch Swipe tracking to distinguish drags from taps
-  var touchStartX = 0;
-  var touchMoved = false;
-
-  tabsContainer.addEventListener('touchstart', function (e) {
-    if (e.touches.length === 1) {
-      touchStartX = e.touches[0].pageX;
-      touchMoved = false;
-    }
-  }, { passive: true });
-
-  tabsContainer.addEventListener('touchmove', function (e) {
-    if (e.touches.length === 1) {
-      var currentX = e.touches[0].pageX;
-      if (Math.abs(currentX - touchStartX) > 8) {
-        touchMoved = true;
-      }
-    }
-  }, { passive: true });
-
-  // Handle Tab clicks: prevent click switch if dragged, otherwise center tab into view
+  // Tab buttons: click to switch tabs (Bootstrap Tab .show()) + center tab into view
   var tabButtons = tabsContainer.querySelectorAll('.nav-link');
   tabButtons.forEach(function (btn) {
     btn.addEventListener('click', function (e) {
-      if (hasDragged || touchMoved) {
+      if (isDragging) {
         e.preventDefault();
         e.stopPropagation();
-        hasDragged = false;
-        touchMoved = false;
-        return false;
+        return;
       }
+      // Explicitly trigger Bootstrap tab activation
+      if (typeof bootstrap !== 'undefined' && bootstrap.Tab) {
+        bootstrap.Tab.getOrCreateInstance(btn).show();
+      }
+      // Smoothly scroll clicked tab into view
       setTimeout(function () {
         btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }, 60);
+      }, 50);
     });
   });
 
-  // Center active tab initially
+  // Ensure initial active tab is visible
   var activeTab = tabsContainer.querySelector('.nav-link.active');
   if (activeTab) {
     activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });

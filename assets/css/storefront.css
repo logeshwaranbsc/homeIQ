@@ -3303,12 +3303,13 @@ a:hover {
   scroll-behavior: auto !important;
 }
 
-.card-header-tabs#productTabs.is-dragging .nav-link {
-  pointer-events: none !important;
-}
-
 .nav-tabs.card-header-tabs .nav-item {
   flex-shrink: 0 !important;
+}
+
+.nav-tabs.card-header-tabs .nav-link {
+  cursor: pointer !important;
+  pointer-events: auto !important;
 }
 
 .nav-tabs .nav-link {
@@ -5006,16 +5007,23 @@ video {
     pointer-events: none !important;
   }
 
+  .product-purchase-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
   .product-purchase-actions .btn-hiq-primary,
   .product-purchase-actions .btn-hiq-accent,
   .product-purchase-actions .btn-pdp-cart,
   .product-purchase-actions .btn-pdp-buy {
-    flex: 1 1 100% !important;
-  }
-
-  .product-purchase-actions .btn-hiq-accent,
-  .product-purchase-actions .btn-pdp-buy {
-    flex: 1 1 calc(100% - 58px) !important;
+    flex: 1 1 calc(50% - 4px) !important;
+    min-width: 0 !important;
+    padding: 12px 8px !important;
+    font-size: 0.88rem !important;
+    white-space: nowrap !important;
+    justify-content: center !important;
   }
 
   /* Tabs Horizontal Swipe */
