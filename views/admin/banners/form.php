@@ -104,7 +104,7 @@ $action = $isEdit ? url('admin/banners/update/' . $banner['id']) : url('admin/ba
                   <div class="p-2 mb-2 bg-light rounded border small">
                     <div class="d-flex justify-content-between mb-1">
                       <span class="text-muted">Recommended Size:</span>
-                      <strong class="text-dark">1131 × 594 px or 754 × 396 px</strong>
+                      <strong class="text-dark">1131 × 594 px</strong>
                     </div>
                     <div class="d-flex justify-content-between mb-1">
                       <span class="text-muted">Aspect Ratio:</span>
