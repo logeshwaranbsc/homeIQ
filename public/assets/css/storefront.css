@@ -7906,6 +7906,8 @@ body[data-page="cart"] .btn-drawer-view-cart {
 
 .hiq-title-highlight {
   color: #FE6B25;
+  display: inline-block;
+  margin: 0 0.25rem;
 }
 
 .hiq-google-review-badge {
@@ -8540,8 +8542,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
 
   /* 2. Section Headings */
   .hiq-section-heading {
-    display: inline-flex !important;
-    align-items: center !important;
+    display: inline-block !important;
     font-size: 1.15rem !important;
     font-weight: 800 !important;
     color: #111827 !important;

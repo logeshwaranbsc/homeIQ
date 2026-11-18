@@ -489,7 +489,7 @@ document.addEventListener('DOMContentLoaded', function () {
   <div class="container">
     <div class="text-center mb-3 mb-md-4">
       <h2 class="hiq-section-heading m-0 justify-content-center">
-        What Our <span class="hiq-title-highlight">Customers</span> Say
+        What Our <span class="hiq-title-highlight mx-1">Customers</span> Say
       </h2>
       <div class="hiq-google-review-badge mt-2">
         <div class="hiq-google-stars">
