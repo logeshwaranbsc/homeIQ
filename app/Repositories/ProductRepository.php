@@ -43,6 +43,13 @@ class ProductRepository extends JsonRepository
         return array_slice($featured, 0, $limit);
     }
 
+    public function getBestSellers(int $limit = 8): array
+    {
+        $active = $this->getActive();
+        $bestSellers = array_values(array_filter($active, fn($p) => !empty($p['is_bestseller']) || !empty($p['best_seller'])));
+        return array_slice($bestSellers, 0, $limit);
+    }
+
     public function getLowStock(int $threshold = 5): array
     {
         return $this->filter(fn($p) => ($p['stock'] ?? 0) <= $threshold && ($p['stock'] ?? 0) > 0);

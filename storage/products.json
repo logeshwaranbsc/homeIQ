@@ -15,7 +15,7 @@
         "warranty": "2-Year Official Manufacturer Warranty",
         "installation": "Free Professional Door Installation Included",
         "is_featured": true,
-        "is_bestseller": false,
+        "is_bestseller": true,
         "is_active": true,
         "rating": 4.8,
         "reviews_count": 0,
@@ -75,7 +75,7 @@
         },
         "id": "prod_531f9c426ae32633",
         "created_at": "2026-10-29 16:25:47",
-        "updated_at": "2026-11-25 16:21:51",
+        "updated_at": "2026-11-25 17:26:14",
         "gallery_images": []
     },
     {
@@ -141,7 +141,7 @@
         "created_at": "2026-10-29 16:25:47",
         "updated_at": "2026-11-14 13:02:31",
         "gallery_images": [],
-        "is_bestseller": false
+        "is_bestseller": true
     },
     {
         "name": "HOMEIQ VeinGuard Contactless Palm Vein Smart Lock",
@@ -267,7 +267,7 @@
         "id": "prod_ca1280556ae32633",
         "created_at": "2026-10-29 16:25:47",
         "updated_at": "2026-11-14 13:02:31",
-        "is_bestseller": false,
+        "is_bestseller": true,
         "gallery_images": []
     },
     {

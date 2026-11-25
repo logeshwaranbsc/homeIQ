@@ -6,6 +6,7 @@ use App\Core\View;
 /**
  * @var array $banners
  * @var array $categories
+ * @var array $bestSellers
  * @var array $featuredProducts
  * @var array $recentReviews
  * @var array $videoTestimonials
@@ -116,7 +117,90 @@ use App\Core\View;
 <?php endif; ?>
 
 <!-- ==========================================================================
-     SECTION 4: FEATURED PRODUCTS
+     SECTION 4: BEST SELLERS (SEPARATE SECTION AFTER SHOP BY CATEGORY)
+     ========================================================================== -->
+<?php if (!empty($bestSellers)): ?>
+<section class="hiq-bestsellers-section py-4 py-md-5">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-3 mb-md-4 flex-wrap gap-2">
+      <div class="d-flex align-items-center gap-3">
+        <h2 class="hiq-section-heading m-0">Best Sellers</h2>
+        <!-- Desktop Header Slider Arrows -->
+        <div class="hiq-products-header-nav d-none d-md-flex align-items-center gap-1">
+          <button type="button" class="hiq-prod-header-btn" id="bestHeaderPrev" aria-label="Previous best sellers" title="Previous best sellers">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button type="button" class="hiq-prod-header-btn" id="bestHeaderNext" aria-label="Next best sellers" title="Next best sellers">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+      <a href="<?= url('shop') ?>" class="hiq-view-all-link">
+        View All <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+    </div>
+
+    <!-- Best Sellers Slider Wrap (Single Horizontal Track with 5 Products Visible + Left/Right Navigation) -->
+    <div class="hiq-products-slider-wrap position-relative">
+      <button type="button" class="hiq-prod-slider-btn prev" id="bestSliderPrev" aria-label="Previous best sellers" title="Previous best sellers">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <div class="hiq-products-grid" id="bestProductsTrack">
+        <?php foreach ($bestSellers as $product): 
+          $mrp = (float)($product['price'] ?? 0);
+          $salePrice = (float)($product['sale_price'] ?? $mrp);
+          $cleanTitle = preg_replace('/^HOMEIQ\s+/i', '', (string)$product['name']);
+          $rating = number_format((float)($product['rating'] ?? 4.8), 1);
+          $reviewsCount = !empty($product['reviews_count']) ? (int)$product['reviews_count'] : 48;
+          $isBestSeller = !empty($product['is_bestseller']) || !empty($product['best_seller']);
+        ?>
+          <div class="hiq-product-col">
+            <div class="hiq-product-card">
+              <a href="<?= url('product/' . $product['slug']) ?>" class="hiq-prod-img-wrap position-relative" title="<?= e($product['name']) ?>">
+                <?php if ($isBestSeller): ?>
+                  <span class="modern-bestseller-badge position-absolute" style="top: 8px; left: 8px; z-index: 5;">
+                    <i class="bi bi-star-fill"></i> Best Seller
+                  </span>
+                <?php endif; ?>
+                <img src="<?= upload_url($product['main_image'] ?? '') ?>" alt="<?= e($product['name']) ?>" loading="lazy" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
+              </a>
+              <div class="hiq-prod-info">
+                <a href="<?= url('product/' . $product['slug']) ?>" class="hiq-prod-title" title="<?= e($product['name']) ?>">
+                  <?= e($cleanTitle) ?>
+                </a>
+                <div class="hiq-prod-rating">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <span class="hiq-rating-val"><?= $rating ?></span>
+                  <span class="hiq-review-count">(<?= $reviewsCount ?>)</span>
+                </div>
+                <div class="hiq-prod-bottom">
+                  <div class="hiq-prod-price"><?= str_replace(' ', '&nbsp;', format_price($salePrice)) ?></div>
+                  <form action="<?= url('cart/add') ?>" method="POST" class="hiq-prod-cart-form">
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="product_id" value="<?= e($product['id'] ?? '') ?>">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="hiq-prod-cart-btn btn-action-cart" data-product-id="<?= e($product['id'] ?? '') ?>" title="Add to Cart" aria-label="Add to Cart">
+                      <i class="bi bi-cart3"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+
+      <button type="button" class="hiq-prod-slider-btn next" id="bestSliderNext" aria-label="Next best sellers" title="Next best sellers">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
+<!-- ==========================================================================
+     SECTION 5: FEATURED PRODUCTS
      ========================================================================== -->
 <?php if (!empty($featuredProducts)): ?>
 <section class="hiq-featured-section py-4 py-md-5">
@@ -199,105 +283,123 @@ use App\Core\View;
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  var track = document.getElementById('homeProductsTrack');
-  var prevBtn = document.getElementById('prodSliderPrev');
-  var nextBtn = document.getElementById('prodSliderNext');
-  var headerPrev = document.getElementById('prodHeaderPrev');
-  var headerNext = document.getElementById('prodHeaderNext');
+  function setupProductSlider(trackId, prevBtnId, nextBtnId, headerPrevId, headerNextId) {
+    var track = document.getElementById(trackId);
+    var prevBtn = document.getElementById(prevBtnId);
+    var nextBtn = document.getElementById(nextBtnId);
+    var headerPrev = document.getElementById(headerPrevId);
+    var headerNext = document.getElementById(headerNextId);
 
-  if (!track) return;
+    if (!track) return;
 
-  function getStep() {
-    var col = track.querySelector('.hiq-product-col');
-    if (!col) return 240;
-    var style = window.getComputedStyle(track);
-    var gap = parseFloat(style.gap) || 16;
-    return col.offsetWidth + gap;
-  }
-
-  function updateArrowStates() {
-    var maxScroll = track.scrollWidth - track.clientWidth;
-    var atStart = track.scrollLeft <= 6;
-    var atEnd = track.scrollLeft >= maxScroll - 6;
-
-    if (prevBtn) {
-      if (atStart) prevBtn.classList.add('is-disabled');
-      else prevBtn.classList.remove('is-disabled');
+    function getStep() {
+      var col = track.querySelector('.hiq-product-col');
+      if (!col) return 240;
+      var style = window.getComputedStyle(track);
+      var gap = parseFloat(style.gap) || 16;
+      return col.offsetWidth + gap;
     }
-    if (nextBtn) {
-      if (atEnd) nextBtn.classList.add('is-disabled');
-      else nextBtn.classList.remove('is-disabled');
+
+    function updateArrowStates() {
+      var maxScroll = track.scrollWidth - track.clientWidth;
+      if (maxScroll <= 4) {
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+        if (headerPrev) headerPrev.style.display = 'none';
+        if (headerNext) headerNext.style.display = 'none';
+        return;
+      }
+      if (prevBtn) prevBtn.style.display = '';
+      if (nextBtn) nextBtn.style.display = '';
+      if (headerPrev) headerPrev.style.display = '';
+      if (headerNext) headerNext.style.display = '';
+
+      var atStart = track.scrollLeft <= 6;
+      var atEnd = track.scrollLeft >= maxScroll - 6;
+
+      if (prevBtn) {
+        if (atStart) prevBtn.classList.add('is-disabled');
+        else prevBtn.classList.remove('is-disabled');
+      }
+      if (nextBtn) {
+        if (atEnd) nextBtn.classList.add('is-disabled');
+        else nextBtn.classList.remove('is-disabled');
+      }
+      if (headerPrev) {
+        headerPrev.disabled = atStart;
+        headerPrev.style.opacity = atStart ? '0.35' : '1';
+      }
+      if (headerNext) {
+        headerNext.disabled = atEnd;
+        headerNext.style.opacity = atEnd ? '0.35' : '1';
+      }
     }
-    if (headerPrev) {
-      headerPrev.disabled = atStart;
-      headerPrev.style.opacity = atStart ? '0.35' : '1';
+
+    function scrollPrev() {
+      track.scrollBy({ left: -getStep(), behavior: 'smooth' });
     }
-    if (headerNext) {
-      headerNext.disabled = atEnd;
-      headerNext.style.opacity = atEnd ? '0.35' : '1';
+
+    function scrollNext() {
+      track.scrollBy({ left: getStep(), behavior: 'smooth' });
     }
-  }
 
-  function scrollPrev() {
-    track.scrollBy({ left: -getStep(), behavior: 'smooth' });
-  }
+    if (prevBtn) prevBtn.addEventListener('click', scrollPrev);
+    if (nextBtn) nextBtn.addEventListener('click', scrollNext);
+    if (headerPrev) headerPrev.addEventListener('click', scrollPrev);
+    if (headerNext) headerNext.addEventListener('click', scrollNext);
 
-  function scrollNext() {
-    track.scrollBy({ left: getStep(), behavior: 'smooth' });
-  }
+    track.addEventListener('scroll', updateArrowStates, { passive: true });
+    window.addEventListener('resize', updateArrowStates, { passive: true });
+    setTimeout(updateArrowStates, 100);
 
-  if (prevBtn) prevBtn.addEventListener('click', scrollPrev);
-  if (nextBtn) nextBtn.addEventListener('click', scrollNext);
-  if (headerPrev) headerPrev.addEventListener('click', scrollPrev);
-  if (headerNext) headerNext.addEventListener('click', scrollNext);
+    // Mouse Drag Scrolling for Desktop
+    var isDown = false;
+    var startX = 0;
+    var startScrollLeft = 0;
+    var hasDragged = false;
 
-  track.addEventListener('scroll', updateArrowStates, { passive: true });
-  window.addEventListener('resize', updateArrowStates, { passive: true });
-  setTimeout(updateArrowStates, 100);
-
-  // Mouse Drag Scrolling for Desktop
-  var isDown = false;
-  var startX = 0;
-  var startScrollLeft = 0;
-  var hasDragged = false;
-
-  track.addEventListener('mousedown', function (e) {
-    if (e.button !== 0) return;
-    if (e.target.closest('.hiq-prod-cart-btn') || e.target.closest('button')) return;
-    isDown = true;
-    hasDragged = false;
-    track.classList.add('is-dragging');
-    startX = e.pageX - track.offsetLeft;
-    startScrollLeft = track.scrollLeft;
-  });
-
-  window.addEventListener('mouseup', function () {
-    if (isDown) {
-      isDown = false;
-      track.classList.remove('is-dragging');
-      setTimeout(function () { hasDragged = false; }, 60);
-    }
-  });
-
-  track.addEventListener('mousemove', function (e) {
-    if (!isDown) return;
-    e.preventDefault();
-    var x = e.pageX - track.offsetLeft;
-    var walk = (x - startX) * 1.3;
-    track.scrollLeft = startScrollLeft - walk;
-    if (Math.abs(x - startX) > 6) {
-      hasDragged = true;
-    }
-  });
-
-  // Prevent link click when dragging
-  track.addEventListener('click', function (e) {
-    if (hasDragged) {
-      e.preventDefault();
-      e.stopPropagation();
+    track.addEventListener('mousedown', function (e) {
+      if (e.button !== 0) return;
+      if (e.target.closest('.hiq-prod-cart-btn') || e.target.closest('button')) return;
+      isDown = true;
       hasDragged = false;
-    }
-  }, true);
+      track.classList.add('is-dragging');
+      startX = e.pageX - track.offsetLeft;
+      startScrollLeft = track.scrollLeft;
+    });
+
+    window.addEventListener('mouseup', function () {
+      if (isDown) {
+        isDown = false;
+        track.classList.remove('is-dragging');
+        setTimeout(function () { hasDragged = false; }, 60);
+      }
+    });
+
+    track.addEventListener('mousemove', function (e) {
+      if (!isDown) return;
+      e.preventDefault();
+      var x = e.pageX - track.offsetLeft;
+      var walk = (x - startX) * 1.3;
+      track.scrollLeft = startScrollLeft - walk;
+      if (Math.abs(x - startX) > 6) {
+        hasDragged = true;
+      }
+    });
+
+    // Prevent link click when dragging
+    track.addEventListener('click', function (e) {
+      if (hasDragged) {
+        e.preventDefault();
+        e.stopPropagation();
+        hasDragged = false;
+      }
+    }, true);
+  }
+
+  // Initialize both horizontal sliders
+  setupProductSlider('bestProductsTrack', 'bestSliderPrev', 'bestSliderNext', 'bestHeaderPrev', 'bestHeaderNext');
+  setupProductSlider('homeProductsTrack', 'prodSliderPrev', 'prodSliderNext', 'prodHeaderPrev', 'prodHeaderNext');
 });
 </script>
 <?php endif; ?>

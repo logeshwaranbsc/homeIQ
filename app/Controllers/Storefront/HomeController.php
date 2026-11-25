@@ -36,6 +36,7 @@ class HomeController
     {
         $banners = $this->bannerRepo->getActive();
         $categories = $this->categoryRepo->getActive();
+        $bestSellers = $this->productRepo->getBestSellers(8);
         $featuredProducts = $this->productRepo->getFeatured(8);
         $settings = $this->settingsRepo->all();
 
@@ -49,6 +50,7 @@ class HomeController
             'title' => 'HOMEIQ | Advanced Smart Locks & Keyless Security Hardware',
             'banners' => $banners,
             'categories' => $categories,
+            'bestSellers' => $bestSellers,
             'featuredProducts' => $featuredProducts,
             'recentReviews' => $recentReviews,
             'videoTestimonials' => $videoTestimonials,

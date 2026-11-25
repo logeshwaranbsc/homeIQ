@@ -7433,6 +7433,12 @@ body[data-page="cart"] .btn-drawer-view-cart {
   text-decoration: none;
   color: #64748B;
   background: #F1F5F9;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.4;
   transition: all 0.2s ease;
 }
 
