@@ -17,6 +17,7 @@ use App\Repositories\CouponRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\VideoTestimonialRepository;
 use App\Repositories\BannerRepository;
+use App\Repositories\ContactMessageRepository;
 use App\Services\CartService;
 use App\Services\OrderService;
 use App\Services\AuthService;
@@ -221,6 +222,51 @@ assertTest("Banner update updates dedicated mobile_image independently", ($updat
 $bannerRepo->delete($testBanner['id']);
 $bannerRepo->atomicWrite($originalBanners);
 assertTest("Test banner removed and original banners preserved", count($bannerRepo->all()) === count($originalBanners));
+
+// TEST GROUP 9: Leads & Bulk Orders Inquiry Workflow
+echo "\nTest Group 9: Leads & Bulk Orders Inquiry Workflow\n";
+$leadRepo = new ContactMessageRepository();
+$originalLeads = $leadRepo->all();
+
+$testBulkLead = $leadRepo->create([
+    'inquiry_type' => 'bulk',
+    'name' => 'Aditya Sharma',
+    'email' => 'aditya@zenithtowers.com',
+    'phone' => '9876543210',
+    'company' => 'Zenith Luxury Residences',
+    'project_type' => 'Residential Villa / Apartments',
+    'quantity' => '45',
+    'location' => 'Bengaluru',
+    'timeline' => '1 - 3 Months',
+    'subject' => 'Bulk Order Inquiry: Zenith Luxury Residences (45 Units)',
+    'message' => 'Requirement for 45 AI Face recognition smart locks for newly constructed luxury towers.',
+    'status' => 'unread',
+]);
+
+assertTest("Creates bulk order lead with company and quantity", !empty($testBulkLead['id']) && $testBulkLead['inquiry_type'] === 'bulk' && $testBulkLead['quantity'] === '45');
+
+$bulkList = $leadRepo->filterLeads('bulk');
+$foundBulk = false;
+foreach ($bulkList as $item) {
+    if ($item['id'] === $testBulkLead['id']) {
+        $foundBulk = true;
+        break;
+    }
+}
+assertTest("filterLeads('bulk') includes newly created bulk inquiry", $foundBulk);
+
+// Update status to 'contacted'
+$leadRepo->update($testBulkLead['id'], [
+    'status' => 'contacted',
+    'admin_notes' => 'Quotation sent via email and phone follow-up scheduled.',
+]);
+$updatedLead = $leadRepo->find($testBulkLead['id']);
+assertTest("Updates inquiry status to contacted with admin follow-up notes", ($updatedLead['status'] ?? '') === 'contacted' && !empty($updatedLead['admin_notes']));
+
+// Clean up test lead
+$leadRepo->delete($testBulkLead['id']);
+$leadRepo->atomicWrite($originalLeads);
+assertTest("Test lead cleaned up and original leads preserved", count($leadRepo->all()) === count($originalLeads));
 
 // SUMMARY
 echo "\n====================================================\n";

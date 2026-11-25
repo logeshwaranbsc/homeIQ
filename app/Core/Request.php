@@ -79,6 +79,11 @@ class Request
         return $this->query[$key] ?? $default;
     }
 
+    public function get(?string $key = null, mixed $default = null): mixed
+    {
+        return $this->query($key, $default);
+    }
+
     public function input(?string $key = null, mixed $default = null): mixed
     {
         $all = array_merge($this->query, $this->post, $this->json() ?? []);

@@ -35,6 +35,21 @@ if (!function_exists('isActiveAdmin')) {
       </a>
     </li>
     <li>
+      <a href="<?= url('admin/leads') ?>" class="sidebar-link <?= isActiveAdmin('/admin/leads', $currentPath) ?>">
+        <i class="bi bi-chat-square-quote"></i> Leads & Inquiries
+        <?php
+          try {
+              $unreadLeadsCount = (new \App\Repositories\ContactMessageRepository())->getUnreadCount();
+              if ($unreadLeadsCount > 0):
+        ?>
+          <span class="badge bg-danger rounded-pill ms-auto" style="font-size: 0.7rem; padding: 2px 7px;"><?= $unreadLeadsCount ?></span>
+        <?php 
+              endif;
+          } catch (\Throwable $e) {}
+        ?>
+      </a>
+    </li>
+    <li>
       <a href="<?= url('admin/products') ?>" class="sidebar-link <?= isActiveAdmin('/admin/products', $currentPath) ?>">
         <i class="bi bi-box-seam"></i> Products
       </a>

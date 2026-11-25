@@ -8,6 +8,7 @@ use App\Repositories\ProductRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\ReviewRepository;
+use App\Repositories\ContactMessageRepository;
 use App\Services\ReportService;
 
 class DashboardController
@@ -45,6 +46,10 @@ class DashboardController
 
         $analytics = $this->reportService->getAnalytics('30days');
 
+        $leadRepo = new ContactMessageRepository();
+        $unreadLeadsCount = $leadRepo->getUnreadCount();
+        $bulkLeadsCount = $leadRepo->getBulkCount();
+
         echo View::render('admin/dashboard', [
             'title' => 'Dashboard | HOMEIQ Admin',
             'stats' => [
@@ -58,6 +63,8 @@ class DashboardController
                 'total_revenue' => $totalRevenue,
                 'total_customers' => $totalCustomers,
                 'pending_reviews' => $pendingReviewsCount,
+                'unread_leads' => $unreadLeadsCount,
+                'bulk_leads' => $bulkLeadsCount,
             ],
             'recentOrders' => $recentOrders,
             'topProducts' => $analytics['top_products'],

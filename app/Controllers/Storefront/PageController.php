@@ -7,6 +7,7 @@ use App\Core\Request;
 use App\Core\View;
 use App\Repositories\JsonRepository;
 use App\Repositories\SettingsRepository;
+use App\Repositories\ContactMessageRepository;
 
 class PageController
 {
@@ -41,10 +42,51 @@ class PageController
 
     public function submitContact(Request $request): void
     {
+        $inquiryType = trim((string)$request->post('inquiry_type', 'general'));
+
+        if ($inquiryType === 'bulk') {
+            $name = trim((string)$request->post('bulk_name', ''));
+            $phone = trim((string)$request->post('bulk_phone', ''));
+            $company = trim((string)$request->post('company', ''));
+            $projectType = trim((string)$request->post('project_type', ''));
+            $quantity = trim((string)$request->post('quantity', ''));
+            $location = trim((string)$request->post('location', ''));
+            $timeline = trim((string)$request->post('timeline', ''));
+            $message = trim((string)$request->post('bulk_message', ''));
+            $qtyText = $quantity ? " ({$quantity} Units)" : "";
+            $subject = "Bulk Order Inquiry: " . ($company ?: $name) . $qtyText;
+
+            if (empty($name) || empty($phone) || empty($company) || empty($quantity) || empty($message)) {
+                flash('error', 'Please fill in all required fields for your bulk inquiry.');
+                redirect('contact?type=bulk');
+            }
+
+            $repo = new ContactMessageRepository();
+            $repo->create([
+                'inquiry_type' => 'bulk',
+                'name' => $name,
+                'email' => '',
+                'phone' => $phone,
+                'company' => $company,
+                'project_type' => $projectType,
+                'quantity' => $quantity,
+                'location' => $location,
+                'timeline' => $timeline,
+                'subject' => $subject,
+                'message' => $message,
+                'ip' => $request->ip(),
+                'status' => 'unread',
+            ]);
+
+            flash('success', 'Thank you for your bulk inquiry! Our B2B commercial accounts manager will contact you within 24 hours with custom volume pricing.');
+            redirect('contact?type=bulk');
+        }
+
+        // Standard General Inquiry
         $name = trim((string)$request->post('name', ''));
         $email = mb_strtolower(trim((string)$request->post('email', '')));
         $phone = trim((string)$request->post('phone', ''));
-        $subject = trim((string)$request->post('subject', ''));
+        $subject = trim((string)$request->post('subject', 'General Inquiry'));
         $message = trim((string)$request->post('message', ''));
 
         if (empty($name) || empty($email) || empty($message)) {
@@ -52,8 +94,9 @@ class PageController
             redirect('contact');
         }
 
-        $repo = new class('contact_messages.json', 'msg_') extends JsonRepository {};
+        $repo = new ContactMessageRepository();
         $repo->create([
+            'inquiry_type' => 'general',
             'name' => $name,
             'email' => $email,
             'phone' => $phone,

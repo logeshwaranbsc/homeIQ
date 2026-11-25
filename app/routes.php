@@ -31,6 +31,7 @@ use App\Controllers\Admin\AdminSeoController;
 use App\Controllers\Admin\AdminStaffController;
 use App\Controllers\Admin\AdminSettingsController;
 use App\Controllers\Admin\AdminVideoTestimonialController;
+use App\Controllers\Admin\AdminLeadController;
 
 $router = App::getRouter();
 
@@ -166,6 +167,12 @@ $router->get('/admin/orders/view/{id}', [AdminOrderController::class, 'show'], [
 $router->post('/admin/orders/status/{id}', [AdminOrderController::class, 'updateStatus'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
 $router->post('/admin/orders/payment/{id}', [AdminOrderController::class, 'updatePayment'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
 $router->post('/admin/orders/tracking/{id}', [AdminOrderController::class, 'updateTracking'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+
+// Admin Leads & Bulk Orders
+$router->get('/admin/leads', [AdminLeadController::class, 'index'], [AdminAuthMiddleware::class]);
+$router->get('/admin/leads/view/{id}', [AdminLeadController::class, 'show'], [AdminAuthMiddleware::class]);
+$router->post('/admin/leads/status/{id}', [AdminLeadController::class, 'updateStatus'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+$router->get('/admin/leads/delete/{id}', [AdminLeadController::class, 'delete'], [AdminAuthMiddleware::class]);
 
 // Admin Customers
 $router->get('/admin/customers', [AdminCustomerController::class, 'index'], [AdminAuthMiddleware::class]);

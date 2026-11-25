@@ -8,6 +8,22 @@ declare(strict_types=1);
  */
 ?>
 
+<!-- Unread Leads / Bulk Orders Alert -->
+<?php if (!empty($stats['unread_leads'])): ?>
+<div class="alert alert-warning border-0 shadow-sm d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2 py-3 px-4">
+  <div class="d-flex align-items-center gap-3">
+    <i class="bi bi-bell-fill fs-4 text-warning"></i>
+    <div>
+      <div class="fw-bold text-dark">You have <?= $stats['unread_leads'] ?> unread customer lead<?= $stats['unread_leads'] === 1 ? '' : 's' ?> / inquiries!</div>
+      <small class="text-muted">Includes <?= $stats['bulk_leads'] ?> bulk commercial inquiry<?= $stats['bulk_leads'] === 1 ? '' : 's' ?> awaiting quotation.</small>
+    </div>
+  </div>
+  <a href="<?= url('admin/leads?status=unread') ?>" class="btn btn-sm btn-dark px-3 py-2 fw-semibold">
+    <i class="bi bi-chat-square-quote me-1"></i> Review Inquiries
+  </a>
+</div>
+<?php endif; ?>
+
 <!-- Metric Summary Cards -->
 <div class="row g-3 mb-4">
   <div class="col-xl-3 col-md-6">
