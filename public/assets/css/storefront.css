@@ -7442,23 +7442,181 @@ body[data-page="cart"] .btn-drawer-view-cart {
   color: #ffffff;
 }
 
-.hiq-products-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 18px;
+/* Featured Products Slider Track & Controls */
+.hiq-products-slider-wrap {
+  position: relative;
+  width: 100%;
 }
 
+.hiq-products-grid {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  scroll-behavior: smooth !important;
+  scroll-snap-type: x mandatory !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none !important;
+  gap: 16px !important;
+  padding: 4px 2px 14px 2px !important;
+  margin: 0 !important;
+}
+
+.hiq-products-grid::-webkit-scrollbar {
+  display: none !important;
+}
+
+.hiq-products-grid.is-dragging {
+  scroll-snap-type: none !important;
+  scroll-behavior: auto !important;
+  cursor: grabbing !important;
+  user-select: none !important;
+}
+
+.hiq-products-grid.is-dragging * {
+  user-select: none !important;
+}
+
+/* 5 Products visible simultaneously on desktop (>= 1200px) */
+.hiq-product-col {
+  flex: 0 0 calc((100% - (4 * 16px)) / 5) !important;
+  width: calc((100% - (4 * 16px)) / 5) !important;
+  max-width: calc((100% - (4 * 16px)) / 5) !important;
+  min-width: 0 !important;
+  scroll-snap-align: start !important;
+}
+
+/* 4 Products on large tablet / medium desktop (992px - 1199.98px) */
 @media (max-width: 1199.98px) {
-  .hiq-products-grid {
-    grid-template-columns: repeat(3, 1fr);
+  .hiq-product-col {
+    flex: 0 0 calc((100% - (3 * 16px)) / 4) !important;
+    width: calc((100% - (3 * 16px)) / 4) !important;
+    max-width: calc((100% - (3 * 16px)) / 4) !important;
   }
 }
 
+/* 3 Products on tablet (768px - 991.98px) */
+@media (max-width: 991.98px) {
+  .hiq-product-col {
+    flex: 0 0 calc((100% - (2 * 14px)) / 3) !important;
+    width: calc((100% - (2 * 14px)) / 3) !important;
+    max-width: calc((100% - (2 * 14px)) / 3) !important;
+  }
+  .hiq-products-grid {
+    gap: 14px !important;
+  }
+}
+
+/* 2 Products on mobile screens (< 768px) */
 @media (max-width: 767.98px) {
   .hiq-products-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 12px !important;
+    padding-bottom: 8px !important;
   }
+  .hiq-product-col {
+    flex: 0 0 calc((100% - 12px) / 2) !important;
+    width: calc((100% - 12px) / 2) !important;
+    max-width: calc((100% - 12px) / 2) !important;
+    min-width: 156px !important;
+  }
+}
+
+/* Floating Left and Right Slider Arrows */
+.hiq-prod-slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1.5px solid #E2E8F0;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  line-height: 1;
+}
+
+.hiq-prod-slider-btn:hover {
+  background: #FE6B25;
+  border-color: #FE6B25;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(254, 107, 37, 0.35);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.hiq-prod-slider-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.hiq-prod-slider-btn.prev {
+  left: -22px;
+}
+
+.hiq-prod-slider-btn.next {
+  right: -22px;
+}
+
+.hiq-prod-slider-btn.is-disabled {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+@media (max-width: 1280px) {
+  .hiq-prod-slider-btn.prev {
+    left: 4px;
+  }
+  .hiq-prod-slider-btn.next {
+    right: 4px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hiq-prod-slider-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 0.95rem;
+  }
+  .hiq-prod-slider-btn.prev {
+    left: 2px;
+  }
+  .hiq-prod-slider-btn.next {
+    right: 2px;
+  }
+}
+
+/* Header Compact Left & Right Buttons */
+.hiq-prod-header-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  padding: 0;
+}
+
+.hiq-prod-header-btn:hover {
+  background: #FE6B25;
+  border-color: #FE6B25;
+  color: #ffffff;
+}
+
+.hiq-prod-header-btn:active {
+  transform: scale(0.94);
 }
 
 .hiq-product-card {
@@ -9128,9 +9286,7 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
 
   .hiq-products-grid {
-    display: grid !important;
-    grid-template-columns: repeat(5, 1fr) !important;
-    gap: 14px !important;
+    gap: 16px !important;
   }
 
   .hiq-reels-scroll-track {

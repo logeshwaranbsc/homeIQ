@@ -4516,5 +4516,32 @@
         "id": "log_4b9c9cbc6afd4b67",
         "created_at": "2026-11-18 12:23:27",
         "updated_at": "2026-11-18 12:23:27"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261125-B621 for ₹ 17,999",
+        "ip": "",
+        "id": "log_f7c9e5226b06bdc7",
+        "created_at": "2026-11-25 16:21:51",
+        "updated_at": "2026-11-25 16:21:51"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261125-B621 status changed to Cancelled",
+        "ip": "",
+        "id": "log_dd8816aa6b06bdc7",
+        "created_at": "2026-11-25 16:21:51",
+        "updated_at": "2026-11-25 16:21:51"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_c658d1436b06bdc7",
+        "created_at": "2026-11-25 16:21:51",
+        "updated_at": "2026-11-25 16:21:51"
     }
 ]
