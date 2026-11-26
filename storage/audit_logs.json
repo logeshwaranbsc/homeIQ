@@ -5245,5 +5245,149 @@
         "id": "log_bfdff31e6b08088c",
         "created_at": "2026-11-26 15:53:08",
         "updated_at": "2026-11-26 15:53:08"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261126-E0E2 for ₹ 17,999",
+        "ip": "",
+        "id": "log_bcd0e0616b080dfe",
+        "created_at": "2026-11-26 16:16:22",
+        "updated_at": "2026-11-26 16:16:22"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261126-E0E2 status changed to Cancelled",
+        "ip": "",
+        "id": "log_87ed24676b080dfe",
+        "created_at": "2026-11-26 16:16:22",
+        "updated_at": "2026-11-26 16:16:22"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_d1b340f46b080dff",
+        "created_at": "2026-11-26 16:16:23",
+        "updated_at": "2026-11-26 16:16:23"
+    },
+    {
+        "action": "WARRANTY_APPROVED",
+        "user": "Test Administrator",
+        "details": "Reg HIQ-WR-000010: Approved warranty coverage for 24 months.",
+        "ip": "127.0.0.1",
+        "id": "log_d3b5a3a56b080dff",
+        "created_at": "2026-11-26 16:16:23",
+        "updated_at": "2026-11-26 16:16:23"
+    },
+    {
+        "action": "CALLBACK_CONTACTED",
+        "user": "Admin User",
+        "details": "Lead CB-HIQ-000006: Customer called. Scheduled demo.",
+        "ip": "127.0.0.1",
+        "id": "log_088f41b06b080dff",
+        "created_at": "2026-11-26 16:16:23",
+        "updated_at": "2026-11-26 16:16:23"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261126-DD4A for ₹ 17,999",
+        "ip": "",
+        "id": "log_3450134d6b08108e",
+        "created_at": "2026-11-26 16:27:18",
+        "updated_at": "2026-11-26 16:27:18"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261126-DD4A status changed to Cancelled",
+        "ip": "",
+        "id": "log_3b6109a86b08108e",
+        "created_at": "2026-11-26 16:27:18",
+        "updated_at": "2026-11-26 16:27:18"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_93c5bbee6b08108f",
+        "created_at": "2026-11-26 16:27:19",
+        "updated_at": "2026-11-26 16:27:19"
+    },
+    {
+        "action": "WARRANTY_APPROVED",
+        "user": "Test Administrator",
+        "details": "Reg HIQ-WR-000012: Approved warranty coverage for 24 months.",
+        "ip": "127.0.0.1",
+        "id": "log_6865dbd66b08108f",
+        "created_at": "2026-11-26 16:27:19",
+        "updated_at": "2026-11-26 16:27:19"
+    },
+    {
+        "action": "CALLBACK_CONTACTED",
+        "user": "Admin User",
+        "details": "Lead CB-HIQ-000008: Customer called. Scheduled demo.",
+        "ip": "127.0.0.1",
+        "id": "log_cffaf83e6b08108f",
+        "created_at": "2026-11-26 16:27:19",
+        "updated_at": "2026-11-26 16:27:19"
+    },
+    {
+        "action": "order_created",
+        "user": "purchaser@example.com",
+        "details": "Placed Order HIQ-20261126-3FF9 for ₹ 17,999",
+        "ip": "",
+        "id": "log_499cbd2e6b0811f8",
+        "created_at": "2026-11-26 16:33:20",
+        "updated_at": "2026-11-26 16:33:20"
+    },
+    {
+        "action": "order_status_update",
+        "user": "Unit Test",
+        "details": "Order HIQ-20261126-3FF9 status changed to Cancelled",
+        "ip": "",
+        "id": "log_b6b2830d6b0811f8",
+        "created_at": "2026-11-26 16:33:20",
+        "updated_at": "2026-11-26 16:33:20"
+    },
+    {
+        "action": "admin_login",
+        "user": "admin",
+        "details": "Logged in from 127.0.0.1",
+        "ip": "127.0.0.1",
+        "id": "log_5821108a6b0811f9",
+        "created_at": "2026-11-26 16:33:21",
+        "updated_at": "2026-11-26 16:33:21"
+    },
+    {
+        "action": "WARRANTY_APPROVED",
+        "user": "Test Administrator",
+        "details": "Reg HIQ-WR-000014: Approved warranty coverage for 24 months.",
+        "ip": "127.0.0.1",
+        "id": "log_464c6df56b0811f9",
+        "created_at": "2026-11-26 16:33:21",
+        "updated_at": "2026-11-26 16:33:21"
+    },
+    {
+        "action": "CALLBACK_CONTACTED",
+        "user": "Admin User",
+        "details": "Lead CB-HIQ-000010: Customer called. Scheduled demo.",
+        "ip": "127.0.0.1",
+        "id": "log_67e4338b6b0811f9",
+        "created_at": "2026-11-26 16:33:21",
+        "updated_at": "2026-11-26 16:33:21"
+    },
+    {
+        "action": "CALLBACK_SUBMITTED",
+        "user": "Customer: Kavi",
+        "details": "Lead CB-HIQ-000012: Product enquiry submitted for 'Video Door Phone (VDP)' from page http://127.0.0.1:8000/?popup=1.",
+        "ip": "127.0.0.1",
+        "id": "log_b7aef0ce6b081484",
+        "created_at": "2026-11-26 16:44:12",
+        "updated_at": "2026-11-26 16:44:12"
     }
 ]

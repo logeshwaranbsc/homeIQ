@@ -7,22 +7,31 @@ use App\Core\Request;
 $cbSettingsRepo = new CallbackSettingsRepository();
 $cbSettings = $cbSettingsRepo->get();
 
-// If disabled by admin, do not render markup
+// If disabled in admin settings, do not render popup markup
 if (empty($cbSettings['enabled'])) {
     return;
 }
 
 $request = new Request();
-$currentPath = $request->getPath();
+$currentPath = strtolower($request->getPath());
 
-// Exclude checkout, payment, confirmation, and admin pages
-$excludedPaths = ['/checkout', '/order/confirmation', '/order/invoice', '/admin'];
+// Rule 5, 6, 7: Exclude checkout, payment, confirmation, invoice, tracking, and admin pages
+$excludedPaths = [
+    '/checkout',
+    '/payment',
+    '/order/confirmation',
+    '/order/invoice',
+    '/order-tracking',
+    '/admin',
+];
+
 foreach ($excludedPaths as $ex) {
     if (str_starts_with($currentPath, $ex)) {
         return;
     }
 }
 
+// Rule 14: Configurable trigger delay (default 60 seconds)
 $triggerDelay = max(5, (int)($cbSettings['trigger_delay_seconds'] ?? 60));
 $heading = $cbSettings['heading'] ?? 'Need Help Before You Buy?';
 $desc = $cbSettings['description'] ?? 'Let our product expert help you choose the right product.';
@@ -35,15 +44,8 @@ $productOptions = $cbSettings['product_options'] ?? [
 ];
 ?>
 
-<!-- Floating Trigger Pill (Allows opening anytime or after dismissal) -->
-<button type="button" class="hiq-cb-floating-btn" id="hiqCbFloatingTrigger" aria-label="Request a Callback" title="Need Help? Request a Callback">
-  <span class="hiq-cb-pulse"></span>
-  <i class="bi bi-telephone-outbound me-2"></i>
-  <span>Need Help?</span>
-</button>
-
 <!-- HOMEIQ Callback Popup Modal -->
-<div id="hiqCallbackModal" class="hiq-cb-overlay" aria-hidden="true" role="dialog" aria-labelledby="hiqCbTitle" aria-modal="true" style="display: none;">
+<div id="hiqCallbackModal" class="hiq-cb-overlay" aria-hidden="true" role="dialog" aria-labelledby="hiqCbTitle" aria-modal="true">
   <div class="hiq-cb-backdrop" id="hiqCbBackdrop"></div>
   <div class="hiq-cb-dialog">
     <div class="hiq-cb-card">
@@ -166,57 +168,6 @@ $productOptions = $cbSettings['product_options'] ?? [
 </div>
 
 <style>
-/* HOMEIQ Floating Quick Callback Trigger */
-.hiq-cb-floating-btn {
-  position: fixed;
-  bottom: 24px;
-  left: 24px;
-  z-index: 1040;
-  display: inline-flex;
-  align-items: center;
-  background: #0F172A;
-  color: #FFFFFF;
-  border: 1.5px solid #FE6B25;
-  border-radius: 50px;
-  padding: 10px 18px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.25);
-  transition: all 0.25s ease;
-}
-.hiq-cb-floating-btn:hover {
-  background: #FE6B25;
-  color: #FFFFFF;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(254, 107, 37, 0.35);
-}
-.hiq-cb-floating-btn .hiq-cb-pulse {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #10B981;
-  margin-right: 8px;
-  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-  animation: hiqPulse 1.8s infinite;
-}
-@keyframes hiqPulse {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-}
-
-@media (max-width: 768px) {
-  .hiq-cb-floating-btn {
-    bottom: 74px; /* Above mobile bottom navigation bar */
-    left: 14px;
-    padding: 8px 14px;
-    font-size: 0.78rem;
-  }
-}
-
 /* HOMEIQ Callback Popup Modal Styles */
 .hiq-cb-overlay {
   position: fixed;
@@ -225,7 +176,7 @@ $productOptions = $cbSettings['product_options'] ?? [
   width: 100%;
   height: 100%;
   z-index: 10050;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   padding: 16px;
@@ -234,8 +185,9 @@ $productOptions = $cbSettings['product_options'] ?? [
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 .hiq-cb-overlay.hiq-cb-active {
-  opacity: 1;
-  visibility: visible;
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 .hiq-cb-backdrop {
   position: absolute;
@@ -469,10 +421,17 @@ $productOptions = $cbSettings['product_options'] ?? [
 
 <script>
 (function() {
+  if (window.__HOMEIQ_CB_INITIALIZED__) {
+    return;
+  }
+  window.__HOMEIQ_CB_INITIALIZED__ = true;
+
   const TRIGGER_DELAY = <?= $triggerDelay ?>; // seconds of active browsing
+  const STORAGE_KEY_SHOWN = 'hiq_cb_shown';
   const STORAGE_KEY_DISMISSED = 'hiq_cb_dismissed';
   const STORAGE_KEY_SUBMITTED = 'hiq_cb_submitted';
   const STORAGE_KEY_ACTIVE_SECS = 'hiq_cb_active_seconds';
+  const STORAGE_KEY_ORDER_PLACED = 'hiq_cb_order_placed';
 
   const modal = document.getElementById('hiqCallbackModal');
   const backdrop = document.getElementById('hiqCbBackdrop');
@@ -486,7 +445,6 @@ $productOptions = $cbSettings['product_options'] ?? [
   const successContainer = document.getElementById('hiqCbSuccessContainer');
   const successCloseBtn = document.getElementById('hiqCbSuccessCloseBtn');
   const leadIdDisplay = document.getElementById('hiqCbLeadIdDisplay');
-  const floatingTrigger = document.getElementById('hiqCbFloatingTrigger');
 
   // Input fields
   const interestInput = document.getElementById('hiqCbProductInterest');
@@ -502,44 +460,67 @@ $productOptions = $cbSettings['product_options'] ?? [
     pageUrlInput.value = window.location.href;
   }
 
-  // Check URL parameters for explicit instant testing (e.g. ?callback=1 or ?test_popup=1)
+  // Check URL parameters for explicit instant preview (?callback=1 or ?popup=1 or ?test=1)
   const urlParams = new URLSearchParams(window.location.search);
-  const isForceTest = urlParams.has('callback') || urlParams.has('test_popup') || urlParams.has('cb') || urlParams.has('popup');
+  const isForceTest = urlParams.has('callback') || urlParams.has('popup') || urlParams.has('test_popup') || urlParams.has('cb');
 
-  if (isForceTest) {
+  // Record order placed flag on confirmation/invoice pages
+  const currentPath = window.location.pathname.toLowerCase();
+  if (currentPath.includes('/order/confirmation') || currentPath.includes('/order/invoice')) {
     try {
-      sessionStorage.removeItem(STORAGE_KEY_DISMISSED);
+      sessionStorage.setItem(STORAGE_KEY_ORDER_PLACED, '1');
     } catch (e) {}
   }
 
-  // Page context check: do not show on checkout/payment or if checkout modal is active
-  function isCheckoutOrPaymentActive() {
+  // Session suppression evaluation
+  function isSessionSuppressed() {
+    try {
+      if (sessionStorage.getItem(STORAGE_KEY_SHOWN) === '1') return true;
+      if (sessionStorage.getItem(STORAGE_KEY_DISMISSED) === '1') return true;
+      if (sessionStorage.getItem(STORAGE_KEY_SUBMITTED) === '1') return true;
+      if (sessionStorage.getItem(STORAGE_KEY_ORDER_PLACED) === '1') return true;
+    } catch (e) {}
+    return false;
+  }
+
+  // Page & UI context checks
+  function isPurchaseOrModalActive() {
     const p = window.location.pathname.toLowerCase();
-    if (p.includes('/checkout') || p.includes('/payment') || p.includes('/order/confirmation') || p.includes('/order-tracking')) {
-      return true;
+    
+    // Do not display on checkout or payment pages
+    if (p.includes('/checkout') || p.includes('/payment')) return true;
+    
+    // Do not display after an order has been placed
+    if (p.includes('/order/confirmation') || p.includes('/order/invoice') || p.includes('/order-tracking')) return true;
+    try {
+      if (sessionStorage.getItem(STORAGE_KEY_ORDER_PLACED) === '1') return true;
+    } catch (e) {}
+
+    // Do not display when another modal is open
+    const openModals = document.querySelectorAll('.modal.show');
+    for (let i = 0; i < openModals.length; i++) {
+      if (openModals[i].id !== 'hiqCallbackModal') return true;
     }
-    // Check if Bootstrap checkout modal is active
-    if (document.querySelector('#checkoutModal.show, #paymentModal.show, .checkout-modal.show')) {
-      return true;
-    }
+
+    // Do not interrupt customers when cart drawer is open
+    const cartDrawer = document.getElementById('cartDrawer');
+    if (cartDrawer && cartDrawer.classList.contains('show')) return true;
+
     return false;
   }
 
   function showPopup(force = false) {
     if (!modal) return;
-    if (!force && isCheckoutOrPaymentActive()) return;
+    if (!force && isPurchaseOrModalActive()) return;
 
-    modal.style.display = 'flex';
-    // Force layout reflow before adding active class for smooth animation
-    modal.offsetHeight;
+    try {
+      sessionStorage.setItem(STORAGE_KEY_SHOWN, '1');
+    } catch (e) {}
+
     modal.classList.add('hiq-cb-active');
     modal.setAttribute('aria-hidden', 'false');
 
-    if (floatingTrigger) {
-      floatingTrigger.style.display = 'none';
-    }
-
-    // Pre-fill product interest if browsing specific product page
+    // Auto pre-fill product category if browsing a single product page
     try {
       const headingElem = document.querySelector('h1.product-title, .product-single-title, [data-product-category]');
       if (headingElem && interestInput && !interestInput.value) {
@@ -560,12 +541,6 @@ $productOptions = $cbSettings['product_options'] ?? [
     if (!modal) return;
     modal.classList.remove('hiq-cb-active');
     modal.setAttribute('aria-hidden', 'true');
-    setTimeout(() => {
-      modal.style.display = 'none';
-      if (floatingTrigger) {
-        floatingTrigger.style.display = 'inline-flex';
-      }
-    }, 320);
 
     if (markDismissed) {
       try {
@@ -574,80 +549,22 @@ $productOptions = $cbSettings['product_options'] ?? [
     }
   }
 
-  // Global helper accessible in DevTools console or from custom buttons
+  // Globally expose show function for instant testing / triggering
   window.showHomeiqCallbackPopup = function(force = true) {
     showPopup(force);
   };
   window.HOMEIQ_SHOW_CALLBACK = window.showHomeiqCallbackPopup;
 
-  // Floating button click always shows popup immediately
-  if (floatingTrigger) {
-    floatingTrigger.addEventListener('click', function(e) {
-      e.preventDefault();
-      showPopup(true);
-    });
-  }
-
-  // Check if already dismissed or submitted
-  let isDismissed = false;
-  let isSubmitted = false;
-  try {
-    isDismissed = (sessionStorage.getItem(STORAGE_KEY_DISMISSED) === '1');
-    isSubmitted = (sessionStorage.getItem(STORAGE_KEY_SUBMITTED) === '1');
-  } catch (e) {}
-
-  // Instant test override via URL query parameter
-  if (isForceTest) {
-    setTimeout(() => showPopup(true), 400);
-  } else if (!isDismissed && !isSubmitted) {
-    // Active Browsing Timer Implementation
-    let activeSeconds = 0;
+  window.resetHomeiqCallbackSession = function() {
     try {
-      activeSeconds = parseInt(sessionStorage.getItem(STORAGE_KEY_ACTIVE_SECS) || '0', 10);
+      sessionStorage.removeItem(STORAGE_KEY_SHOWN);
+      sessionStorage.removeItem(STORAGE_KEY_DISMISSED);
+      sessionStorage.removeItem(STORAGE_KEY_SUBMITTED);
+      sessionStorage.removeItem(STORAGE_KEY_ACTIVE_SECS);
+      sessionStorage.removeItem(STORAGE_KEY_ORDER_PLACED);
+      console.log('[HOMEIQ Callback] Session flags cleared. Refresh page to start fresh 60s timer.');
     } catch (e) {}
-
-    // Track user presence: mark active on mouse move, keypress, scroll, or touch
-    let lastActivityTime = Date.now();
-    function recordActivity() {
-      lastActivityTime = Date.now();
-    }
-    ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll'].forEach(evt => {
-      window.addEventListener(evt, recordActivity, { passive: true });
-    });
-
-    let timerInterval = null;
-    function startActiveTimer() {
-      if (timerInterval) return;
-      timerInterval = setInterval(() => {
-        // Tab must be visible, and user must have interacted within the last 45 seconds
-        const isTabVisible = !document.hidden;
-        const isUserEngaged = (Date.now() - lastActivityTime) < 45000;
-
-        if (isTabVisible && isUserEngaged) {
-          activeSeconds++;
-          try {
-            sessionStorage.setItem(STORAGE_KEY_ACTIVE_SECS, activeSeconds.toString());
-          } catch (e) {}
-
-          if (activeSeconds >= TRIGGER_DELAY) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            showPopup();
-          }
-        }
-      }, 1000);
-    }
-
-    if (activeSeconds >= TRIGGER_DELAY) {
-      setTimeout(showPopup, 1200);
-    } else {
-      startActiveTimer();
-    }
-
-    try {
-      console.log('[HOMEIQ Callback] Active browsing timer started (' + TRIGGER_DELAY + 's). Tip: test instantly by adding ?callback=1 to the URL or run showHomeiqCallbackPopup() in console.');
-    } catch (e) {}
-  }
+  };
 
   // Close handlers
   if (closeBtn) closeBtn.addEventListener('click', () => hidePopup(true));
@@ -781,10 +698,10 @@ $productOptions = $cbSettings['product_options'] ?? [
       })
       .then(res => {
         if (res.ok && res.data.success) {
-          // Success State
           try {
             sessionStorage.setItem(STORAGE_KEY_SUBMITTED, '1');
             sessionStorage.setItem(STORAGE_KEY_DISMISSED, '1');
+            sessionStorage.setItem(STORAGE_KEY_SHOWN, '1');
           } catch (e) {}
 
           if (leadIdDisplay && res.data.lead_id) {
@@ -794,7 +711,6 @@ $productOptions = $cbSettings['product_options'] ?? [
           if (formContainer) formContainer.classList.add('d-none');
           if (successContainer) successContainer.classList.remove('d-none');
         } else {
-          // Error handling
           if (submitBtn) submitBtn.disabled = false;
           if (btnText) btnText.classList.remove('d-none');
           if (btnLoading) btnLoading.classList.add('d-none');
@@ -820,6 +736,56 @@ $productOptions = $cbSettings['product_options'] ?? [
         }
       });
     });
+  }
+
+  // Handle Triggering
+  if (isForceTest) {
+    // Instant test override via URL query parameter
+    setTimeout(() => showPopup(true), 300);
+  } else if (!isSessionSuppressed()) {
+    // 60-Second Active Browsing Timer
+    let activeSeconds = 0;
+    try {
+      activeSeconds = parseInt(sessionStorage.getItem(STORAGE_KEY_ACTIVE_SECS) || '0', 10);
+    } catch (e) {}
+
+    let timerInterval = null;
+    function startActiveBrowsingTimer() {
+      if (timerInterval) return;
+      timerInterval = setInterval(() => {
+        // Active browsing: tab is open and visible
+        if (!document.hidden) {
+          activeSeconds++;
+          try {
+            sessionStorage.setItem(STORAGE_KEY_ACTIVE_SECS, activeSeconds.toString());
+          } catch (e) {}
+
+          if (activeSeconds >= TRIGGER_DELAY) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+
+            if (!isPurchaseOrModalActive()) {
+              showPopup();
+            } else {
+              const retryInterval = setInterval(() => {
+                if (!isPurchaseOrModalActive()) {
+                  clearInterval(retryInterval);
+                  showPopup();
+                }
+              }, 3000);
+            }
+          }
+        }
+      }, 1000);
+    }
+
+    if (activeSeconds >= TRIGGER_DELAY) {
+      if (!isPurchaseOrModalActive()) {
+        setTimeout(showPopup, 800);
+      }
+    } else {
+      startActiveBrowsingTimer();
+    }
   }
 })();
 </script>
