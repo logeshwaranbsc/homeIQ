@@ -65,6 +65,21 @@ if (!function_exists('isActiveAdmin')) {
       </a>
     </li>
     <li>
+      <a href="<?= url('admin/callback-enquiries') ?>" class="sidebar-link <?= isActiveAdmin('/admin/callback-enquiries', $currentPath) ?>">
+        <i class="bi bi-telephone-inbound"></i> Callback Enquiries
+        <?php
+          try {
+              $newCallbackCount = (new \App\Repositories\CallbackLeadRepository())->getNewCount();
+              if ($newCallbackCount > 0):
+        ?>
+          <span class="badge bg-primary rounded-pill ms-auto fw-bold" style="font-size: 0.7rem; padding: 2px 7px;"><?= $newCallbackCount ?></span>
+        <?php 
+              endif;
+          } catch (\Throwable $e) {}
+        ?>
+      </a>
+    </li>
+    <li>
       <a href="<?= url('admin/products') ?>" class="sidebar-link <?= isActiveAdmin('/admin/products', $currentPath) ?>">
         <i class="bi bi-box-seam"></i> Products
       </a>

@@ -403,6 +403,94 @@ $warrantyRepo->delete($nextId1);
 $warrantyRepo->delete($nextId2);
 assertTest("Cleaned up test registration JSON files", $warrantyRepo->find($nextId1) === null && $warrantyRepo->find($nextId2) === null);
 
+// TEST GROUP 10: Callback Popup & Lead Management (JSON Storage, Locking, Statuses, Audit)
+echo "\nTest Group 10: Callback Popup & Lead Management (JSON Storage, Locking, Statuses, Audit)\n";
+
+$cbRepo = new \App\Repositories\CallbackLeadRepository();
+$cbSettingsRepo = new \App\Repositories\CallbackSettingsRepository();
+$cbAuditService = new \App\Services\CallbackAuditService();
+
+// 10.1 Callback Settings
+$cbSettings = $cbSettingsRepo->get();
+assertTest("Loads callback popup configuration", !empty($cbSettings['heading']) && isset($cbSettings['trigger_delay_seconds']));
+assertTest("Default active browsing delay is 60 seconds", ($cbSettings['trigger_delay_seconds'] ?? 0) === 60);
+
+// 10.2 Sequence ID Generation with flock
+$cbId1 = $cbRepo->generateNextId();
+$cbId2 = $cbRepo->generateNextId();
+assertTest("Generates sequential callback lead IDs with format CB-HIQ-000001", (bool)preg_match('/^CB-HIQ-\d{6}$/', $cbId1));
+assertTest("Generates distinct sequential callback IDs on successive requests", $cbId1 !== $cbId2);
+
+// 10.3 Create Callback Enquiry Record
+$testLeadData = [
+    'lead_id' => $cbId1,
+    'product_interest' => 'Smart Door Lock',
+    'customer_name' => 'Deepak Sharma',
+    'mobile_number' => '9812345678',
+    'product_page_url' => 'http://localhost:8000/shop',
+    'status' => 'NEW',
+    'admin_notes' => '',
+    'follow_up_date' => null,
+    'assigned_to' => null,
+];
+
+$createdLead = $cbRepo->create($testLeadData);
+assertTest("Persists callback lead JSON file in storage/callback-leads/leads", $createdLead !== null && file_exists($cbRepo->getFilePath($cbId1)));
+assertTest("Initial callback enquiry status is NEW", ($createdLead['status'] ?? '') === 'NEW');
+
+// 10.4 Find and Read
+$retrievedLead = $cbRepo->find($cbId1);
+assertTest("Retrieves callback lead by ID", $retrievedLead !== null && $retrievedLead['customer_name'] === 'Deepak Sharma');
+
+// 10.5 Update Status, Notes, Assignment, and Follow-up Date
+$updatedLead = $cbRepo->update(
+    $cbId1,
+    [
+        'status' => 'CONTACTED',
+        'assigned_to' => 'Sales Representative',
+        'admin_notes' => 'Customer called. Interested in flagship face recognition lock for luxury villa.',
+        'follow_up_date' => date('Y-m-d', strtotime('+1 day')),
+    ],
+    'Admin User',
+    'Contacted customer via telephone.'
+);
+assertTest("Updates lead status to CONTACTED", ($updatedLead['status'] ?? '') === 'CONTACTED');
+assertTest("Assigns sales representative to callback lead", ($updatedLead['assigned_to'] ?? '') === 'Sales Representative');
+assertTest("Tracks history timeline of status changes", count($updatedLead['history'] ?? []) >= 2);
+
+// 10.6 Audit Log Tracking
+$cbAuditService->record($cbId1, 'CONTACTED', 'Admin User', 'Customer called. Scheduled demo.');
+$cbAuditHistory = $cbAuditService->getForLead($cbId1);
+assertTest("Records callback event in storage/callback-leads/logs/callback-audit.json", count($cbAuditHistory) > 0 && $cbAuditHistory[0]['action'] === 'CONTACTED');
+
+// 10.7 Second Lead with Converted Status
+$testLeadData2 = $testLeadData;
+$testLeadData2['lead_id'] = $cbId2;
+$testLeadData2['customer_name'] = 'Ananya Patel';
+$testLeadData2['mobile_number'] = '9876543210';
+$cbRepo->create($testLeadData2);
+
+$convertedLead = $cbRepo->update($cbId2, ['status' => 'CONVERTED', 'admin_notes' => 'Order verified and completed.'], 'Admin User');
+assertTest("Updates lead status to CONVERTED", ($convertedLead['status'] ?? '') === 'CONVERTED');
+
+// 10.8 Search & Filter
+$searchName = $cbRepo->filter(['q' => 'Deepak']);
+assertTest("Searches callback leads by customer name", count($searchName) >= 1 && $searchName[0]['lead_id'] === $cbId1);
+
+$searchMobile = $cbRepo->filter(['q' => '9812345678']);
+assertTest("Searches callback leads by mobile number", count($searchMobile) >= 1 && $searchMobile[0]['lead_id'] === $cbId1);
+
+$filterContacted = $cbRepo->filter(['status' => 'CONTACTED']);
+assertTest("Filters callback leads by status CONTACTED", count($filterContacted) >= 1);
+
+$cbCounts = $cbRepo->getCounts();
+assertTest("Calculates dynamic callback summary counts (total, new, contacted, converted)", $cbCounts['total'] >= 2 && $cbCounts['contacted'] >= 1 && $cbCounts['converted'] >= 1);
+
+// 10.9 Clean up test callback records
+$cbRepo->delete($cbId1);
+$cbRepo->delete($cbId2);
+assertTest("Cleaned up test callback JSON files", $cbRepo->find($cbId1) === null && $cbRepo->find($cbId2) === null);
+
 // SUMMARY
 echo "\n====================================================\n";
 echo "   TEST RUN COMPLETE: {$passedTests} / {$totalTests} PASSED\n";

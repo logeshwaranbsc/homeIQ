@@ -16,6 +16,7 @@ use App\Controllers\Storefront\WishlistController;
 use App\Controllers\Storefront\TrackingController;
 use App\Controllers\Storefront\PageController;
 use App\Controllers\Storefront\WarrantyRegistrationController;
+use App\Controllers\Storefront\CallbackController;
 
 use App\Controllers\Admin\AdminAuthController;
 use App\Controllers\Admin\DashboardController;
@@ -34,6 +35,7 @@ use App\Controllers\Admin\AdminSettingsController;
 use App\Controllers\Admin\AdminVideoTestimonialController;
 use App\Controllers\Admin\AdminLeadController;
 use App\Controllers\Admin\AdminWarrantyController;
+use App\Controllers\Admin\AdminCallbackController;
 
 $router = App::getRouter();
 
@@ -128,6 +130,10 @@ $router->get('/terms', [PageController::class, 'terms']);
 // Product Warranty Registration
 $router->get('/warranty-registration', [WarrantyRegistrationController::class, 'index']);
 $router->post('/warranty-registration', [WarrantyRegistrationController::class, 'submit'], [CsrfMiddleware::class]);
+
+// Callback Popup API
+$router->get('/api/callback-config', [CallbackController::class, 'config']);
+$router->post('/api/callback-request', [CallbackController::class, 'requestCallback'], [CsrfMiddleware::class]);
 
 
 // ==========================================
@@ -246,4 +252,11 @@ $router->get('/admin/warranty-registrations/invoice/{id}', [AdminWarrantyControl
 $router->post('/admin/warranty-registrations/resend-email/{id}', [AdminWarrantyController::class, 'resendEmail'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
 $router->get('/admin/warranty-registrations/policies', [AdminWarrantyController::class, 'policies'], [AdminAuthMiddleware::class]);
 $router->post('/admin/warranty-registrations/policies', [AdminWarrantyController::class, 'updatePolicies'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+
+// Admin Callback Enquiries
+$router->get('/admin/callback-enquiries', [AdminCallbackController::class, 'index'], [AdminAuthMiddleware::class]);
+$router->get('/admin/callback-enquiries/view/{id}', [AdminCallbackController::class, 'show'], [AdminAuthMiddleware::class]);
+$router->post('/admin/callback-enquiries/update/{id}', [AdminCallbackController::class, 'update'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+$router->get('/admin/callback-enquiries/settings', [AdminCallbackController::class, 'settings'], [AdminAuthMiddleware::class]);
+$router->post('/admin/callback-enquiries/settings', [AdminCallbackController::class, 'updateSettings'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
 

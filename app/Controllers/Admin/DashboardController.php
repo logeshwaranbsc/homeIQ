@@ -54,6 +54,10 @@ class DashboardController
         $pendingWarrantyCount = $warrantyRepo->getPendingCount();
         $totalWarrantyCount = $warrantyRepo->getCounts()['total'];
 
+        $callbackRepo = new \App\Repositories\CallbackLeadRepository();
+        $newCallbacksCount = $callbackRepo->getNewCount();
+        $totalCallbacksCount = $callbackRepo->getCounts()['total'];
+
         echo View::render('admin/dashboard', [
             'title' => 'Dashboard | HOMEIQ Admin',
             'stats' => [
@@ -71,6 +75,8 @@ class DashboardController
                 'bulk_leads' => $bulkLeadsCount,
                 'pending_warranties' => $pendingWarrantyCount,
                 'total_warranties' => $totalWarrantyCount,
+                'new_callbacks' => $newCallbacksCount,
+                'total_callbacks' => $totalCallbacksCount,
             ],
             'recentOrders' => $recentOrders,
             'topProducts' => $analytics['top_products'],

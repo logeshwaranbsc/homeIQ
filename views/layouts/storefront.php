@@ -75,6 +75,9 @@ $bodyClasses = trim(($bodyClass ?? '') . ' ' . ($isCartPage ? 'page-cart' : ''))
   <!-- Mobile Bottom Navigation Bar -->
   <?= View::component('bottom_nav') ?>
 
+  <!-- Callback Request Popup -->
+  <?= View::component('callback_popup') ?>
+
   <!-- Bootstrap 5 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Storefront JS -->

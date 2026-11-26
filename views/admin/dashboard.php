@@ -8,6 +8,22 @@ declare(strict_types=1);
  */
 ?>
 
+<!-- New Callback Enquiries Alert -->
+<?php if (!empty($stats['new_callbacks'])): ?>
+<div class="alert alert-primary border-0 shadow-sm d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2 py-3 px-4 bg-primary bg-opacity-10 border-start border-primary border-4">
+  <div class="d-flex align-items-center gap-3">
+    <i class="bi bi-telephone-inbound-fill fs-3 text-primary"></i>
+    <div>
+      <div class="fw-bold text-dark">You have <?= $stats['new_callbacks'] ?> new presales callback enquiry<?= $stats['new_callbacks'] === 1 ? '' : 'ies' ?> awaiting customer contact!</div>
+      <small class="text-muted">High-intent shoppers who requested product consultation before purchasing.</small>
+    </div>
+  </div>
+  <a href="<?= url('admin/callback-enquiries?status=NEW') ?>" class="btn btn-sm btn-primary px-3 py-2 fw-bold">
+    <i class="bi bi-telephone-outbound me-1"></i> Contact Leads
+  </a>
+</div>
+<?php endif; ?>
+
 <!-- Pending Warranty Registrations Alert -->
 <?php if (!empty($stats['pending_warranties'])): ?>
 <div class="alert alert-info border-0 shadow-sm d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2 py-3 px-4 bg-info bg-opacity-10 border-start border-info border-4">
