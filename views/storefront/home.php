@@ -17,7 +17,7 @@ use App\Core\View;
 <!-- ==========================================================================
      SECTION 1: HERO BANNER SLIDER
      ========================================================================== -->
-<section class="hero-slider-section">
+<section class="hero-slider-section" id="home">
   <div id="homeHeroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="6500">
     <!-- Carousel Dots Indicators -->
     <?php if (count($banners) > 1): ?>
@@ -83,7 +83,7 @@ use App\Core\View;
      SECTION 3: SHOP BY CATEGORY
      ========================================================================== -->
 <?php if (!empty($categories)): ?>
-<section class="hiq-shop-category-section py-3 py-md-4">
+<section class="hiq-shop-category-section py-3 py-md-4" id="categories">
   <div class="container">
     <div class="d-flex align-items-center justify-content-between mb-3 mb-md-4">
       <h2 class="hiq-section-heading m-0">Shop by Category</h2>
@@ -120,7 +120,7 @@ use App\Core\View;
      SECTION 4: BEST SELLERS (SEPARATE SECTION AFTER SHOP BY CATEGORY)
      ========================================================================== -->
 <?php if (!empty($bestSellers)): ?>
-<section class="hiq-bestsellers-section py-4 py-md-5">
+<section class="hiq-bestsellers-section py-4 py-md-5" id="store">
   <div class="container">
     <div class="d-flex align-items-center justify-content-between mb-3 mb-md-4 flex-wrap gap-2">
       <div class="d-flex align-items-center gap-3">
@@ -499,7 +499,7 @@ document.addEventListener('DOMContentLoaded', function () {
      SECTION 6: CUSTOMER REELS
      ========================================================================== -->
 <?php if (!empty($videoTestimonials)): ?>
-<section class="hiq-reels-section py-4 py-md-5">
+<section class="hiq-reels-section py-4 py-md-5" id="reels-videos">
   <div class="container">
     <div class="text-center mb-3 mb-md-4">
       <h2 class="hiq-section-heading m-0 justify-content-center">Customer Reels</h2>
@@ -712,7 +712,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <!-- ==========================================================================
      SECTION 7: WHAT OUR CUSTOMERS SAY (TESTIMONIALS SLIDER)
      ========================================================================== -->
-<section class="hiq-testimonials-section py-3 py-md-4">
+<section class="hiq-testimonials-section py-3 py-md-4" id="testimonials">
   <div class="container">
     <div class="text-center mb-3 mb-md-4">
       <h2 class="hiq-section-heading m-0 justify-content-center">

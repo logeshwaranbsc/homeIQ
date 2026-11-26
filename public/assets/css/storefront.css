@@ -8395,6 +8395,15 @@ body[data-page="cart"] .btn-drawer-view-cart {
   }
 }
 
+/* Smooth Scroll Target Margins for In-Page Anchor Navigation */
+#home,
+#categories,
+#store,
+#reels-videos,
+#testimonials {
+  scroll-margin-top: 80px;
+}
+
 /* 10. LIGHT MINT MODERN FOOTER WITH WHITE LOGO BADGE */
 .footer-brand-badge {
   display: inline-flex;

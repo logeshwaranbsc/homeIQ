@@ -35,11 +35,11 @@ $settings = $settingsRepo->all();
       <div class="col-lg-2 col-md-3 col-6">
         <h6>Quick Links</h6>
         <ul class="list-unstyled d-flex flex-column gap-2 small">
-          <li><a href="<?= url('/') ?>">Home</a></li>
-          <li><a href="<?= url('shop') ?>">Categories</a></li>
-          <li><a href="<?= url('shop') ?>">Store</a></li>
-          <li><a href="<?= url('video-testimonials') ?>">Reels &amp; Videos</a></li>
-          <li><a href="<?= url('reviews') ?>">Testimonials</a></li>
+          <li><a href="<?= url('/#home') ?>">Home</a></li>
+          <li><a href="<?= url('/#categories') ?>">Categories</a></li>
+          <li><a href="<?= url('/#store') ?>">Store</a></li>
+          <li><a href="<?= url('/#reels-videos') ?>">Reels &amp; Videos</a></li>
+          <li><a href="<?= url('/#testimonials') ?>">Testimonials</a></li>
         </ul>
       </div>
 

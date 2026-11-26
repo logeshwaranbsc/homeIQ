@@ -794,5 +794,37 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   initNumberCounters();
+
+  // ----------------------------------------------------
+  // In-Page Smooth Scrolling for Quick Links & Section Anchors
+  // ----------------------------------------------------
+  document.querySelectorAll('a[href*="#"]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#' || href === 'javascript:void(0)') return;
+
+      const hashIndex = href.indexOf('#');
+      if (hashIndex === -1) return;
+
+      const targetId = href.substring(hashIndex + 1);
+      const targetPath = href.substring(0, hashIndex).replace(window.location.origin, '');
+      const currentPath = window.location.pathname;
+
+      const isCurrentPage = (!targetPath || targetPath === '/' || targetPath === currentPath || (currentPath === '/' && targetPath.endsWith('/')));
+
+      if (isCurrentPage) {
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (history.pushState) {
+            history.pushState(null, null, '#' + targetId);
+          } else {
+            window.location.hash = targetId;
+          }
+        }
+      }
+    });
+  });
 });
 
