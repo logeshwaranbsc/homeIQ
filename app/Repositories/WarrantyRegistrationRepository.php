@@ -32,14 +32,21 @@ class WarrantyRegistrationRepository
     private function ensureDirectories(): void
     {
         if (!is_dir($this->registrationsDir)) {
-            @mkdir($this->registrationsDir, 0750, true);
+            @mkdir($this->registrationsDir, 0775, true);
+            @chmod($this->registrationsDir, 0775);
         }
         if (!is_dir($this->invoicesDir)) {
-            @mkdir($this->invoicesDir, 0750, true);
+            @mkdir($this->invoicesDir, 0775, true);
+            @chmod($this->invoicesDir, 0775);
         }
         $settingsDir = dirname($this->lockFile);
         if (!is_dir($settingsDir)) {
-            @mkdir($settingsDir, 0750, true);
+            @mkdir($settingsDir, 0775, true);
+            @chmod($settingsDir, 0775);
+        }
+        if (!file_exists($this->lockFile)) {
+            @file_put_contents($this->lockFile, '0');
+            @chmod($this->lockFile, 0664);
         }
     }
 
@@ -145,7 +152,8 @@ class WarrantyRegistrationRepository
     {
         $dir = dirname($destination);
         if (!is_dir($dir)) {
-            @mkdir($dir, 0750, true);
+            @mkdir($dir, 0775, true);
+            @chmod($dir, 0775);
         }
 
         $jsonString = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
@@ -154,23 +162,28 @@ class WarrantyRegistrationRepository
         }
 
         $tempFile = $dir . DIRECTORY_SEPARATOR . 'tmp_' . uniqid('', true) . '.json';
-        $fp = fopen($tempFile, 'wb');
-        if (!$fp) {
-            throw new RuntimeException('Failed to create temporary file for atomic write.');
-        }
+        $fp = @fopen($tempFile, 'wb');
+        if ($fp) {
+            flock($fp, LOCK_EX);
+            fwrite($fp, $jsonString);
+            fflush($fp);
+            flock($fp, LOCK_UN);
+            fclose($fp);
 
-        flock($fp, LOCK_EX);
-        fwrite($fp, $jsonString);
-        fflush($fp);
-        flock($fp, LOCK_UN);
-        fclose($fp);
+            @chmod($tempFile, 0664);
 
-        @chmod($tempFile, 0640);
-
-        if (!rename($tempFile, $destination)) {
+            if (@rename($tempFile, $destination)) {
+                @chmod($destination, 0664);
+                return;
+            }
             @unlink($tempFile);
-            throw new RuntimeException("Failed to atomically move temporary file to {$destination}.");
         }
+
+        // Direct write fallback
+        if (@file_put_contents($destination, $jsonString, LOCK_EX) === false) {
+            throw new RuntimeException("Failed to write registration to {$destination}.");
+        }
+        @chmod($destination, 0664);
     }
 
     public function find(string $id): ?array

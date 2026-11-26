@@ -88,15 +88,19 @@ class CallbackSettingsRepository
         }
 
         $tempFile = $this->filePath . '.tmp_' . uniqid('', true);
-        if (@file_put_contents($tempFile, $json) === false) {
-            return false;
-        }
-
-        if (!@rename($tempFile, $this->filePath)) {
+        if (@file_put_contents($tempFile, $json) !== false) {
+            if (@rename($tempFile, $this->filePath)) {
+                @chmod($this->filePath, 0664);
+                return true;
+            }
             @unlink($tempFile);
-            return false;
         }
 
-        return true;
+        if (@file_put_contents($this->filePath, $json) !== false) {
+            @chmod($this->filePath, 0664);
+            return true;
+        }
+
+        return false;
     }
 }

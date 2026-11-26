@@ -31,14 +31,17 @@ class CallbackLeadRepository
     private function ensureDirectories(): void
     {
         if (!is_dir($this->leadsDir)) {
-            @mkdir($this->leadsDir, 0750, true);
+            @mkdir($this->leadsDir, 0775, true);
+            @chmod($this->leadsDir, 0775);
         }
         $settingsDir = dirname($this->lockFile);
         if (!is_dir($settingsDir)) {
-            @mkdir($settingsDir, 0750, true);
+            @mkdir($settingsDir, 0775, true);
+            @chmod($settingsDir, 0775);
         }
         if (!file_exists($this->lockFile)) {
             @file_put_contents($this->lockFile, '0');
+            @chmod($this->lockFile, 0664);
         }
     }
 
@@ -49,60 +52,65 @@ class CallbackLeadRepository
     public function generateNextId(): string
     {
         $this->ensureDirectories();
-        $lockFp = fopen($this->lockFile, 'c+');
-        if (!$lockFp) {
-            throw new RuntimeException('Unable to open sequence lock file for callback leads.');
-        }
+        $prefix = 'CB-HIQ-';
+        $padding = 6;
 
-        if (!flock($lockFp, LOCK_EX)) {
-            fclose($lockFp);
-            throw new RuntimeException('Unable to acquire exclusive lock for callback sequence.');
-        }
+        $lockFp = @fopen($this->lockFile, 'c+');
+        if ($lockFp && flock($lockFp, LOCK_EX)) {
+            try {
+                // Read persistent counter from sequence file
+                rewind($lockFp);
+                $content = stream_get_contents($lockFp);
+                $seqVal = 0;
+                if ($content !== false && trim($content) !== '') {
+                    $seqVal = (int)trim($content);
+                }
 
-        try {
-            $prefix = 'CB-HIQ-';
-            $padding = 6;
-
-            // Read persistent counter from sequence file
-            rewind($lockFp);
-            $content = stream_get_contents($lockFp);
-            $seqVal = 0;
-            if ($content !== false && trim($content) !== '') {
-                $seqVal = (int)trim($content);
-            }
-
-            // Also inspect highest number from existing JSON files
-            $maxFileNum = 0;
-            $files = glob($this->leadsDir . DIRECTORY_SEPARATOR . $prefix . '*.json');
-            if ($files) {
-                foreach ($files as $file) {
-                    $basename = basename($file, '.json');
-                    if (str_starts_with($basename, $prefix)) {
-                        $numPart = substr($basename, strlen($prefix));
-                        if (is_numeric($numPart)) {
-                            $val = (int)$numPart;
-                            if ($val > $maxFileNum) {
-                                $maxFileNum = $val;
+                // Also inspect highest number from existing JSON files
+                $maxFileNum = 0;
+                $files = glob($this->leadsDir . DIRECTORY_SEPARATOR . $prefix . '*.json');
+                if ($files) {
+                    foreach ($files as $file) {
+                        $basename = basename($file, '.json');
+                        if (str_starts_with($basename, $prefix)) {
+                            $numPart = substr($basename, strlen($prefix));
+                            if (is_numeric($numPart)) {
+                                $val = (int)$numPart;
+                                if ($val > $maxFileNum) {
+                                    $maxFileNum = $val;
+                                }
                             }
                         }
                     }
                 }
+
+                $currentMax = max($seqVal, $maxFileNum);
+                $nextNum = $currentMax + 1;
+
+                // Persist updated sequence counter atomically
+                ftruncate($lockFp, 0);
+                rewind($lockFp);
+                fwrite($lockFp, (string)$nextNum);
+                fflush($lockFp);
+
+                return sprintf('%s%0' . $padding . 'd', $prefix, $nextNum);
+            } finally {
+                flock($lockFp, LOCK_UN);
+                fclose($lockFp);
             }
-
-            $currentMax = max($seqVal, $maxFileNum);
-            $nextNum = $currentMax + 1;
-
-            // Persist updated sequence counter atomically
-            ftruncate($lockFp, 0);
-            rewind($lockFp);
-            fwrite($lockFp, (string)$nextNum);
-            fflush($lockFp);
-
-            return sprintf('%s%0' . $padding . 'd', $prefix, $nextNum);
-        } finally {
-            flock($lockFp, LOCK_UN);
-            fclose($lockFp);
         }
+
+        // Resilient fallback if sequence.lock is locked/restricted on hosting
+        $maxNum = 0;
+        $files = glob($this->leadsDir . DIRECTORY_SEPARATOR . $prefix . '*.json') ?: [];
+        foreach ($files as $file) {
+            $numPart = substr(basename($file, '.json'), strlen($prefix));
+            if (is_numeric($numPart)) {
+                $maxNum = max($maxNum, (int)$numPart);
+            }
+        }
+        $nextNum = $maxNum + 1;
+        return sprintf('%s%0' . $padding . 'd', $prefix, $nextNum);
     }
 
     public function getFilePath(string $id): string
@@ -118,7 +126,8 @@ class CallbackLeadRepository
     {
         $dir = dirname($destination);
         if (!is_dir($dir)) {
-            @mkdir($dir, 0750, true);
+            @mkdir($dir, 0775, true);
+            @chmod($dir, 0775);
         }
 
         $jsonString = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
@@ -127,23 +136,28 @@ class CallbackLeadRepository
         }
 
         $tempFile = $dir . DIRECTORY_SEPARATOR . 'tmp_' . uniqid('', true) . '.json';
-        $fp = fopen($tempFile, 'wb');
-        if (!$fp) {
-            throw new RuntimeException('Failed to create temporary file for callback lead atomic write.');
-        }
+        $fp = @fopen($tempFile, 'wb');
+        if ($fp) {
+            flock($fp, LOCK_EX);
+            fwrite($fp, $jsonString);
+            fflush($fp);
+            flock($fp, LOCK_UN);
+            fclose($fp);
 
-        flock($fp, LOCK_EX);
-        fwrite($fp, $jsonString);
-        fflush($fp);
-        flock($fp, LOCK_UN);
-        fclose($fp);
+            @chmod($tempFile, 0664);
 
-        @chmod($tempFile, 0640);
-
-        if (!@rename($tempFile, $destination)) {
+            if (@rename($tempFile, $destination)) {
+                @chmod($destination, 0664);
+                return;
+            }
             @unlink($tempFile);
-            throw new RuntimeException("Failed to atomically move temporary file to {$destination}.");
         }
+
+        // Direct write fallback if temp file creation or rename is restricted on hosting
+        if (@file_put_contents($destination, $jsonString, LOCK_EX) === false) {
+            throw new RuntimeException("Failed to write callback lead to {$destination}. Check folder permissions.");
+        }
+        @chmod($destination, 0664);
     }
 
     /**

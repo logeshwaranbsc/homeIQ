@@ -44,6 +44,32 @@ class Request
         return $this->method;
     }
 
+    public function header(string $name, ?string $default = null): ?string
+    {
+        $normalized = 'HTTP_' . strtoupper(str_replace('-', '_', $name));
+        if (isset($_SERVER[$normalized])) {
+            return (string)$_SERVER[$normalized];
+        }
+
+        $upper = strtoupper(str_replace('-', '_', $name));
+        if (isset($_SERVER[$upper])) {
+            return (string)$_SERVER[$upper];
+        }
+
+        if (function_exists('getallheaders')) {
+            $headers = getallheaders();
+            if (is_array($headers)) {
+                foreach ($headers as $k => $v) {
+                    if (strcasecmp((string)$k, $name) === 0) {
+                        return (string)$v;
+                    }
+                }
+            }
+        }
+
+        return $default;
+    }
+
     public function isPost(): bool
     {
         return $this->method === 'POST';

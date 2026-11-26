@@ -59,6 +59,7 @@ $productOptions = $cbSettings['product_options'] ?? [
         <p class="hiq-cb-desc"><?= e($desc) ?></p>
 
         <form id="hiqCallbackForm" novalidate>
+          <input type="hidden" name="_csrf_token" value="<?= e(csrf_token()) ?>">
           <input type="hidden" name="_csrf" value="<?= e(csrf_token()) ?>">
           <input type="hidden" name="product_page_url" id="hiqCbPageUrl" value="">
 
@@ -637,21 +638,37 @@ $productOptions = $cbSettings['product_options'] ?? [
       if (btnLoading) btnLoading.classList.remove('d-none');
 
       const formData = new FormData(form);
-      const postUrl = (window.HOMEIQ_BASE_URL || '') + '/api/callback-request';
+      const postUrl = (window.HOMEIQ_BASE_URL || window.location.origin) + '/api/callback-request';
+      const csrfToken = (document.querySelector('meta[name="csrf-token"]') ? document.querySelector('meta[name="csrf-token"]').getAttribute('content') : '') || (form.querySelector('input[name="_csrf_token"]') ? form.querySelector('input[name="_csrf_token"]').value : '');
 
       fetch(postUrl, {
         method: 'POST',
         headers: {
-          'X-Requested-With': 'XMLHttpRequest'
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': csrfToken
         },
         body: formData
       })
-      .then(response => {
-        return response.json().then(data => ({
+      .then(async response => {
+        let text = '';
+        let data = {};
+        try {
+          text = await response.text();
+          data = JSON.parse(text);
+        } catch (parseErr) {
+          data = {
+            success: false,
+            message: response.ok 
+              ? 'Thank you! Your request has been recorded.' 
+              : 'Server communication error (' + response.status + '). Please try again.'
+          };
+        }
+        return {
           status: response.status,
           ok: response.ok,
           data: data
-        }));
+        };
       })
       .then(res => {
         if (res.ok && res.data.success) {
@@ -683,7 +700,7 @@ $productOptions = $cbSettings['product_options'] ?? [
         }
       })
       .catch(err => {
-        console.error('Callback request failed:', err);
+        console.error('Callback request network error:', err);
         if (submitBtn) submitBtn.disabled = false;
         if (btnText) btnText.classList.remove('d-none');
         if (btnLoading) btnLoading.classList.add('d-none');

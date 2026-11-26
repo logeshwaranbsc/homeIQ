@@ -15,8 +15,10 @@ class CsrfMiddleware
         }
 
         $token = $request->post('_csrf_token') ?? 
+                 $request->post('_csrf') ?? 
                  $request->header('X-CSRF-TOKEN') ?? 
-                 ($request->json()['_csrf_token'] ?? null);
+                 $request->header('X-CSRF-Token') ?? 
+                 ($request->json()['_csrf_token'] ?? ($request->json()['_csrf'] ?? null));
 
         if (!Session::validateCsrfToken($token)) {
             if ($request->isAjax()) {
