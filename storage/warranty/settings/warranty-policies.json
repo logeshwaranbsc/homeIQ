@@ -1,0 +1,44 @@
+{
+    "policies": [
+        {
+            "id": "pol_smart_lock",
+            "product_category": "Smart Door Lock",
+            "product_model": null,
+            "duration_months": 24,
+            "description": "2-Year Official Comprehensive Manufacturer Warranty covering electronic mortise, AI sensors, motherboard, and lock body.",
+            "active": true
+        },
+        {
+            "id": "pol_vdp",
+            "product_category": "VDP",
+            "product_model": null,
+            "duration_months": 12,
+            "description": "1-Year Official Warranty covering indoor touch monitor, outdoor camera bell unit, power supply, and night vision hardware.",
+            "active": true
+        },
+        {
+            "id": "pol_retrofit",
+            "product_category": "Retrofit Smart Module",
+            "product_model": null,
+            "duration_months": 12,
+            "description": "1-Year Official Warranty covering internal relay circuits, surge protection components, and Wi-Fi synchronization units.",
+            "active": true
+        },
+        {
+            "id": "pol_switch",
+            "product_category": "Smart Touch Switch",
+            "product_model": null,
+            "duration_months": 12,
+            "description": "1-Year Official Warranty covering toughened glass touch panel, capacitive sensors, and smart relay boards.",
+            "active": true
+        },
+        {
+            "id": "pol_other",
+            "product_category": "Other",
+            "product_model": null,
+            "duration_months": 12,
+            "description": "Standard 1-Year Manufacturer Warranty on all genuine HOMEIQ automation peripherals and hardware accessories.",
+            "active": true
+        }
+    ]
+}

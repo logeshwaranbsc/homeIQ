@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use App\Repositories\CallbackSettingsRepository;
+use App\Core\Request;
 
 $cbSettingsRepo = new CallbackSettingsRepository();
 $cbSettings = $cbSettingsRepo->get();
@@ -11,8 +12,8 @@ if (empty($cbSettings['enabled'])) {
     return;
 }
 
-$rawUri = $_SERVER['REQUEST_URI'] ?? '';
-$currentPath = parse_url($rawUri, PHP_URL_PATH) ?: '/';
+$request = new Request();
+$currentPath = $request->getPath();
 
 // Exclude checkout, payment, confirmation, and admin pages
 $excludedPaths = ['/checkout', '/order/confirmation', '/order/invoice', '/admin'];
@@ -33,6 +34,13 @@ $productOptions = $cbSettings['product_options'] ?? [
     'Other Products'
 ];
 ?>
+
+<!-- Floating Trigger Pill (Allows opening anytime or after dismissal) -->
+<button type="button" class="hiq-cb-floating-btn" id="hiqCbFloatingTrigger" aria-label="Request a Callback" title="Need Help? Request a Callback">
+  <span class="hiq-cb-pulse"></span>
+  <i class="bi bi-telephone-outbound me-2"></i>
+  <span>Need Help?</span>
+</button>
 
 <!-- HOMEIQ Callback Popup Modal -->
 <div id="hiqCallbackModal" class="hiq-cb-overlay" aria-hidden="true" role="dialog" aria-labelledby="hiqCbTitle" aria-modal="true" style="display: none;">
@@ -158,7 +166,58 @@ $productOptions = $cbSettings['product_options'] ?? [
 </div>
 
 <style>
-/* HOMEIQ Callback Popup Styles */
+/* HOMEIQ Floating Quick Callback Trigger */
+.hiq-cb-floating-btn {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 1040;
+  display: inline-flex;
+  align-items: center;
+  background: #0F172A;
+  color: #FFFFFF;
+  border: 1.5px solid #FE6B25;
+  border-radius: 50px;
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.25);
+  transition: all 0.25s ease;
+}
+.hiq-cb-floating-btn:hover {
+  background: #FE6B25;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(254, 107, 37, 0.35);
+}
+.hiq-cb-floating-btn .hiq-cb-pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10B981;
+  margin-right: 8px;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: hiqPulse 1.8s infinite;
+}
+@keyframes hiqPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+@media (max-width: 768px) {
+  .hiq-cb-floating-btn {
+    bottom: 74px; /* Above mobile bottom navigation bar */
+    left: 14px;
+    padding: 8px 14px;
+    font-size: 0.78rem;
+  }
+}
+
+/* HOMEIQ Callback Popup Modal Styles */
 .hiq-cb-overlay {
   position: fixed;
   top: 0;
@@ -427,6 +486,7 @@ $productOptions = $cbSettings['product_options'] ?? [
   const successContainer = document.getElementById('hiqCbSuccessContainer');
   const successCloseBtn = document.getElementById('hiqCbSuccessCloseBtn');
   const leadIdDisplay = document.getElementById('hiqCbLeadIdDisplay');
+  const floatingTrigger = document.getElementById('hiqCbFloatingTrigger');
 
   // Input fields
   const interestInput = document.getElementById('hiqCbProductInterest');
@@ -442,43 +502,42 @@ $productOptions = $cbSettings['product_options'] ?? [
     pageUrlInput.value = window.location.href;
   }
 
-  // 1. Session check: if already dismissed or submitted during this session, do nothing
-  try {
-    if (sessionStorage.getItem(STORAGE_KEY_DISMISSED) === '1' || sessionStorage.getItem(STORAGE_KEY_SUBMITTED) === '1') {
-      return;
-    }
-  } catch (e) {}
+  // Check URL parameters for explicit instant testing (e.g. ?callback=1 or ?test_popup=1)
+  const urlParams = new URLSearchParams(window.location.search);
+  const isForceTest = urlParams.has('callback') || urlParams.has('test_popup') || urlParams.has('cb') || urlParams.has('popup');
 
-  // 2. Page context check: do not show on checkout/payment or if checkout modal is active
+  if (isForceTest) {
+    try {
+      sessionStorage.removeItem(STORAGE_KEY_DISMISSED);
+    } catch (e) {}
+  }
+
+  // Page context check: do not show on checkout/payment or if checkout modal is active
   function isCheckoutOrPaymentActive() {
     const p = window.location.pathname.toLowerCase();
     if (p.includes('/checkout') || p.includes('/payment') || p.includes('/order/confirmation') || p.includes('/order-tracking')) {
       return true;
     }
-    // Check if Bootstrap checkout modal or payment drawer is active
-    if (document.querySelector('.modal.show') || document.querySelector('.offcanvas.show')) {
+    // Check if Bootstrap checkout modal is active
+    if (document.querySelector('#checkoutModal.show, #paymentModal.show, .checkout-modal.show')) {
       return true;
     }
     return false;
   }
 
-  // 3. Active Browsing Timer
-  let activeSeconds = 0;
-  try {
-    activeSeconds = parseInt(sessionStorage.getItem(STORAGE_KEY_ACTIVE_SECS) || '0', 10);
-  } catch (e) {}
-
-  let timerInterval = null;
-
-  function showPopup() {
+  function showPopup(force = false) {
     if (!modal) return;
-    if (isCheckoutOrPaymentActive()) return;
+    if (!force && isCheckoutOrPaymentActive()) return;
 
     modal.style.display = 'flex';
     // Force layout reflow before adding active class for smooth animation
     modal.offsetHeight;
     modal.classList.add('hiq-cb-active');
     modal.setAttribute('aria-hidden', 'false');
+
+    if (floatingTrigger) {
+      floatingTrigger.style.display = 'none';
+    }
 
     // Pre-fill product interest if browsing specific product page
     try {
@@ -503,6 +562,9 @@ $productOptions = $cbSettings['product_options'] ?? [
     modal.setAttribute('aria-hidden', 'true');
     setTimeout(() => {
       modal.style.display = 'none';
+      if (floatingTrigger) {
+        floatingTrigger.style.display = 'inline-flex';
+      }
     }, 320);
 
     if (markDismissed) {
@@ -512,32 +574,79 @@ $productOptions = $cbSettings['product_options'] ?? [
     }
   }
 
-  // Start active browsing counter
-  function startActiveTimer() {
-    if (timerInterval) return;
-    timerInterval = setInterval(() => {
-      // Only count when window is active and tab is visible
-      if (!document.hidden && document.hasFocus && document.hasFocus()) {
-        activeSeconds++;
-        try {
-          sessionStorage.setItem(STORAGE_KEY_ACTIVE_SECS, activeSeconds.toString());
-        } catch (e) {}
+  // Global helper accessible in DevTools console or from custom buttons
+  window.showHomeiqCallbackPopup = function(force = true) {
+    showPopup(force);
+  };
+  window.HOMEIQ_SHOW_CALLBACK = window.showHomeiqCallbackPopup;
 
-        if (activeSeconds >= TRIGGER_DELAY) {
-          clearInterval(timerInterval);
-          timerInterval = null;
-          showPopup();
-        }
-      }
-    }, 1000);
+  // Floating button click always shows popup immediately
+  if (floatingTrigger) {
+    floatingTrigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      showPopup(true);
+    });
   }
 
-  // Initial timer check
-  if (activeSeconds >= TRIGGER_DELAY) {
-    // Show after slight DOM readiness delay
-    setTimeout(showPopup, 1500);
-  } else {
-    startActiveTimer();
+  // Check if already dismissed or submitted
+  let isDismissed = false;
+  let isSubmitted = false;
+  try {
+    isDismissed = (sessionStorage.getItem(STORAGE_KEY_DISMISSED) === '1');
+    isSubmitted = (sessionStorage.getItem(STORAGE_KEY_SUBMITTED) === '1');
+  } catch (e) {}
+
+  // Instant test override via URL query parameter
+  if (isForceTest) {
+    setTimeout(() => showPopup(true), 400);
+  } else if (!isDismissed && !isSubmitted) {
+    // Active Browsing Timer Implementation
+    let activeSeconds = 0;
+    try {
+      activeSeconds = parseInt(sessionStorage.getItem(STORAGE_KEY_ACTIVE_SECS) || '0', 10);
+    } catch (e) {}
+
+    // Track user presence: mark active on mouse move, keypress, scroll, or touch
+    let lastActivityTime = Date.now();
+    function recordActivity() {
+      lastActivityTime = Date.now();
+    }
+    ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll'].forEach(evt => {
+      window.addEventListener(evt, recordActivity, { passive: true });
+    });
+
+    let timerInterval = null;
+    function startActiveTimer() {
+      if (timerInterval) return;
+      timerInterval = setInterval(() => {
+        // Tab must be visible, and user must have interacted within the last 45 seconds
+        const isTabVisible = !document.hidden;
+        const isUserEngaged = (Date.now() - lastActivityTime) < 45000;
+
+        if (isTabVisible && isUserEngaged) {
+          activeSeconds++;
+          try {
+            sessionStorage.setItem(STORAGE_KEY_ACTIVE_SECS, activeSeconds.toString());
+          } catch (e) {}
+
+          if (activeSeconds >= TRIGGER_DELAY) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            showPopup();
+          }
+        }
+      }, 1000);
+    }
+
+    if (activeSeconds >= TRIGGER_DELAY) {
+      setTimeout(showPopup, 1200);
+    } else {
+      startActiveTimer();
+    }
+
+    try {
+      console.log('[HOMEIQ Callback] Active browsing timer started (' + TRIGGER_DELAY + 's). Tip: test instantly by adding ?callback=1 to the URL or run showHomeiqCallbackPopup() in console.');
+    } catch (e) {}
   }
 
   // Close handlers

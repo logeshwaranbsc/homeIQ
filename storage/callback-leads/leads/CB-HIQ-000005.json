@@ -1,0 +1,21 @@
+{
+    "product_interest": "Other Products",
+    "customer_name": "Dr.Suresh",
+    "mobile_number": "9342787758",
+    "product_page_url": "http://localhost:8000/",
+    "status": "NEW",
+    "admin_notes": "",
+    "follow_up_date": null,
+    "assigned_to": null,
+    "lead_id": "CB-HIQ-000005",
+    "created_at": "2026-11-26T15:53:08+05:30",
+    "updated_at": "2026-11-26T15:53:08+05:30",
+    "history": [
+        {
+            "status": "NEW",
+            "changed_at": "2026-11-26T15:53:08+05:30",
+            "changed_by": "Customer Submission",
+            "notes": "Callback requested via storefront popup on http://localhost:8000/."
+        }
+    ]
+}

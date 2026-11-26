@@ -1,0 +1,13 @@
+{
+    "enabled": true,
+    "trigger_delay_seconds": 60,
+    "heading": "Need Help Before You Buy?",
+    "description": "Let our product expert help you choose the right product.",
+    "button_text": "REQUEST A CALLBACK",
+    "product_options": [
+        "Smart Door Lock",
+        "Video Door Phone (VDP)",
+        "Retrofit Smart Module",
+        "Other Products"
+    ]
+}

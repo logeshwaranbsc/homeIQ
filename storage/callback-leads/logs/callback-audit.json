@@ -1,0 +1,29 @@
+[
+    {
+        "id": "cbaudit_d071ab113b5e",
+        "lead_id": "CB-HIQ-000005",
+        "action": "SUBMITTED",
+        "actor": "Customer: Dr.Suresh",
+        "details": "Product enquiry submitted for 'Other Products' from page http://localhost:8000/.",
+        "ip": "::1",
+        "created_at": "2026-11-26T15:53:08+05:30"
+    },
+    {
+        "id": "cbaudit_012526cce96b",
+        "lead_id": "CB-HIQ-000003",
+        "action": "CONTACTED",
+        "actor": "Admin User",
+        "details": "Customer called. Scheduled demo.",
+        "ip": "127.0.0.1",
+        "created_at": "2026-11-26T15:50:07+05:30"
+    },
+    {
+        "id": "cbaudit_1eed00693d86",
+        "lead_id": "CB-HIQ-000001",
+        "action": "CONTACTED",
+        "actor": "Admin User",
+        "details": "Customer called. Scheduled demo.",
+        "ip": "127.0.0.1",
+        "created_at": "2026-11-26T15:45:04+05:30"
+    }
+]

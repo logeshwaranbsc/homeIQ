@@ -4744,5 +4744,61 @@
         "id": "mov_7b5ba2856b07db18",
         "created_at": "2026-11-26 12:39:12",
         "updated_at": "2026-11-26 12:39:12"
+    },
+    {
+        "product_id": "prod_531f9c426ae32633",
+        "product_name": "HOMEIQ Black AI Face Recognition Smart Door Lock",
+        "type": "Sale",
+        "quantity_change": -1,
+        "stock_before": 5,
+        "stock_after": 4,
+        "reference": "HIQ-20261126-3BCE",
+        "notes": "Sold via Order #HIQ-20261126-3BCE",
+        "performed_by": "Checkout",
+        "id": "mov_f95845c66b0806a7",
+        "created_at": "2026-11-26 15:45:03",
+        "updated_at": "2026-11-26 15:45:03"
+    },
+    {
+        "product_id": "prod_531f9c426ae32633",
+        "product_name": "HOMEIQ Black AI Face Recognition Smart Door Lock",
+        "type": "Return",
+        "quantity_change": 1,
+        "stock_before": 4,
+        "stock_after": 5,
+        "reference": "HIQ-20261126-3BCE",
+        "notes": "Restocked due to Order #HIQ-20261126-3BCE cancellation",
+        "performed_by": "Unit Test",
+        "id": "mov_e86ccb516b0806a7",
+        "created_at": "2026-11-26 15:45:03",
+        "updated_at": "2026-11-26 15:45:03"
+    },
+    {
+        "product_id": "prod_531f9c426ae32633",
+        "product_name": "HOMEIQ Black AI Face Recognition Smart Door Lock",
+        "type": "Sale",
+        "quantity_change": -1,
+        "stock_before": 5,
+        "stock_after": 4,
+        "reference": "HIQ-20261126-3387",
+        "notes": "Sold via Order #HIQ-20261126-3387",
+        "performed_by": "Checkout",
+        "id": "mov_dfea4bef6b0807d6",
+        "created_at": "2026-11-26 15:50:06",
+        "updated_at": "2026-11-26 15:50:06"
+    },
+    {
+        "product_id": "prod_531f9c426ae32633",
+        "product_name": "HOMEIQ Black AI Face Recognition Smart Door Lock",
+        "type": "Return",
+        "quantity_change": 1,
+        "stock_before": 4,
+        "stock_after": 5,
+        "reference": "HIQ-20261126-3387",
+        "notes": "Restocked due to Order #HIQ-20261126-3387 cancellation",
+        "performed_by": "Unit Test",
+        "id": "mov_f93a77036b0807d6",
+        "created_at": "2026-11-26 15:50:06",
+        "updated_at": "2026-11-26 15:50:06"
     }
 ]
