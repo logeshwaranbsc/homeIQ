@@ -737,5 +737,62 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   initCartDrawer();
+
+  // ----------------------------------------------------
+  // Milestone Number Counters Animation (About / Stats)
+  // ----------------------------------------------------
+  const initNumberCounters = () => {
+    const counters = document.querySelectorAll('.about-number-val[data-counter]');
+    if (!counters.length) return;
+
+    const animate = (el) => {
+      if (el.dataset.animated === 'true') return;
+      el.dataset.animated = 'true';
+
+      const target = parseInt(el.getAttribute('data-counter'), 10) || 0;
+      const suffix = el.getAttribute('data-suffix') || '';
+      const prefix = el.getAttribute('data-prefix') || '';
+      const duration = 1800;
+      let startTime = null;
+
+      const step = (now) => {
+        if (!startTime) startTime = now;
+        const progress = Math.min((now - startTime) / duration, 1);
+        const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const current = Math.floor(target * ease);
+
+        el.textContent = prefix + current.toLocaleString('en-IN') + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = prefix + target.toLocaleString('en-IN') + suffix;
+          el.classList.add('counter-completed');
+        }
+      };
+
+      requestAnimationFrame(step);
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animate(entry.target);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.25 });
+
+      counters.forEach((el) => {
+        el.textContent = '0' + (el.getAttribute('data-suffix') || '');
+        observer.observe(el);
+      });
+    } else {
+      counters.forEach(animate);
+    }
+  };
+
+  initNumberCounters();
 });
 
