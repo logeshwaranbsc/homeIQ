@@ -50,6 +50,10 @@ class DashboardController
         $unreadLeadsCount = $leadRepo->getUnreadCount();
         $bulkLeadsCount = $leadRepo->getBulkCount();
 
+        $warrantyRepo = new \App\Repositories\WarrantyRegistrationRepository();
+        $pendingWarrantyCount = $warrantyRepo->getPendingCount();
+        $totalWarrantyCount = $warrantyRepo->getCounts()['total'];
+
         echo View::render('admin/dashboard', [
             'title' => 'Dashboard | HOMEIQ Admin',
             'stats' => [
@@ -65,6 +69,8 @@ class DashboardController
                 'pending_reviews' => $pendingReviewsCount,
                 'unread_leads' => $unreadLeadsCount,
                 'bulk_leads' => $bulkLeadsCount,
+                'pending_warranties' => $pendingWarrantyCount,
+                'total_warranties' => $totalWarrantyCount,
             ],
             'recentOrders' => $recentOrders,
             'topProducts' => $analytics['top_products'],

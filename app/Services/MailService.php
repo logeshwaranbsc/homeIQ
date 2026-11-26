@@ -79,7 +79,17 @@ class MailService
             'X-Mailer: HOMEIQ Mailer',
         ];
 
-        $mailSent = @mail($toEmail, $subject, $htmlBody, implode("\r\n", $headers));
+        $mailSent = false;
+        try {
+            $smtpHost = (string)ini_get('SMTP');
+            if (PHP_OS_FAMILY !== 'Windows' || (!empty($smtpHost) && $smtpHost !== 'localhost')) {
+                set_error_handler(fn() => true);
+                $mailSent = (bool)mail($toEmail, $subject, $htmlBody, implode("\r\n", $headers));
+                restore_error_handler();
+            }
+        } catch (\Throwable $e) {
+            $mailSent = false;
+        }
 
         return [
             'success' => $mailSent,

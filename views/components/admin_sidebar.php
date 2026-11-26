@@ -50,6 +50,21 @@ if (!function_exists('isActiveAdmin')) {
       </a>
     </li>
     <li>
+      <a href="<?= url('admin/warranty-registrations') ?>" class="sidebar-link <?= isActiveAdmin('/admin/warranty-registrations', $currentPath) ?>">
+        <i class="bi bi-shield-check"></i> Warranty Registrations
+        <?php
+          try {
+              $pendingWarrantyCount = (new \App\Repositories\WarrantyRegistrationRepository())->getPendingCount();
+              if ($pendingWarrantyCount > 0):
+        ?>
+          <span class="badge bg-warning text-dark rounded-pill ms-auto fw-bold" style="font-size: 0.7rem; padding: 2px 7px;"><?= $pendingWarrantyCount ?></span>
+        <?php 
+              endif;
+          } catch (\Throwable $e) {}
+        ?>
+      </a>
+    </li>
+    <li>
       <a href="<?= url('admin/products') ?>" class="sidebar-link <?= isActiveAdmin('/admin/products', $currentPath) ?>">
         <i class="bi bi-box-seam"></i> Products
       </a>

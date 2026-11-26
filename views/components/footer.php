@@ -50,6 +50,7 @@ $settings = $settingsRepo->all();
           <li><a href="<?= url('faq') ?>">Help &amp; FAQs</a></li>
           <li><a href="<?= url('installation-guide') ?>">Installation Guide</a></li>
           <li><a href="<?= url('warranty') ?>">Warranty</a></li>
+          <li><a href="<?= url('warranty-registration') ?>">Warranty Registration</a></li>
           <li><a href="<?= url('contact') ?>">Contact Us</a></li>
         </ul>
       </div>

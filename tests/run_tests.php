@@ -268,6 +268,141 @@ $leadRepo->delete($testBulkLead['id']);
 $leadRepo->atomicWrite($originalLeads);
 assertTest("Test lead cleaned up and original leads preserved", count($leadRepo->all()) === count($originalLeads));
 
+// TEST GROUP 9: Warranty Registration Module (PHP + JSON Storage)
+echo "\nTest Group 9: Warranty Registration Module (JSON Storage, Locking, Policies, Approval/Rejection)\n";
+
+$warrantyRepo = new \App\Repositories\WarrantyRegistrationRepository();
+$policyRepo = new \App\Repositories\WarrantyPolicyRepository();
+$auditService = new \App\Services\WarrantyAuditService();
+$emailService = new \App\Services\WarrantyEmailService();
+
+// 9.1 Next ID generation with flock locking
+$nextId1 = $warrantyRepo->generateNextId();
+$nextId2 = $warrantyRepo->generateNextId();
+assertTest("Generates sequential registration IDs with format HIQ-WR-000001", (bool)preg_match('/^HIQ-WR-\d{6}$/', $nextId1));
+assertTest("Generates distinct sequential IDs on successive requests", $nextId1 !== $nextId2);
+
+// 9.2 Create Registration Record
+$testRegData = [
+    'registration_id' => $nextId1,
+    'customer' => [
+        'full_name' => 'Arun Kumar',
+        'mobile_number' => '9876543210',
+        'email' => 'arun.test@example.com',
+    ],
+    'product' => [
+        'category' => 'Smart Door Lock',
+        'model' => 'HOMEIQ Pro Touch X1',
+        'serial_number' => 'HIQ-SN-998877',
+        'serial_unavailable' => false,
+        'alternative_notes' => null,
+    ],
+    'purchase' => [
+        'platform' => 'Amazon',
+        'purchase_date' => '2026-11-20',
+        'order_id' => 'AMZ-404-998822',
+        'invoice_path' => 'invoices/' . $nextId1 . '_invoice.pdf',
+        'invoice_original_name' => 'tax_invoice_arun.pdf',
+        'invoice_mime' => 'application/pdf',
+        'invoice_size' => 102400,
+    ],
+    'declaration_accepted' => true,
+    'marketing_consent' => false,
+    'status' => 'PENDING',
+    'warranty' => [
+        'start_date' => null,
+        'end_date' => null,
+        'duration_months' => null,
+        'policy_matched' => null,
+    ],
+    'admin_review' => [
+        'reviewed_by' => null,
+        'reviewed_at' => null,
+        'notes' => null,
+        'rejection_reason' => null,
+    ],
+    'created_at' => date('c'),
+    'updated_at' => date('c'),
+];
+
+$createdReg = $warrantyRepo->create($testRegData);
+assertTest("Persists registration JSON file in storage/warranty/registrations", $createdReg !== null && file_exists($warrantyRepo->getRegistrationFilePath($nextId1)));
+assertTest("Initial registration status is set to PENDING", ($createdReg['status'] ?? '') === 'PENDING');
+
+// 9.3 Find and Read
+$retrievedReg = $warrantyRepo->find($nextId1);
+assertTest("Retrieves registration JSON by registration ID", $retrievedReg !== null && $retrievedReg['customer']['full_name'] === 'Arun Kumar');
+
+// 9.4 Policy Calculation
+$calcDates = $policyRepo->calculateWarrantyDates('Smart Door Lock', 'HOMEIQ Pro Touch X1', '2026-11-20');
+assertTest("Matches Smart Door Lock policy (24 months duration)", ($calcDates['duration_months'] ?? 0) === 24);
+assertTest("Calculates correct warranty end date from purchase date", $calcDates['start_date'] === '2026-11-20' && $calcDates['end_date'] === '2028-11-20');
+
+// 9.5 Approval Flow
+$approveSuccess = $warrantyRepo->updateStatus(
+    $nextId1,
+    'APPROVED',
+    ['notes' => 'Verified Amazon invoice tax details and valid serial number.'],
+    $calcDates,
+    'Test Administrator'
+);
+assertTest("Updates registration status to APPROVED with review notes", $approveSuccess);
+
+$approvedReg = $warrantyRepo->find($nextId1);
+assertTest("Approved record contains calculated warranty start and end dates", $approvedReg['warranty']['start_date'] === '2026-11-20' && $approvedReg['warranty']['end_date'] === '2028-11-20');
+assertTest("Approved record tracks reviewer name and review timestamp", $approvedReg['admin_review']['reviewed_by'] === 'Test Administrator' && !empty($approvedReg['admin_review']['reviewed_at']));
+
+// 9.6 Audit Logging
+$auditService->record($nextId1, 'APPROVED', 'Test Administrator', 'Approved warranty coverage for 24 months.');
+$auditHistory = $auditService->getByRegistration($nextId1);
+assertTest("Audit log tracks approval event in storage/warranty/audit-logs", count($auditHistory) > 0 && $auditHistory[0]['action'] === 'APPROVED');
+
+// 9.7 Email Service Notification & Outbox
+$emailResult = $emailService->sendApproved($approvedReg);
+assertTest("Dispatches approved warranty notification email", !empty($emailResult['success']));
+$emailHistory = $emailService->getHistoryByRegistration($nextId1);
+assertTest("Records email delivery status in storage/warranty/email-logs", count($emailHistory) > 0 && ($emailHistory[0]['status'] ?? '') === 'SENT');
+
+// 9.8 Rejection Flow on second registration
+$testRegData2 = $testRegData;
+$testRegData2['registration_id'] = $nextId2;
+$testRegData2['customer']['full_name'] = 'Kavitha S';
+$testRegData2['customer']['mobile_number'] = '9840123456';
+$warrantyRepo->create($testRegData2);
+
+$rejectSuccess = $warrantyRepo->updateStatus(
+    $nextId2,
+    'REJECTED',
+    [
+        'rejection_reason' => 'Invalid Invoice',
+        'notes' => 'Invoice image is blurry and does not display product SKU or order date.'
+    ],
+    null,
+    'Test Administrator'
+);
+assertTest("Updates registration status to REJECTED with rejection reason", $rejectSuccess);
+
+$rejectedReg = $warrantyRepo->find($nextId2);
+assertTest("Rejected record stores rejection reason and admin notes", ($rejectedReg['admin_review']['rejection_reason'] ?? '') === 'Invalid Invoice');
+
+// 9.9 Search and Filtering
+$searchName = $warrantyRepo->filter(['q' => 'Arun']);
+assertTest("Searches registrations by customer name", count($searchName) >= 1 && $searchName[0]['registration_id'] === $nextId1);
+
+$searchSerial = $warrantyRepo->filter(['q' => 'HIQ-SN-998877']);
+assertTest("Searches registrations by product serial number", count($searchSerial) >= 1 && $searchSerial[0]['registration_id'] === $nextId1);
+
+$filterApproved = $warrantyRepo->filter(['status' => 'APPROVED']);
+assertTest("Filters registrations by status APPROVED", count($filterApproved) >= 1);
+
+$counts = $warrantyRepo->getCounts();
+assertTest("Calculates registration counts dynamically (total, pending, approved, rejected)", $counts['total'] >= 2 && $counts['approved'] >= 1 && $counts['rejected'] >= 1);
+
+// 9.10 Clean up test registrations from storage
+$warrantyRepo->delete($nextId1);
+$warrantyRepo->delete($nextId2);
+assertTest("Cleaned up test registration JSON files", $warrantyRepo->find($nextId1) === null && $warrantyRepo->find($nextId2) === null);
+
 // SUMMARY
 echo "\n====================================================\n";
 echo "   TEST RUN COMPLETE: {$passedTests} / {$totalTests} PASSED\n";

@@ -8,6 +8,22 @@ declare(strict_types=1);
  */
 ?>
 
+<!-- Pending Warranty Registrations Alert -->
+<?php if (!empty($stats['pending_warranties'])): ?>
+<div class="alert alert-info border-0 shadow-sm d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2 py-3 px-4 bg-info bg-opacity-10 border-start border-info border-4">
+  <div class="d-flex align-items-center gap-3">
+    <i class="bi bi-shield-exclamation fs-3 text-info"></i>
+    <div>
+      <div class="fw-bold text-dark">You have <?= $stats['pending_warranties'] ?> pending warranty registration<?= $stats['pending_warranties'] === 1 ? '' : 's' ?> awaiting review!</div>
+      <small class="text-muted">Verify customer purchase invoices, check serial numbers, and approve coverage dates.</small>
+    </div>
+  </div>
+  <a href="<?= url('admin/warranty-registrations?status=PENDING') ?>" class="btn btn-sm btn-info text-dark px-3 py-2 fw-bold">
+    <i class="bi bi-shield-check me-1"></i> Review Registrations
+  </a>
+</div>
+<?php endif; ?>
+
 <!-- Unread Leads / Bulk Orders Alert -->
 <?php if (!empty($stats['unread_leads'])): ?>
 <div class="alert alert-warning border-0 shadow-sm d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2 py-3 px-4">

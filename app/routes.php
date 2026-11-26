@@ -15,6 +15,7 @@ use App\Controllers\Storefront\CustomerAccountController;
 use App\Controllers\Storefront\WishlistController;
 use App\Controllers\Storefront\TrackingController;
 use App\Controllers\Storefront\PageController;
+use App\Controllers\Storefront\WarrantyRegistrationController;
 
 use App\Controllers\Admin\AdminAuthController;
 use App\Controllers\Admin\DashboardController;
@@ -32,6 +33,7 @@ use App\Controllers\Admin\AdminStaffController;
 use App\Controllers\Admin\AdminSettingsController;
 use App\Controllers\Admin\AdminVideoTestimonialController;
 use App\Controllers\Admin\AdminLeadController;
+use App\Controllers\Admin\AdminWarrantyController;
 
 $router = App::getRouter();
 
@@ -122,6 +124,10 @@ $router->get('/shipping-policy', [PageController::class, 'shippingPolicy']);
 $router->get('/returns-policy', [PageController::class, 'returnsPolicy']);
 $router->get('/privacy-policy', [PageController::class, 'privacyPolicy']);
 $router->get('/terms', [PageController::class, 'terms']);
+
+// Product Warranty Registration
+$router->get('/warranty-registration', [WarrantyRegistrationController::class, 'index']);
+$router->post('/warranty-registration', [WarrantyRegistrationController::class, 'submit'], [CsrfMiddleware::class]);
 
 
 // ==========================================
@@ -230,4 +236,14 @@ $router->get('/admin/staff/delete/{id}', [AdminStaffController::class, 'delete']
 // Admin Settings
 $router->get('/admin/settings', [AdminSettingsController::class, 'index'], [AdminAuthMiddleware::class]);
 $router->post('/admin/settings/update', [AdminSettingsController::class, 'update'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+
+// Admin Warranty Registrations
+$router->get('/admin/warranty-registrations', [AdminWarrantyController::class, 'index'], [AdminAuthMiddleware::class]);
+$router->get('/admin/warranty-registrations/view/{id}', [AdminWarrantyController::class, 'show'], [AdminAuthMiddleware::class]);
+$router->post('/admin/warranty-registrations/approve/{id}', [AdminWarrantyController::class, 'approve'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+$router->post('/admin/warranty-registrations/reject/{id}', [AdminWarrantyController::class, 'reject'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+$router->get('/admin/warranty-registrations/invoice/{id}', [AdminWarrantyController::class, 'invoice'], [AdminAuthMiddleware::class]);
+$router->post('/admin/warranty-registrations/resend-email/{id}', [AdminWarrantyController::class, 'resendEmail'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+$router->get('/admin/warranty-registrations/policies', [AdminWarrantyController::class, 'policies'], [AdminAuthMiddleware::class]);
+$router->post('/admin/warranty-registrations/policies', [AdminWarrantyController::class, 'updatePolicies'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
 
