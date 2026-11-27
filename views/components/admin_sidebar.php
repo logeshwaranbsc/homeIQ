@@ -131,6 +131,11 @@ if (!function_exists('isActiveAdmin')) {
         <i class="bi bi-people"></i> Customers
       </a>
     </li>
+    <li>
+      <a href="<?= url('admin/chatbot') ?>" class="sidebar-link <?= isActiveAdmin('/admin/chatbot', $currentPath) ?>">
+        <i class="bi bi-robot"></i> Chatbot Knowledge
+      </a>
+    </li>
 
     <li class="sidebar-heading">Analytics & Config</li>
     <li>

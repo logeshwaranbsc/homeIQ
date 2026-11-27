@@ -17,6 +17,7 @@ use App\Controllers\Storefront\TrackingController;
 use App\Controllers\Storefront\PageController;
 use App\Controllers\Storefront\WarrantyRegistrationController;
 use App\Controllers\Storefront\CallbackController;
+use App\Controllers\Storefront\ChatbotController;
 
 use App\Controllers\Admin\AdminAuthController;
 use App\Controllers\Admin\DashboardController;
@@ -36,6 +37,7 @@ use App\Controllers\Admin\AdminVideoTestimonialController;
 use App\Controllers\Admin\AdminLeadController;
 use App\Controllers\Admin\AdminWarrantyController;
 use App\Controllers\Admin\AdminCallbackController;
+use App\Controllers\Admin\AdminChatbotController;
 
 $router = App::getRouter();
 
@@ -134,6 +136,11 @@ $router->post('/warranty-registration', [WarrantyRegistrationController::class, 
 // Callback Popup API
 $router->get('/api/callback-config', [CallbackController::class, 'config']);
 $router->post('/api/callback-request', [CallbackController::class, 'requestCallback'], [CsrfMiddleware::class]);
+
+// AI Customer Support Chatbot API
+$router->post('/api/chat', [ChatbotController::class, 'chat']);
+$router->post('/api/chat/reset', [ChatbotController::class, 'reset']);
+$router->get('/api/chat/suggested', [ChatbotController::class, 'suggested']);
 
 
 // ==========================================
@@ -259,4 +266,12 @@ $router->get('/admin/callback-enquiries/view/{id}', [AdminCallbackController::cl
 $router->post('/admin/callback-enquiries/update/{id}', [AdminCallbackController::class, 'update'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
 $router->get('/admin/callback-enquiries/settings', [AdminCallbackController::class, 'settings'], [AdminAuthMiddleware::class]);
 $router->post('/admin/callback-enquiries/settings', [AdminCallbackController::class, 'updateSettings'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+
+// Admin Chatbot Knowledge Base
+$router->get('/admin/chatbot', [AdminChatbotController::class, 'index'], [AdminAuthMiddleware::class]);
+$router->post('/admin/chatbot/store', [AdminChatbotController::class, 'store'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+$router->post('/admin/chatbot/update/{id}', [AdminChatbotController::class, 'update'], [AdminAuthMiddleware::class, CsrfMiddleware::class]);
+$router->get('/admin/chatbot/toggle/{id}', [AdminChatbotController::class, 'toggleStatus'], [AdminAuthMiddleware::class]);
+$router->get('/admin/chatbot/delete/{id}', [AdminChatbotController::class, 'delete'], [AdminAuthMiddleware::class]);
+
 

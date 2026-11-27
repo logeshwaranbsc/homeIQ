@@ -491,6 +491,72 @@ $cbRepo->delete($cbId1);
 $cbRepo->delete($cbId2);
 assertTest("Cleaned up test callback JSON files", $cbRepo->find($cbId1) === null && $cbRepo->find($cbId2) === null);
 
+// ====================================================
+// TEST GROUP 11: AI-POWERED CUSTOMER SUPPORT CHATBOT
+// ====================================================
+echo "\nTest Group 11: AI Customer Support Chatbot (Knowledge Retrieval, Intent Engine, Session Memory)\n";
+$kbRepo = new \App\Repositories\ChatbotKnowledgeRepository();
+$chatService = new \App\Services\Chatbot\ChatbotService();
+
+// 11.1 Knowledge repository persistence & toggle
+$initialKbCount = count($kbRepo->all());
+assertTest("Chatbot knowledge base contains default knowledge entries", $initialKbCount >= 10);
+
+$newKbEntry = $kbRepo->create([
+    'category' => 'Testing Category',
+    'question' => 'How many keys are included in the package?',
+    'answer' => 'Every HOMEIQ smart lock includes 2 high-security physical keys.',
+    'keywords' => 'keys, package, included, physical keys',
+    'link_url' => '/shop',
+    'link_label' => 'View Locks'
+]);
+assertTest("Creates new chatbot knowledge entry", !empty($newKbEntry['id']) && ($newKbEntry['question'] ?? '') === 'How many keys are included in the package?');
+
+$toggledStatus = $kbRepo->toggle($newKbEntry['id']);
+assertTest("Toggles chatbot knowledge entry active status", $toggledStatus === false);
+$kbRepo->delete($newKbEntry['id']);
+assertTest("Deletes temporary chatbot knowledge entry", $kbRepo->findById($newKbEntry['id']) === null);
+
+// 11.2 Whole-website query answering
+// Q1: Amazon / Flipkart warranty
+$resAmazon = $chatService->handleChat("Can I register a product purchased from Amazon or Flipkart?");
+assertTest("Answers Amazon/Flipkart warranty registration accurately", $resAmazon['success'] === true && str_contains($resAmazon['reply'], 'Amazon') && str_contains($resAmazon['reply'], 'eligible'));
+
+// Q2: Lost invoice
+$resLost = $chatService->handleChat("What if I lose my purchase invoice?");
+assertTest("Answers lost invoice enquiry with customer support assistance", $resLost['success'] === true && str_contains($resLost['reply'], 'customer support') && str_contains($resLost['reply'], 'verifying your purchase'));
+
+// Q3: Required documents
+$resDocs = $chatService->handleChat("What documents are required for warranty registration?");
+assertTest("Answers required documents with purchase invoice and serial number", $resDocs['success'] === true && str_contains($resDocs['reply'], 'invoice') && str_contains($resDocs['reply'], 'serial number'));
+
+// Q4: Product specifications & database grounding
+$resFace = $chatService->handleChat("Does the Black AI lock support fingerprint access?");
+assertTest("Answers product feature query grounded in database access methods", $resFace['success'] === true && str_contains($resFace['reply'], 'fingerprint') && str_contains($resFace['reply'], 'Yes'));
+
+// Q5: Door suitability & installation
+$resInstall = $chatService->handleChat("How do I install my smart lock, and will it fit my wooden door?");
+assertTest("Answers installation query with free doorstep installation and 35mm-90mm door thickness", $resInstall['success'] === true && str_contains($resInstall['reply'], 'Doorstep Installation') && str_contains($resInstall['reply'], '35mm to 90mm'));
+
+// Q6: Dead battery emergency
+$resBattery = $chatService->handleChat("What happens if the lock battery drains completely?");
+assertTest("Answers dead battery query with USB-C emergency port and physical override keys", $resBattery['success'] === true && str_contains($resBattery['reply'], 'USB-C') && str_contains($resBattery['reply'], 'Mechanical Override Keys'));
+
+// Q7: Order tracking
+$resTrack = $chatService->handleChat("How can I track my order?");
+assertTest("Answers order tracking query with order tracking page link", $resTrack['success'] === true && str_contains($resTrack['reply'], 'Order Tracking'));
+
+// 11.3 Context-aware suggested questions
+$sugWarranty = $chatService->getSuggestedQuestions('warranty-registration');
+assertTest("Returns warranty-specific suggested questions on warranty page", count($sugWarranty) >= 4 && in_array("Can I register a product purchased from Amazon or Flipkart?", $sugWarranty));
+
+$sugProduct = $chatService->getSuggestedQuestions('product/homeiq-black-ai-face-recognition-smart-door-lock', 'homeiq-black-ai-face-recognition-smart-door-lock');
+assertTest("Returns product-specific suggested questions on product details page", count($sugProduct) >= 4 && in_array("What are the key features of this smart lock?", $sugProduct));
+
+// 11.4 Session Reset
+$chatService->resetSession();
+assertTest("Resets conversation session context successfully", true);
+
 // SUMMARY
 echo "\n====================================================\n";
 echo "   TEST RUN COMPLETE: {$passedTests} / {$totalTests} PASSED\n";

@@ -78,6 +78,9 @@ $bodyClasses = trim(($bodyClass ?? '') . ' ' . ($isCartPage ? 'page-cart' : ''))
   <!-- Callback Request Popup -->
   <?= View::component('callback_popup') ?>
 
+  <!-- AI Customer Support Chatbot -->
+  <?= View::component('chatbot') ?>
+
   <!-- Bootstrap 5 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Storefront JS -->
