@@ -1,0 +1,413 @@
+[
+    {
+        "id": "kb_company_about",
+        "category": "Company Information",
+        "keywords": [
+            "about",
+            "homeiq",
+            "who are you",
+            "what is homeiq",
+            "brand",
+            "company",
+            "background",
+            "mission"
+        ],
+        "question": "What is HOMEIQ?",
+        "answer": "HOMEIQ is India's premier digital smart lock and architectural security hardware brand. We specialize in high-security biometric door locks featuring 3D AI Face Recognition, Contactless Palm Vein scanning, rapid semiconductor fingerprint recognition, Tuya mobile app integration, and bank-grade AES-128 local encryption. Every purchase includes free certified doorstep installation and up to 2 years of official manufacturer warranty.",
+        "link_url": "\/about",
+        "link_label": "Learn More About HOMEIQ",
+        "active": true
+    },
+    {
+        "id": "kb_company_contact",
+        "category": "Company Information",
+        "keywords": [
+            "contact",
+            "customer care",
+            "phone number",
+            "email",
+            "address",
+            "support hours",
+            "help",
+            "whatsapp"
+        ],
+        "question": "How can I contact HOMEIQ customer support?",
+        "answer": "You can reach the HOMEIQ support desk through any of the following channels:\n- 📞 **Phone \/ WhatsApp**: +91 98765 43210 (Mon–Sat, 9:00 AM – 8:00 PM IST)\n- 📧 **Support Email**: support@homeiq-security.com\n- 📍 **Headquarters**: HOMEIQ Technologies, 402 Smart Tech Park, Cyber City, Bengaluru 560100\n- 💬 **Live Virtual Assistant**: Available 24\/7 on our website.",
+        "link_url": "\/contact",
+        "link_label": "Contact Support",
+        "active": true
+    },
+    {
+        "id": "kb_prod_catalog",
+        "category": "Product Information",
+        "keywords": [
+            "products",
+            "smart home products",
+            "offer",
+            "range",
+            "catalog",
+            "models",
+            "what products",
+            "smart locks"
+        ],
+        "question": "What smart home products do you offer?",
+        "answer": "HOMEIQ offers high-security digital smart door locks engineered for modern apartments, villas, and commercial spaces:\n1. **HOMEIQ Black AI Face Recognition Smart Door Lock** (Flagship 3D facial biometrics & 9-in-1 access)\n2. **HOMEIQ Vision 2K Video Doorbell Smart Lock** (Integrated 2K HD camera, two-way intercom & indoor 4-inch IPS color screen)\n3. **HOMEIQ VeinGuard Contactless Palm Vein Smart Lock** (Touchless vascular biometric scanner, ideal for all ages)\n4. **HOMEIQ Touch Pro Biometric Fingerprint Smart Lock** (Handle-integrated rapid fingerprint sensor)\n5. **HOMEIQ Fingerprint & PIN Digital Smart Door Lock** (Sleek minimalist keypad with illuminated sensor)",
+        "link_url": "\/shop",
+        "link_label": "Explore Smart Locks",
+        "active": true
+    },
+    {
+        "id": "kb_prod_black_ai",
+        "category": "Product Information",
+        "keywords": [
+            "black ai",
+            "face recognition",
+            "face lock",
+            "f900",
+            "flagship lock"
+        ],
+        "question": "What are the features of the HOMEIQ Black AI Face Recognition Lock?",
+        "answer": "The **HOMEIQ Black AI Face Recognition Smart Lock** (₹19,999) is our flagship security lock:\n- **9-in-1 Access**: 3D Structured Light Face Recognition, Palm Vein, Fingerprint, Anti-Peep PIN, RFID Card, Mechanical Key, Tuya Mobile App, Temporary Guest Passcode, and Dual-Authentication.\n- **Liveness Detection**: Immune to photos, video screens, or 3D silicone masks.\n- **Hardware**: Heavy-duty 304 Stainless Steel 6068 electronic mortise.\n- **Power**: 4200mAh rechargeable lithium battery with external USB-C emergency port.\n- **Included**: Free doorstep installation and a 2-Year Official Manufacturer Warranty.",
+        "link_url": "\/product\/homeiq-black-ai-face-recognition-smart-door-lock",
+        "link_label": "View Black AI Lock",
+        "active": true
+    },
+    {
+        "id": "kb_prod_vision_2k",
+        "category": "Product Information",
+        "keywords": [
+            "vision 2k",
+            "video doorbell",
+            "camera lock",
+            "v950",
+            "screen lock",
+            "video intercom"
+        ],
+        "question": "What are the features of the HOMEIQ Vision 2K Video Doorbell Lock?",
+        "answer": "The **HOMEIQ Vision 2K Smart Lock** (₹21,499) integrates a smart automatic deadbolt with a high-definition video doorbell:\n- **2K QHD Camera**: 160° ultra-wide-angle lens with infrared night vision.\n- **Interior IPS Display**: Built-in 4-inch interior HD color screen to see who is outside.\n- **Two-Way Video Calling**: Ringing the bell triggers a live video call to your smartphone.\n- **Motion Detection**: Smart PIR sensor records video clips when suspicious loitering is detected.\n- **Battery**: 5000mAh rechargeable lithium battery with emergency USB-C terminal.",
+        "link_url": "\/product\/homeiq-vision-2k-video-doorbell-smart-lock",
+        "link_label": "View Vision 2K Lock",
+        "active": true
+    },
+    {
+        "id": "kb_prod_veinguard",
+        "category": "Product Information",
+        "keywords": [
+            "veinguard",
+            "palm vein",
+            "vascular",
+            "contactless",
+            "touchless",
+            "v800"
+        ],
+        "question": "What is Palm Vein technology on the VeinGuard Smart Lock?",
+        "answer": "The **HOMEIQ VeinGuard Smart Lock** (₹22,999) features touchless **subcutaneous palm vein recognition**:\n- **Un-forgeable Security**: Uses near-infrared light to map the unique deoxidized hemoglobin flow inside your palm veins. Impossible to duplicate or lift.\n- **Ideal for All Hands**: Functions perfectly even if fingerprints are worn, faint, calloused, dirty, or wet.\n- **Contactless & Hygienic**: Hold your palm 5–10 cm from the scanner for instant unlock under 0.5s.\n- **Push-Pull Automatic Deadbolt**: Smooth automatic motorized locking and unlocking.",
+        "link_url": "\/product\/homeiq-veinguard-contactless-palm-vein-smart-lock",
+        "link_label": "View VeinGuard Lock",
+        "active": true
+    },
+    {
+        "id": "kb_prod_touch_pro",
+        "category": "Product Information",
+        "keywords": [
+            "touch pro",
+            "fingerprint lock",
+            "t700",
+            "space grey",
+            "handle lock"
+        ],
+        "question": "What are the features of the HOMEIQ Touch Pro Biometric Smart Lock?",
+        "answer": "The **HOMEIQ Touch Pro Biometric Lock** (₹14,499) delivers swift, natural everyday entry:\n- **Handle-Integrated Sensor**: 360° semiconductor biometric sensor unlocks in <0.4s as you naturally grasp the handle.\n- **Capacity**: Stores up to 100 individual fingerprint profiles.\n- **Multi-Access**: Fingerprint, Anti-Peep PIN, RFID Smart Card, Physical Key, and Mobile App.\n- **Battery Life**: Powered by 4 standard AA alkaline batteries providing 10–12 months of daily use.",
+        "link_url": "\/product\/homeiq-touch-pro-biometric-fingerprint-smart-lock",
+        "link_label": "View Touch Pro Lock",
+        "active": true
+    },
+    {
+        "id": "kb_prod_choose_recommend",
+        "category": "Product Information",
+        "keywords": [
+            "choose",
+            "which lock",
+            "suitable",
+            "recommend",
+            "best lock",
+            "help me choose",
+            "compare"
+        ],
+        "question": "Which smart lock is suitable for my home?",
+        "answer": "Here is our recommendation based on your lifestyle:\n1. **For Maximum Security & Hands-Free Entry**: Choose the **Black AI Face Recognition Lock** (unlocks via 3D facial recognition, great when carrying groceries).\n2. **For Visual Doorbell & Remote Video Talk**: Choose the **Vision 2K Video Doorbell Lock** (live smartphone video intercom and indoor screen).\n3. **For Elderly Family Members or Children**: Choose the **VeinGuard Palm Vein Lock** (scans internal palm veins, perfect for worn fingerprints).\n4. **For Sleek Value & Apartment Living**: Choose the **Touch Pro** or **Fingerprint & PIN Lock**.",
+        "link_url": "\/shop",
+        "link_label": "Compare Smart Locks",
+        "active": true
+    },
+    {
+        "id": "kb_door_compatibility",
+        "category": "Installation & Technical Support",
+        "keywords": [
+            "door thickness",
+            "wooden door",
+            "fit my door",
+            "door compatibility",
+            "steel door",
+            "metal door",
+            "mortise"
+        ],
+        "question": "Will HOMEIQ smart locks fit my existing door?",
+        "answer": "Yes! HOMEIQ smart locks are engineered for standard Indian residential doors:\n- **Door Thickness**: Accommodates **35mm to 90mm** thickness, covering >98% of residential doors.\n- **Compatible Door Materials**: Solid wood, teak wood, flush doors, engineered veneer, steel security doors, and composite doors.\n- **Mortise Pocket**: Includes a standard 6068 high-security stainless steel mortise pocket.\n- If you have an unconventional door or sliding profile, you can request a quick compatibility check via our callback service.",
+        "link_url": "\/contact",
+        "link_label": "Check Door Compatibility",
+        "active": true
+    },
+    {
+        "id": "kb_installation_service",
+        "category": "Installation & Technical Support",
+        "keywords": [
+            "installation",
+            "install",
+            "technician",
+            "doorstep installation",
+            "how is it installed",
+            "free installation"
+        ],
+        "question": "How does the free professional doorstep installation work?",
+        "answer": "Every HOMEIQ smart lock includes **Free Professional Doorstep Installation**:\n1. **Order Dispatch**: Once your lock arrives, our central dispatch coordinates with a certified security technician in your city.\n2. **Appointment**: The technician calls you to schedule an installation slot that fits your schedule.\n3. **Precision Fitting**: The technician precision-cuts the mortise pocket, installs the interior\/exterior escutcheons, and secures the heavy-duty deadbolts.\n4. **Setup Assistance**: They configure your master PIN, register family biometrics, and guide you through the mobile app setup.",
+        "link_url": "\/contact",
+        "link_label": "Schedule Installation",
+        "active": true
+    },
+    {
+        "id": "kb_battery_emergency",
+        "category": "Installation & Technical Support",
+        "keywords": [
+            "battery",
+            "battery dead",
+            "power bank",
+            "emergency key",
+            "drains",
+            "how long battery",
+            "charge",
+            "usb-c"
+        ],
+        "question": "What happens if the smart lock battery drains completely?",
+        "answer": "You will never be locked out! HOMEIQ locks feature a dual fail-safe emergency system:\n1. **External USB-C Terminal**: Plug any smartphone power bank into the USB-C port at the base of the exterior escutcheon for immediate power to unlock via fingerprint, PIN, or app.\n2. **Mechanical Override Keys**: Every lock includes 2 high-security physical keys that operate independently of electrical power.\n\nOur lithium-ion batteries typically last **8 to 12 months** per charge and sound audio reminders when battery capacity drops below 20%.",
+        "link_url": "\/faq",
+        "link_label": "Read Technical FAQs",
+        "active": true
+    },
+    {
+        "id": "kb_security_anti_peep",
+        "category": "Installation & Technical Support",
+        "keywords": [
+            "anti peep",
+            "virtual password",
+            "pin security",
+            "passcode",
+            "onlooker"
+        ],
+        "question": "How does the Anti-Peep Virtual PIN feature work?",
+        "answer": "Anti-Peep Virtual PIN security prevents strangers or neighbors standing nearby from memorizing your PIN. You can type any number of random dummy digits before or after your real passcode (e.g. `147` + **`123456`** + `982`), and the lock will recognize your legitimate code and open securely.",
+        "link_url": "\/shop",
+        "link_label": "Explore Lock Features",
+        "active": true
+    },
+    {
+        "id": "kb_security_tamper_alarm",
+        "category": "Installation & Technical Support",
+        "keywords": [
+            "tamper alarm",
+            "anti theft",
+            "break in",
+            "pry",
+            "security alert",
+            "siren"
+        ],
+        "question": "Does the lock have an anti-tamper alarm?",
+        "answer": "Yes. If an intruder attempts to force, pry, or unscrew the lock from the door, or if an incorrect PIN\/fingerprint is entered 5 consecutive times, the lock triggers a loud **85dB audio siren** and sends an instant push alert to your smartphone via the Tuya app.",
+        "link_url": "\/shop",
+        "link_label": "View Smart Locks",
+        "active": true
+    },
+    {
+        "id": "kb_warranty_amazon_flipkart",
+        "category": "Warranty Information",
+        "keywords": [
+            "amazon",
+            "flipkart",
+            "ecommerce",
+            "register amazon",
+            "where to buy",
+            "online purchase"
+        ],
+        "question": "Can I register a product purchased from Amazon or Flipkart?",
+        "answer": "Yes! Products purchased through Amazon, Flipkart or the official HOMEIQ website can be registered here. All genuine purchases receive the full official manufacturer warranty protection.",
+        "link_url": "\/warranty-registration",
+        "link_label": "Register Your Warranty",
+        "active": true
+    },
+    {
+        "id": "kb_warranty_documents",
+        "category": "Warranty Information",
+        "keywords": [
+            "documents",
+            "required",
+            "document",
+            "invoice",
+            "serial number",
+            "bill",
+            "what documents are required"
+        ],
+        "question": "What documents are required for warranty registration?",
+        "answer": "Please keep your **purchase invoice** and **product serial number** ready before filling out the warranty registration form.\n- **Purchase Invoice**: A PDF or clear photo of your tax invoice from Amazon, Flipkart, or the HOMEIQ store.\n- **Serial Number**: Found on the product packaging box and on the label on the lock body.",
+        "link_url": "\/warranty-registration",
+        "link_label": "Go to Warranty Registration",
+        "active": true
+    },
+    {
+        "id": "kb_warranty_lost_invoice",
+        "category": "Warranty Information",
+        "keywords": [
+            "lose invoice",
+            "lost invoice",
+            "lost bill",
+            "no invoice",
+            "missing receipt",
+            "lost receipt",
+            "what if i lose my purchase invoice"
+        ],
+        "question": "What if I lose my purchase invoice?",
+        "answer": "Please contact HOMEIQ customer support for assistance in verifying your purchase. If you ordered through Amazon or Flipkart, you can easily re-download your tax invoice under *Your Orders → Download Invoice*. Our support team can also verify purchase legitimacy using your order ID.",
+        "link_url": "\/contact",
+        "link_label": "Contact Customer Support",
+        "active": true
+    },
+    {
+        "id": "kb_warranty_request_service",
+        "category": "Warranty Information",
+        "keywords": [
+            "request warranty service",
+            "claim warranty",
+            "request service",
+            "technician",
+            "service request",
+            "repair",
+            "breakdown",
+            "how can i request warranty service"
+        ],
+        "question": "How can I request warranty service?",
+        "answer": "Contact our customer support team with your **registration ID** and product details. We will verify your warranty status and dispatch a certified technician directly to your doorstep for on-site diagnostic testing, repair, or component replacement.",
+        "link_url": "\/contact",
+        "link_label": "Request Service Support",
+        "active": true
+    },
+    {
+        "id": "kb_warranty_coverage",
+        "category": "Warranty Information",
+        "keywords": [
+            "what is covered under warranty",
+            "covered",
+            "warranty coverage",
+            "duration",
+            "warranty period",
+            "how many years",
+            "parts"
+        ],
+        "question": "What is covered under warranty?",
+        "answer": "Warranty coverage depends on the product category and the warranty terms applicable to your purchase. Please refer to your product warranty documentation:\n- **Smart Door Locks**: 24-Month (2-Year) Comprehensive Manufacturer Warranty covering the electronic mortise, AI face sensors, motherboard, fingerprint module, and lock body.\n- **Video Door Phones & Modules**: 12-Month Official Warranty.\n- Accidental exterior physical damage or intentional water immersion is excluded.",
+        "link_url": "\/warranty-registration",
+        "link_label": "Review Warranty Policies",
+        "active": true
+    },
+    {
+        "id": "kb_order_shipping_policy",
+        "category": "Orders & Purchases",
+        "keywords": [
+            "shipping",
+            "delivery",
+            "timelines",
+            "delivery time",
+            "shipping charges",
+            "charges",
+            "courier",
+            "free delivery"
+        ],
+        "question": "What are your delivery timelines and shipping charges?",
+        "answer": "We offer **Free Express Shipping on all orders above ₹5,000** across all serviceable pin codes in India:\n- **Metro Cities** (Bengaluru, Mumbai, Delhi-NCR, Hyderabad, Chennai, Pune): **3 to 5 business days**.\n- **Rest of India**: **5 to 7 business days**.\n- Orders below ₹5,000 carry a flat standard shipping fee of ₹250.",
+        "link_url": "\/shipping-policy",
+        "link_label": "Read Shipping Policy",
+        "active": true
+    },
+    {
+        "id": "kb_order_tracking",
+        "category": "Orders & Purchases",
+        "keywords": [
+            "track",
+            "order status",
+            "tracking",
+            "where is my order",
+            "order number",
+            "how can i track my order"
+        ],
+        "question": "How can I track my order?",
+        "answer": "You can track your order status live on our **Order Tracking** page. Simply enter your Order Number (format `HIQ-ORD-XXXXX`) along with your registered email or phone number to view real-time courier dispatch status.",
+        "link_url": "\/order-tracking",
+        "link_label": "Track Your Order Live",
+        "active": true
+    },
+    {
+        "id": "kb_order_returns_refunds",
+        "category": "Orders & Purchases",
+        "keywords": [
+            "return",
+            "refund",
+            "replacement",
+            "cancel",
+            "damaged",
+            "defective",
+            "return policy",
+            "what is your return and refund policy"
+        ],
+        "question": "What is your return and refund policy?",
+        "answer": "HOMEIQ provides a **7-Day Hassle-Free Replacement Policy** for any item delivered in damaged, defective, or incorrect condition:\n- If an item cannot be replaced due to stock availability, a **100% full refund** is processed to your original payment method within 5–7 business days.\n- Orders may be cancelled free of charge at any time prior to shipment dispatch.",
+        "link_url": "\/returns-policy",
+        "link_label": "Read Returns Policy",
+        "active": true
+    },
+    {
+        "id": "kb_order_payment_methods",
+        "category": "Orders & Purchases",
+        "keywords": [
+            "payment",
+            "cod",
+            "cash on delivery",
+            "upi",
+            "credit card",
+            "debit card",
+            "emi",
+            "pay"
+        ],
+        "question": "What payment options are accepted?",
+        "answer": "We support safe, encrypted payment options:\n- **UPI**: Google Pay, PhonePe, Paytm, BHIM, Cred UPI\n- **Cards**: All major Credit and Debit Cards (Visa, MasterCard, RuPay, Amex)\n- **Net Banking**: All major Indian banks\n- **Cash on Delivery (COD)**: Available on eligible pincodes\n- **Discounts**: Use coupon code **WELCOME10** for 10% privilege discount on orders above ₹10,000.",
+        "link_url": "\/shop",
+        "link_label": "Shop Now with WELCOME10",
+        "active": true
+    },
+    {
+        "id": "kb_callback_consultation",
+        "category": "Customer Support",
+        "keywords": [
+            "demo",
+            "demonstration",
+            "callback",
+            "call me",
+            "speak to someone",
+            "request a call",
+            "consultation",
+            "how can i request a callback"
+        ],
+        "question": "How can I request a product demonstration or callback?",
+        "answer": "You can request a free consultation or product demo by submitting a **Callback Request**! One of our smart lock security experts will call you to explain lock features, check door measurements, and help you select the ideal lock for your home.",
+        "link_url": "\/contact",
+        "link_label": "Request a Free Callback",
+        "active": true
+    }
+]
