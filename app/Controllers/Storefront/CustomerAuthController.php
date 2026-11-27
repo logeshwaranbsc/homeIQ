@@ -185,11 +185,9 @@ class CustomerAuthController
         $mailResult = $mailService->sendPasswordResetEmail($result['email'], $customerName, $resetUrl);
 
         echo View::render('storefront/forgot_password_sent', [
-            'title' => 'Password Reset Link Ready | HOMEIQ',
+            'title' => 'Check Your Email | HOMEIQ',
             'email' => $result['email'],
             'token' => $result['token'],
-            'resetUrl' => $resetUrl,
-            'mailResult' => $mailResult,
             'redirectTarget' => $redirect,
         ]);
     }
