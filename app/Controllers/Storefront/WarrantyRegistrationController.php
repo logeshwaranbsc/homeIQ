@@ -26,7 +26,8 @@ class WarrantyRegistrationController
         $this->emailService = new WarrantyEmailService();
         $this->auditService = new WarrantyAuditService();
 
-        $configFile = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'warranty-config.php';
+        $base = \App\Core\App::getBasePath() ?: dirname(__DIR__, 3);
+        $configFile = $base . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'warranty-config.php';
         $this->config = file_exists($configFile) ? require $configFile : [];
     }
 

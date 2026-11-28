@@ -53,5 +53,5 @@ return [
         'Purchase Details Could Not Be Verified',
         'Other',
     ],
-    'declaration_text' => 'I confirm that the information provided above is accurate and relates to a genuine HOMEIQ product purchase. I agree to the processing of my information for product registration, warranty administration and customer support, as described in the HOMEIQ Privacy Policy.',
+    'declaration_text' => 'I confirm that the information provided is accurate and agree to its use for product registration, warranty and customer support as per the HOMEIQ Privacy Policy.',
 ];

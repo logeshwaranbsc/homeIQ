@@ -251,7 +251,7 @@ declare(strict_types=1);
           <div class="form-check p-3 rounded-3 border mb-2 <?= !empty($errors['declaration_accepted']) ? 'border-danger bg-danger-subtle' : 'bg-light' ?>">
             <input class="form-check-input ms-0 me-2" type="checkbox" id="declarationAccepted" name="declaration_accepted" value="1" required <?= !empty($old['declaration_accepted']) ? 'checked' : '' ?>>
             <label class="form-check-label text-dark small" for="declarationAccepted" style="line-height: 1.5;">
-              <strong>Declaration:</strong> <?= e($declarationText) ?> <span class="text-danger">*</span>
+              <strong>Declaration:</strong> <?= e(!empty($declarationText) ? $declarationText : 'I confirm that the information provided is accurate and agree to its use for product registration, warranty and customer support as per the HOMEIQ Privacy Policy.') ?> <span class="text-danger">*</span>
             </label>
             <?php if (!empty($errors['declaration_accepted'])): ?>
               <div class="text-danger small mt-1"><?= e($errors['declaration_accepted']) ?></div>
