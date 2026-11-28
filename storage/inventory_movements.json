@@ -4940,5 +4940,33 @@
         "id": "mov_1cfed72a6b0986f4",
         "created_at": "2026-11-27 19:04:44",
         "updated_at": "2026-11-27 19:04:44"
+    },
+    {
+        "product_id": "prod_531f9c426ae32633",
+        "product_name": "HOMEIQ Black AI Face Recognition Smart Door Lock",
+        "type": "Sale",
+        "quantity_change": -1,
+        "stock_before": 5,
+        "stock_after": 4,
+        "reference": "HIQ-20261128-46C5",
+        "notes": "Sold via Order #HIQ-20261128-46C5",
+        "performed_by": "Checkout",
+        "id": "mov_8e73304f6b0a67d7",
+        "created_at": "2026-11-28 11:04:15",
+        "updated_at": "2026-11-28 11:04:15"
+    },
+    {
+        "product_id": "prod_531f9c426ae32633",
+        "product_name": "HOMEIQ Black AI Face Recognition Smart Door Lock",
+        "type": "Return",
+        "quantity_change": 1,
+        "stock_before": 4,
+        "stock_after": 5,
+        "reference": "HIQ-20261128-46C5",
+        "notes": "Restocked due to Order #HIQ-20261128-46C5 cancellation",
+        "performed_by": "Unit Test",
+        "id": "mov_f0a979876b0a67d7",
+        "created_at": "2026-11-28 11:04:15",
+        "updated_at": "2026-11-28 11:04:15"
     }
 ]

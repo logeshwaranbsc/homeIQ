@@ -87,7 +87,7 @@ use App\Core\View;
   <div class="container">
     <div class="d-flex align-items-center justify-content-between mb-3 mb-md-4">
       <h2 class="hiq-section-heading m-0">Shop by Category</h2>
-      <a href="<?= url('shop') ?>" class="hiq-view-all-link">
+      <a href="<?= url('categories') ?>" class="hiq-view-all-link">
         View All <i class="bi bi-arrow-right ms-1"></i>
       </a>
     </div>

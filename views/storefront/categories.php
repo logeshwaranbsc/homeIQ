@@ -23,7 +23,7 @@ $breadcrumbs = [
       <div class="<?= $catColClass ?>">
         <a href="<?= url('category/' . $cat['slug']) ?>" class="category-card">
           <div class="cat-img-wrapper">
-            <img src="<?= upload_url($cat['image'] ?? '') ?>" alt="<?= e($cat['name']) ?>" loading="lazy">
+            <img src="<?= upload_url($cat['image'] ?? '') ?>" alt="<?= e($cat['name']) ?>" loading="lazy" onerror="this.onerror=null; this.src='<?= asset('assets/images/placeholder-lock.svg') ?>';">
           </div>
           <h5 class="cat-title"><?= e($cat['name']) ?></h5>
           <p class="cat-desc"><?= e($cat['description']) ?></p>

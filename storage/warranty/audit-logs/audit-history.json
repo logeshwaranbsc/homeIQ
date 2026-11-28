@@ -1,5 +1,14 @@
 [
     {
+        "id": "waudit_c9894acb0231",
+        "registration_id": "HIQ-WR-000020",
+        "action": "APPROVED",
+        "actor": "Test Administrator",
+        "details": "Approved warranty coverage for 24 months.",
+        "ip": "127.0.0.1",
+        "created_at": "2026-11-28T11:04:16+05:30"
+    },
+    {
         "id": "waudit_0ba807a8a5f5",
         "registration_id": "HIQ-WR-000018",
         "action": "APPROVED",
